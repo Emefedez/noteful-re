@@ -1,0 +1,16 @@
+[
+  {
+    "source": "/Users/m1-max/Downloads/Examen wuolah.noteful",
+    "copy": "samples/Examen wuolah.noteful",
+    "size": 822889,
+    "sha256": "ce2b73a3af90ac2d8c0ab95f28c3cb8818f0a55d0d2ebd4c6d50cdf2abf79432",
+    "identical": true
+  },
+  {
+    "source": "/Users/m1-max/Downloads/Examen wuolah.pdf",
+    "copy": "samples/Examen wuolah.pdf",
+    "size": 2290388,
+    "sha256": "6a4581cc25ca8aa7b00abfc98cea5a76b5982c997f4c49ac82185680edca6b26",
+    "identical": true
+  }
+]

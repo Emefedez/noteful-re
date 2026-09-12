@@ -1,0 +1,178 @@
+[
+  {
+    "name": "Examen wuolah",
+    "size": 822889,
+    "page_count": 3,
+    "stroke_count": 2008,
+    "object_count": 74,
+    "notes": "Subrayador: Multiply al 50%. Grosor variable recuperado. Interpolación de tinta aproximada; canales auxiliares y borrado pendientes. Figuras no compatibles se indican por página.",
+    "sample": "Examen wuolah.noteful",
+    "sha256": "ce2b73a3af90ac2d8c0ab95f28c3cb8818f0a55d0d2ebd4c6d50cdf2abf79432",
+    "pages": [
+      {
+        "id": "AEB0B189B24142D4970B8ED6D1079B8D",
+        "stroke_count": 621,
+        "object_count": 34,
+        "warnings": [],
+        "variable_count": 7,
+        "auxiliary_count": 1
+      },
+      {
+        "id": "4A29193A8D33409F8F7270D856A13044",
+        "stroke_count": 939,
+        "object_count": 28,
+        "warnings": [],
+        "variable_count": 16,
+        "auxiliary_count": 3
+      },
+      {
+        "id": "99D8F59935204073AD594D968D8AC4EB",
+        "stroke_count": 448,
+        "object_count": 12,
+        "warnings": [],
+        "variable_count": 0,
+        "auxiliary_count": 8
+      }
+    ]
+  },
+  {
+    "name": "nota_1linea",
+    "size": 127075,
+    "page_count": 1,
+    "stroke_count": 1,
+    "object_count": 0,
+    "notes": "Subrayador: Multiply al 50%. Grosor variable recuperado. Interpolación de tinta aproximada; canales auxiliares y borrado pendientes. Figuras no compatibles se indican por página.",
+    "sample": "nota_1linea.noteful",
+    "sha256": "2fd9dd9ced69723e209012a241362cf3f57ee529d49f6e3dcdaa063257aede90",
+    "pages": [
+      {
+        "id": "724F42D7AA0342A6B4328E215BD6AE14",
+        "stroke_count": 1,
+        "object_count": 0,
+        "warnings": [],
+        "variable_count": 0,
+        "auxiliary_count": 0
+      }
+    ]
+  },
+  {
+    "name": "nota_2lineas",
+    "size": 127676,
+    "page_count": 1,
+    "stroke_count": 2,
+    "object_count": 0,
+    "notes": "Subrayador: Multiply al 50%. Grosor variable recuperado. Interpolación de tinta aproximada; canales auxiliares y borrado pendientes. Figuras no compatibles se indican por página.",
+    "sample": "nota_2lineas.noteful",
+    "sha256": "eb4da2412cf0884d03a25ef906f210970874e3f7ab468721e9943acb86c48248",
+    "pages": [
+      {
+        "id": "C3FDCE524004225CAC62807378B5BC57",
+        "stroke_count": 2,
+        "object_count": 0,
+        "warnings": [],
+        "variable_count": 0,
+        "auxiliary_count": 0
+      }
+    ]
+  },
+  {
+    "name": "nota_herramientaline+imagen",
+    "size": 1196227,
+    "page_count": 1,
+    "stroke_count": 0,
+    "object_count": 2,
+    "notes": "Subrayador: Multiply al 50%. Grosor variable recuperado. Interpolación de tinta aproximada; canales auxiliares y borrado pendientes. Figuras no compatibles se indican por página.",
+    "sample": "nota_herramientaline+imagen.noteful",
+    "sha256": "4b0d09f07c9668446faf49c12b47ca487776ba9b93efdade115bdb275371ec34",
+    "pages": [
+      {
+        "id": "A2BA483D597D4ACE4A31EAC9AC0C55FC",
+        "stroke_count": 0,
+        "object_count": 2,
+        "warnings": [],
+        "variable_count": 0,
+        "auxiliary_count": 0
+      }
+    ]
+  },
+  {
+    "name": "nota_herramientalinea",
+    "size": 127353,
+    "page_count": 1,
+    "stroke_count": 0,
+    "object_count": 1,
+    "notes": "Subrayador: Multiply al 50%. Grosor variable recuperado. Interpolación de tinta aproximada; canales auxiliares y borrado pendientes. Figuras no compatibles se indican por página.",
+    "sample": "nota_herramientalinea.noteful",
+    "sha256": "f30e4579623e627059344afe620f190c0427a5538760e5dfb4783c0e9727417c",
+    "pages": [
+      {
+        "id": "C86277AB9FF658E0D4F27DA6F55FDF1A",
+        "stroke_count": 0,
+        "object_count": 1,
+        "warnings": [],
+        "variable_count": 0,
+        "auxiliary_count": 0
+      }
+    ]
+  },
+  {
+    "name": "nota_imagen",
+    "size": 1195285,
+    "page_count": 1,
+    "stroke_count": 0,
+    "object_count": 1,
+    "notes": "Subrayador: Multiply al 50%. Grosor variable recuperado. Interpolación de tinta aproximada; canales auxiliares y borrado pendientes. Figuras no compatibles se indican por página.",
+    "sample": "nota_imagen.noteful",
+    "sha256": "5cccaecbb134a4b8d59ee115e4d13be48a37e39599606e0bcdb1e936ccd4a8ee",
+    "pages": [
+      {
+        "id": "478B7458A9EA139BA2FD3A8F878E5E2F",
+        "stroke_count": 0,
+        "object_count": 1,
+        "warnings": [],
+        "variable_count": 0,
+        "auxiliary_count": 0
+      }
+    ]
+  },
+  {
+    "name": "nota_lineagruesa",
+    "size": 127241,
+    "page_count": 1,
+    "stroke_count": 1,
+    "object_count": 0,
+    "notes": "Subrayador: Multiply al 50%. Grosor variable recuperado. Interpolación de tinta aproximada; canales auxiliares y borrado pendientes. Figuras no compatibles se indican por página.",
+    "sample": "nota_lineagruesa.noteful",
+    "sha256": "5ded7f3544d5ccdad2f9506ea3cabbc38bed866e2affe481d883d1bd632905c6",
+    "pages": [
+      {
+        "id": "3A2ADB4B6392216045F39E37E6212B30",
+        "stroke_count": 1,
+        "object_count": 0,
+        "warnings": [],
+        "variable_count": 0,
+        "auxiliary_count": 0
+      }
+    ]
+  },
+  {
+    "name": "nota_vacia",
+    "size": 126211,
+    "page_count": 1,
+    "stroke_count": 0,
+    "object_count": 0,
+    "notes": "Subrayador: Multiply al 50%. Grosor variable recuperado. Interpolación de tinta aproximada; canales auxiliares y borrado pendientes. Figuras no compatibles se indican por página.",
+    "sample": "nota_vacia.noteful",
+    "sha256": "ddcca6e7528521af293a2cfb4d81f6a78ca481275abeaaad2b22c889600cb7e9",
+    "pages": [
+      {
+        "id": "ABE36785F71C4A9786D2FE27BDEEB44B",
+        "stroke_count": 0,
+        "object_count": 0,
+        "warnings": [],
+        "variable_count": 0,
+        "auxiliary_count": 0
+      }
+    ]
+  }
+]

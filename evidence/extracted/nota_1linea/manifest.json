@@ -1,0 +1,1195 @@
+{
+  "magic": "aabbccde",
+  "byte_order": "big-endian",
+  "size": 127075,
+  "sha256": "2fd9dd9ced69723e209012a241362cf3f57ee529d49f6e3dcdaa063257aede90",
+  "index_offset": 126595,
+  "index_size": 464,
+  "index_fields": [
+    {
+      "tag": 1,
+      "type": "0x0003",
+      "offset": 126595,
+      "value": 1.190000057220459,
+      "size": 8
+    },
+    {
+      "tag": 2,
+      "type": "0x0405",
+      "offset": 126603,
+      "value": [
+        "806BD40E47204C069AC1306AF0E0B448"
+      ],
+      "size": 44
+    },
+    {
+      "tag": 3,
+      "type": "0x0405",
+      "offset": 126647,
+      "value": [
+        "C62BBCDB45B546CE9ABA4B7F6F5CE7E2",
+        "6C8CB9C1794C4AACBC881080FA473FCE"
+      ],
+      "size": 80
+    },
+    {
+      "tag": 4,
+      "type": "0x0405",
+      "offset": 126727,
+      "value": [
+        "26103FD07FDD43E08AD1D6475AA109CF"
+      ],
+      "size": 44
+    },
+    {
+      "tag": 10,
+      "type": "0x0405",
+      "offset": 126771,
+      "value": [
+        "26103FD07FDD43E08AD1D6475AA109CF",
+        "n:806BD40E47204C069AC1306AF0E0B448",
+        "C62BBCDB45B546CE9ABA4B7F6F5CE7E2",
+        "d:806BD40E47204C069AC1306AF0E0B448",
+        "6C8CB9C1794C4AACBC881080FA473FCE"
+      ],
+      "size": 192
+    },
+    {
+      "tag": 11,
+      "type": "0x0402",
+      "offset": 126963,
+      "value": [
+        126291,
+        4,
+        509,
+        120650,
+        121692
+      ],
+      "size": 48
+    },
+    {
+      "tag": 12,
+      "type": "0x0402",
+      "offset": 127011,
+      "value": [
+        304,
+        505,
+        120141,
+        1042,
+        4599
+      ],
+      "size": 48
+    }
+  ],
+  "blocks": [
+    {
+      "id": "26103FD07FDD43E08AD1D6475AA109CF",
+      "offset": 126291,
+      "size": 304,
+      "kind": "stroke_object_set",
+      "sha256": "34cb280b9b2fffbd1822d73407ee2763eb18cf4242cecd00ee7e9623c1a15ca7",
+      "fields": [
+        {
+          "tag": 1,
+          "type": "0x0002",
+          "offset": 126291,
+          "value": 281,
+          "size": 12
+        },
+        {
+          "tag": 2,
+          "type": "0x0006",
+          "offset": 126303,
+          "value": {
+            "offset": 126311,
+            "size": 196,
+            "hex": "f10137612316b644199b00000002ce4f0abab8610002ce4f0ab5afb30002ce4f0abab813000000003fd0a142893264ca000000000000001f43ead2e1437f824b4372648a4077f050ffffb869fea6c542fd70d5affb26e7e2f81af59df45afcbaeff8ffffeaf8ffb2e5d1fb38dfacefd9d8acdbfed152c160c958a62bc0c08e25b79c7b63ae026b45a39c5b4098b949718d553926815e2d5d74ee288868552a8c5b17301e4d8d36953ffa3a3d31f235bd23a82a0815b01a6a0a6d0bd4036b038400000000"
+          },
+          "size": 204
+        },
+        {
+          "tag": 3,
+          "type": "0x0402",
+          "offset": 126507,
+          "value": [
+            2510648312338279605,
+            8033876022418507417
+          ],
+          "size": 24
+        },
+        {
+          "tag": 4,
+          "type": "0x0402",
+          "offset": 126531,
+          "value": [
+            789788830413925,
+            789788828619884
+          ],
+          "size": 24
+        },
+        {
+          "tag": 5,
+          "type": "0x0007",
+          "offset": 126555,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 126563,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 126571,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 126579,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 126587,
+              "value": [],
+              "size": 8
+            }
+          ],
+          "size": 40
+        }
+      ],
+      "json_values": [],
+      "encoding_version_raw": 281,
+      "freehand_blob_size": 196,
+      "strokes": [
+        {
+          "offset_in_blob": 0,
+          "size": 196,
+          "record_prefix": "f101",
+          "opaque_header_hex": "37612316b644199b00000002ce4f0abab8610002ce4f0ab5afb30002ce4f0abab81300000000",
+          "thickness_candidate": 0.25984252355699466,
+          "unknown_0x30": 0,
+          "point_count": 31,
+          "float32_0x38_0x3c_0x40_0x44": [
+            469.6474914550781,
+            255.5089569091797,
+            242.39273071289062,
+            3.874042510986328
+          ],
+          "uint16_pairs": [
+            [
+              65535,
+              47209
+            ],
+            [
+              65190,
+              50498
+            ],
+            [
+              64880,
+              54703
+            ],
+            [
+              64294,
+              59362
+            ],
+            [
+              63514,
+              62877
+            ],
+            [
+              62554,
+              64698
+            ],
+            [
+              61432,
+              65535
+            ],
+            [
+              60152,
+              65458
+            ],
+            [
+              58833,
+              64312
+            ],
+            [
+              57260,
+              61401
+            ],
+            [
+              55468,
+              56318
+            ],
+            [
+              53586,
+              49504
+            ],
+            [
+              51544,
+              42539
+            ],
+            [
+              49344,
+              36389
+            ],
+            [
+              47004,
+              31587
+            ],
+            [
+              44546,
+              27461
+            ],
+            [
+              41884,
+              23360
+            ],
+            [
+              39097,
+              18801
+            ],
+            [
+              36181,
+              14630
+            ],
+            [
+              33118,
+              11613
+            ],
+            [
+              29934,
+              10376
+            ],
+            [
+              26709,
+              10892
+            ],
+            [
+              23319,
+              12318
+            ],
+            [
+              19853,
+              13973
+            ],
+            [
+              16378,
+              14909
+            ],
+            [
+              12786,
+              13757
+            ],
+            [
+              9128,
+              10760
+            ],
+            [
+              5552,
+              6762
+            ],
+            [
+              2669,
+              3028
+            ],
+            [
+              875,
+              900
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "geometry_status": "hypothesis: x=F38+u/65535*F3c, y=F40+v/65535*F44",
+          "candidate_points": [
+            [
+              725.1564483642578,
+              245.18344823636897
+            ],
+            [
+              723.8113565792015,
+              245.37787450963722
+            ],
+            [
+              722.6027233810349,
+              245.626449298051
+            ],
+            [
+              720.3180167548232,
+              245.90186188763954
+            ],
+            [
+              717.2769396755655,
+              246.10964794739567
+            ],
+            [
+              713.5340755780175,
+              246.21729472259221
+            ],
+            [
+              709.1596031640081,
+              246.26677322387695
+            ],
+            [
+              704.1691177006107,
+              246.26222143821516
+            ],
+            [
+              699.0265783832504,
+              246.19447668018373
+            ],
+            [
+              692.8937396067472,
+              246.02239553652794
+            ],
+            [
+              685.9070599579908,
+              245.72191856874974
+            ],
+            [
+              678.5694868000892,
+              245.31911509473036
+            ],
+            [
+              670.6081029592631,
+              244.9073853916859
+            ],
+            [
+              662.0307060690487,
+              244.54383367973708
+            ],
+            [
+              652.9074748312753,
+              244.25996777391947
+            ],
+            [
+              643.3241832148449,
+              244.01606299936648
+            ],
+            [
+              632.9455329776856,
+              243.7736360773011
+            ],
+            [
+              622.0795306444913,
+              243.50413489766294
+            ],
+            [
+              610.7105809481891,
+              243.2575699886323
+            ],
+            [
+              598.7685051869498,
+              243.0792227504291
+            ],
+            [
+              586.3546725967487,
+              243.0060986093428
+            ],
+            [
+              573.7809885190483,
+              243.0366014846868
+            ],
+            [
+              560.5639996745816,
+              243.12089819057934
+            ],
+            [
+              547.0507007557258,
+              243.21873202525825
+            ],
+            [
+              533.5023124859555,
+              243.27406282239386
+            ],
+            [
+              519.4977626542965,
+              243.20596337976542
+            ],
+            [
+              505.235890915931,
+              243.0287984235523
+            ],
+            [
+              491.29372215256444,
+              242.7924602537358
+            ],
+            [
+              480.0534334096154,
+              242.57172820618834
+            ],
+            [
+              473.05895612732246,
+              242.4459334024441
+            ],
+            [
+              469.6474914550781,
+              242.39273071289062
+            ]
+          ]
+        }
+      ],
+      "object_ids": [],
+      "file": "000_stroke_object_set.bin"
+    },
+    {
+      "id": "n:806BD40E47204C069AC1306AF0E0B448",
+      "offset": 4,
+      "size": 505,
+      "kind": "note_metadata",
+      "sha256": "9b2b8b2153dd31112e5a3c308c055e54dd76c9bbf975a4fdeaa0e5b09b09d4b2",
+      "fields": [
+        {
+          "tag": 1,
+          "type": "0x0005",
+          "offset": 4,
+          "value": "806BD40E47204C069AC1306AF0E0B448",
+          "size": 40
+        },
+        {
+          "tag": 2,
+          "type": "0x0002",
+          "offset": 44,
+          "value": 0,
+          "size": 12
+        },
+        {
+          "tag": 3,
+          "type": "0x0805",
+          "offset": 56,
+          "value": "nota_1linea",
+          "clock_raw": 789788793886650,
+          "size": 27
+        },
+        {
+          "tag": 4,
+          "type": "0x0805",
+          "offset": 83,
+          "value": "F0B4367A3BDC46E69A06AE2FC96050B6",
+          "clock_raw": 789788777939112,
+          "size": 48
+        },
+        {
+          "tag": 5,
+          "type": "0x0004",
+          "offset": 131,
+          "value": 789788833.199776,
+          "size": 12
+        },
+        {
+          "tag": 6,
+          "type": "0x0007",
+          "offset": 143,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0801",
+              "offset": 151,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 2,
+              "type": "0x0801",
+              "offset": 164,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 3,
+              "type": "0x0801",
+              "offset": 177,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 4,
+              "type": "0x0801",
+              "offset": 190,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 5,
+              "type": "0x0801",
+              "offset": 203,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 6,
+              "type": "0x0801",
+              "offset": 216,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            }
+          ],
+          "size": 86
+        },
+        {
+          "tag": 7,
+          "type": "0x0807",
+          "offset": 229,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0005",
+              "offset": 237,
+              "value": "C62BBCDB45B546CE9ABA4B7F6F5CE7E2",
+              "size": 40
+            },
+            {
+              "tag": 2,
+              "type": "0x0005",
+              "offset": 277,
+              "value": "FCBDB869726C4B6EA79991010856F11B",
+              "size": 40
+            }
+          ],
+          "clock_raw": 789788833199775,
+          "size": 96
+        },
+        {
+          "tag": 8,
+          "type": "0x0805",
+          "offset": 325,
+          "value": "",
+          "clock_raw": 789788777939113,
+          "size": 16
+        },
+        {
+          "tag": 9,
+          "type": "0x0805",
+          "offset": 341,
+          "value": "",
+          "clock_raw": 789788777939113,
+          "size": 16
+        },
+        {
+          "tag": 10,
+          "type": "0x0005",
+          "offset": 357,
+          "value": "ED3BBF86FD054F3EA76AB6E7A1D6C68F",
+          "size": 40
+        },
+        {
+          "tag": 11,
+          "type": "0x0807",
+          "offset": 397,
+          "value": [
+            {
+              "tag": 0,
+              "type": "0x0002",
+              "offset": 405,
+              "value": 0,
+              "size": 12
+            },
+            {
+              "tag": 1,
+              "type": "0x0007",
+              "offset": 417,
+              "value": [
+                {
+                  "tag": 0,
+                  "type": "0x0403",
+                  "offset": 425,
+                  "value": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "size": 24
+                }
+              ],
+              "size": 32
+            }
+          ],
+          "clock_raw": 789788777939113,
+          "size": 60
+        },
+        {
+          "tag": 12,
+          "type": "0x0004",
+          "offset": 457,
+          "value": 789788777.93888,
+          "size": 12
+        },
+        {
+          "tag": 13,
+          "type": "0x0013",
+          "offset": 469,
+          "value": 5363,
+          "size": 12
+        },
+        {
+          "tag": 14,
+          "type": "0x0002",
+          "offset": 481,
+          "value": 0,
+          "size": 12
+        },
+        {
+          "tag": 15,
+          "type": "0x0805",
+          "offset": 493,
+          "value": "",
+          "clock_raw": 789788777939113,
+          "size": 16
+        }
+      ],
+      "json_values": [],
+      "file": "001_note_metadata.bin"
+    },
+    {
+      "id": "C62BBCDB45B546CE9ABA4B7F6F5CE7E2",
+      "offset": 509,
+      "size": 120141,
+      "kind": "jpeg",
+      "sha256": "beaa65aefd381082893a110dab8614933b37afaaeea4fea1258ce7a2daaa43ab",
+      "file": "002_jpeg.jpg"
+    },
+    {
+      "id": "d:806BD40E47204C069AC1306AF0E0B448",
+      "offset": 120650,
+      "size": 1042,
+      "kind": "drawing_metadata",
+      "sha256": "c1efeeeaea68d72bd858f924d87b5e92f33d7ccb7377589052d11f4027758ac5",
+      "fields": [
+        {
+          "tag": 1,
+          "type": "0x0005",
+          "offset": 120650,
+          "value": "806BD40E47204C069AC1306AF0E0B448",
+          "size": 40
+        },
+        {
+          "tag": 2,
+          "type": "0x0007",
+          "offset": 120690,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 120698,
+              "value": [
+                "724F42D7AA0342A6B4328E215BD6AE14"
+              ],
+              "size": 44
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 120742,
+              "value": [
+                789788777921316
+              ],
+              "size": 16
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 120758,
+              "value": [
+                1
+              ],
+              "size": 9
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 120767,
+              "value": [
+                [
+                  {
+                    "tag": 1,
+                    "type": "0x0005",
+                    "offset": 120779,
+                    "value": "724F42D7AA0342A6B4328E215BD6AE14",
+                    "size": 40
+                  },
+                  {
+                    "tag": 2,
+                    "type": "0x0007",
+                    "offset": 120819,
+                    "value": [
+                      {
+                        "tag": 0,
+                        "type": "0x0005",
+                        "offset": 120827,
+                        "value": "26103FD07FDD43E08AD1D6475AA109CF",
+                        "size": 40
+                      },
+                      {
+                        "tag": 2,
+                        "type": "0x0405",
+                        "offset": 120867,
+                        "value": [],
+                        "size": 8
+                      },
+                      {
+                        "tag": 3,
+                        "type": "0x0405",
+                        "offset": 120875,
+                        "value": [],
+                        "size": 8
+                      }
+                    ],
+                    "size": 64
+                  },
+                  {
+                    "tag": 4,
+                    "type": "0x0807",
+                    "offset": 120883,
+                    "value": [
+                      {
+                        "tag": 0,
+                        "type": "0x0011",
+                        "offset": 120891,
+                        "value": 2,
+                        "size": 6
+                      },
+                      {
+                        "tag": 1,
+                        "type": "0x0021",
+                        "offset": 120897,
+                        "value": [
+                          1091.3385826771655,
+                          1543.464566929134
+                        ],
+                        "size": 20
+                      },
+                      {
+                        "tag": 2,
+                        "type": "0x0001",
+                        "offset": 120917,
+                        "value": 0,
+                        "size": 5
+                      },
+                      {
+                        "tag": 3,
+                        "type": "0x0005",
+                        "offset": 120922,
+                        "value": "6C8CB9C1794C4AACBC881080FA473FCE",
+                        "size": 40
+                      },
+                      {
+                        "tag": 4,
+                        "type": "0x0005",
+                        "offset": 120962,
+                        "value": "658177b416149e2acbd03d63a72e9f4dedf48970",
+                        "size": 48
+                      },
+                      {
+                        "tag": 5,
+                        "type": "0x0005",
+                        "offset": 121010,
+                        "value": "cb.simpleline",
+                        "size": 21
+                      },
+                      {
+                        "tag": 6,
+                        "type": "0x0005",
+                        "offset": 121031,
+                        "value": "{\"lh\":24,\"lt\":2,\"lw\":0.5,\"name\":\"Cuadrícula\",\"pc\":16777215,\"pi\":\"67E155C5-F1EC-407C-9AC9-80C1B23598B1\",\"si\":[1091.3385826771655,1543.464566929134],\"type\":0}",
+                        "size": 165
+                      },
+                      {
+                        "tag": 7,
+                        "type": "0x0002",
+                        "offset": 121196,
+                        "value": 0,
+                        "size": 12
+                      }
+                    ],
+                    "clock_raw": 789788777921296,
+                    "size": 333
+                  },
+                  {
+                    "tag": 5,
+                    "type": "0x0805",
+                    "offset": 121216,
+                    "value": "+E8YAXT",
+                    "clock_raw": 789788777921296,
+                    "size": 23
+                  },
+                  {
+                    "tag": 6,
+                    "type": "0x0005",
+                    "offset": 121239,
+                    "value": "FCBDB869726C4B6EA79991010856F11B",
+                    "size": 40
+                  },
+                  {
+                    "tag": 7,
+                    "type": "0x0801",
+                    "offset": 121279,
+                    "value": 0,
+                    "clock_raw": 789788777921296,
+                    "size": 13
+                  },
+                  {
+                    "tag": 9,
+                    "type": "0x0801",
+                    "offset": 121292,
+                    "value": 0,
+                    "clock_raw": 789788777921297,
+                    "size": 13
+                  }
+                ]
+              ],
+              "size": 538
+            }
+          ],
+          "size": 615
+        },
+        {
+          "tag": 3,
+          "type": "0x0007",
+          "offset": 121305,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0412",
+              "offset": 121313,
+              "value": [
+                0
+              ],
+              "size": 12
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 121325,
+              "value": [
+                789788777921329
+              ],
+              "size": 16
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 121341,
+              "value": [
+                1
+              ],
+              "size": 9
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 121350,
+              "value": [
+                [
+                  {
+                    "tag": 1,
+                    "type": "0x0805",
+                    "offset": 121362,
+                    "value": "Capa 1",
+                    "clock_raw": 789788777921281,
+                    "size": 22
+                  },
+                  {
+                    "tag": 2,
+                    "type": "0x0012",
+                    "offset": 121384,
+                    "value": 0,
+                    "size": 8
+                  },
+                  {
+                    "tag": 3,
+                    "type": "0x0805",
+                    "offset": 121392,
+                    "value": "0",
+                    "clock_raw": 789788777921282,
+                    "size": 17
+                  },
+                  {
+                    "tag": 4,
+                    "type": "0x0801",
+                    "offset": 121409,
+                    "value": 0,
+                    "clock_raw": 0,
+                    "size": 13
+                  },
+                  {
+                    "tag": 5,
+                    "type": "0x0801",
+                    "offset": 121422,
+                    "value": 0,
+                    "clock_raw": 0,
+                    "size": 13
+                  },
+                  {
+                    "tag": 6,
+                    "type": "0x0803",
+                    "offset": 121435,
+                    "value": 1.0,
+                    "clock_raw": 789788777921283,
+                    "size": 16
+                  },
+                  {
+                    "tag": 7,
+                    "type": "0x0801",
+                    "offset": 121451,
+                    "value": 0,
+                    "clock_raw": 789788777921282,
+                    "size": 13
+                  }
+                ]
+              ],
+              "size": 114
+            }
+          ],
+          "size": 159
+        },
+        {
+          "tag": 7,
+          "type": "0x0007",
+          "offset": 121464,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 121472,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 121480,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 121488,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 121496,
+              "value": [],
+              "size": 8
+            }
+          ],
+          "size": 40
+        },
+        {
+          "tag": 4,
+          "type": "0x0007",
+          "offset": 121504,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 121512,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 121520,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 121528,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 121536,
+              "value": [],
+              "size": 8
+            }
+          ],
+          "size": 40
+        },
+        {
+          "tag": 5,
+          "type": "0x0007",
+          "offset": 121544,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 121552,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 121560,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 121568,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 121576,
+              "value": [],
+              "size": 8
+            }
+          ],
+          "size": 40
+        },
+        {
+          "tag": 6,
+          "type": "0x0005",
+          "offset": 121584,
+          "value": "365E83864B5F41B391791AC4D019A6BB",
+          "size": 40
+        },
+        {
+          "tag": 8,
+          "type": "0x0812",
+          "offset": 121624,
+          "value": 0,
+          "clock_raw": 789788777921334,
+          "size": 16
+        },
+        {
+          "tag": 9,
+          "type": "0x0002",
+          "offset": 121640,
+          "value": 0,
+          "size": 12
+        },
+        {
+          "tag": 10,
+          "type": "0x0007",
+          "offset": 121652,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 121660,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 121668,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 121676,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 121684,
+              "value": [],
+              "size": 8
+            }
+          ],
+          "size": 40
+        }
+      ],
+      "json_values": [
+        {
+          "offset": 121031,
+          "value": {
+            "lh": 24,
+            "lt": 2,
+            "lw": 0.5,
+            "name": "Cuadrícula",
+            "pc": 16777215,
+            "pi": "67E155C5-F1EC-407C-9AC9-80C1B23598B1",
+            "si": [
+              1091.3385826771655,
+              1543.464566929134
+            ],
+            "type": 0
+          }
+        }
+      ],
+      "file": "003_drawing_metadata.bin"
+    },
+    {
+      "id": "6C8CB9C1794C4AACBC881080FA473FCE",
+      "offset": 121692,
+      "size": 4599,
+      "kind": "pdf",
+      "sha256": "d0ab7695968f9a57fb9288d132b43d2f1bc5b6c2c09977a6badf9caff0ffc888",
+      "file": "004_pdf.pdf"
+    }
+  ],
+  "coverage": "exact",
+  "semantic_summary": {
+    "pages": [
+      {
+        "id": "724F42D7AA0342A6B4328E215BD6AE14",
+        "stroke_object_set_id": "26103FD07FDD43E08AD1D6475AA109CF",
+        "attachment_ids": [],
+        "size": [
+          1091.3385826771655,
+          1543.464566929134
+        ],
+        "background_pdf_id": "6C8CB9C1794C4AACBC881080FA473FCE",
+        "background_provider": "cb.simpleline",
+        "paper": {
+          "lh": 24,
+          "lt": 2,
+          "lw": 0.5,
+          "name": "Cuadrícula",
+          "pc": 16777215,
+          "pi": "67E155C5-F1EC-407C-9AC9-80C1B23598B1",
+          "si": [
+            1091.3385826771655,
+            1543.464566929134
+          ],
+          "type": 0
+        }
+      }
+    ],
+    "layers": [
+      {
+        "id": 0,
+        "name": "Capa 1",
+        "opacity_candidate": 1.0
+      }
+    ],
+    "objects": [],
+    "note_id": "806BD40E47204C069AC1306AF0E0B448",
+    "title": "nota_1linea"
+  }
+}

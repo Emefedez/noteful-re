@@ -1,0 +1,2743 @@
+0000000000006938 t +[DDASLLogCapture aslMessageReceived:]
+0000000000006b4c t +[DDASLLogCapture captureAslLogs]
+00000000000068b8 t +[DDASLLogCapture captureLevel]
+00000000000068d0 t +[DDASLLogCapture configureAslQuery:]
+00000000000068c4 t +[DDASLLogCapture setCaptureLevel:]
+0000000000006814 t +[DDASLLogCapture start]
+00000000000068ac t +[DDASLLogCapture stop]
+0000000000006df4 t +[DDASLLogger sharedInstance]
+000000000000db9c t +[DDLog addLogger:]
+000000000000dbf4 t +[DDLog addLogger:withLevel:]
+000000000000e064 t +[DDLog allLoggersWithLevel]
+000000000000df00 t +[DDLog allLoggers]
+000000000000e8b8 t +[DDLog flushLog]
+000000000000d9fc t +[DDLog initialize]
+000000000001696c t +[DDLog initialize].cold.1
+000000000000e9a0 t +[DDLog isRegisteredClass:]
+000000000000ecc0 t +[DDLog levelForClass:]
+000000000000ecf8 t +[DDLog levelForClassWithName:]
+000000000000e2c0 t +[DDLog log:level:flag:context:file:function:line:tag:format:]
+000000000000e4a0 t +[DDLog log:level:flag:context:file:function:line:tag:format:args:]
+000000000000e848 t +[DDLog log:message:]
+000000000000e658 t +[DDLog log:message:level:flag:context:file:function:line:tag:]
+000000000000db8c t +[DDLog loggingQueue]
+000000000000eb6c t +[DDLog registeredClassNames]
+000000000000ea6c t +[DDLog registeredClasses]
+000000000000de44 t +[DDLog removeAllLoggers]
+000000000000dd28 t +[DDLog removeLogger:]
+000000000000ed24 t +[DDLog setLevel:forClass:]
+000000000000ed64 t +[DDLog setLevel:forClassWithName:]
+000000000000d95c t +[DDLog sharedInstance]
+000000000000cd10 t +[DDLogFileInfo logFileWithPath:]
+0000000000010c88 t +[DDLoggerInformation informationWithLogger:andLevel:]
+000000000000fe38 t +[DDLoggerNode nodeWithLogger:loggerQueue:level:]
+0000000000010df4 t +[DDOSLogger sharedInstance]
+0000000000011924 t +[DDTTYLogger codeIndexForColor:]
+00000000000117dc t +[DDTTYLogger getRed:green:blue:fromColor:]
+0000000000011210 t +[DDTTYLogger initialize_colors_16]
+0000000000016e54 t +[DDTTYLogger initialize_colors_16].cold.1
+0000000000016ea8 t +[DDTTYLogger initialize_colors_16].cold.2
+0000000000011550 t +[DDTTYLogger initialize_colors_256]
+0000000000016efc t +[DDTTYLogger initialize_colors_256].cold.1
+0000000000016f50 t +[DDTTYLogger initialize_colors_256].cold.2
+0000000000011ac0 t +[DDTTYLogger sharedInstance]
+000000000002a77c t +[_TtC8TrueTime14TrueTimeClient sharedInstance]
+0000000000006e98 t -[DDASLLogger init]
+0000000000006f34 t -[DDASLLogger logMessage:]
+0000000000015ae0 t -[DDASLLogger logMessage:].cold.1
+0000000000006f24 t -[DDASLLogger loggerName]
+0000000000008adc t -[DDAbstractDatabaseLogger .cxx_destruct]
+0000000000007604 t -[DDAbstractDatabaseLogger createAndStartDeleteTimer]
+00000000000073fc t -[DDAbstractDatabaseLogger createSuspendedSaveTimer]
+00000000000071f8 t -[DDAbstractDatabaseLogger db_delete]
+00000000000071ec t -[DDAbstractDatabaseLogger db_log:]
+00000000000071fc t -[DDAbstractDatabaseLogger db_saveAndDelete]
+00000000000071f4 t -[DDAbstractDatabaseLogger db_save]
+00000000000071a0 t -[DDAbstractDatabaseLogger dealloc]
+0000000000008200 t -[DDAbstractDatabaseLogger deleteInterval]
+0000000000015e38 t -[DDAbstractDatabaseLogger deleteInterval].cold.1
+0000000000015e8c t -[DDAbstractDatabaseLogger deleteInterval].cold.2
+0000000000008924 t -[DDAbstractDatabaseLogger deleteOldLogEntries]
+0000000000008560 t -[DDAbstractDatabaseLogger deleteOnEverySave]
+0000000000015f34 t -[DDAbstractDatabaseLogger deleteOnEverySave].cold.1
+0000000000015f88 t -[DDAbstractDatabaseLogger deleteOnEverySave].cold.2
+000000000000751c t -[DDAbstractDatabaseLogger destroyDeleteTimer]
+00000000000072d8 t -[DDAbstractDatabaseLogger destroySaveTimer]
+00000000000089fc t -[DDAbstractDatabaseLogger didAddLogger]
+0000000000008ad8 t -[DDAbstractDatabaseLogger flush]
+0000000000007120 t -[DDAbstractDatabaseLogger init]
+0000000000008a4c t -[DDAbstractDatabaseLogger logMessage:]
+0000000000007e80 t -[DDAbstractDatabaseLogger maxAge]
+0000000000015d3c t -[DDAbstractDatabaseLogger maxAge].cold.1
+0000000000015d90 t -[DDAbstractDatabaseLogger maxAge].cold.2
+000000000000728c t -[DDAbstractDatabaseLogger performDelete]
+0000000000007200 t -[DDAbstractDatabaseLogger performSaveAndSuspendSaveTimer]
+0000000000007b20 t -[DDAbstractDatabaseLogger saveInterval]
+0000000000015c40 t -[DDAbstractDatabaseLogger saveInterval].cold.1
+0000000000015c94 t -[DDAbstractDatabaseLogger saveInterval].cold.2
+000000000000884c t -[DDAbstractDatabaseLogger savePendingLogEntries]
+000000000000772c t -[DDAbstractDatabaseLogger saveThreshold]
+0000000000015b44 t -[DDAbstractDatabaseLogger saveThreshold].cold.1
+0000000000015b98 t -[DDAbstractDatabaseLogger saveThreshold].cold.2
+0000000000008380 t -[DDAbstractDatabaseLogger setDeleteInterval:]
+0000000000015ee0 t -[DDAbstractDatabaseLogger setDeleteInterval:].cold.1
+00000000000086d8 t -[DDAbstractDatabaseLogger setDeleteOnEverySave:]
+0000000000015fdc t -[DDAbstractDatabaseLogger setDeleteOnEverySave:].cold.1
+0000000000008000 t -[DDAbstractDatabaseLogger setMaxAge:]
+0000000000015de4 t -[DDAbstractDatabaseLogger setMaxAge:].cold.1
+0000000000007ca0 t -[DDAbstractDatabaseLogger setSaveInterval:]
+0000000000015ce8 t -[DDAbstractDatabaseLogger setSaveInterval:].cold.1
+0000000000007904 t -[DDAbstractDatabaseLogger setSaveThreshold:]
+0000000000015bec t -[DDAbstractDatabaseLogger setSaveThreshold:].cold.1
+0000000000007348 t -[DDAbstractDatabaseLogger updateAndResumeSaveTimer]
+0000000000007560 t -[DDAbstractDatabaseLogger updateDeleteTimer]
+0000000000008a20 t -[DDAbstractDatabaseLogger willRemoveLogger]
+0000000000010bd8 t -[DDAbstractLogger .cxx_destruct]
+00000000000107c4 t -[DDAbstractLogger dealloc]
+0000000000010700 t -[DDAbstractLogger init]
+0000000000010b8c t -[DDAbstractLogger isOnGlobalLoggingQueue]
+0000000000010bb0 t -[DDAbstractLogger isOnInternalLoggerQueue]
+00000000000107fc t -[DDAbstractLogger logFormatter]
+0000000000016c2c t -[DDAbstractLogger logFormatter].cold.1
+0000000000016c80 t -[DDAbstractLogger logFormatter].cold.2
+00000000000107f8 t -[DDAbstractLogger logMessage:]
+0000000000010b78 t -[DDAbstractLogger loggerName]
+0000000000010b70 t -[DDAbstractLogger loggerQueue]
+0000000000010974 t -[DDAbstractLogger setLogFormatter:]
+0000000000016cd4 t -[DDAbstractLogger setLogFormatter:].cold.1
+0000000000016d28 t -[DDAbstractLogger setLogFormatter:].cold.2
+0000000000010bcc t -[DDAbstractLogger setLoggerQueue:]
+000000000001498c t -[DDAtomicCounter decrement]
+0000000000014974 t -[DDAtomicCounter increment]
+0000000000014924 t -[DDAtomicCounter initWithDefaultValue:]
+000000000001496c t -[DDAtomicCounter value]
+00000000000150cc t -[DDBufferedProxy .cxx_destruct]
+0000000000015078 t -[DDBufferedProxy buffer]
+00000000000150ac t -[DDBufferedProxy currentBufferSizeBytes]
+0000000000014a0c t -[DDBufferedProxy dealloc]
+0000000000015054 t -[DDBufferedProxy fileLogger]
+0000000000014b0c t -[DDBufferedProxy flushBuffer]
+0000000000014d0c t -[DDBufferedProxy flush]
+0000000000017460 t -[DDBufferedProxy flush].cold.1
+0000000000015000 t -[DDBufferedProxy forwardInvocation:]
+00000000000149a4 t -[DDBufferedProxy initWithFileLogger:]
+00000000000173e8 t -[DDBufferedProxy initWithFileLogger:].cold.1
+0000000000014bd4 t -[DDBufferedProxy logMessage:]
+0000000000014b70 t -[DDBufferedProxy lt_sendBufferedDataToFileLogger]
+000000000001509c t -[DDBufferedProxy maxBufferSizeBytes]
+0000000000014f70 t -[DDBufferedProxy methodSignatureForSelector:]
+0000000000014fbc t -[DDBufferedProxy respondsToSelector:]
+0000000000015088 t -[DDBufferedProxy setBuffer:]
+00000000000150bc t -[DDBufferedProxy setCurrentBufferSizeBytes:]
+0000000000015064 t -[DDBufferedProxy setFileLogger:]
+0000000000014f14 t -[DDBufferedProxy setMaxBufferSizeBytes:]
+00000000000174c8 t -[DDBufferedProxy setMaxBufferSizeBytes:].cold.1
+0000000000014f6c t -[DDBufferedProxy unwrapFromBuffer]
+0000000000014f68 t -[DDBufferedProxy wrapWithBuffer]
+0000000000013e78 t -[DDContextAllowlistFilterLogFormatter .cxx_destruct]
+0000000000013de8 t -[DDContextAllowlistFilterLogFormatter addToAllowlist:]
+0000000000013df8 t -[DDContextAllowlistFilterLogFormatter allowlist]
+0000000000013e08 t -[DDContextAllowlistFilterLogFormatter formatLogMessage:]
+0000000000013d80 t -[DDContextAllowlistFilterLogFormatter init]
+0000000000013e00 t -[DDContextAllowlistFilterLogFormatter isOnAllowlist:]
+0000000000013df0 t -[DDContextAllowlistFilterLogFormatter removeFromAllowlist:]
+0000000000013d60 t -[DDContextAllowlistFilterLogFormatter(Deprecated) addToWhitelist:]
+0000000000013d6c t -[DDContextAllowlistFilterLogFormatter(Deprecated) isOnWhitelist:]
+0000000000013d64 t -[DDContextAllowlistFilterLogFormatter(Deprecated) removeFromWhitelist:]
+0000000000013d68 t -[DDContextAllowlistFilterLogFormatter(Deprecated) whitelist]
+0000000000013f7c t -[DDContextDenylistFilterLogFormatter .cxx_destruct]
+0000000000013eec t -[DDContextDenylistFilterLogFormatter addToDenylist:]
+0000000000013efc t -[DDContextDenylistFilterLogFormatter denylist]
+0000000000013f0c t -[DDContextDenylistFilterLogFormatter formatLogMessage:]
+0000000000013e84 t -[DDContextDenylistFilterLogFormatter init]
+0000000000013f04 t -[DDContextDenylistFilterLogFormatter isOnDenylist:]
+0000000000013ef4 t -[DDContextDenylistFilterLogFormatter removeFromDenylist:]
+0000000000013d70 t -[DDContextDenylistFilterLogFormatter(Deprecated) addToBlacklist:]
+0000000000013d78 t -[DDContextDenylistFilterLogFormatter(Deprecated) blacklist]
+0000000000013d7c t -[DDContextDenylistFilterLogFormatter(Deprecated) isOnBlacklist:]
+0000000000013d74 t -[DDContextDenylistFilterLogFormatter(Deprecated) removeFromBlacklist:]
+00000000000148f4 t -[DDDispatchQueueLogFormatter .cxx_destruct]
+00000000000143f0 t -[DDDispatchQueueLogFormatter configureDateFormatter:]
+00000000000143b0 t -[DDDispatchQueueLogFormatter createDateFormatter]
+0000000000014288 t -[DDDispatchQueueLogFormatter dealloc]
+00000000000147c4 t -[DDDispatchQueueLogFormatter formatLogMessage:]
+0000000000014284 t -[DDDispatchQueueLogFormatter initWithMode:]
+00000000000141d8 t -[DDDispatchQueueLogFormatter init]
+00000000000148e4 t -[DDDispatchQueueLogFormatter maxQueueLength]
+00000000000148d4 t -[DDDispatchQueueLogFormatter minQueueLength]
+00000000000144a0 t -[DDDispatchQueueLogFormatter queueThreadLabelForLogMessage:]
+00000000000142d0 t -[DDDispatchQueueLogFormatter replacementStringForQueueLabel:]
+00000000000148ec t -[DDDispatchQueueLogFormatter setMaxQueueLength:]
+00000000000148dc t -[DDDispatchQueueLogFormatter setMinQueueLength:]
+0000000000014334 t -[DDDispatchQueueLogFormatter setReplacementString:forQueueLabel:]
+0000000000014498 t -[DDDispatchQueueLogFormatter stringFromDate:]
+000000000000c5fc t -[DDFileLogger .cxx_destruct]
+000000000000c5dc t -[DDFileLogger automaticallyAppendNewlineForCustomFormatters]
+000000000000bb14 t -[DDFileLogger currentLogFileInfo]
+0000000000016434 t -[DDFileLogger currentLogFileInfo].cold.1
+0000000000016488 t -[DDFileLogger currentLogFileInfo].cold.2
+000000000000a938 t -[DDFileLogger dealloc]
+000000000000c35c t -[DDFileLogger didLogMessage:]
+000000000000c5a8 t -[DDFileLogger doNotReuseLogFiles]
+000000000000c36c t -[DDFileLogger flush]
+0000000000016764 t -[DDFileLogger flush].cold.1
+000000000000a6ec t -[DDFileLogger initWithLogFileManager:]
+000000000000a6f4 t -[DDFileLogger initWithLogFileManager:completionQueue:]
+000000000000a69c t -[DDFileLogger init]
+000000000000c5cc t -[DDFileLogger logFileManager]
+000000000000c314 t -[DDFileLogger logMessage:]
+000000000000c598 t -[DDFileLogger loggerName]
+000000000000a830 t -[DDFileLogger lt_cleanup]
+0000000000016098 t -[DDFileLogger lt_cleanup].cold.1
+000000000000c1f4 t -[DDFileLogger lt_currentLogFileHandle]
+0000000000016710 t -[DDFileLogger lt_currentLogFileHandle].cold.1
+000000000000bd00 t -[DDFileLogger lt_currentLogFileInfo]
+00000000000164dc t -[DDFileLogger lt_currentLogFileInfo].cold.1
+0000000000016530 t -[DDFileLogger lt_currentLogFileInfo].cold.2
+000000000000c4f4 t -[DDFileLogger lt_flush]
+00000000000167b8 t -[DDFileLogger lt_flush].cold.1
+000000000000b86c t -[DDFileLogger lt_maybeRollLogFileDueToAge]
+0000000000016338 t -[DDFileLogger lt_maybeRollLogFileDueToAge].cold.1
+000000000000b8f0 t -[DDFileLogger lt_maybeRollLogFileDueToSize]
+000000000001638c t -[DDFileLogger lt_maybeRollLogFileDueToSize].cold.1
+000000000000c090 t -[DDFileLogger lt_monitorCurrentLogFileForExternalChanges]
+000000000001663c t -[DDFileLogger lt_monitorCurrentLogFileForExternalChanges].cold.1
+0000000000016690 t -[DDFileLogger lt_monitorCurrentLogFileForExternalChanges].cold.2
+000000000000b5d8 t -[DDFileLogger lt_rollLogFileNow]
+00000000000162e4 t -[DDFileLogger lt_rollLogFileNow].cold.1
+000000000000b158 t -[DDFileLogger lt_scheduleTimerToRollLogFileDueToAge]
+000000000001623c t -[DDFileLogger lt_scheduleTimerToRollLogFileDueToAge].cold.1
+000000000000b9c0 t -[DDFileLogger lt_shouldLogFileBeArchived:]
+00000000000163e0 t -[DDFileLogger lt_shouldLogFileBeArchived:].cold.1
+000000000000beac t -[DDFileLogger lt_shouldUseLogFile:isResuming:]
+0000000000016584 t -[DDFileLogger lt_shouldUseLogFile:isResuming:].cold.1
+00000000000165d8 t -[DDFileLogger lt_shouldUseLogFile:isResuming:].cold.2
+000000000000a9e8 t -[DDFileLogger maximumFileSize]
+000000000000b3a4 t -[DDFileLogger rollLogFileWithCompletionBlock:]
+0000000000016290 t -[DDFileLogger rollLogFileWithCompletionBlock:].cold.1
+000000000000b39c t -[DDFileLogger rollLogFile]
+000000000000ad9c t -[DDFileLogger rollingFrequency]
+000000000000c5ec t -[DDFileLogger setAutomaticallyAppendNewlineForCustomFormatters:]
+000000000000c5bc t -[DDFileLogger setDoNotReuseLogFiles:]
+000000000000ac0c t -[DDFileLogger setMaximumFileSize:]
+00000000000160ec t -[DDFileLogger setMaximumFileSize:].cold.1
+0000000000016140 t -[DDFileLogger setMaximumFileSize:].cold.2
+000000000000afc0 t -[DDFileLogger setRollingFrequency:]
+0000000000016194 t -[DDFileLogger setRollingFrequency:].cold.1
+00000000000161e8 t -[DDFileLogger setRollingFrequency:].cold.2
+000000000000c360 t -[DDFileLogger shouldArchiveRecentLogFileInfo:]
+000000000000c358 t -[DDFileLogger willLogMessage:]
+000000000000c368 t -[DDFileLogger willRemoveLogger]
+000000000001513c t -[DDFileLogger(Buffering) unwrapFromBuffer]
+000000000001510c t -[DDFileLogger(Buffering) wrapWithBuffer]
+000000000000c8ac t -[DDFileLogger(Internal) forwardInvocation:]
+000000000000c68c t -[DDFileLogger(Internal) logData:]
+000000000001680c t -[DDFileLogger(Internal) logData:].cold.1
+000000000000cbb0 t -[DDFileLogger(Internal) lt_dataForMessage:]
+00000000000168b4 t -[DDFileLogger(Internal) lt_dataForMessage:].cold.1
+000000000000c838 t -[DDFileLogger(Internal) lt_deprecationCatchAll]
+000000000000c918 t -[DDFileLogger(Internal) lt_logData:]
+0000000000016860 t -[DDFileLogger(Internal) lt_logData:].cold.1
+000000000000c83c t -[DDFileLogger(Internal) methodSignatureForSelector:]
+000000000000fd7c t -[DDLog .cxx_destruct]
+000000000000fd68 t -[DDLog _loggers]
+000000000000dbec t -[DDLog addLogger:]
+000000000000dc54 t -[DDLog addLogger:withLevel:]
+000000000000e0a8 t -[DDLog allLoggersWithLevel]
+000000000000df44 t -[DDLog allLoggers]
+000000000000db98 t -[DDLog applicationWillTerminate:]
+000000000000e8e8 t -[DDLog flushLog]
+0000000000016980 t -[DDLog flushLog].cold.1
+000000000000dac8 t -[DDLog init]
+000000000000e3b0 t -[DDLog log:level:flag:context:file:function:line:tag:format:]
+000000000000e564 t -[DDLog log:level:flag:context:file:function:line:tag:format:args:]
+000000000000e8a8 t -[DDLog log:message:]
+000000000000e71c t -[DDLog log:message:level:flag:context:file:function:line:tag:]
+000000000000ed98 t -[DDLog lt_addLogger:level:]
+00000000000169d4 t -[DDLog lt_addLogger:level:].cold.1
+000000000000f64c t -[DDLog lt_allLoggersWithLevel]
+0000000000016b30 t -[DDLog lt_allLoggersWithLevel].cold.1
+000000000000f500 t -[DDLog lt_allLoggers]
+0000000000016adc t -[DDLog lt_allLoggers].cold.1
+000000000000faf8 t -[DDLog lt_flush]
+0000000000016bd8 t -[DDLog lt_flush].cold.1
+000000000000f7c4 t -[DDLog lt_log:]
+0000000000016b84 t -[DDLog lt_log:].cold.1
+000000000000f324 t -[DDLog lt_removeAllLoggers]
+0000000000016a88 t -[DDLog lt_removeAllLoggers].cold.1
+000000000000f114 t -[DDLog lt_removeLogger:]
+0000000000016a34 t -[DDLog lt_removeLogger:].cold.1
+000000000000e1b0 t -[DDLog queueLogMessage:asynchronously:]
+000000000000de74 t -[DDLog removeAllLoggers]
+000000000000dd78 t -[DDLog removeLogger:]
+000000000000fd70 t -[DDLog set_loggers:]
+000000000000a690 t -[DDLogFileFormatterDefault .cxx_destruct]
+000000000000a5e4 t -[DDLogFileFormatterDefault formatLogMessage:]
+000000000000a4bc t -[DDLogFileFormatterDefault initWithDateFormatter:]
+000000000000a4b4 t -[DDLogFileFormatterDefault init]
+000000000000d8ec t -[DDLogFileInfo .cxx_destruct]
+000000000000d5e8 t -[DDLogFileInfo addExtendedAttributeWithName:]
+000000000000d058 t -[DDLogFileInfo age]
+000000000000cf74 t -[DDLogFileInfo creationDate]
+000000000000d09c t -[DDLogFileInfo description]
+000000000000cdfc t -[DDLogFileInfo fileAttributes]
+000000000000cec0 t -[DDLogFileInfo fileName]
+000000000000d8e4 t -[DDLogFileInfo filePath]
+000000000000cfe0 t -[DDLogFileInfo fileSize]
+000000000000d540 t -[DDLogFileInfo hasExtendedAttributeWithName:]
+000000000000d7d4 t -[DDLogFileInfo hash]
+000000000000cd64 t -[DDLogFileInfo initWithFilePath:]
+0000000000016908 t -[DDLogFileInfo initWithFilePath:].cold.1
+000000000000d308 t -[DDLogFileInfo isArchived]
+000000000000d748 t -[DDLogFileInfo isEqual:]
+000000000000cf08 t -[DDLogFileInfo modificationDate]
+000000000000d694 t -[DDLogFileInfo removeExtendedAttributeWithName:]
+000000000000d378 t -[DDLogFileInfo renameFile:]
+000000000000d330 t -[DDLogFileInfo reset]
+000000000000d7dc t -[DDLogFileInfo reverseCompareByCreationDate:]
+000000000000d860 t -[DDLogFileInfo reverseCompareByModificationDate:]
+000000000000d314 t -[DDLogFileInfo setIsArchived:]
+000000000000a478 t -[DDLogFileManagerDefault .cxx_destruct]
+000000000000a368 t -[DDLogFileManagerDefault applicationName]
+0000000000016084 t -[DDLogFileManagerDefault applicationName].cold.1
+0000000000009f94 t -[DDLogFileManagerDefault createNewLogFileWithError:]
+00000000000091f8 t -[DDLogFileManagerDefault defaultLogsDirectory]
+0000000000008d80 t -[DDLogFileManagerDefault deleteOldFilesForConfigurationChange]
+0000000000008fe0 t -[DDLogFileManagerDefault deleteOldLogFiles]
+0000000000008b5c t -[DDLogFileManagerDefault initWithLogsDirectory:]
+0000000000008cbc t -[DDLogFileManagerDefault initWithLogsDirectory:defaultFileProtectionLevel:]
+0000000000008b54 t -[DDLogFileManagerDefault init]
+0000000000009330 t -[DDLogFileManagerDefault isLogFile:]
+00000000000093cc t -[DDLogFileManagerDefault logFileDateFormatter]
+0000000000009efc t -[DDLogFileManagerDefault logFileHeaderData]
+0000000000009ef4 t -[DDLogFileManagerDefault logFileHeader]
+0000000000008e5c t -[DDLogFileManagerDefault logFileProtection]
+000000000000a470 t -[DDLogFileManagerDefault logFilesDiskQuota]
+0000000000009270 t -[DDLogFileManagerDefault logsDirectory]
+0000000000016030 t -[DDLogFileManagerDefault logsDirectory].cold.1
+000000000000a468 t -[DDLogFileManagerDefault maximumNumberOfLogFiles]
+0000000000009e2c t -[DDLogFileManagerDefault newLogFileName]
+0000000000008e2c t -[DDLogFileManagerDefault setLogFilesDiskQuota:]
+0000000000008e44 t -[DDLogFileManagerDefault setMaximumNumberOfLogFiles:]
+0000000000009ae8 t -[DDLogFileManagerDefault sortedLogFileInfos]
+0000000000009994 t -[DDLogFileManagerDefault sortedLogFileNames]
+0000000000009840 t -[DDLogFileManagerDefault sortedLogFilePaths]
+00000000000096e4 t -[DDLogFileManagerDefault unsortedLogFileInfos]
+0000000000009590 t -[DDLogFileManagerDefault unsortedLogFileNames]
+00000000000093d4 t -[DDLogFileManagerDefault unsortedLogFilePaths]
+0000000000010670 t -[DDLogMessage .cxx_destruct]
+0000000000010610 t -[DDLogMessage context]
+0000000000010518 t -[DDLogMessage copyWithZone:]
+0000000000010620 t -[DDLogMessage fileName]
+0000000000010618 t -[DDLogMessage file]
+0000000000010608 t -[DDLogMessage flag]
+0000000000010628 t -[DDLogMessage function]
+0000000000010400 t -[DDLogMessage hash]
+000000000000ff5c t -[DDLogMessage initWithMessage:level:flag:context:file:function:line:tag:options:timestamp:]
+000000000000ff28 t -[DDLogMessage init]
+0000000000010248 t -[DDLogMessage isEqual:]
+0000000000010600 t -[DDLogMessage level]
+0000000000010630 t -[DDLogMessage line]
+00000000000105f8 t -[DDLogMessage message]
+0000000000010640 t -[DDLogMessage options]
+0000000000010668 t -[DDLogMessage qos]
+0000000000010660 t -[DDLogMessage queueLabel]
+0000000000010638 t -[DDLogMessage representedObject]
+00000000000105f0 t -[DDLogMessage tag]
+0000000000010650 t -[DDLogMessage threadID]
+0000000000010658 t -[DDLogMessage threadName]
+0000000000010648 t -[DDLogMessage timestamp]
+0000000000010cf0 t -[DDLoggerInformation .cxx_destruct]
+0000000000010c08 t -[DDLoggerInformation initWithLogger:andLevel:]
+0000000000010ce8 t -[DDLoggerInformation level]
+0000000000010ce0 t -[DDLoggerInformation logger]
+000000000000fef8 t -[DDLoggerNode .cxx_destruct]
+000000000000feac t -[DDLoggerNode dealloc]
+000000000000fd88 t -[DDLoggerNode initWithLogger:loggerQueue:level:]
+000000000000fee8 t -[DDLoggerNode level]
+000000000000fef0 t -[DDLoggerNode loggerQueue]
+000000000000fee0 t -[DDLoggerNode logger]
+00000000000141cc t -[DDLoggingContextSet .cxx_destruct]
+0000000000014044 t -[DDLoggingContextSet addToSet:]
+0000000000014114 t -[DDLoggingContextSet currentSet]
+0000000000013ffc t -[DDLoggingContextSet dealloc]
+0000000000013f88 t -[DDLoggingContextSet init]
+0000000000014158 t -[DDLoggingContextSet isInSet:]
+00000000000140ac t -[DDLoggingContextSet removeFromSet:]
+0000000000015ab0 t -[DDMultiFormatter .cxx_destruct]
+0000000000015844 t -[DDMultiFormatter addFormatter:]
+0000000000015420 t -[DDMultiFormatter formatLogMessage:]
+0000000000015754 t -[DDMultiFormatter formatters]
+0000000000015398 t -[DDMultiFormatter init]
+00000000000159c8 t -[DDMultiFormatter isFormattingWithFormatter:]
+0000000000015704 t -[DDMultiFormatter logMessageForLine:originalMessage:]
+0000000000015964 t -[DDMultiFormatter removeAllFormatters]
+00000000000158d4 t -[DDMultiFormatter removeFormatter:]
+00000000000111bc t -[DDOSLogger .cxx_destruct]
+0000000000011198 t -[DDOSLogger category]
+0000000000010e98 t -[DDOSLogger getLogger]
+0000000000010cfc t -[DDOSLogger initWithSubsystem:category:]
+0000000000016d7c t -[DDOSLogger initWithSubsystem:category:].cold.1
+0000000000010de8 t -[DDOSLogger init]
+0000000000010fc8 t -[DDOSLogger logMessage:]
+0000000000016de0 t -[DDOSLogger logMessage:].cold.1
+0000000000010fb8 t -[DDOSLogger loggerName]
+0000000000010f68 t -[DDOSLogger logger]
+00000000000111a8 t -[DDOSLogger setLogger:]
+0000000000011188 t -[DDOSLogger subsystem]
+000000000001387c t -[DDTTYLogger .cxx_destruct]
+000000000001385c t -[DDTTYLogger automaticallyAppendNewlineForCustomFormatters]
+000000000001311c t -[DDTTYLogger clearAllColors]
+0000000000017394 t -[DDTTYLogger clearAllColors].cold.1
+0000000000012df4 t -[DDTTYLogger clearColorsForAllFlags]
+00000000000172ec t -[DDTTYLogger clearColorsForAllFlags].cold.1
+0000000000012f88 t -[DDTTYLogger clearColorsForAllTags]
+0000000000017340 t -[DDTTYLogger clearColorsForAllTags].cold.1
+0000000000012934 t -[DDTTYLogger clearColorsForFlag:]
+000000000001293c t -[DDTTYLogger clearColorsForFlag:context:]
+00000000000171f0 t -[DDTTYLogger clearColorsForFlag:context:].cold.1
+0000000000012c14 t -[DDTTYLogger clearColorsForTag:]
+0000000000017244 t -[DDTTYLogger clearColorsForTag:].cold.1
+0000000000017298 t -[DDTTYLogger clearColorsForTag:].cold.2
+0000000000011f48 t -[DDTTYLogger colorsEnabled]
+0000000000016fa4 t -[DDTTYLogger colorsEnabled].cold.1
+0000000000016ff8 t -[DDTTYLogger colorsEnabled].cold.2
+0000000000011c08 t -[DDTTYLogger init]
+0000000000011e8c t -[DDTTYLogger loadDefaultColorProfiles]
+00000000000132c4 t -[DDTTYLogger logMessage:]
+0000000000011e7c t -[DDTTYLogger loggerName]
+000000000001386c t -[DDTTYLogger setAutomaticallyAppendNewlineForCustomFormatters:]
+00000000000120c0 t -[DDTTYLogger setColorsEnabled:]
+000000000001704c t -[DDTTYLogger setColorsEnabled:].cold.1
+00000000000170a0 t -[DDTTYLogger setColorsEnabled:].cold.2
+0000000000012270 t -[DDTTYLogger setForegroundColor:backgroundColor:forFlag:]
+0000000000012278 t -[DDTTYLogger setForegroundColor:backgroundColor:forFlag:context:]
+00000000000170f4 t -[DDTTYLogger setForegroundColor:backgroundColor:forFlag:context:].cold.1
+000000000001264c t -[DDTTYLogger setForegroundColor:backgroundColor:forTag:]
+0000000000017148 t -[DDTTYLogger setForegroundColor:backgroundColor:forTag:].cold.1
+000000000001719c t -[DDTTYLogger setForegroundColor:backgroundColor:forTag:].cold.2
+0000000000013d30 t -[DDTTYLoggerColorProfile .cxx_destruct]
+0000000000013cc4 t -[DDTTYLoggerColorProfile description]
+00000000000138e4 t -[DDTTYLoggerColorProfile initWithForegroundColor:backgroundColor:flag:context:]
+000000000002a55c t -[NTPReferenceTime .cxx_destruct]
+000000000002a3a8 t -[NTPReferenceTime description]
+000000000002a52c t -[NTPReferenceTime init]
+000000000002a158 t -[NTPReferenceTime now]
+0000000000029e8c t -[NTPReferenceTime time]
+0000000000029d94 t -[NTPReferenceTime uptimeInterval]
+0000000000029fe8 t -[NTPReferenceTime uptime]
+000000000002abf0 t -[_TtC8TrueTime14TrueTimeClient .cxx_destruct]
+000000000002ad80 t -[_TtC8TrueTime14TrueTimeClient fetchFirstIfNeededWithSuccess:failure:]
+000000000002b1b8 t -[_TtC8TrueTime14TrueTimeClient fetchFirstIfNeededWithSuccess:failure:onQueue:]
+000000000002b05c t -[_TtC8TrueTime14TrueTimeClient fetchIfNeededWithSuccess:failure:]
+000000000002b304 t -[_TtC8TrueTime14TrueTimeClient fetchIfNeededWithSuccess:failure:onQueue:]
+000000000002a888 t -[_TtC8TrueTime14TrueTimeClient initWithTimeout:maxRetries:maxConnections:maxServers:numberOfSamples:pollInterval:]
+000000000002abc4 t -[_TtC8TrueTime14TrueTimeClient init]
+000000000002ab20 t -[_TtC8TrueTime14TrueTimeClient maxConnections]
+000000000002aaf8 t -[_TtC8TrueTime14TrueTimeClient maxRetries]
+000000000002ab48 t -[_TtC8TrueTime14TrueTimeClient maxServers]
+000000000002ab70 t -[_TtC8TrueTime14TrueTimeClient numberOfSamples]
+000000000002aa0c t -[_TtC8TrueTime14TrueTimeClient pause]
+000000000002aa68 t -[_TtC8TrueTime14TrueTimeClient referenceTime]
+000000000002a978 t -[_TtC8TrueTime14TrueTimeClient startWithPool:port:]
+000000000002aad8 t -[_TtC8TrueTime14TrueTimeClient timeout]
+0000000000027f10 t <redacted function 1000>
+0000000000027f3c t <redacted function 1002>
+0000000000027fcc t <redacted function 1003>
+000000000002807c t <redacted function 1004>
+0000000000028084 t <redacted function 1005>
+000000000002808c t <redacted function 1006>
+000000000002809c t <redacted function 1007>
+00000000000280a0 t <redacted function 1008>
+00000000000280e0 t <redacted function 1009>
+00000000000282b4 t <redacted function 1010>
+00000000000282f4 t <redacted function 1011>
+0000000000028350 t <redacted function 1012>
+00000000000283a4 t <redacted function 1013>
+00000000000283e8 t <redacted function 1014>
+000000000002840c t <redacted function 1015>
+0000000000028430 t <redacted function 1018>
+0000000000028474 t <redacted function 1019>
+00000000000284c4 t <redacted function 1020>
+00000000000285a8 t <redacted function 1021>
+00000000000285f0 t <redacted function 1022>
+00000000000286a8 t <redacted function 1023>
+000000000002883c t <redacted function 1024>
+00000000000288e8 t <redacted function 1025>
+00000000000289cc t <redacted function 1026>
+00000000000289d8 t <redacted function 1027>
+0000000000028a64 t <redacted function 1028>
+0000000000028a70 t <redacted function 1029>
+0000000000028aec t <redacted function 1030>
+0000000000028b00 t <redacted function 1031>
+0000000000028b98 t <redacted function 1032>
+0000000000028c20 t <redacted function 1033>
+0000000000028c54 t <redacted function 1034>
+0000000000028cb0 t <redacted function 1035>
+0000000000028d1c t <redacted function 1036>
+0000000000028d78 t <redacted function 1037>
+0000000000028de4 t <redacted function 1038>
+0000000000028df0 t <redacted function 1039>
+0000000000028e2c t <redacted function 1040>
+0000000000028e38 t <redacted function 1041>
+0000000000028e78 t <redacted function 1042>
+0000000000028e8c t <redacted function 1043>
+0000000000028ebc t <redacted function 1044>
+0000000000028f2c t <redacted function 1045>
+0000000000029000 t <redacted function 1046>
+0000000000029004 t <redacted function 1047>
+000000000002903c t <redacted function 1048>
+0000000000029050 t <redacted function 1049>
+0000000000029104 t <redacted function 1050>
+0000000000029108 t <redacted function 1051>
+0000000000029120 t <redacted function 1053>
+0000000000029168 t <redacted function 1054>
+00000000000291b4 t <redacted function 1055>
+00000000000291bc t <redacted function 1056>
+00000000000291c8 t <redacted function 1057>
+00000000000291d8 t <redacted function 1058>
+00000000000293c0 t <redacted function 1059>
+0000000000029460 t <redacted function 1060>
+0000000000029554 t <redacted function 1061>
+0000000000029624 t <redacted function 1062>
+0000000000029714 t <redacted function 1063>
+00000000000298a8 t <redacted function 1064>
+00000000000298ac t <redacted function 1065>
+00000000000298ec t <redacted function 1066>
+0000000000029a34 t <redacted function 1067>
+0000000000029ba4 t <redacted function 1068>
+0000000000029bf8 t <redacted function 1069>
+0000000000029c4c t <redacted function 1070>
+0000000000029c6c t <redacted function 1071>
+0000000000029ca4 t <redacted function 1073>
+0000000000029cb8 t <redacted function 1074>
+0000000000029cfc t <redacted function 1075>
+0000000000029d24 t <redacted function 1076>
+0000000000029d64 t <redacted function 1077>
+000000000002a56c t <redacted function 1094>
+000000000002b450 t <redacted function 1129>
+000000000002b4dc t <redacted function 1130>
+000000000002b4f0 t <redacted function 1131>
+000000000002b6b8 t <redacted function 1132>
+000000000002b6c8 t <redacted function 1133>
+000000000002b70c t <redacted function 1134>
+000000000002b748 t <redacted function 1135>
+000000000002b74c t <redacted function 1136>
+000000000002b750 t <redacted function 1137>
+000000000002b754 t <redacted function 1138>
+000000000002b7e4 t <redacted function 1142>
+000000000002b808 t <redacted function 1143>
+000000000002b854 t <redacted function 1145>
+000000000002b890 t <redacted function 1146>
+000000000002b8b4 t <redacted function 1147>
+000000000002b8bc t <redacted function 1148>
+000000000002b8cc t <redacted function 1149>
+000000000002b904 t <redacted function 1152>
+000000000002b914 t <redacted function 1153>
+000000000002b958 t <redacted function 1154>
+000000000002b9a8 t <redacted function 1155>
+000000000002b9ec t <redacted function 1156>
+000000000002b9f4 t <redacted function 1157>
+000000000002ba44 t <redacted function 1158>
+000000000002ba8c t <redacted function 1159>
+000000000002bae0 t <redacted function 1161>
+000000000002bae4 t <redacted function 1162>
+000000000002bae8 t <redacted function 1163>
+000000000002baec t <redacted function 1164>
+000000000002baf0 t <redacted function 1165>
+000000000002baf4 t <redacted function 1166>
+000000000002baf8 t <redacted function 1167>
+000000000002bafc t <redacted function 1168>
+000000000002bb04 t <redacted function 1170>
+000000000002bb08 t <redacted function 1171>
+000000000002bb0c t <redacted function 1172>
+000000000002bb10 t <redacted function 1173>
+000000000002bb14 t <redacted function 1174>
+000000000002bb18 t <redacted function 1175>
+000000000002bb1c t <redacted function 1176>
+000000000002bb20 t <redacted function 1177>
+000000000002bb28 t <redacted function 1179>
+000000000002bb30 t <redacted function 1181>
+000000000002bb34 t <redacted function 1182>
+00000000000055b8 t <redacted function 15>
+000000000000564c t <redacted function 19>
+000000000000568c t <redacted function 20>
+00000000000056d4 t <redacted function 21>
+0000000000005e34 t <redacted function 27>
+0000000000005e40 t <redacted function 28>
+0000000000005e50 t <redacted function 29>
+0000000000005e74 t <redacted function 30>
+0000000000005eb4 t <redacted function 31>
+0000000000005edc t <redacted function 32>
+0000000000005f34 t <redacted function 33>
+0000000000006038 t <redacted function 34>
+0000000000006114 t <redacted function 35>
+0000000000006164 t <redacted function 36>
+0000000000006180 t <redacted function 37>
+00000000000061b4 t <redacted function 38>
+0000000000006268 t <redacted function 39>
+0000000000006288 t <redacted function 40>
+000000000000632c t <redacted function 42>
+000000000000639c t <redacted function 43>
+0000000000006540 t <redacted function 44>
+0000000000006564 t <redacted function 45>
+000000000000656c t <redacted function 46>
+0000000000006578 t <redacted function 47>
+00000000000065a4 t <redacted function 48>
+00000000000065ac t <redacted function 49>
+0000000000006604 t <redacted function 51>
+0000000000006640 t <redacted function 52>
+0000000000006688 t <redacted function 53>
+00000000000066d4 t <redacted function 55>
+00000000000066d8 t <redacted function 56>
+0000000000006778 t <redacted function 57>
+0000000000006788 t <redacted function 58>
+0000000000006798 t <redacted function 59>
+00000000000067b8 t <redacted function 60>
+00000000000174dc t <redacted function 624>
+00000000000174f0 t <redacted function 625>
+0000000000017514 t <redacted function 628>
+0000000000017528 t <redacted function 629>
+0000000000006810 t <redacted function 62>
+000000000001753c t <redacted function 630>
+0000000000017550 t <redacted function 631>
+0000000000017564 t <redacted function 632>
+0000000000017584 t <redacted function 633>
+00000000000175ac t <redacted function 634>
+00000000000175c0 t <redacted function 635>
+00000000000175d4 t <redacted function 636>
+00000000000175f4 t <redacted function 638>
+000000000001761c t <redacted function 640>
+000000000001763c t <redacted function 641>
+000000000001766c t <redacted function 642>
+0000000000017680 t <redacted function 643>
+00000000000176c0 t <redacted function 645>
+00000000000176e0 t <redacted function 646>
+0000000000017718 t <redacted function 647>
+0000000000017738 t <redacted function 649>
+0000000000017758 t <redacted function 650>
+0000000000017780 t <redacted function 651>
+00000000000177a0 t <redacted function 653>
+00000000000177c0 t <redacted function 654>
+00000000000177e8 t <redacted function 655>
+00000000000177fc t <redacted function 656>
+000000000001782c t <redacted function 657>
+000000000001783c t <redacted function 658>
+000000000001784c t <redacted function 659>
+0000000000017864 t <redacted function 661>
+0000000000017878 t <redacted function 662>
+000000000001788c t <redacted function 663>
+00000000000178a0 t <redacted function 664>
+00000000000178e4 t <redacted function 665>
+00000000000178e8 t <redacted function 666>
+00000000000178ec t <redacted function 667>
+00000000000178f0 t <redacted function 668>
+00000000000178f4 t <redacted function 669>
+00000000000178f8 t <redacted function 670>
+0000000000017974 t <redacted function 671>
+00000000000179bc t <redacted function 672>
+00000000000179c8 t <redacted function 673>
+0000000000017d3c t <redacted function 674>
+0000000000017f20 t <redacted function 675>
+0000000000017f6c t <redacted function 676>
+0000000000017f8c t <redacted function 677>
+0000000000017fac t <redacted function 678>
+0000000000017fbc t <redacted function 679>
+0000000000018140 t <redacted function 680>
+00000000000181b4 t <redacted function 684>
+00000000000183d0 t <redacted function 685>
+0000000000018860 t <redacted function 686>
+0000000000018cf0 t <redacted function 687>
+0000000000018fc8 t <redacted function 688>
+00000000000190c0 t <redacted function 689>
+00000000000192c8 t <redacted function 690>
+0000000000019318 t <redacted function 691>
+0000000000019348 t <redacted function 692>
+0000000000019354 t <redacted function 693>
+000000000001937c t <redacted function 694>
+0000000000019388 t <redacted function 695>
+0000000000019390 t <redacted function 696>
+00000000000193a0 t <redacted function 697>
+00000000000193a8 t <redacted function 698>
+0000000000019824 t <redacted function 699>
+00000000000199d8 t <redacted function 700>
+0000000000019a04 t <redacted function 701>
+0000000000019a08 t <redacted function 702>
+0000000000019ac4 t <redacted function 703>
+0000000000019b08 t <redacted function 704>
+0000000000019b50 t <redacted function 705>
+0000000000019bb8 t <redacted function 706>
+0000000000019bc0 t <redacted function 707>
+0000000000019bec t <redacted function 708>
+0000000000019bf4 t <redacted function 709>
+0000000000019cd0 t <redacted function 710>
+0000000000019d2c t <redacted function 711>
+0000000000019dac t <redacted function 712>
+0000000000019e2c t <redacted function 713>
+0000000000019e6c t <redacted function 714>
+0000000000019eac t <redacted function 715>
+0000000000019ec0 t <redacted function 716>
+0000000000019fb8 t <redacted function 717>
+0000000000019ffc t <redacted function 718>
+000000000001a034 t <redacted function 719>
+000000000001a074 t <redacted function 720>
+000000000001a084 t <redacted function 721>
+000000000001a0c4 t <redacted function 722>
+000000000001a108 t <redacted function 723>
+000000000001a110 t <redacted function 724>
+000000000001a158 t <redacted function 725>
+000000000001a264 t <redacted function 738>
+000000000001a43c t <redacted function 739>
+000000000001a644 t <redacted function 740>
+000000000001a694 t <redacted function 741>
+000000000001a75c t <redacted function 745>
+000000000001a9f4 t <redacted function 746>
+000000000001abfc t <redacted function 747>
+000000000001aca4 t <redacted function 748>
+000000000001ad84 t <redacted function 749>
+000000000001b280 t <redacted function 750>
+000000000001b464 t <redacted function 751>
+000000000001b51c t <redacted function 752>
+000000000001b70c t <redacted function 753>
+000000000001b93c t <redacted function 754>
+000000000001bf48 t <redacted function 755>
+000000000001c018 t <redacted function 756>
+000000000001c074 t <redacted function 757>
+000000000001c094 t <redacted function 758>
+000000000001c0c8 t <redacted function 760>
+000000000001c0d8 t <redacted function 761>
+000000000001c124 t <redacted function 762>
+000000000001c14c t <redacted function 765>
+000000000001c528 t <redacted function 766>
+000000000001c974 t <redacted function 767>
+000000000001c9ec t <redacted function 768>
+000000000001ca78 t <redacted function 769>
+000000000001d708 t <redacted function 770>
+000000000001db6c t <redacted function 771>
+000000000001dbac t <redacted function 772>
+000000000001dd54 t <redacted function 773>
+000000000001de68 t <redacted function 774>
+000000000001dfc0 t <redacted function 775>
+000000000001e12c t <redacted function 776>
+000000000001e3d0 t <redacted function 777>
+000000000001e41c t <redacted function 778>
+000000000001e56c t <redacted function 779>
+000000000001e7b4 t <redacted function 780>
+000000000001e7b8 t <redacted function 781>
+000000000001e7bc t <redacted function 782>
+000000000001e7e0 t <redacted function 783>
+000000000001e80c t <redacted function 784>
+000000000001e844 t <redacted function 786>
+000000000001e870 t <redacted function 787>
+000000000001e874 t <redacted function 788>
+000000000001e878 t <redacted function 789>
+000000000001e8cc t <redacted function 790>
+000000000001e8d4 t <redacted function 791>
+000000000001e8e4 t <redacted function 792>
+000000000001e948 t <redacted function 794>
+000000000001e94c t <redacted function 795>
+000000000001e978 t <redacted function 796>
+000000000001e97c t <redacted function 797>
+000000000001e98c t <redacted function 798>
+000000000001e9d0 t <redacted function 799>
+000000000001eadc t <redacted function 800>
+000000000001eb00 t <redacted function 801>
+000000000001eb34 t <redacted function 802>
+000000000001eb40 t <redacted function 803>
+000000000001eb90 t <redacted function 804>
+000000000001eb98 t <redacted function 805>
+000000000001ebd8 t <redacted function 806>
+000000000001ec1c t <redacted function 807>
+000000000001ec60 t <redacted function 808>
+000000000001ecd8 t <redacted function 810>
+000000000001ed1c t <redacted function 811>
+000000000001ed48 t <redacted function 812>
+000000000001ed60 t <redacted function 813>
+000000000001eecc t <redacted function 815>
+000000000001eef8 t <redacted function 816>
+000000000001ef04 t <redacted function 817>
+000000000001ef08 t <redacted function 818>
+000000000001ef3c t <redacted function 820>
+000000000001ef48 t <redacted function 821>
+000000000001ef74 t <redacted function 832>
+000000000001ef78 t <redacted function 833>
+000000000001ef7c t <redacted function 834>
+000000000001ef80 t <redacted function 835>
+000000000001ef84 t <redacted function 836>
+000000000001ef88 t <redacted function 837>
+000000000001ef8c t <redacted function 838>
+000000000001ef90 t <redacted function 839>
+000000000001ef94 t <redacted function 840>
+000000000001efc0 t <redacted function 851>
+000000000001efc4 t <redacted function 852>
+000000000001efc8 t <redacted function 853>
+000000000001f2a0 t <redacted function 854>
+000000000001f30c t <redacted function 855>
+000000000001fa20 t <redacted function 856>
+000000000001fc3c t <redacted function 857>
+000000000001fc88 t <redacted function 858>
+000000000001fca8 t <redacted function 859>
+000000000001fcc8 t <redacted function 860>
+000000000001fe90 t <redacted function 861>
+000000000001fff8 t <redacted function 862>
+0000000000020218 t <redacted function 863>
+00000000000203fc t <redacted function 864>
+000000000002046c t <redacted function 865>
+00000000000205d8 t <redacted function 866>
+0000000000020944 t <redacted function 867>
+0000000000020d4c t <redacted function 868>
+000000000002145c t <redacted function 869>
+0000000000021478 t <redacted function 870>
+0000000000021494 t <redacted function 871>
+00000000000214b0 t <redacted function 872>
+00000000000214cc t <redacted function 873>
+00000000000214e8 t <redacted function 874>
+0000000000021504 t <redacted function 875>
+0000000000021530 t <redacted function 876>
+000000000002155c t <redacted function 877>
+0000000000021658 t <redacted function 878>
+0000000000021760 t <redacted function 879>
+00000000000218a4 t <redacted function 880>
+00000000000219c4 t <redacted function 881>
+0000000000021b40 t <redacted function 882>
+0000000000021cd4 t <redacted function 883>
+0000000000021e04 t <redacted function 884>
+0000000000021f14 t <redacted function 887>
+0000000000021f24 t <redacted function 888>
+0000000000022698 t <redacted function 889>
+00000000000226c4 t <redacted function 890>
+00000000000226f0 t <redacted function 891>
+00000000000226fc t <redacted function 892>
+0000000000022730 t <redacted function 893>
+0000000000022744 t <redacted function 894>
+0000000000022768 t <redacted function 895>
+00000000000227a0 t <redacted function 896>
+00000000000227a4 t <redacted function 897>
+00000000000227b0 t <redacted function 898>
+0000000000022878 t <redacted function 899>
+0000000000004434 t <redacted function 8>
+00000000000228c8 t <redacted function 900>
+000000000002294c t <redacted function 902>
+0000000000022a58 t <redacted function 903>
+0000000000022a84 t <redacted function 904>
+0000000000022a94 t <redacted function 905>
+0000000000022a9c t <redacted function 906>
+0000000000022b50 t <redacted function 907>
+0000000000022bc8 t <redacted function 908>
+0000000000022c48 t <redacted function 909>
+0000000000022cc8 t <redacted function 917>
+0000000000022ccc t <redacted function 918>
+0000000000022cd0 t <redacted function 919>
+0000000000022cf0 t <redacted function 927>
+0000000000022cf4 t <redacted function 928>
+0000000000022e50 t <redacted function 930>
+0000000000023148 t <redacted function 933>
+00000000000231d8 t <redacted function 935>
+0000000000023258 t <redacted function 936>
+0000000000023388 t <redacted function 937>
+00000000000233a8 t <redacted function 938>
+00000000000235fc t <redacted function 939>
+000000000002361c t <redacted function 940>
+0000000000023abc t <redacted function 941>
+0000000000023ac0 t <redacted function 942>
+00000000000245f4 t <redacted function 944>
+00000000000245f8 t <redacted function 945>
+00000000000247c4 t <redacted function 947>
+00000000000247cc t <redacted function 948>
+0000000000024a1c t <redacted function 949>
+0000000000024a80 t <redacted function 950>
+0000000000024b34 t <redacted function 951>
+0000000000024c30 t <redacted function 952>
+0000000000024d74 t <redacted function 953>
+0000000000024e9c t <redacted function 954>
+0000000000024f9c t <redacted function 955>
+0000000000025118 t <redacted function 956>
+00000000000252ac t <redacted function 957>
+00000000000253a4 t <redacted function 958>
+00000000000253f0 t <redacted function 959>
+00000000000254fc t <redacted function 960>
+00000000000255fc t <redacted function 961>
+000000000002570c t <redacted function 962>
+000000000002574c t <redacted function 963>
+0000000000025750 t <redacted function 964>
+0000000000025790 t <redacted function 965>
+00000000000257cc t <redacted function 966>
+00000000000257d0 t <redacted function 967>
+0000000000025810 t <redacted function 968>
+0000000000025860 t <redacted function 969>
+0000000000025870 t <redacted function 970>
+0000000000025970 t <redacted function 971>
+00000000000259b4 t <redacted function 972>
+0000000000025f1c t <redacted function 973>
+0000000000025fd0 t <redacted function 974>
+0000000000026110 t <redacted function 975>
+00000000000261a8 t <redacted function 976>
+0000000000026308 t <redacted function 977>
+0000000000026358 t <redacted function 978>
+00000000000263a8 t <redacted function 979>
+00000000000263f0 t <redacted function 980>
+0000000000026470 t <redacted function 981>
+0000000000026578 t <redacted function 982>
+0000000000026ef4 t <redacted function 983>
+00000000000272ac t <redacted function 984>
+0000000000027530 t <redacted function 985>
+0000000000027a30 t <redacted function 986>
+0000000000027ab8 t <redacted function 987>
+0000000000027b68 t <redacted function 988>
+0000000000027b7c t <redacted function 989>
+0000000000027bb4 t <redacted function 991>
+0000000000027bd4 t <redacted function 992>
+0000000000027c10 t <redacted function 993>
+0000000000027c20 t <redacted function 994>
+0000000000027dd8 t <redacted function 995>
+0000000000027dec t <redacted function 996>
+0000000000027e30 t <redacted function 997>
+0000000000027e58 t <redacted function 998>
+0000000000027e98 t <redacted function 999>
+000000000003a480 s GCC_except_table110
+000000000003a3f0 s GCC_except_table43
+000000000003a420 s GCC_except_table53
+000000000003a450 s GCC_except_table59
+000000000003a3dc s GCC_except_table7
+000000000003a468 s GCC_except_table76
+0000000000004484 T _$s20CocoaLumberjackSwift10DDLogDebug_5level7context4file8function4line3tag12asynchronous5ddlogyypyXK_So0D5LevelVSis12StaticStringVANSuypSgSbSo0D0CtF
+0000000000005074 T _$s20CocoaLumberjackSwift10DDLogError_5level7context4file8function4line3tag12asynchronous5ddlogyypyXK_So0D5LevelVSis12StaticStringVANSuypSgSbSo0D0CtF
+0000000000004d78 T _$s20CocoaLumberjackSwift12DDLogVerbose_5level7context4file8function4line3tag12asynchronous5ddlogyypyXK_So0D5LevelVSis12StaticStringVANSuypSgSbSo0D0CtF
+00000000000040e4 T _$s20CocoaLumberjackSwift13_DDLogMessage_5level4flag7context4file8function4line3tag12asynchronous5ddlogyypyXK_So0D5LevelVSo0D4FlagVSis12StaticStringVAQSuypSgSbSo0D0CtF
+0000000000005604 T _$s20CocoaLumberjackSwift15CurrentFileNameySSs12StaticStringVF
+0000000000005370 T _$s20CocoaLumberjackSwift15currentFileNameySSs12StaticStringVF
+0000000000004004 T _$s20CocoaLumberjackSwift15dynamicLogLevelSo05DDLogF0Vvau
+0000000000049230 D _$s20CocoaLumberjackSwift15dynamicLogLevelSo05DDLogF0Vvp
+0000000000004054 T _$s20CocoaLumberjackSwift17defaultDebugLevelSo05DDLogF0Vvg
+0000000000004094 T _$s20CocoaLumberjackSwift17defaultDebugLevelSo05DDLogF0Vvs
+0000000000005a38 T _$s20CocoaLumberjackSwift18DDAssertionFailure_5level7context4file8function4line3tag12asynchronous5ddlogySSyXK_So10DDLogLevelVSis12StaticStringVANSuypSgSbSo0N0CtF
+00000000000040d8 T _$s20CocoaLumberjackSwift19asyncLoggingEnabledSbvau
+0000000000049238 D _$s20CocoaLumberjackSwift19asyncLoggingEnabledSbvp
+0000000000004010 T _$s20CocoaLumberjackSwift20resetDynamicLogLevelyyF
+0000000000005724 T _$s20CocoaLumberjackSwift22resetDefaultDebugLevelyyF
+0000000000005728 T _$s20CocoaLumberjackSwift8DDAssert__5level7context4file8function4line3tag12asynchronous5ddlogySbyXK_SSyXKSo10DDLogLevelVSis12StaticStringVANSuypSgSbSo0M0CtF
+0000000000004780 T _$s20CocoaLumberjackSwift9DDLogInfo_5level7context4file8function4line3tag12asynchronous5ddlogyypyXK_So0D5LevelVSis12StaticStringVANSuypSgSbSo0D0CtF
+0000000000004a7c T _$s20CocoaLumberjackSwift9DDLogWarn_5level7context4file8function4line3tag12asynchronous5ddlogyypyXK_So0D5LevelVSis12StaticStringVANSuypSgSbSo0D0CtF
+00000000000062a8 T _$s7Combine9PublisherP20CocoaLumberjackSwiftSo12DDLogMessageC6OutputRtzrlE9formatted4withAA10PublishersO10CompactMapVy_xSSGSo0F9Formatter_p_tF
+000000000002a400 T _$s8TrueTime09ReferenceB0C11descriptionSSvg
+0000000000029e1c T _$s8TrueTime09ReferenceB0C14uptimeIntervalSdvg
+00000000000339d0 S _$s8TrueTime09ReferenceB0C14uptimeIntervalSdvpMV
+000000000002a0e8 T _$s8TrueTime09ReferenceB0C3now10Foundation4DateVyF
+0000000000029f78 T _$s8TrueTime09ReferenceB0C4time10Foundation4DateVvg
+00000000000339d0 S _$s8TrueTime09ReferenceB0C4time10Foundation4DateVvpMV
+000000000002a23c T _$s8TrueTime09ReferenceB0C4time6uptimeAC10Foundation4DateV_So7timevalVtcfC
+000000000002a070 T _$s8TrueTime09ReferenceB0C6uptimeSo7timevalVvg
+00000000000339d0 S _$s8TrueTime09ReferenceB0C6uptimeSo7timevalVvpMV
+000000000002a4e0 T _$s8TrueTime09ReferenceB0CACycfC
+000000000002a500 T _$s8TrueTime09ReferenceB0CACycfc
+000000000002b7a4 T _$s8TrueTime09ReferenceB0CMa
+00000000000374a0 S _$s8TrueTime09ReferenceB0CMn
+0000000000049108 S _$s8TrueTime09ReferenceB0CN
+000000000002a558 T _$s8TrueTime09ReferenceB0CfD
+000000000001a750 T _$s8TrueTime0aB11ErrorDomainSSvau
+0000000000041de0 S _$s8TrueTime0aB11ErrorDomainSSvp
+00000000000245fc T _$s8TrueTime0aB5ErrorO11descriptionSSvg
+0000000000033534 S _$s8TrueTime0aB5ErrorO11descriptionSSvpMV
+0000000000029c8c T _$s8TrueTime0aB5ErrorO8rawValueACSgSi_tcfC
+0000000000004000 T _$s8TrueTime0aB5ErrorO8rawValueSivg
+00000000000339d0 S _$s8TrueTime0aB5ErrorO8rawValueSivpMV
+000000000002b794 T _$s8TrueTime0aB5ErrorOMa
+0000000000037484 S _$s8TrueTime0aB5ErrorOMn
+00000000000429b0 S _$s8TrueTime0aB5ErrorON
+0000000000033958 S _$s8TrueTime0aB5ErrorOSHAAMc
+0000000000033930 S _$s8TrueTime0aB5ErrorOSQAAMc
+0000000000033998 S _$s8TrueTime0aB5ErrorOSYAAMc
+000000000003350c S _$s8TrueTime0aB5ErrorOs23CustomStringConvertibleAAMc
+000000000002aaac T _$s8TrueTime0aB6ClientC09referenceB0AA09ReferenceB0CSgvg
+00000000000339d0 S _$s8TrueTime0aB6ClientC09referenceB0AA09ReferenceB0CSgvpMV
+000000000002ab0c T _$s8TrueTime0aB6ClientC10maxRetriesSivg
+00000000000339d0 S _$s8TrueTime0aB6ClientC10maxRetriesSivpMV
+000000000002ab5c T _$s8TrueTime0aB6ClientC10maxServersSivg
+00000000000339d0 S _$s8TrueTime0aB6ClientC10maxServersSivpMV
+000000000002aa40 T _$s8TrueTime0aB6ClientC13fetchIfNeeded5queue5first10completionySo012OS_dispatch_G0C_ys6ResultOyAA09ReferenceB0CSo7NSErrorCGcSgAQtF
+000000000002afa8 T _$s8TrueTime0aB6ClientC13fetchIfNeeded7success7failure7onQueueyyAA09ReferenceB0Cc_ySo7NSErrorCcSgSo17OS_dispatch_queueCtF
+000000000002aedc T _$s8TrueTime0aB6ClientC13fetchIfNeeded7success7failureyyAA09ReferenceB0Cc_ySo7NSErrorCcSgtF
+000000000002ab34 T _$s8TrueTime0aB6ClientC14maxConnectionsSivg
+00000000000339d0 S _$s8TrueTime0aB6ClientC14maxConnectionsSivpMV
+000000000002a6fc T _$s8TrueTime0aB6ClientC14sharedInstanceACvau
+000000000002a73c T _$s8TrueTime0aB6ClientC14sharedInstanceACvgZ
+000000000004b020 S _$s8TrueTime0aB6ClientC14sharedInstanceACvpZ
+00000000000339d0 S _$s8TrueTime0aB6ClientC14sharedInstanceACvpZMV
+000000000002ab84 T _$s8TrueTime0aB6ClientC15numberOfSamplesSivg
+00000000000339d0 S _$s8TrueTime0aB6ClientC15numberOfSamplesSivpMV
+000000000002accc T _$s8TrueTime0aB6ClientC18fetchFirstIfNeeded7success7failure7onQueueyyAA09ReferenceB0Cc_ySo7NSErrorCcSgSo17OS_dispatch_queueCtF
+000000000002ac00 T _$s8TrueTime0aB6ClientC18fetchFirstIfNeeded7success7failureyyAA09ReferenceB0Cc_ySo7NSErrorCcSgtF
+000000000002a9e4 T _$s8TrueTime0aB6ClientC5pauseyyF
+000000000002a950 T _$s8TrueTime0aB6ClientC5start4pool4portySaySSG_SitF
+000000000002a630 T _$s8TrueTime0aB6ClientC7timeout10maxRetries0E11Connections0E7Servers15numberOfSamples12pollIntervalACSd_S4iSdtcfC
+0000000000037510 S _$s8TrueTime0aB6ClientC7timeout10maxRetries0E11Connections0E7Servers15numberOfSamples12pollIntervalACSd_S4iSdtcfCTq
+000000000002a7bc T _$s8TrueTime0aB6ClientC7timeout10maxRetries0E11Connections0E7Servers15numberOfSamples12pollIntervalACSd_S4iSdtcfc
+000000000002aae8 T _$s8TrueTime0aB6ClientC7timeoutSdvg
+00000000000339d0 S _$s8TrueTime0aB6ClientC7timeoutSdvpMV
+000000000002bb24 T _$s8TrueTime0aB6ClientCACycfC
+000000000002ab98 T _$s8TrueTime0aB6ClientCACycfc
+000000000002b7c4 T _$s8TrueTime0aB6ClientCMa
+00000000000374dc S _$s8TrueTime0aB6ClientCMn
+00000000000491c8 S _$s8TrueTime0aB6ClientCN
+000000000002bb00 T _$s8TrueTime0aB6ClientCfD
+0000000000023154 T _$sSo11sockaddr_inV8TrueTimeE11descriptionSSvg
+0000000000033534 S _$sSo11sockaddr_inV8TrueTimeE11descriptionSSvpMV
+00000000000334b4 S _$sSo11sockaddr_inVs23CustomStringConvertible8TrueTimeMc
+0000000000023cfc T _$sSo12ntp_packet_ta8TrueTimeE11descriptionSSvg
+0000000000033534 S _$sSo12ntp_packet_ta8TrueTimeE11descriptionSSvpMV
+00000000000334e0 S _$sSo12ntp_packet_tas23CustomStringConvertible8TrueTimeMc
+0000000000023038 T _$sSo12sockaddr_in6V8TrueTimeE11descriptionSSvg
+0000000000033534 S _$sSo12sockaddr_in6V8TrueTimeE11descriptionSSvpMV
+0000000000033488 S _$sSo12sockaddr_in6Vs23CustomStringConvertible8TrueTimeMc
+000000000001a6d0 T _$sSo18NSNotificationNamea8TrueTimeE0cD7UpdatedABvau
+000000000001a710 T _$sSo18NSNotificationNamea8TrueTimeE0cD7UpdatedABvgZ
+000000000004b018 S _$sSo18NSNotificationNamea8TrueTimeE0cD7UpdatedABvpZ
+0000000000004000 T _$sSo5DDLogC20CocoaLumberjackSwiftE16MessagePublisherV3log4withAeB_So0A5LevelVtcfC
+0000000000032980 S _$sSo5DDLogC20CocoaLumberjackSwiftE16MessagePublisherV7Combine0F0ACMc
+0000000000005d6c T _$sSo5DDLogC20CocoaLumberjackSwiftE16MessagePublisherV7receive10subscriberyx_t7Combine10SubscriberRzs5NeverO7FailureRtzSo0aE0C5InputRtzlF
+00000000000066c4 T _$sSo5DDLogC20CocoaLumberjackSwiftE16MessagePublisherVMa
+0000000000036dfc S _$sSo5DDLogC20CocoaLumberjackSwiftE16MessagePublisherVMn
+0000000000040e10 S _$sSo5DDLogC20CocoaLumberjackSwiftE16MessagePublisherVN
+0000000000005d40 T _$sSo5DDLogC20CocoaLumberjackSwiftE16messagePublisher4withAbCE07MessageF0VSo0A5LevelV_tF
+0000000000022ff8 T _$sSo7timevalV8TrueTimeE12millisecondss5Int64Vvg
+0000000000033534 S _$sSo7timevalV8TrueTimeE12millisecondss5Int64VvpMV
+0000000000022e4c T _$sSo7timevalV8TrueTimeE6uptimeAByFZ
+0000000000004000 T _$sSo9DDLogFlagV20CocoaLumberjackSwiftE10toLogLevelSo0aH0VyF
+0000000000004000 T _$sSo9DDLogFlagV20CocoaLumberjackSwiftE4fromyABSo0A5LevelVFZ
+0000000000004000 T _$sSo9DDLogFlagV20CocoaLumberjackSwiftEyABSo0A5LevelVcfC
+                 U _CFAbsoluteTimeGetCurrent
+                 U _CFHostCancelInfoResolution
+                 U _CFHostCreateWithName
+                 U _CFHostGetAddressing
+                 U _CFHostScheduleWithRunLoop
+                 U _CFHostSetClient
+                 U _CFHostStartInfoResolution
+                 U _CFHostUnscheduleFromRunLoop
+                 U _CFRunLoopAddSource
+                 U _CFRunLoopGetMain
+                 U _CFRunLoopRemoveSource
+                 U _CFSocketCreate
+                 U _CFSocketCreateRunLoopSource
+                 U _CFSocketDisableCallBacks
+                 U _CFSocketInvalidate
+                 U _CFSocketIsValid
+                 U _CFSocketSendData
+                 U _CFSocketSetSocketFlags
+                 U _CGBitmapContextCreate
+                 U _CGColorSpaceCreateDeviceRGB
+                 U _CGColorSpaceRelease
+                 U _CGContextFillRect
+                 U _CGContextRelease
+                 U _CGContextSetFillColorWithColor
+000000000000fcc4 T _DDExtractFileNameWithoutExtension
+000000000004a490 b _DDGetDefaultBufferSizeBytes.defaultBufferSize
+000000000004a498 b _DDGetDefaultBufferSizeBytes.onceToken
+000000000004a4a0 b _DDGetMaxBufferSizeBytes.maxBufferSize
+000000000004a4a8 b _DDGetMaxBufferSizeBytes.onceToken
+0000000000041238 S _DDLoggerNameASL
+0000000000041250 S _DDLoggerNameFile
+0000000000041248 S _DDLoggerNameOS
+0000000000041240 S _DDLoggerNameTTY
+0000000000041308 S _DDQualityOfServiceBackground
+00000000000412f8 S _DDQualityOfServiceDefault
+0000000000041310 S _DDQualityOfServiceUnspecified
+00000000000412f0 S _DDQualityOfServiceUserInitiated
+00000000000412e8 S _DDQualityOfServiceUserInteractive
+0000000000041300 S _DDQualityOfServiceUtility
+0000000000049e18 d _DummyTargetContextDescriptor
+0000000000041200 s _GlobalLoggingQueueIdentityKey
+                 U _NSCalendarIdentifierGregorian
+                 U _NSClassFromString
+                 U _NSFileCreationDate
+                 U _NSFileModificationDate
+                 U _NSFileProtectionComplete
+                 U _NSFileProtectionCompleteUnlessOpen
+                 U _NSFileProtectionCompleteUntilFirstUserAuthentication
+                 U _NSFileProtectionKey
+                 U _NSFileProtectionNone
+                 U _NSFileSize
+                 U _NSLocalizedDescriptionKey
+                 U _NSLog
+                 U _NSPOSIXErrorDomain
+                 U _NSSearchPathForDirectoriesInDomains
+                 U _NSStreamDataWrittenToMemoryStreamKey
+                 U _NSStringFromClass
+00000000000489f0 S _OBJC_CLASS_$_DDASLLogCapture
+0000000000048a18 S _OBJC_CLASS_$_DDASLLogger
+0000000000048a68 S _OBJC_CLASS_$_DDAbstractDatabaseLogger
+0000000000048d10 S _OBJC_CLASS_$_DDAbstractLogger
+0000000000048fb8 S _OBJC_CLASS_$_DDAtomicCounter
+0000000000049008 S _OBJC_CLASS_$_DDBufferedProxy
+0000000000048e78 S _OBJC_CLASS_$_DDContextAllowlistFilterLogFormatter
+0000000000048ef0 S _OBJC_CLASS_$_DDContextDenylistFilterLogFormatter
+0000000000048f68 S _OBJC_CLASS_$_DDDispatchQueueLogFormatter
+0000000000048b80 S _OBJC_CLASS_$_DDFileLogger
+0000000000048bf8 S _OBJC_CLASS_$_DDLog
+0000000000048b30 S _OBJC_CLASS_$_DDLogFileFormatterDefault
+0000000000048ae0 S _OBJC_CLASS_$_DDLogFileInfo
+0000000000048ab8 S _OBJC_CLASS_$_DDLogFileManagerDefault
+0000000000048c20 S _OBJC_CLASS_$_DDLogMessage
+0000000000048c70 S _OBJC_CLASS_$_DDLoggerInformation
+0000000000048c48 S _OBJC_CLASS_$_DDLoggerNode
+0000000000048ea0 S _OBJC_CLASS_$_DDLoggingContextSet
+0000000000049058 S _OBJC_CLASS_$_DDMultiFormatter
+0000000000048d88 S _OBJC_CLASS_$_DDOSLogger
+0000000000048dd8 S _OBJC_CLASS_$_DDTTYLogger
+0000000000048e00 S _OBJC_CLASS_$_DDTTYLoggerColorProfile
+                 U _OBJC_CLASS_$_NSArray
+                 U _OBJC_CLASS_$_NSAssertionHandler
+                 U _OBJC_CLASS_$_NSBundle
+                 U _OBJC_CLASS_$_NSCalendar
+                 U _OBJC_CLASS_$_NSData
+                 U _OBJC_CLASS_$_NSDate
+                 U _OBJC_CLASS_$_NSDateFormatter
+                 U _OBJC_CLASS_$_NSDictionary
+                 U _OBJC_CLASS_$_NSError
+                 U _OBJC_CLASS_$_NSFileHandle
+                 U _OBJC_CLASS_$_NSFileManager
+                 U _OBJC_CLASS_$_NSLocale
+                 U _OBJC_CLASS_$_NSMutableArray
+                 U _OBJC_CLASS_$_NSMutableDictionary
+                 U _OBJC_CLASS_$_NSMutableSet
+                 U _OBJC_CLASS_$_NSNotificationCenter
+                 U _OBJC_CLASS_$_NSNumber
+                 U _OBJC_CLASS_$_NSObject
+                 U _OBJC_CLASS_$_NSOutputStream
+                 U _OBJC_CLASS_$_NSProcessInfo
+                 U _OBJC_CLASS_$_NSProxy
+                 U _OBJC_CLASS_$_NSString
+                 U _OBJC_CLASS_$_NSThread
+                 U _OBJC_CLASS_$_NSTimeZone
+0000000000049108 S _OBJC_CLASS_$_NTPReferenceTime
+                 U _OBJC_CLASS_$_OS_dispatch_queue
+                 U _OBJC_CLASS_$_OS_dispatch_source
+                 U _OBJC_CLASS_$_UIColor
+00000000000496d8 d _OBJC_CLASS_$__TtC8TrueTime12HostResolver
+0000000000049be0 d _OBJC_CLASS_$__TtC8TrueTime12Reachability
+00000000000499a0 d _OBJC_CLASS_$__TtC8TrueTime13NTPConnection
+00000000000491c8 S _OBJC_CLASS_$__TtC8TrueTime14TrueTimeClient
+0000000000049860 d _OBJC_CLASS_$__TtC8TrueTime9NTPClient
+                 U _OBJC_CLASS_$__TtCs12_SwiftObject
+                 U _OBJC_EHTYPE_$_NSException
+0000000000048820 s _OBJC_IVAR_$_DDASLLogger._client
+0010000000048820 s _OBJC_IVAR_$_DDASLLogger._client
+0000000000048830 S _OBJC_IVAR_$_DDAbstractDatabaseLogger._deleteInterval
+0010000000048830 s _OBJC_IVAR_$_DDAbstractDatabaseLogger._deleteInterval
+0000000000048838 S _OBJC_IVAR_$_DDAbstractDatabaseLogger._deleteOnEverySave
+0010000000048838 s _OBJC_IVAR_$_DDAbstractDatabaseLogger._deleteOnEverySave
+000000000004884c S _OBJC_IVAR_$_DDAbstractDatabaseLogger._deleteTimer
+001000000004884c s _OBJC_IVAR_$_DDAbstractDatabaseLogger._deleteTimer
+0000000000048848 S _OBJC_IVAR_$_DDAbstractDatabaseLogger._lastDeleteTime
+0010000000048848 s _OBJC_IVAR_$_DDAbstractDatabaseLogger._lastDeleteTime
+000000000004882c S _OBJC_IVAR_$_DDAbstractDatabaseLogger._maxAge
+001000000004882c s _OBJC_IVAR_$_DDAbstractDatabaseLogger._maxAge
+0000000000048828 S _OBJC_IVAR_$_DDAbstractDatabaseLogger._saveInterval
+0010000000048828 s _OBJC_IVAR_$_DDAbstractDatabaseLogger._saveInterval
+0000000000048824 S _OBJC_IVAR_$_DDAbstractDatabaseLogger._saveThreshold
+0010000000048824 s _OBJC_IVAR_$_DDAbstractDatabaseLogger._saveThreshold
+0000000000048840 S _OBJC_IVAR_$_DDAbstractDatabaseLogger._saveTimer
+0010000000048840 s _OBJC_IVAR_$_DDAbstractDatabaseLogger._saveTimer
+0000000000048844 S _OBJC_IVAR_$_DDAbstractDatabaseLogger._saveTimerSuspended
+0010000000048844 s _OBJC_IVAR_$_DDAbstractDatabaseLogger._saveTimerSuspended
+0000000000048834 S _OBJC_IVAR_$_DDAbstractDatabaseLogger._unsavedCount
+0010000000048834 s _OBJC_IVAR_$_DDAbstractDatabaseLogger._unsavedCount
+000000000004883c S _OBJC_IVAR_$_DDAbstractDatabaseLogger._unsavedTime
+001000000004883c s _OBJC_IVAR_$_DDAbstractDatabaseLogger._unsavedTime
+00000000000488fc S _OBJC_IVAR_$_DDAbstractLogger._logFormatter
+00100000000488fc s _OBJC_IVAR_$_DDAbstractLogger._logFormatter
+0000000000048900 S _OBJC_IVAR_$_DDAbstractLogger._loggerQueue
+0010000000048900 s _OBJC_IVAR_$_DDAbstractLogger._loggerQueue
+00000000000489ac s _OBJC_IVAR_$_DDAtomicCounter._value
+00100000000489ac s _OBJC_IVAR_$_DDAtomicCounter._value
+00000000000489b8 s _OBJC_IVAR_$_DDBufferedProxy._buffer
+00100000000489b8 s _OBJC_IVAR_$_DDBufferedProxy._buffer
+00000000000489bc s _OBJC_IVAR_$_DDBufferedProxy._currentBufferSizeBytes
+00100000000489bc s _OBJC_IVAR_$_DDBufferedProxy._currentBufferSizeBytes
+00000000000489b0 s _OBJC_IVAR_$_DDBufferedProxy._fileLogger
+00100000000489b0 s _OBJC_IVAR_$_DDBufferedProxy._fileLogger
+00000000000489b4 s _OBJC_IVAR_$_DDBufferedProxy._maxBufferSizeBytes
+00100000000489b4 s _OBJC_IVAR_$_DDBufferedProxy._maxBufferSizeBytes
+0000000000048988 s _OBJC_IVAR_$_DDContextAllowlistFilterLogFormatter._contextSet
+0010000000048988 s _OBJC_IVAR_$_DDContextAllowlistFilterLogFormatter._contextSet
+000000000004898c s _OBJC_IVAR_$_DDContextDenylistFilterLogFormatter._contextSet
+001000000004898c s _OBJC_IVAR_$_DDContextDenylistFilterLogFormatter._contextSet
+0000000000048998 s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._dateFormatter
+0010000000048998 s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._dateFormatter
+00000000000489a4 s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._maxQueueLength
+00100000000489a4 s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._maxQueueLength
+00000000000489a0 s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._minQueueLength
+00100000000489a0 s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._minQueueLength
+000000000004899c s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._mutex
+001000000004899c s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._mutex
+00000000000489a8 s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._replacements
+00100000000489a8 s _OBJC_IVAR_$_DDDispatchQueueLogFormatter._replacements
+0000000000048874 s _OBJC_IVAR_$_DDFileLogger._automaticallyAppendNewlineForCustomFormatters
+0010000000048874 s _OBJC_IVAR_$_DDFileLogger._automaticallyAppendNewlineForCustomFormatters
+0000000000048868 s _OBJC_IVAR_$_DDFileLogger._completionQueue
+0010000000048868 s _OBJC_IVAR_$_DDFileLogger._completionQueue
+000000000004887c s _OBJC_IVAR_$_DDFileLogger._currentLogFileHandle
+001000000004887c s _OBJC_IVAR_$_DDFileLogger._currentLogFileHandle
+0000000000048888 s _OBJC_IVAR_$_DDFileLogger._currentLogFileInfo
+0010000000048888 s _OBJC_IVAR_$_DDFileLogger._currentLogFileInfo
+0000000000048880 s _OBJC_IVAR_$_DDFileLogger._currentLogFileVnode
+0010000000048880 s _OBJC_IVAR_$_DDFileLogger._currentLogFileVnode
+000000000004888c s _OBJC_IVAR_$_DDFileLogger._doNotReuseLogFiles
+001000000004888c s _OBJC_IVAR_$_DDFileLogger._doNotReuseLogFiles
+0000000000048878 s _OBJC_IVAR_$_DDFileLogger._logFileManager
+0010000000048878 s _OBJC_IVAR_$_DDFileLogger._logFileManager
+000000000004886c s _OBJC_IVAR_$_DDFileLogger._maximumFileSize
+001000000004886c s _OBJC_IVAR_$_DDFileLogger._maximumFileSize
+0000000000048870 s _OBJC_IVAR_$_DDFileLogger._rollingFrequency
+0010000000048870 s _OBJC_IVAR_$_DDFileLogger._rollingFrequency
+0000000000048884 s _OBJC_IVAR_$_DDFileLogger._rollingTimer
+0010000000048884 s _OBJC_IVAR_$_DDFileLogger._rollingTimer
+00000000000488bc s _OBJC_IVAR_$_DDLog.__loggers
+00100000000488bc s _OBJC_IVAR_$_DDLog.__loggers
+0000000000048864 s _OBJC_IVAR_$_DDLogFileFormatterDefault._dateFormatter
+0010000000048864 s _OBJC_IVAR_$_DDLogFileFormatterDefault._dateFormatter
+000000000004889c s _OBJC_IVAR_$_DDLogFileInfo._creationDate
+001000000004889c s _OBJC_IVAR_$_DDLogFileInfo._creationDate
+0000000000048898 s _OBJC_IVAR_$_DDLogFileInfo._fileAttributes
+0010000000048898 s _OBJC_IVAR_$_DDLogFileInfo._fileAttributes
+0000000000048894 s _OBJC_IVAR_$_DDLogFileInfo._fileName
+0010000000048894 s _OBJC_IVAR_$_DDLogFileInfo._fileName
+0000000000048890 s _OBJC_IVAR_$_DDLogFileInfo._filePath
+0010000000048890 s _OBJC_IVAR_$_DDLogFileInfo._filePath
+00000000000488a4 s _OBJC_IVAR_$_DDLogFileInfo._fileSize
+00100000000488a4 s _OBJC_IVAR_$_DDLogFileInfo._fileSize
+00000000000488a0 s _OBJC_IVAR_$_DDLogFileInfo._modificationDate
+00100000000488a0 s _OBJC_IVAR_$_DDLogFileInfo._modificationDate
+00000000000488a8 s _OBJC_IVAR_$_DDLogFileInfo.filePath
+00100000000488a8 s _OBJC_IVAR_$_DDLogFileInfo.filePath
+0000000000048860 s _OBJC_IVAR_$_DDLogFileManagerDefault._defaultFileProtectionLevel
+0010000000048860 s _OBJC_IVAR_$_DDLogFileManagerDefault._defaultFileProtectionLevel
+0000000000048850 s _OBJC_IVAR_$_DDLogFileManagerDefault._fileDateFormatter
+0010000000048850 s _OBJC_IVAR_$_DDLogFileManagerDefault._fileDateFormatter
+0000000000048858 s _OBJC_IVAR_$_DDLogFileManagerDefault._logFilesDiskQuota
+0010000000048858 s _OBJC_IVAR_$_DDLogFileManagerDefault._logFilesDiskQuota
+000000000004885c s _OBJC_IVAR_$_DDLogFileManagerDefault._logsDirectory
+001000000004885c s _OBJC_IVAR_$_DDLogFileManagerDefault._logsDirectory
+0000000000048854 s _OBJC_IVAR_$_DDLogFileManagerDefault._maximumNumberOfLogFiles
+0010000000048854 s _OBJC_IVAR_$_DDLogFileManagerDefault._maximumNumberOfLogFiles
+00000000000488c8 S _OBJC_IVAR_$_DDLogMessage._context
+00100000000488c8 s _OBJC_IVAR_$_DDLogMessage._context
+00000000000488cc S _OBJC_IVAR_$_DDLogMessage._file
+00100000000488cc s _OBJC_IVAR_$_DDLogMessage._file
+00000000000488d0 S _OBJC_IVAR_$_DDLogMessage._fileName
+00100000000488d0 s _OBJC_IVAR_$_DDLogMessage._fileName
+00000000000488b8 S _OBJC_IVAR_$_DDLogMessage._flag
+00100000000488b8 s _OBJC_IVAR_$_DDLogMessage._flag
+00000000000488d4 S _OBJC_IVAR_$_DDLogMessage._function
+00100000000488d4 s _OBJC_IVAR_$_DDLogMessage._function
+00000000000488c4 S _OBJC_IVAR_$_DDLogMessage._level
+00100000000488c4 s _OBJC_IVAR_$_DDLogMessage._level
+00000000000488d8 S _OBJC_IVAR_$_DDLogMessage._line
+00100000000488d8 s _OBJC_IVAR_$_DDLogMessage._line
+00000000000488c0 S _OBJC_IVAR_$_DDLogMessage._message
+00100000000488c0 s _OBJC_IVAR_$_DDLogMessage._message
+00000000000488e4 S _OBJC_IVAR_$_DDLogMessage._options
+00100000000488e4 s _OBJC_IVAR_$_DDLogMessage._options
+00000000000488f8 S _OBJC_IVAR_$_DDLogMessage._qos
+00100000000488f8 s _OBJC_IVAR_$_DDLogMessage._qos
+00000000000488f4 S _OBJC_IVAR_$_DDLogMessage._queueLabel
+00100000000488f4 s _OBJC_IVAR_$_DDLogMessage._queueLabel
+00000000000488e0 S _OBJC_IVAR_$_DDLogMessage._representedObject
+00100000000488e0 s _OBJC_IVAR_$_DDLogMessage._representedObject
+00000000000488dc S _OBJC_IVAR_$_DDLogMessage._tag
+00100000000488dc s _OBJC_IVAR_$_DDLogMessage._tag
+00000000000488ec S _OBJC_IVAR_$_DDLogMessage._threadID
+00100000000488ec s _OBJC_IVAR_$_DDLogMessage._threadID
+00000000000488f0 S _OBJC_IVAR_$_DDLogMessage._threadName
+00100000000488f0 s _OBJC_IVAR_$_DDLogMessage._threadName
+00000000000488e8 S _OBJC_IVAR_$_DDLogMessage._timestamp
+00100000000488e8 s _OBJC_IVAR_$_DDLogMessage._timestamp
+0000000000048908 S _OBJC_IVAR_$_DDLoggerInformation._level
+0010000000048908 s _OBJC_IVAR_$_DDLoggerInformation._level
+0000000000048904 S _OBJC_IVAR_$_DDLoggerInformation._logger
+0010000000048904 s _OBJC_IVAR_$_DDLoggerInformation._logger
+00000000000488b0 S _OBJC_IVAR_$_DDLoggerNode._level
+00100000000488b0 s _OBJC_IVAR_$_DDLoggerNode._level
+00000000000488ac S _OBJC_IVAR_$_DDLoggerNode._logger
+00100000000488ac s _OBJC_IVAR_$_DDLoggerNode._logger
+00000000000488b4 S _OBJC_IVAR_$_DDLoggerNode._loggerQueue
+00100000000488b4 s _OBJC_IVAR_$_DDLoggerNode._loggerQueue
+0000000000048990 s _OBJC_IVAR_$_DDLoggingContextSet._mutex
+0010000000048990 s _OBJC_IVAR_$_DDLoggingContextSet._mutex
+0000000000048994 s _OBJC_IVAR_$_DDLoggingContextSet._set
+0010000000048994 s _OBJC_IVAR_$_DDLoggingContextSet._set
+00000000000489c4 s _OBJC_IVAR_$_DDMultiFormatter._formatters
+00100000000489c4 s _OBJC_IVAR_$_DDMultiFormatter._formatters
+00000000000489c0 s _OBJC_IVAR_$_DDMultiFormatter._queue
+00100000000489c0 s _OBJC_IVAR_$_DDMultiFormatter._queue
+0000000000048910 s _OBJC_IVAR_$_DDOSLogger._category
+0010000000048910 s _OBJC_IVAR_$_DDOSLogger._category
+0000000000048914 s _OBJC_IVAR_$_DDOSLogger._logger
+0010000000048914 s _OBJC_IVAR_$_DDOSLogger._logger
+000000000004890c s _OBJC_IVAR_$_DDOSLogger._subsystem
+001000000004890c s _OBJC_IVAR_$_DDOSLogger._subsystem
+0000000000048920 s _OBJC_IVAR_$_DDTTYLogger._app
+0010000000048920 s _OBJC_IVAR_$_DDTTYLogger._app
+000000000004891c s _OBJC_IVAR_$_DDTTYLogger._appLen
+001000000004891c s _OBJC_IVAR_$_DDTTYLogger._appLen
+0000000000048918 s _OBJC_IVAR_$_DDTTYLogger._appName
+0010000000048918 s _OBJC_IVAR_$_DDTTYLogger._appName
+000000000004893c s _OBJC_IVAR_$_DDTTYLogger._automaticallyAppendNewlineForCustomFormatters
+001000000004893c s _OBJC_IVAR_$_DDTTYLogger._automaticallyAppendNewlineForCustomFormatters
+0000000000048934 s _OBJC_IVAR_$_DDTTYLogger._colorProfilesArray
+0010000000048934 s _OBJC_IVAR_$_DDTTYLogger._colorProfilesArray
+0000000000048938 s _OBJC_IVAR_$_DDTTYLogger._colorProfilesDict
+0010000000048938 s _OBJC_IVAR_$_DDTTYLogger._colorProfilesDict
+0000000000048930 s _OBJC_IVAR_$_DDTTYLogger._colorsEnabled
+0010000000048930 s _OBJC_IVAR_$_DDTTYLogger._colorsEnabled
+000000000004892c s _OBJC_IVAR_$_DDTTYLogger._pid
+001000000004892c s _OBJC_IVAR_$_DDTTYLogger._pid
+0000000000048928 s _OBJC_IVAR_$_DDTTYLogger._pidLen
+0010000000048928 s _OBJC_IVAR_$_DDTTYLogger._pidLen
+0000000000048924 s _OBJC_IVAR_$_DDTTYLogger._processID
+0010000000048924 s _OBJC_IVAR_$_DDTTYLogger._processID
+0000000000048950 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.bgCode
+0010000000048950 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.bgCode
+0000000000048980 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.bgCodeIndex
+0010000000048980 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.bgCodeIndex
+0000000000048954 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.bgCodeLen
+0010000000048954 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.bgCodeLen
+0000000000048984 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.bgCodeRaw
+0010000000048984 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.bgCodeRaw
+0000000000048974 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.bg_b
+0010000000048974 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.bg_b
+0000000000048970 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.bg_g
+0010000000048970 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.bg_g
+000000000004896c S _OBJC_IVAR_$_DDTTYLoggerColorProfile.bg_r
+001000000004896c s _OBJC_IVAR_$_DDTTYLoggerColorProfile.bg_r
+0000000000048944 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.context
+0010000000048944 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.context
+0000000000048948 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.fgCode
+0010000000048948 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.fgCode
+0000000000048978 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.fgCodeIndex
+0010000000048978 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.fgCodeIndex
+000000000004894c S _OBJC_IVAR_$_DDTTYLoggerColorProfile.fgCodeLen
+001000000004894c s _OBJC_IVAR_$_DDTTYLoggerColorProfile.fgCodeLen
+000000000004897c S _OBJC_IVAR_$_DDTTYLoggerColorProfile.fgCodeRaw
+001000000004897c s _OBJC_IVAR_$_DDTTYLoggerColorProfile.fgCodeRaw
+0000000000048968 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.fg_b
+0010000000048968 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.fg_b
+0000000000048964 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.fg_g
+0010000000048964 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.fg_g
+0000000000048960 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.fg_r
+0010000000048960 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.fg_r
+0000000000048940 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.mask
+0010000000048940 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.mask
+0000000000048958 S _OBJC_IVAR_$_DDTTYLoggerColorProfile.resetCode
+0010000000048958 s _OBJC_IVAR_$_DDTTYLoggerColorProfile.resetCode
+000000000004895c S _OBJC_IVAR_$_DDTTYLoggerColorProfile.resetCodeLen
+001000000004895c s _OBJC_IVAR_$_DDTTYLoggerColorProfile.resetCodeLen
+0010000000049d90 s _OBJC_IVAR_$_NTPReferenceTime.underlyingValueLock
+00100000000331e8 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.callbackPending
+00100000000331b8 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.callbackQueue
+0010000000033198 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.host
+00100000000331f0 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.hostCallback
+00100000000331d0 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.lockQueue
+00100000000331c0 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.logger
+00100000000331d8 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.networkHost
+00100000000331b0 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.onComplete
+00100000000331a0 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.port
+00100000000331e0 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.resolved
+00100000000331a8 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.timeout
+00100000000331c8 s _OBJC_IVAR_$__TtC8TrueTime12HostResolver.timer
+00100000000336c0 s _OBJC_IVAR_$__TtC8TrueTime12Reachability.callback
+00100000000336c8 s _OBJC_IVAR_$__TtC8TrueTime12Reachability.callbackQueue
+00100000000336d0 s _OBJC_IVAR_$__TtC8TrueTime12Reachability.networkReachability
+0010000000033308 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.address
+0010000000033340 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.attempts
+0010000000033348 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.callbackQueue
+0010000000033328 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.dataCallback
+0010000000033350 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.didTimeout
+0010000000033380 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.finished
+0010000000033338 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.lockQueue
+0010000000033320 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.logger
+0010000000033318 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.maxRetries
+0010000000033358 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.onComplete
+0010000000033360 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.requestTicks
+0010000000033368 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.socket
+0010000000033370 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.source
+0010000000033378 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.startTime
+0010000000033310 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.timeout
+0010000000033330 s _OBJC_IVAR_$__TtC8TrueTime13NTPConnection.timer
+0010000000049da0 s _OBJC_IVAR_$__TtC8TrueTime14TrueTimeClient.config
+0010000000049da8 s _OBJC_IVAR_$__TtC8TrueTime14TrueTimeClient.ntp
+0010000000033288 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.completionCallbacks
+0010000000033260 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.config
+0010000000033290 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.connections
+0010000000033298 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.finished
+00100000000332a0 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.invalidated
+0010000000033270 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.logger
+00100000000332c8 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.pool
+00100000000332c0 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.port
+0010000000033278 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.queue
+0010000000033280 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.reachability
+0010000000033268 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.referenceTimeLock
+00100000000332a8 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.startCallbacks
+00100000000332b0 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.startTime
+00100000000332b8 s _OBJC_IVAR_$__TtC8TrueTime9NTPClient.timer
+00000000000489c8 S _OBJC_METACLASS_$_DDASLLogCapture
+0000000000048a40 S _OBJC_METACLASS_$_DDASLLogger
+0000000000048a90 S _OBJC_METACLASS_$_DDAbstractDatabaseLogger
+0000000000048d38 S _OBJC_METACLASS_$_DDAbstractLogger
+0000000000048fe0 S _OBJC_METACLASS_$_DDAtomicCounter
+0000000000049030 S _OBJC_METACLASS_$_DDBufferedProxy
+0000000000048ec8 S _OBJC_METACLASS_$_DDContextAllowlistFilterLogFormatter
+0000000000048f18 S _OBJC_METACLASS_$_DDContextDenylistFilterLogFormatter
+0000000000048f90 S _OBJC_METACLASS_$_DDDispatchQueueLogFormatter
+0000000000048ba8 S _OBJC_METACLASS_$_DDFileLogger
+0000000000048c98 S _OBJC_METACLASS_$_DDLog
+0000000000048b58 S _OBJC_METACLASS_$_DDLogFileFormatterDefault
+0000000000048bd0 S _OBJC_METACLASS_$_DDLogFileInfo
+0000000000048b08 S _OBJC_METACLASS_$_DDLogFileManagerDefault
+0000000000048ce8 S _OBJC_METACLASS_$_DDLogMessage
+0000000000048d60 S _OBJC_METACLASS_$_DDLoggerInformation
+0000000000048cc0 S _OBJC_METACLASS_$_DDLoggerNode
+0000000000048f40 S _OBJC_METACLASS_$_DDLoggingContextSet
+0000000000049080 S _OBJC_METACLASS_$_DDMultiFormatter
+0000000000048db0 S _OBJC_METACLASS_$_DDOSLogger
+0000000000048e28 S _OBJC_METACLASS_$_DDTTYLogger
+0000000000048e50 S _OBJC_METACLASS_$_DDTTYLoggerColorProfile
+                 U _OBJC_METACLASS_$_NSObject
+                 U _OBJC_METACLASS_$_NSProxy
+0000000000049db8 D _OBJC_METACLASS_$_NTPReferenceTime
+0000000000049698 d _OBJC_METACLASS_$__TtC8TrueTime12HostResolver
+0000000000049ba0 d _OBJC_METACLASS_$__TtC8TrueTime12Reachability
+0000000000049960 d _OBJC_METACLASS_$__TtC8TrueTime13NTPConnection
+0000000000049de0 D _OBJC_METACLASS_$__TtC8TrueTime14TrueTimeClient
+0000000000049820 d _OBJC_METACLASS_$__TtC8TrueTime9NTPClient
+                 U _OBJC_METACLASS_$__TtCs12_SwiftObject
+0000000000008b1c t _OUTLINED_FUNCTION_0
+0000000000008b28 t _OUTLINED_FUNCTION_0
+000000000002bff0 t _OUTLINED_FUNCTION_0
+000000000002d024 t _OUTLINED_FUNCTION_0
+0000000000008b1c t _OUTLINED_FUNCTION_1
+0000000000008b28 t _OUTLINED_FUNCTION_1
+0000000000008b40 t _OUTLINED_FUNCTION_1
+000000000002d024 t _OUTLINED_FUNCTION_1
+0000000000008b34 t _OUTLINED_FUNCTION_2
+0000000000008b40 t _OUTLINED_FUNCTION_2
+0000000000008b34 t _OUTLINED_FUNCTION_3
+0000000000008b40 t _OUTLINED_FUNCTION_3
+0000000000008b4c t _OUTLINED_FUNCTION_4
+000000000000d94c t _OUTLINED_FUNCTION_5
+                 U _SCNetworkReachabilityCreateWithAddress
+                 U _SCNetworkReachabilityGetFlags
+                 U _SCNetworkReachabilitySetCallback
+                 U _SCNetworkReachabilitySetDispatchQueue
+0000000000049e28 s _Swift50Overrides
+0000000000049ee0 s _Swift51Overrides
+0000000000049f98 s _Swift56ConcurrencyOverrides
+000000000004a128 s _Swift56RuntimeOverrides
+                 U _UIApplicationWillTerminateNotification
+                 U __Block_copy
+                 U __Block_object_assign
+                 U __Block_object_dispose
+                 U __Block_release
+0000000000030fc8 s __CLASS_METHODS__TtC8TrueTime14TrueTimeClient
+0000000000047720 s __CLASS_PROPERTIES__TtC8TrueTime14TrueTimeClient
+00000000000490a8 s __DATA_NTPReferenceTime
+0000000000047038 s __DATA__TtC8TrueTime12HostResolver
+0000000000047620 s __DATA__TtC8TrueTime12Reachability
+0000000000047528 s __DATA__TtC8TrueTime13NTPConnection
+0000000000049168 s __DATA__TtC8TrueTime14TrueTimeClient
+0000000000047290 s __DATA__TtC8TrueTime9NTPClient
+0000000000030fe0 s __INSTANCE_METHODS_NTPReferenceTime
+0000000000031040 s __INSTANCE_METHODS__TtCE20CocoaLumberjackSwiftCSo5DDLogP33_79DC5ACFCB63B8FCC33E0FE71FD9D99612Subscription
+00000000000476b0 s __IVARS_NTPReferenceTime
+0000000000046eb0 s __IVARS__TtC8TrueTime12HostResolver
+00000000000475b8 s __IVARS__TtC8TrueTime12Reachability
+0000000000047320 s __IVARS__TtC8TrueTime13NTPConnection
+0000000000047780 s __IVARS__TtC8TrueTime14TrueTimeClient
+0000000000046e20 s __IVARS__TtC8TrueTime7GCDLock
+00000000000470c8 s __IVARS__TtC8TrueTime9NTPClient
+00000000000442a0 s __IVARS__TtCE20CocoaLumberjackSwiftCSo5DDLogP33_79DC5ACFCB63B8FCC33E0FE71FD9D99612Subscription
+0000000000047668 s __METACLASS_DATA_NTPReferenceTime
+0000000000046e68 s __METACLASS_DATA__TtC8TrueTime12HostResolver
+0000000000047570 s __METACLASS_DATA__TtC8TrueTime12Reachability
+00000000000472d8 s __METACLASS_DATA__TtC8TrueTime13NTPConnection
+0000000000047738 s __METACLASS_DATA__TtC8TrueTime14TrueTimeClient
+0000000000047080 s __METACLASS_DATA__TtC8TrueTime9NTPClient
+000000000004aeb0 b __MergedGlobals
+                 U __NSConcreteGlobalBlock
+                 U __NSConcreteStackBlock
+0000000000031088 s __OBJC_$_CLASS_METHODS_DDASLLogCapture
+00000000000310e8 s __OBJC_$_CLASS_METHODS_DDASLLogger
+0000000000031100 s __OBJC_$_CLASS_METHODS_DDLog
+0000000000031208 s __OBJC_$_CLASS_METHODS_DDLogFileInfo
+0000000000031220 s __OBJC_$_CLASS_METHODS_DDLoggerInformation
+0000000000031238 s __OBJC_$_CLASS_METHODS_DDLoggerNode
+0000000000031250 s __OBJC_$_CLASS_METHODS_DDOSLogger
+0000000000031268 s __OBJC_$_CLASS_METHODS_DDTTYLogger
+0000000000044400 s __OBJC_$_CLASS_PROP_LIST_DDASLLogCapture
+0000000000044640 s __OBJC_$_CLASS_PROP_LIST_DDASLLogger
+0000000000045368 s __OBJC_$_CLASS_PROP_LIST_DDLog
+0000000000045c50 s __OBJC_$_CLASS_PROP_LIST_DDOSLogger
+0000000000045e20 s __OBJC_$_CLASS_PROP_LIST_DDTTYLogger
+00000000000312b0 s __OBJC_$_INSTANCE_METHODS_DDASLLogger
+00000000000312e0 s __OBJC_$_INSTANCE_METHODS_DDAbstractDatabaseLogger
+0000000000031460 s __OBJC_$_INSTANCE_METHODS_DDAbstractLogger
+00000000000314f0 s __OBJC_$_INSTANCE_METHODS_DDAtomicCounter
+0000000000031528 s __OBJC_$_INSTANCE_METHODS_DDBufferedProxy
+0000000000031620 s __OBJC_$_INSTANCE_METHODS_DDContextAllowlistFilterLogFormatter(Deprecated)
+00000000000316b0 s __OBJC_$_INSTANCE_METHODS_DDContextDenylistFilterLogFormatter(Deprecated)
+0000000000031740 s __OBJC_$_INSTANCE_METHODS_DDDispatchQueueLogFormatter
+0000000000031800 s __OBJC_$_INSTANCE_METHODS_DDFileLogger(Internal|Buffering)
+0000000000031a10 s __OBJC_$_INSTANCE_METHODS_DDLog
+0000000000031b38 s __OBJC_$_INSTANCE_METHODS_DDLogFileFormatterDefault
+0000000000031b70 s __OBJC_$_INSTANCE_METHODS_DDLogFileInfo
+0000000000031c78 s __OBJC_$_INSTANCE_METHODS_DDLogFileManagerDefault
+0000000000031db8 s __OBJC_$_INSTANCE_METHODS_DDLogMessage
+0000000000031ec8 s __OBJC_$_INSTANCE_METHODS_DDLoggerInformation
+0000000000031f00 s __OBJC_$_INSTANCE_METHODS_DDLoggerNode
+0000000000031f50 s __OBJC_$_INSTANCE_METHODS_DDLoggingContextSet
+0000000000031fb0 s __OBJC_$_INSTANCE_METHODS_DDMultiFormatter
+0000000000032028 s __OBJC_$_INSTANCE_METHODS_DDOSLogger
+00000000000320a8 s __OBJC_$_INSTANCE_METHODS_DDTTYLogger
+0000000000032188 s __OBJC_$_INSTANCE_METHODS_DDTTYLoggerColorProfile
+00000000000321b8 s __OBJC_$_INSTANCE_METHODS__TtC8TrueTime14TrueTimeClient(TrueTime)
+00000000000446a0 s __OBJC_$_INSTANCE_VARIABLES_DDASLLogger
+00000000000447d0 s __OBJC_$_INSTANCE_VARIABLES_DDAbstractDatabaseLogger
+0000000000045a10 s __OBJC_$_INSTANCE_VARIABLES_DDAbstractLogger
+0000000000046860 s __OBJC_$_INSTANCE_VARIABLES_DDAtomicCounter
+0000000000046960 s __OBJC_$_INSTANCE_VARIABLES_DDBufferedProxy
+00000000000463e0 s __OBJC_$_INSTANCE_VARIABLES_DDContextAllowlistFilterLogFormatter
+00000000000464b0 s __OBJC_$_INSTANCE_VARIABLES_DDContextDenylistFilterLogFormatter
+0000000000046670 s __OBJC_$_INSTANCE_VARIABLES_DDDispatchQueueLogFormatter
+0000000000044f00 s __OBJC_$_INSTANCE_VARIABLES_DDFileLogger
+0000000000045418 s __OBJC_$_INSTANCE_VARIABLES_DDLog
+0000000000044de8 s __OBJC_$_INSTANCE_VARIABLES_DDLogFileFormatterDefault
+00000000000451b0 s __OBJC_$_INSTANCE_VARIABLES_DDLogFileInfo
+0000000000044b68 s __OBJC_$_INSTANCE_VARIABLES_DDLogFileManagerDefault
+0000000000045658 s __OBJC_$_INSTANCE_VARIABLES_DDLogMessage
+0000000000045b80 s __OBJC_$_INSTANCE_VARIABLES_DDLoggerInformation
+0000000000045508 s __OBJC_$_INSTANCE_VARIABLES_DDLoggerNode
+0000000000046568 s __OBJC_$_INSTANCE_VARIABLES_DDLoggingContextSet
+0000000000046ad8 s __OBJC_$_INSTANCE_VARIABLES_DDMultiFormatter
+0000000000045cb0 s __OBJC_$_INSTANCE_VARIABLES_DDOSLogger
+0000000000045e80 s __OBJC_$_INSTANCE_VARIABLES_DDTTYLogger
+00000000000460f0 s __OBJC_$_INSTANCE_VARIABLES_DDTTYLoggerColorProfile
+00000000000446c8 s __OBJC_$_PROP_LIST_DDASLLogger
+0000000000044938 s __OBJC_$_PROP_LIST_DDAbstractDatabaseLogger
+0000000000045a58 s __OBJC_$_PROP_LIST_DDAbstractLogger
+0000000000046888 s __OBJC_$_PROP_LIST_DDAtomicCounter
+00000000000469e8 s __OBJC_$_PROP_LIST_DDBufferedProxy
+0000000000046718 s __OBJC_$_PROP_LIST_DDDispatchQueueLogFormatter
+0000000000045048 s __OBJC_$_PROP_LIST_DDFileLogger
+0000000000045440 s __OBJC_$_PROP_LIST_DDLog
+0000000000044e10 s __OBJC_$_PROP_LIST_DDLogFileFormatterDefault
+0000000000045298 s __OBJC_$_PROP_LIST_DDLogFileInfo
+00000000000449f0 s __OBJC_$_PROP_LIST_DDLogFileManager
+0000000000044c10 s __OBJC_$_PROP_LIST_DDLogFileManagerDefault
+0000000000045860 s __OBJC_$_PROP_LIST_DDLogMessage
+00000000000445a8 s __OBJC_$_PROP_LIST_DDLogger
+0000000000045bc8 s __OBJC_$_PROP_LIST_DDLoggerInformation
+0000000000045570 s __OBJC_$_PROP_LIST_DDLoggerNode
+00000000000465b0 s __OBJC_$_PROP_LIST_DDLoggingContextSet
+0000000000046b20 s __OBJC_$_PROP_LIST_DDMultiFormatter
+0000000000045d18 s __OBJC_$_PROP_LIST_DDOSLogger
+0000000000045fc8 s __OBJC_$_PROP_LIST_DDTTYLogger
+00000000000444a8 s __OBJC_$_PROP_LIST_NSObject
+0000000000032278 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_DDAtomicCountable
+00000000000322b0 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_DDLogFileManager
+0000000000032348 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_DDLogFormatter
+0000000000032360 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_DDLogger
+0000000000032390 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_NSCopying
+00000000000323a8 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_NSObject
+0000000000032498 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_DDLogFileManager
+00000000000324d0 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_DDLogFormatter
+0000000000032500 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_DDLogger
+0000000000032550 s __OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_NSObject
+00000000000467e0 s __OBJC_$_PROTOCOL_METHOD_TYPES_DDAtomicCountable
+0000000000044a88 s __OBJC_$_PROTOCOL_METHOD_TYPES_DDLogFileManager
+0000000000044d68 s __OBJC_$_PROTOCOL_METHOD_TYPES_DDLogFormatter
+00000000000445e0 s __OBJC_$_PROTOCOL_METHOD_TYPES_DDLogger
+00000000000455f0 s __OBJC_$_PROTOCOL_METHOD_TYPES_NSCopying
+00000000000444f0 s __OBJC_$_PROTOCOL_METHOD_TYPES_NSObject
+00000000000467c8 s __OBJC_$_PROTOCOL_REFS_DDAtomicCountable
+00000000000449d8 s __OBJC_$_PROTOCOL_REFS_DDLogFileManager
+0000000000044d50 s __OBJC_$_PROTOCOL_REFS_DDLogFormatter
+0000000000044590 s __OBJC_$_PROTOCOL_REFS_DDLogger
+0000000000044628 s __OBJC_CLASS_PROTOCOLS_$_DDASLLogger
+00000000000459b0 s __OBJC_CLASS_PROTOCOLS_$_DDAbstractLogger
+0000000000046800 s __OBJC_CLASS_PROTOCOLS_$_DDAtomicCounter
+0000000000046380 s __OBJC_CLASS_PROTOCOLS_$_DDContextAllowlistFilterLogFormatter
+0000000000046450 s __OBJC_CLASS_PROTOCOLS_$_DDContextDenylistFilterLogFormatter
+0000000000046610 s __OBJC_CLASS_PROTOCOLS_$_DDDispatchQueueLogFormatter
+0000000000044ea0 s __OBJC_CLASS_PROTOCOLS_$_DDFileLogger
+0000000000044d88 s __OBJC_CLASS_PROTOCOLS_$_DDLogFileFormatterDefault
+0000000000044b08 s __OBJC_CLASS_PROTOCOLS_$_DDLogFileManagerDefault
+00000000000455f8 s __OBJC_CLASS_PROTOCOLS_$_DDLogMessage
+0000000000046a78 s __OBJC_CLASS_PROTOCOLS_$_DDMultiFormatter
+0000000000045c38 s __OBJC_CLASS_PROTOCOLS_$_DDOSLogger
+0000000000045e08 s __OBJC_CLASS_PROTOCOLS_$_DDTTYLogger
+0000000000044460 s __OBJC_CLASS_RO_$_DDASLLogCapture
+0000000000044740 s __OBJC_CLASS_RO_$_DDASLLogger
+0000000000044990 s __OBJC_CLASS_RO_$_DDAbstractDatabaseLogger
+0000000000045af0 s __OBJC_CLASS_RO_$_DDAbstractLogger
+00000000000468d0 s __OBJC_CLASS_RO_$_DDAtomicCounter
+0000000000046a30 s __OBJC_CLASS_RO_$_DDBufferedProxy
+0000000000046408 s __OBJC_CLASS_RO_$_DDContextAllowlistFilterLogFormatter
+00000000000464d8 s __OBJC_CLASS_RO_$_DDContextDenylistFilterLogFormatter
+0000000000046780 s __OBJC_CLASS_RO_$_DDDispatchQueueLogFormatter
+0000000000045120 s __OBJC_CLASS_RO_$_DDFileLogger
+0000000000045478 s __OBJC_CLASS_RO_$_DDLog
+0000000000044e58 s __OBJC_CLASS_RO_$_DDLogFileFormatterDefault
+0000000000045320 s __OBJC_CLASS_RO_$_DDLogFileInfo
+0000000000044d08 s __OBJC_CLASS_RO_$_DDLogFileManagerDefault
+0000000000045968 s __OBJC_CLASS_RO_$_DDLogMessage
+0000000000045bf0 s __OBJC_CLASS_RO_$_DDLoggerInformation
+00000000000455a8 s __OBJC_CLASS_RO_$_DDLoggerNode
+00000000000465c8 s __OBJC_CLASS_RO_$_DDLoggingContextSet
+0000000000046b78 s __OBJC_CLASS_RO_$_DDMultiFormatter
+0000000000045dc0 s __OBJC_CLASS_RO_$_DDOSLogger
+0000000000046060 s __OBJC_CLASS_RO_$_DDTTYLogger
+0000000000046338 s __OBJC_CLASS_RO_$_DDTTYLoggerColorProfile
+0000000000043e48 s __OBJC_LABEL_PROTOCOL_$_DDAtomicCountable
+0000000000043e30 s __OBJC_LABEL_PROTOCOL_$_DDLogFileManager
+0000000000043e38 s __OBJC_LABEL_PROTOCOL_$_DDLogFormatter
+0000000000043e28 s __OBJC_LABEL_PROTOCOL_$_DDLogger
+0000000000043e40 s __OBJC_LABEL_PROTOCOL_$_NSCopying
+0000000000043e20 s __OBJC_LABEL_PROTOCOL_$_NSObject
+0000000000044418 s __OBJC_METACLASS_RO_$_DDASLLogCapture
+0000000000044658 s __OBJC_METACLASS_RO_$_DDASLLogger
+0000000000044788 s __OBJC_METACLASS_RO_$_DDAbstractDatabaseLogger
+00000000000459c8 s __OBJC_METACLASS_RO_$_DDAbstractLogger
+0000000000046818 s __OBJC_METACLASS_RO_$_DDAtomicCounter
+0000000000046918 s __OBJC_METACLASS_RO_$_DDBufferedProxy
+0000000000046398 s __OBJC_METACLASS_RO_$_DDContextAllowlistFilterLogFormatter
+0000000000046468 s __OBJC_METACLASS_RO_$_DDContextDenylistFilterLogFormatter
+0000000000046628 s __OBJC_METACLASS_RO_$_DDDispatchQueueLogFormatter
+0000000000044eb8 s __OBJC_METACLASS_RO_$_DDFileLogger
+00000000000453d0 s __OBJC_METACLASS_RO_$_DDLog
+0000000000044da0 s __OBJC_METACLASS_RO_$_DDLogFileFormatterDefault
+0000000000045168 s __OBJC_METACLASS_RO_$_DDLogFileInfo
+0000000000044b20 s __OBJC_METACLASS_RO_$_DDLogFileManagerDefault
+0000000000045610 s __OBJC_METACLASS_RO_$_DDLogMessage
+0000000000045b38 s __OBJC_METACLASS_RO_$_DDLoggerInformation
+00000000000454c0 s __OBJC_METACLASS_RO_$_DDLoggerNode
+0000000000046520 s __OBJC_METACLASS_RO_$_DDLoggingContextSet
+0000000000046a90 s __OBJC_METACLASS_RO_$_DDMultiFormatter
+0000000000045c68 s __OBJC_METACLASS_RO_$_DDOSLogger
+0000000000045e38 s __OBJC_METACLASS_RO_$_DDTTYLogger
+00000000000460a8 s __OBJC_METACLASS_RO_$_DDTTYLoggerColorProfile
+00000000000494d0 d __OBJC_PROTOCOL_$_DDAtomicCountable
+00000000000493b0 d __OBJC_PROTOCOL_$_DDLogFileManager
+0000000000049410 d __OBJC_PROTOCOL_$_DDLogFormatter
+0000000000049350 d __OBJC_PROTOCOL_$_DDLogger
+0000000000049470 d __OBJC_PROTOCOL_$_NSCopying
+00000000000492f0 d __OBJC_PROTOCOL_$_NSObject
+0000000000048638 s __OBJC_PROTOCOL_REFERENCE_$_NSCopying
+00000000000476d8 s __PROPERTIES_NTPReferenceTime
+00000000000477c8 s __PROPERTIES__TtC8TrueTime14TrueTimeClient
+0000000000044328 s __PROPERTIES__TtCE20CocoaLumberjackSwiftCSo5DDLogP33_79DC5ACFCB63B8FCC33E0FE71FD9D99612Subscription
+0000000000044290 s __PROTOCOLS__TtCE20CocoaLumberjackSwiftCSo5DDLogP33_79DC5ACFCB63B8FCC33E0FE71FD9D99612Subscription
+0000000000044340 s __PROTOCOLS__TtCE20CocoaLumberjackSwiftCSo5DDLogP33_79DC5ACFCB63B8FCC33E0FE71FD9D99612Subscription.1
+0000000000044000 s __PROTOCOL_DDLogFormatter
+0000000000044230 s __PROTOCOL_DDLogger
+0000000000032568 s __PROTOCOL_INSTANCE_METHODS_DDLogFormatter
+0000000000032588 s __PROTOCOL_INSTANCE_METHODS_DDLogger
+00000000000325c0 s __PROTOCOL_INSTANCE_METHODS_NSObject
+0000000000032700 s __PROTOCOL_INSTANCE_METHODS_NSObject
+0000000000032840 s __PROTOCOL_INSTANCE_METHODS_OPT_DDLogFormatter
+0000000000032890 s __PROTOCOL_INSTANCE_METHODS_OPT_DDLogger
+0000000000032908 s __PROTOCOL_INSTANCE_METHODS_OPT_NSObject
+0000000000032920 s __PROTOCOL_INSTANCE_METHODS_OPT_NSObject
+00000000000440d0 s __PROTOCOL_METHOD_TYPES_DDLogFormatter
+0000000000044398 s __PROTOCOL_METHOD_TYPES_DDLogger
+0000000000044158 s __PROTOCOL_METHOD_TYPES_NSObject
+0000000000046d48 s __PROTOCOL_METHOD_TYPES_NSObject
+0000000000044060 s __PROTOCOL_NSObject
+0000000000046c90 s __PROTOCOL_NSObject
+0000000000046c20 s __PROTOCOL_OS_dispatch_source
+0000000000046bc0 s __PROTOCOL_OS_dispatch_source_timer
+0000000000044360 s __PROTOCOL_PROPERTIES_DDLogger
+0000000000044110 s __PROTOCOL_PROPERTIES_NSObject
+0000000000046d00 s __PROTOCOL_PROPERTIES_NSObject
+00000000000440c0 s __PROTOCOL_PROTOCOLS_DDLogFormatter
+0000000000044350 s __PROTOCOL_PROTOCOLS_DDLogger
+0000000000046cf0 s __PROTOCOL_PROTOCOLS_OS_dispatch_source
+0000000000046c80 s __PROTOCOL_PROTOCOLS_OS_dispatch_source_timer
+                 U __Unwind_Resume
+000000000002c19c t __Z34_swiftoverride_class_getSuperclassPKN5swift14TargetMetadataINS_9InProcessEEE
+000000000002d02c t __Z34_swiftoverride_class_getSuperclassPKN5swift14TargetMetadataINS_9InProcessEEE.cold.1
+000000000004aee0 b __ZL15OldGetClassHook
+000000000002c070 t __ZL16addImageCallbackPK11mach_headerl
+000000000004afc0 b __ZL16vouchersDisabled
+000000000004afb8 b __ZL23voucherDisableCheckOnce
+000000000002c064 t __ZL24registerAddImageCallbackPv
+0000000000033a90 s __ZL27ProtocolConformancesSection
+000000000002da90 t __ZL27_initializeVouchersDisabledPv
+000000000002c120 t __ZL29installGetClassHook_untrustedv
+000000000002d3f4 t __ZL31task_future_wait_resume_adapterPN5swift12AsyncContextE
+000000000002d50c t __ZL33task_wait_throwing_resume_adapterPN5swift12AsyncContextE
+000000000002c164 t __ZL35getObjCClassByMangledName_untrustedPKcPP10objc_class
+000000000004aee8 b __ZN12_GLOBAL__N_112ConformancesE
+000000000002caa4 t __ZN12_GLOBAL__N_116ConformanceState12cacheFailureEPKvPKN5swift24TargetProtocolDescriptorINS3_9InProcessEEEm
+000000000002ce5c t __ZN12_GLOBAL__N_116addImageCallbackEPK11mach_header
+000000000002d020 t __ZN12_GLOBAL__N_116addImageCallbackEPK11mach_headerl
+000000000002cd90 t __ZN12_GLOBAL__N_122getTypeContextIdentityEPKN5swift27TargetTypeContextDescriptorINS0_9InProcessEEE
+000000000002cc4c t __ZN12_GLOBAL__N_122override_equalContextsEPKN5swift23TargetContextDescriptorINS0_9InProcessEEES5_
+000000000002c7f4 t __ZN12_GLOBAL__N_124searchInConformanceCacheEPKN5swift14TargetMetadataINS0_9InProcessEEEPKNS0_24TargetProtocolDescriptorIS2_EE
+000000000002d054 t __ZN12_GLOBAL__N_124searchInConformanceCacheEPKN5swift14TargetMetadataINS0_9InProcessEEEPKNS0_24TargetProtocolDescriptorIS2_EE.cold.1
+000000000002d0b4 t __ZN12_GLOBAL__N_124searchInConformanceCacheEPKN5swift14TargetMetadataINS0_9InProcessEEEPKNS0_24TargetProtocolDescriptorIS2_EE.cold.2
+000000000002d02c t __ZN12_GLOBAL__N_124searchInConformanceCacheEPKN5swift14TargetMetadataINS0_9InProcessEEEPKNS0_24TargetProtocolDescriptorIS2_EE.cold.3
+000000000002dac8 t __ZN5swift14VoucherManager9swapToJobEPNS_3JobE
+000000000002dbbc t __ZN5swift14VoucherManager9swapToJobEPNS_3JobE.cold.1
+000000000002d9b4 t __ZN5swift16adoptTaskVoucherEPNS_9AsyncTaskE
+000000000002c250 t __ZN5swift17getRootSuperclassEv
+000000000002d040 t __ZN5swift17getRootSuperclassEv.cold.1
+000000000002d9e0 t __ZN5swift18restoreTaskVoucherEPNS_9AsyncTaskE
+000000000002dbbc t __ZN5swift18restoreTaskVoucherEPNS_9AsyncTaskE.cold.1
+000000000002dcf4 t __ZN5swift19MutexPlatformHelper4initER16os_unfair_lock_sb
+000000000002dcfc t __ZN5swift19MutexPlatformHelper4lockER16os_unfair_lock_s
+000000000002dd10 t __ZN5swift19MutexPlatformHelper6unlockER16os_unfair_lock_s
+0000000000004000 t __ZN5swift19MutexPlatformHelper7destroyER16os_unfair_lock_s
+000000000002dbd4 t __ZN5swift19_swift_tsan_acquireEPv
+000000000002dcc4 t __ZN5swift19_swift_tsan_acquireEPv.cold.1
+000000000002dc1c t __ZN5swift19_swift_tsan_releaseEPv
+000000000002dcdc t __ZN5swift19_swift_tsan_releaseEPv.cold.1
+000000000002d978 t __ZN5swift21swift_task_getCurrentEv
+000000000002d980 t __ZN5swift24_swift_task_clearCurrentEv
+000000000002d96c t __ZN5swift28swift_Concurrency_fatalErrorEjPKcz
+000000000002d7ec t __ZN5swift31swift_task_escalateBackdeploy56EPNS_9AsyncTaskENS_11JobPriorityE
+000000000002d954 t __ZN5swift31swift_task_escalateBackdeploy56EPNS_9AsyncTaskENS_11JobPriorityE.cold.1
+000000000002bff8 t __ZN5swift34swift50override_conformsToProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEPFPKNS_18TargetWitnessTableIS1_EES4_S8_E
+000000000002c108 t __ZN5swift34swift50override_conformsToProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEPFPKNS_18TargetWitnessTableIS1_EES4_S8_E.cold.1
+000000000002d30c t __ZN5swift38swift56override_swift_task_future_waitEPNS_11OpaqueValueEPNS_12AsyncContextEPNS_9AsyncTaskEPU14swiftasynccallFvU19swift_async_contextS3_ES3_PU14swiftasynccallFvS1_U19swift_async_contextS3_S5_S7_S3_E
+000000000002c280 t __ZN5swift39swift51override_conformsToSwiftProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEN7__swift9__runtime4llvm9StringRefEPFPKNS_35TargetProtocolConformanceDescriptorIS1_EES4_S8_SC_E
+000000000002d054 t __ZN5swift39swift51override_conformsToSwiftProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEN7__swift9__runtime4llvm9StringRefEPFPKNS_35TargetProtocolConformanceDescriptorIS1_EES4_S8_SC_E.cold.1
+000000000002d06c t __ZN5swift39swift51override_conformsToSwiftProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEN7__swift9__runtime4llvm9StringRefEPFPKNS_35TargetProtocolConformanceDescriptorIS1_EES4_S8_SC_E.cold.2
+000000000002d06c t __ZN5swift39swift51override_conformsToSwiftProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEN7__swift9__runtime4llvm9StringRefEPFPKNS_35TargetProtocolConformanceDescriptorIS1_EES4_S8_SC_E.cold.3
+000000000002d090 t __ZN5swift39swift51override_conformsToSwiftProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEN7__swift9__runtime4llvm9StringRefEPFPKNS_35TargetProtocolConformanceDescriptorIS1_EES4_S8_SC_E.cold.4
+000000000002d06c t __ZN5swift39swift51override_conformsToSwiftProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEN7__swift9__runtime4llvm9StringRefEPFPKNS_35TargetProtocolConformanceDescriptorIS1_EES4_S8_SC_E.cold.5
+000000000002d51c t __ZN5swift40swift56override_swift_task_create_commonEmPNS_16TaskOptionRecordEPKNS_14TargetMetadataINS_9InProcessEEEPU14swiftasynccallFvU19swift_async_contextPNS_12AsyncContextEEPvmPU9swiftcallFNS_19AsyncTaskAndContextEmS1_S6_SA_SB_mE
+000000000002dd6c t __ZN5swift45swift_task_exitThreadLocalContextBackdeploy56EPc
+000000000002de2c t __ZN5swift45swift_task_exitThreadLocalContextBackdeploy56EPc.cold.1
+000000000002dd24 t __ZN5swift46swift_task_enterThreadLocalContextBackdeploy56EPc
+000000000002de14 t __ZN5swift46swift_task_enterThreadLocalContextBackdeploy56EPc.cold.1
+000000000002d3fc t __ZN5swift47swift56override_swift_task_future_wait_throwingEPNS_11OpaqueValueEPNS_12AsyncContextEPNS_9AsyncTaskEPU14swiftasynccallFvU19swift_async_contextS3_U13swift_contextPvES3_PU14swiftasynccallFvS1_U19swift_async_contextS3_S5_S8_S3_E
+000000000002c794 t __ZN5swift4LazyIN12_GLOBAL__N_116ConformanceStateEE19defaultInitCallbackEPv
+000000000002d0c8 t __ZN5swift9AsyncTask10waitFutureEPS0_PNS_12AsyncContextEPU14swiftasynccallFvU19swift_async_contextS3_ES3_PNS_11OpaqueValueE
+000000000002d52c t __ZN5swift9AsyncTask18flagAsRunning_slowEv
+000000000002d68c t __ZN5swift9AsyncTask20flagAsSuspended_slowEv
+000000000004afb0 b __ZN5swiftL20StatusRecordLockLockE
+000000000002d86c t __ZN5swiftL25waitForStatusRecordUnlockEPNS_9AsyncTaskERNS_16ActiveTaskStatusE
+000000000004aed8 b __ZZN5swift34swift50override_conformsToProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEPFPKNS_18TargetWitnessTableIS1_EES4_S8_EE5token
+000000000004af70 b __ZZZL20getObjCClassMetadataPKN5swift19TargetClassMetadataINS_9InProcessENS_33TargetAnyClassMetadataObjCInteropIS1_EEEEENK3$_0clEvE7TheLazy
+000000000002cbc0 t __ZZZL20getObjCClassMetadataPKN5swift19TargetClassMetadataINS_9InProcessENS_33TargetAnyClassMetadataObjCInteropIS1_EEEEENK3$_0clEvENUlPvE_8__invokeES8_
+000000000004af90 b __ZZZL24getTypeContextDescriptorPKN5swift14TargetMetadataINS_9InProcessEEEENK3$_0clEvE7TheLazy
+000000000002cc1c t __ZZZL24getTypeContextDescriptorPKN5swift14TargetMetadataINS_9InProcessEEEENK3$_0clEvENUlPvE_8__invokeES6_
+000000000004afc8 b __ZZZL25swift_voucher_needs_adoptP9voucher_sENKUlvE_clEvE7TheLazy
+000000000002db8c t __ZZZL25swift_voucher_needs_adoptP9voucher_sENKUlvE_clEvENUlPvE_8__invokeES2_
+000000000004af80 b __ZZZN5swift17getRootSuperclassEvENK3$_0clEvE7TheLazy
+000000000002cbf0 t __ZZZN5swift17getRootSuperclassEvENK3$_0clEvENUlPvE_8__invokeES1_
+000000000004afd8 b __ZZZN5swift19_swift_tsan_acquireEPvENK3$_0clEvE7TheLazy
+000000000002dc64 t __ZZZN5swift19_swift_tsan_acquireEPvENK3$_0clEvENUlS0_E_8__invokeES0_
+000000000004afe8 b __ZZZN5swift19_swift_tsan_releaseEPvENK3$_0clEvE7TheLazy
+000000000002dc94 t __ZZZN5swift19_swift_tsan_releaseEPvENK3$_0clEvENUlS0_E_8__invokeES0_
+000000000004afa0 b __ZZZN5swift31swift_task_escalateBackdeploy56EPNS_9AsyncTaskENS_11JobPriorityEENK3$_0clEvE7TheLazy
+000000000002d83c t __ZZZN5swift31swift_task_escalateBackdeploy56EPNS_9AsyncTaskENS_11JobPriorityEENK3$_0clEvENUlPvE_8__invokeES4_
+000000000004b008 b __ZZZN5swift45swift_task_exitThreadLocalContextBackdeploy56EPcENK3$_0clEvE7TheLazy
+000000000002dde4 t __ZZZN5swift45swift_task_exitThreadLocalContextBackdeploy56EPcENK3$_0clEvENUlPvE_8__invokeES2_
+000000000004aff8 b __ZZZN5swift46swift_task_enterThreadLocalContextBackdeploy56EPcENK3$_0clEvE7TheLazy
+000000000002ddb4 t __ZZZN5swift46swift_task_enterThreadLocalContextBackdeploy56EPcENK3$_0clEvENUlPvE_8__invokeES2_
+                 U __ZdlPv
+                 U __Znwm
+000000000000fa90 t ___16-[DDLog lt_log:]_block_invoke
+000000000000fac4 t ___16-[DDLog lt_log:]_block_invoke_2
+000000000000e970 t ___17-[DDLog flushLog]_block_invoke
+000000000000fc90 t ___17-[DDLog lt_flush]_block_invoke
+000000000000da24 t ___19+[DDLog initialize]_block_invoke
+000000000000e014 t ___19-[DDLog allLoggers]_block_invoke
+000000000000c488 t ___21-[DDFileLogger flush]_block_invoke
+000000000000c4b8 t ___21-[DDFileLogger flush]_block_invoke_2
+000000000000de14 t ___22-[DDLog removeLogger:]_block_invoke
+000000000000d9d0 t ___23+[DDLog sharedInstance]_block_invoke
+000000000000a9e0 t ___23-[DDFileLogger dealloc]_block_invoke
+00000000000068a4 t ___24+[DDASLLogCapture start]_block_invoke
+0000000000014e68 t ___24-[DDBufferedProxy flush]_block_invoke
+0000000000014eb8 t ___24-[DDBufferedProxy flush]_block_invoke_2
+000000000000f2f4 t ___25-[DDLog lt_removeLogger:]_block_invoke
+000000000000ded0 t ___25-[DDLog removeAllLoggers]_block_invoke
+0000000000014ae0 t ___26-[DDBufferedProxy dealloc]_block_invoke
+0000000000010e68 t ___28+[DDOSLogger sharedInstance]_block_invoke
+000000000000e160 t ___28-[DDLog allLoggersWithLevel]_block_invoke
+000000000000f0b0 t ___28-[DDLog lt_addLogger:level:]_block_invoke
+000000000000f0e4 t ___28-[DDLog lt_addLogger:level:]_block_invoke_2
+000000000000f4cc t ___28-[DDLog lt_removeAllLoggers]_block_invoke
+0000000000012028 t ___28-[DDTTYLogger colorsEnabled]_block_invoke
+00000000000120a4 t ___28-[DDTTYLogger colorsEnabled]_block_invoke_2
+0000000000006e68 t ___29+[DDASLLogger sharedInstance]_block_invoke
+0000000000011b34 t ___29+[DDTTYLogger sharedInstance]_block_invoke
+000000000000dcf4 t ___29-[DDLog addLogger:withLevel:]_block_invoke
+0000000000013238 t ___29-[DDTTYLogger clearAllColors]_block_invoke
+0000000000013288 t ___29-[DDTTYLogger clearAllColors]_block_invoke_2
+0000000000014c68 t ___30-[DDBufferedProxy logMessage:]_block_invoke
+00000000000173fc t ___30-[DDBufferedProxy logMessage:]_block_invoke.cold.1
+0000000000015808 t ___30-[DDMultiFormatter formatters]_block_invoke
+000000000000abb4 t ___31-[DDFileLogger maximumFileSize]_block_invoke
+000000000000abd0 t ___31-[DDFileLogger maximumFileSize]_block_invoke.186
+0000000000010904 t ___32-[DDAbstractLogger logFormatter]_block_invoke
+0000000000010960 t ___32-[DDAbstractLogger logFormatter]_block_invoke_2
+000000000000af68 t ___32-[DDFileLogger rollingFrequency]_block_invoke
+000000000000af84 t ___32-[DDFileLogger rollingFrequency]_block_invoke_2
+00000000000121d8 t ___32-[DDTTYLogger setColorsEnabled:]_block_invoke
+0000000000012234 t ___32-[DDTTYLogger setColorsEnabled:]_block_invoke.95
+0000000000006c50 t ___33+[DDASLLogCapture captureAslLogs]_block_invoke
+000000000000b818 t ___33-[DDFileLogger lt_rollLogFileNow]_block_invoke
+000000000000b858 t ___33-[DDFileLogger lt_rollLogFileNow]_block_invoke.191
+00000000000158c8 t ___33-[DDMultiFormatter addFormatter:]_block_invoke
+0000000000012d7c t ___33-[DDTTYLogger clearColorsForTag:]_block_invoke
+0000000000012db8 t ___33-[DDTTYLogger clearColorsForTag:]_block_invoke.104
+0000000000007f68 t ___34-[DDAbstractDatabaseLogger maxAge]_block_invoke
+0000000000007fe4 t ___34-[DDAbstractDatabaseLogger maxAge]_block_invoke_2
+000000000000bca8 t ___34-[DDFileLogger currentLogFileInfo]_block_invoke
+000000000000bce8 t ___34-[DDFileLogger currentLogFileInfo]_block_invoke_2
+000000000000c7cc t ___34-[DDFileLogger(Internal) logData:]_block_invoke
+000000000000c7fc t ___34-[DDFileLogger(Internal) logData:]_block_invoke_2
+000000000000ad20 t ___35-[DDFileLogger setMaximumFileSize:]_block_invoke
+000000000000ad60 t ___35-[DDFileLogger setMaximumFileSize:]_block_invoke.187
+0000000000010ab8 t ___36-[DDAbstractLogger setLogFormatter:]_block_invoke
+0000000000010b64 t ___36-[DDAbstractLogger setLogFormatter:]_block_invoke_2
+000000000000b0d8 t ___36-[DDFileLogger setRollingFrequency:]_block_invoke
+000000000000b11c t ___36-[DDFileLogger setRollingFrequency:]_block_invoke_2
+0000000000015958 t ___36-[DDMultiFormatter removeFormatter:]_block_invoke
+00000000000130a4 t ___36-[DDTTYLogger clearColorsForAllTags]_block_invoke
+00000000000130e0 t ___36-[DDTTYLogger clearColorsForAllTags]_block_invoke_2
+000000000000cb64 t ___37-[DDFileLogger(Internal) lt_logData:]_block_invoke
+0000000000015538 t ___37-[DDMultiFormatter formatLogMessage:]_block_invoke
+0000000000012f10 t ___37-[DDTTYLogger clearColorsForAllFlags]_block_invoke
+0000000000012f4c t ___37-[DDTTYLogger clearColorsForAllFlags]_block_invoke.105
+0000000000008120 t ___38-[DDAbstractDatabaseLogger setMaxAge:]_block_invoke
+00000000000081c4 t ___38-[DDAbstractDatabaseLogger setMaxAge:]_block_invoke_2
+00000000000159bc t ___39-[DDMultiFormatter removeAllFormatters]_block_invoke
+0000000000007c08 t ___40-[DDAbstractDatabaseLogger saveInterval]_block_invoke
+0000000000007c84 t ___40-[DDAbstractDatabaseLogger saveInterval]_block_invoke_2
+000000000000e290 t ___40-[DDLog queueLogMessage:asynchronously:]_block_invoke
+000000000000780c t ___41-[DDAbstractDatabaseLogger saveThreshold]_block_invoke
+0000000000007888 t ___41-[DDAbstractDatabaseLogger saveThreshold]_block_invoke_2
+00000000000082e8 t ___42-[DDAbstractDatabaseLogger deleteInterval]_block_invoke
+0000000000008364 t ___42-[DDAbstractDatabaseLogger deleteInterval]_block_invoke_2
+000000000000a398 t ___42-[DDLogFileManagerDefault applicationName]_block_invoke
+0000000000012a5c t ___42-[DDTTYLogger clearColorsForFlag:context:]_block_invoke
+0000000000012bd8 t ___42-[DDTTYLogger clearColorsForFlag:context:]_block_invoke.103
+0000000000007dc0 t ___44-[DDAbstractDatabaseLogger setSaveInterval:]_block_invoke
+0000000000007e44 t ___44-[DDAbstractDatabaseLogger setSaveInterval:]_block_invoke_2
+0000000000008640 t ___45-[DDAbstractDatabaseLogger deleteOnEverySave]_block_invoke
+00000000000086bc t ___45-[DDAbstractDatabaseLogger deleteOnEverySave]_block_invoke_2
+0000000000007a20 t ___45-[DDAbstractDatabaseLogger setSaveThreshold:]_block_invoke
+0000000000007a88 t ___45-[DDAbstractDatabaseLogger setSaveThreshold:]_block_invoke.9
+0000000000009b6c t ___45-[DDLogFileManagerDefault sortedLogFileInfos]_block_invoke
+00000000000084a0 t ___46-[DDAbstractDatabaseLogger setDeleteInterval:]_block_invoke
+0000000000008524 t ___46-[DDAbstractDatabaseLogger setDeleteInterval:]_block_invoke_2
+0000000000015a7c t ___46-[DDMultiFormatter isFormattingWithFormatter:]_block_invoke
+00000000000089cc t ___47-[DDAbstractDatabaseLogger deleteOldLogEntries]_block_invoke
+000000000000c064 t ___47-[DDFileLogger lt_shouldUseLogFile:isResuming:]_block_invoke
+000000000000c07c t ___47-[DDFileLogger lt_shouldUseLogFile:isResuming:]_block_invoke_2
+000000000000b4e4 t ___47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke
+000000000000b59c t ___47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke.188
+000000000000b580 t ___47-[DDFileLogger rollLogFileWithCompletionBlock:]_block_invoke_2
+00000000000088f4 t ___49-[DDAbstractDatabaseLogger savePendingLogEntries]_block_invoke
+00000000000087f8 t ___49-[DDAbstractDatabaseLogger setDeleteOnEverySave:]_block_invoke
+0000000000008810 t ___49-[DDAbstractDatabaseLogger setDeleteOnEverySave:]_block_invoke.10
+00000000000074dc t ___52-[DDAbstractDatabaseLogger createSuspendedSaveTimer]_block_invoke
+00000000000076fc t ___53-[DDAbstractDatabaseLogger createAndStartDeleteTimer]_block_invoke
+000000000000b348 t ___53-[DDFileLogger lt_scheduleTimerToRollLogFileDueToAge]_block_invoke
+000000000000a360 t ___53-[DDLogFileManagerDefault createNewLogFileWithError:]_block_invoke
+0000000000012818 t ___57-[DDTTYLogger setForegroundColor:backgroundColor:forTag:]_block_invoke
+00000000000128f8 t ___57-[DDTTYLogger setForegroundColor:backgroundColor:forTag:]_block_invoke.102
+000000000000c1b4 t ___58-[DDFileLogger lt_monitorCurrentLogFileForExternalChanges]_block_invoke
+0000000000008dfc t ___63-[DDLogFileManagerDefault deleteOldFilesForConfigurationChange]_block_invoke
+0000000000012400 t ___66-[DDTTYLogger setForegroundColor:backgroundColor:forFlag:context:]_block_invoke
+0000000000012610 t ___66-[DDTTYLogger setForegroundColor:backgroundColor:forFlag:context:]_block_invoke.97
+000000000000bc90 t ___Block_byref_object_copy_
+000000000000dffc t ___Block_byref_object_copy_
+0000000000015520 t ___Block_byref_object_copy_
+000000000000bca0 t ___Block_byref_object_dispose_
+000000000000e00c t ___Block_byref_object_dispose_
+0000000000015530 t ___Block_byref_object_dispose_
+                 U ___CFConstantStringClassReference
+0000000000015140 t ___DDGetDefaultBufferSizeBytes_block_invoke
+000000000001526c t ___DDGetMaxBufferSizeBytes_block_invoke
+                 U ___NSArray0__
+                 U ___NSDictionary0__
+0000000000041110 s ___block_descriptor_32_e5_v8?0l
+0000000000040f50 s ___block_descriptor_40_e5_v8?0l
+0000000000041180 s ___block_descriptor_40_e8_32bs_e5_v8?0l
+00000000000410e0 s ___block_descriptor_40_e8_32s_e41_q24?0"DDLogFileInfo"8"DDLogFileInfo"16l
+0000000000040ff0 s ___block_descriptor_40_e8_32s_e5_v8?0l
+0000000000041150 s ___block_descriptor_40_e8_32w_e5_v8?0l
+00000000000410b0 s ___block_descriptor_41_e8_32s_e5_v8?0l
+0000000000041080 s ___block_descriptor_48_e8_32s40bs_e5_v8?0l
+0000000000041020 s ___block_descriptor_48_e8_32s40r_e5_v8?0l
+00000000000411b0 s ___block_descriptor_48_e8_32s40s_e5_v8?0l
+0000000000041350 s ___block_descriptor_48_e8_32s_e29_v40?0r^v8{_NSRange=QQ}16^B32l
+0000000000041050 s ___block_descriptor_48_e8_32s_e5_v8?0l
+0000000000040f70 s ___block_descriptor_56_e8_32r_e8_v12?0i8l
+00000000000413c0 s ___block_descriptor_56_e8_32s40s48r_e5_v8?0l
+0000000000041208 s ___block_descriptor_56_e8_32s40s_e5_v8?0l
+00000000000412b8 s ___block_descriptor_56_e8_32s_e5_v8?0l
+0000000000041288 s ___block_descriptor_64_e8_32s40s48s56s_e5_v8?0l
+0000000000041258 s ___block_descriptor_72_e8_32s40s48s_e5_v8?0l
+0000000000041130 s ___block_literal_global
+00000000000411e0 s ___block_literal_global
+0000000000041380 s ___block_literal_global
+00000000000413a0 s ___block_literal_global.52
+                 U ___chkstk_darwin
+000000000000b58c t ___copy_helper_block_e8_32b
+0000000000006dd8 t ___copy_helper_block_e8_32r
+000000000000750c t ___copy_helper_block_e8_32s
+0000000000007ac4 t ___copy_helper_block_e8_32s40b
+00000000000078a4 t ___copy_helper_block_e8_32s40r
+000000000000b830 t ___copy_helper_block_e8_32s40s
+0000000000015694 t ___copy_helper_block_e8_32s40s48r
+00000000000125b0 t ___copy_helper_block_e8_32s40s48s
+0000000000012888 t ___copy_helper_block_e8_32s40s48s56s
+000000000000b388 t ___copy_helper_block_e8_32w
+0000000000006de8 t ___destroy_helper_block_e8_32r
+0000000000007514 t ___destroy_helper_block_e8_32s
+00000000000078d8 t ___destroy_helper_block_e8_32s40r
+0000000000007af8 t ___destroy_helper_block_e8_32s40s
+00000000000156d0 t ___destroy_helper_block_e8_32s40s48r
+00000000000125e0 t ___destroy_helper_block_e8_32s40s48s
+00000000000128c0 t ___destroy_helper_block_e8_32s40s48s56s
+000000000000b394 t ___destroy_helper_block_e8_32w
+                 U ___error
+000000000002bb40 t ___isPlatformVersionAtLeast
+000000000002de44 t ___isPlatformVersionAtLeast.cold.1
+000000000002de58 t ___isPlatformVersionAtLeast.cold.2
+                 U ___objc_personality_v0
+                 U ___stack_chk_fail
+                 U ___stack_chk_guard
+000000000001ec9c t ___swift_allocate_boxed_opaque_existential_1
+000000000001ed6c t ___swift_assign_boxed_opaque_existential_1
+000000000000562c t ___swift_destroy_boxed_opaque_existential_0
+000000000000562c t ___swift_destroy_boxed_opaque_existential_1
+000000000000562c t ___swift_destroy_boxed_opaque_existential_1
+0000000000018160 t ___swift_instantiateConcreteTypeFromMangledNameAbstractV2
+00000000000043e4 t ___swift_instantiateConcreteTypeFromMangledNameV2
+00000000000067e4 t ___swift_instantiateGenericMetadata
+00000000000175e8 t ___swift_memcpy16_4
+00000000000065f8 t ___swift_memcpy16_8
+0000000000017504 t ___swift_memcpy16_8
+0000000000027f30 t ___swift_memcpy1_1
+0000000000017608 t ___swift_memcpy28_4
+000000000002910c t ___swift_memcpy29_4
+00000000000176ac t ___swift_memcpy48_1
+000000000001c0b4 t ___swift_memcpy48_8
+0000000000017794 t ___swift_memcpy4_1
+0000000000017858 t ___swift_memcpy4_4
+0000000000027b90 t ___swift_memcpy72_8
+000000000001772c t ___swift_memcpy8_1
+0000000000017510 t ___swift_noop_void_return
+0000000000005608 t ___swift_project_boxed_opaque_existential_0
+0000000000005608 t ___swift_project_boxed_opaque_existential_1
+0000000000032940 s ___swift_reflection_version
+0000000000032ae0 s ___swift_reflection_version
+0000000000033190 s ___swift_reflection_version
+0000000000041b20 s ___unnamed_1
+0000000000040e28 s ___unnamed_6
+                 U __availability_version_check
+000000000004a3e0 b __cancel
+00000000000492e8 d __captureLevel
+                 U __dispatch_queue_attr_concurrent
+                 U __dispatch_source_type_timer
+                 U __dispatch_source_type_vnode
+                 U __dyld_register_func_for_add_image
+000000000002bcd0 t __initializeAvailabilityCheck
+000000000004a440 b __loggingGroup
+000000000004a438 b __loggingQueue
+000000000004a448 b __numProcessors
+                 U __objc_empty_cache
+                 U __os_log_default
+                 U __os_log_error_impl
+                 U __os_log_impl
+                 U __swiftEmptyArrayStorage
+                 U __swiftEmptyDictionarySingleton
+0000000000049e20 d __swift_FORCE_LOAD_$_swiftCompatibility50
+0000000000040d38 s __swift_FORCE_LOAD_$_swiftCompatibility50_$_CocoaLumberjackSwift
+0000000000049e21 d __swift_FORCE_LOAD_$_swiftCompatibility51
+0000000000040d40 s __swift_FORCE_LOAD_$_swiftCompatibility51_$_CocoaLumberjackSwift
+0000000000049e22 d __swift_FORCE_LOAD_$_swiftCompatibility56
+0000000000040d58 s __swift_FORCE_LOAD_$_swiftCompatibility56_$_CocoaLumberjackSwift
+0000000000040cc8 s __swift_FORCE_LOAD_$_swiftCompatibility56_$_NotesFrameworks
+0000000000041428 s __swift_FORCE_LOAD_$_swiftCompatibility56_$_TrueTime
+0000000000049e23 d __swift_FORCE_LOAD_$_swiftCompatibilityConcurrency
+0000000000040d50 s __swift_FORCE_LOAD_$_swiftCompatibilityConcurrency_$_CocoaLumberjackSwift
+0000000000040cc0 s __swift_FORCE_LOAD_$_swiftCompatibilityConcurrency_$_NotesFrameworks
+0000000000041420 s __swift_FORCE_LOAD_$_swiftCompatibilityConcurrency_$_TrueTime
+0000000000049e24 d __swift_FORCE_LOAD_$_swiftCompatibilityDynamicReplacements
+0000000000040d48 s __swift_FORCE_LOAD_$_swiftCompatibilityDynamicReplacements_$_CocoaLumberjackSwift
+                 U __swift_FORCE_LOAD_$_swiftCoreFoundation
+0000000000040cf0 s __swift_FORCE_LOAD_$_swiftCoreFoundation_$_CocoaLumberjackSwift
+0000000000041408 s __swift_FORCE_LOAD_$_swiftCoreFoundation_$_TrueTime
+                 U __swift_FORCE_LOAD_$_swiftCoreImage
+0000000000040d18 s __swift_FORCE_LOAD_$_swiftCoreImage_$_CocoaLumberjackSwift
+                 U __swift_FORCE_LOAD_$_swiftDispatch
+0000000000040cf8 s __swift_FORCE_LOAD_$_swiftDispatch_$_CocoaLumberjackSwift
+0000000000041410 s __swift_FORCE_LOAD_$_swiftDispatch_$_TrueTime
+                 U __swift_FORCE_LOAD_$_swiftFoundation
+0000000000040cd8 s __swift_FORCE_LOAD_$_swiftFoundation_$_CocoaLumberjackSwift
+00000000000413f0 s __swift_FORCE_LOAD_$_swiftFoundation_$_TrueTime
+                 U __swift_FORCE_LOAD_$_swiftMetal
+0000000000040d10 s __swift_FORCE_LOAD_$_swiftMetal_$_CocoaLumberjackSwift
+                 U __swift_FORCE_LOAD_$_swiftOSLog
+0000000000040d30 s __swift_FORCE_LOAD_$_swiftOSLog_$_CocoaLumberjackSwift
+                 U __swift_FORCE_LOAD_$_swiftObjectiveC
+0000000000040ce8 s __swift_FORCE_LOAD_$_swiftObjectiveC_$_CocoaLumberjackSwift
+0000000000041400 s __swift_FORCE_LOAD_$_swiftObjectiveC_$_TrueTime
+                 U __swift_FORCE_LOAD_$_swiftQuartzCore
+0000000000040d08 s __swift_FORCE_LOAD_$_swiftQuartzCore_$_CocoaLumberjackSwift
+                 U __swift_FORCE_LOAD_$_swiftUIKit
+0000000000040cd0 s __swift_FORCE_LOAD_$_swiftUIKit_$_CocoaLumberjackSwift
+                 U __swift_FORCE_LOAD_$_swiftUniformTypeIdentifiers
+0000000000040d20 s __swift_FORCE_LOAD_$_swiftUniformTypeIdentifiers_$_CocoaLumberjackSwift
+                 U __swift_FORCE_LOAD_$_swiftXPC
+0000000000040d00 s __swift_FORCE_LOAD_$_swiftXPC_$_CocoaLumberjackSwift
+0000000000041418 s __swift_FORCE_LOAD_$_swiftXPC_$_TrueTime
+                 U __swift_FORCE_LOAD_$_swift_Builtin_float
+0000000000040ce0 s __swift_FORCE_LOAD_$_swift_Builtin_float_$_CocoaLumberjackSwift
+00000000000413f8 s __swift_FORCE_LOAD_$_swift_Builtin_float_$_TrueTime
+                 U __swift_FORCE_LOAD_$_swiftos
+0000000000040d28 s __swift_FORCE_LOAD_$_swiftos_$_CocoaLumberjackSwift
+                 U __swift_stdlib_operatingSystemVersion
+                 U __swift_stdlib_reportUnimplementedInitializer
+                 U _abort
+000000000004a3f8 b _applicationName._appName
+000000000004a400 b _applicationName.onceToken
+                 U _asl_free
+                 U _asl_get
+                 U _asl_new
+                 U _asl_next
+                 U _asl_open
+                 U _asl_release
+                 U _asl_search
+                 U _asl_send
+                 U _asl_set
+                 U _asl_set_query
+00000000000342c0 s _associated conformance 8TrueTime0aB5ErrorOSHAASQ
+0000000000034274 s _associated conformance 8TrueTime13SocketAddressOSHAASQ
+0000000000034236 s _associated conformance 8TrueTime18ReachabilityStatusOSHAASQ
+00000000000340ca s _associated conformance So12ntp_time32_ta8TrueTime11NTPTimeTypeAC05ValueF0AcDP_SU
+00000000000340ec s _associated conformance So12ntp_time64_ta8TrueTime11NTPTimeTypeAC05ValueF0AcDP_SU
+0000000000033b74 s _associated conformance So5DDLogC20CocoaLumberjackSwiftE12Subscription33_79DC5ACFCB63B8FCC33E0FE71FD9D996LLCy_xG7CombineAdcH06CustomN21IdentifierConvertible
+0000000000033b6c s _associated conformance So5DDLogC20CocoaLumberjackSwiftE12Subscription33_79DC5ACFCB63B8FCC33E0FE71FD9D996LLCy_xG7CombineAdcH11Cancellable
+0000000000033ad2 s _associated conformance So5DDLogC20CocoaLumberjackSwiftE16MessagePublisherV7Combine0F0AC7FailureAfGP_s5Error
+                 U _atoi
+                 U _atoll
+0000000000018148 t _block_copy_helper
+000000000001c134 t _block_copy_helper
+0000000000021efc t _block_copy_helper
+0000000000028418 t _block_copy_helper
+000000000002b8ec t _block_copy_helper
+000000000001a234 t _block_copy_helper.1
+0000000000022cac t _block_copy_helper.1
+000000000001a23c t _block_copy_helper.10
+000000000001a240 t _block_copy_helper.13
+000000000001ef50 t _block_copy_helper.17
+000000000001a244 t _block_copy_helper.19
+0000000000022cb0 t _block_copy_helper.20
+000000000001a248 t _block_copy_helper.25
+000000000001ef54 t _block_copy_helper.26
+0000000000022cb4 t _block_copy_helper.26
+000000000001ef58 t _block_copy_helper.32
+0000000000022cb8 t _block_copy_helper.32
+0000000000022cbc t _block_copy_helper.39
+000000000001a238 t _block_copy_helper.4
+000000000001ef5c t _block_copy_helper.42
+0000000000022cc0 t _block_copy_helper.45
+0000000000022cc4 t _block_copy_helper.48
+000000000001ef60 t _block_copy_helper.60
+000000000001ef64 t _block_copy_helper.66
+000000000001ef68 t _block_copy_helper.69
+000000000001ef4c t _block_copy_helper.7
+000000000002badc t _block_copy_helper.71
+000000000001ef6c t _block_copy_helper.72
+000000000001ef70 t _block_copy_helper.78
+0000000000041c20 s _block_descriptor
+0000000000041ea8 s _block_descriptor
+0000000000042328 s _block_descriptor
+0000000000042798 s _block_descriptor
+0000000000042bf0 s _block_descriptor
+0000000000041ce8 s _block_descriptor.12
+0000000000041d10 s _block_descriptor.15
+0000000000041f98 s _block_descriptor.19
+0000000000041d60 s _block_descriptor.21
+0000000000042468 s _block_descriptor.22
+0000000000041db0 s _block_descriptor.27
+0000000000042010 s _block_descriptor.28
+00000000000424b8 s _block_descriptor.28
+0000000000041c70 s _block_descriptor.3
+0000000000042378 s _block_descriptor.3
+0000000000042060 s _block_descriptor.34
+0000000000042508 s _block_descriptor.34
+0000000000042558 s _block_descriptor.41
+00000000000420d8 s _block_descriptor.44
+00000000000425a8 s _block_descriptor.47
+00000000000425d0 s _block_descriptor.50
+0000000000041c98 s _block_descriptor.6
+00000000000421c8 s _block_descriptor.62
+0000000000042218 s _block_descriptor.68
+0000000000042240 s _block_descriptor.71
+0000000000042c68 s _block_descriptor.73
+0000000000042268 s _block_descriptor.74
+00000000000422b8 s _block_descriptor.80
+0000000000041f20 s _block_descriptor.9
+0000000000018158 t _block_destroy_helper
+000000000001c144 t _block_destroy_helper
+0000000000021f0c t _block_destroy_helper
+0000000000028428 t _block_destroy_helper
+000000000002b8fc t _block_destroy_helper
+000000000001a254 t _block_destroy_helper.11
+000000000001a258 t _block_destroy_helper.14
+000000000001ef9c t _block_destroy_helper.18
+000000000001a24c t _block_destroy_helper.2
+0000000000022cd4 t _block_destroy_helper.2
+000000000001a25c t _block_destroy_helper.20
+0000000000022cd8 t _block_destroy_helper.21
+000000000001a260 t _block_destroy_helper.26
+000000000001efa0 t _block_destroy_helper.27
+0000000000022cdc t _block_destroy_helper.27
+000000000001efa4 t _block_destroy_helper.33
+0000000000022ce0 t _block_destroy_helper.33
+0000000000022ce4 t _block_destroy_helper.40
+000000000001efa8 t _block_destroy_helper.43
+0000000000022ce8 t _block_destroy_helper.46
+0000000000022cec t _block_destroy_helper.49
+000000000001a250 t _block_destroy_helper.5
+000000000001efac t _block_destroy_helper.61
+000000000001efb0 t _block_destroy_helper.67
+000000000001efb4 t _block_destroy_helper.70
+000000000002bb2c t _block_destroy_helper.72
+000000000001efb8 t _block_destroy_helper.73
+000000000001efbc t _block_destroy_helper.79
+000000000001ef98 t _block_destroy_helper.8
+                 U _bzero
+                 U _calloc
+                 U _class_copyMethodList
+000000000004a468 b _codes_bg
+000000000004a460 b _codes_fg
+000000000004a470 b _colors
+000000000002bb38 t _compatibilityInitializeAvailabilityCheck
+                 U _dispatch_activate
+                 U _dispatch_async
+                 U _dispatch_barrier_async
+                 U _dispatch_get_global_queue
+                 U _dispatch_get_specific
+                 U _dispatch_group_async
+                 U _dispatch_group_create
+                 U _dispatch_group_wait
+                 U _dispatch_once
+                 U _dispatch_once_f
+                 U _dispatch_queue_create
+                 U _dispatch_queue_get_label
+                 U _dispatch_queue_set_specific
+                 U _dispatch_resume
+                 U _dispatch_source_cancel
+                 U _dispatch_source_create
+                 U _dispatch_source_set_event_handler
+                 U _dispatch_source_set_timer
+                 U _dispatch_suspend
+                 U _dispatch_sync
+                 U _dispatch_time
+                 U _dlsym
+0000000000008ea4 T _doesAppRunInBackground
+000000000004a418 b _exception_count
+                 U _fclose
+                 U _fopen
+                 U _fread
+                 U _free
+                 U _fseek
+                 U _ftell
+                 U _getenv
+                 U _geteuid
+                 U _getmntinfo
+                 U _getpid
+                 U _getsectiondata
+                 U _gettimeofday
+                 U _getxattr
+                 U _inet_ntoa
+                 U _inet_ntop
+000000000004a430 b _initialize.DDLogOnceToken
+000000000002bcc8 t _initializeAvailabilityCheck
+000000000004a481 b _isaColorTTY
+000000000004a480 b _isaXcodeColorTTY
+                 U _kCFRunLoopCommonModes
+0000000000040fa8 S _kDDASLDDLogValue
+0000000000040fa0 S _kDDASLKeyDDLog
+0000000000032ba0 S _kDDDefaultLogFilesDiskQuota
+0000000000032b88 S _kDDDefaultLogMaxFileSize
+0000000000032b98 S _kDDDefaultLogMaxNumLogFiles
+0000000000032b90 S _kDDDefaultLogRollingFrequency
+0000000000032ba8 S _kDDRollingLeeway
+                 U _localtime_r
+0000000000040fb0 s _logMessage:.level_strings
+000000000004a409 b _lt_logData:.implementsDeprecatedDidLog
+000000000004a408 b _lt_logData:.implementsDeprecatedWillLog
+000000000004a410 b _lt_logData:.onceToken
+                 U _malloc
+                 U _malloc_size
+                 U _memcmp
+                 U _memcpy
+                 U _memmove
+                 U _memset
+                 U _method_getName
+                 U _notify_cancel
+                 U _notify_register_dispatch
+                 U _objc_alloc
+                 U _objc_allocWithZone
+                 U _objc_autorelease
+                 U _objc_autoreleasePoolPop
+                 U _objc_autoreleasePoolPush
+                 U _objc_autoreleaseReturnValue
+                 U _objc_begin_catch
+                 U _objc_copyWeak
+                 U _objc_destroyWeak
+                 U _objc_end_catch
+                 U _objc_enumerationMutation
+                 U _objc_getClass
+                 U _objc_getClassList
+                 U _objc_initWeak
+                 U _objc_loadWeakRetained
+                 U _objc_lookUpClass
+                 U _objc_msgSend
+000000000002ecc0 s _objc_msgSend$CGColor
+000000000002ece0 s _objc_msgSend$UTF8String
+000000000002ed00 s _objc_msgSend$_loggers
+000000000002ed20 s _objc_msgSend$addExtendedAttributeWithName:
+000000000002ed40 s _objc_msgSend$addLogger:
+000000000002ed60 s _objc_msgSend$addLogger:withLevel:
+000000000002ed80 s _objc_msgSend$addObject:
+000000000002eda0 s _objc_msgSend$addObserver:selector:name:object:
+000000000002edc0 s _objc_msgSend$addToAllowlist:
+000000000002ede0 s _objc_msgSend$addToDenylist:
+000000000002ee00 s _objc_msgSend$addToSet:
+000000000002ee20 s _objc_msgSend$age
+000000000002ee40 s _objc_msgSend$allLoggers
+000000000002ee60 s _objc_msgSend$allLoggersWithLevel
+000000000002ee80 s _objc_msgSend$allObjects
+000000000002eea0 s _objc_msgSend$allowlist
+000000000002eec0 s _objc_msgSend$applicationName
+000000000002eee0 s _objc_msgSend$arrayWithCapacity:
+000000000002ef00 s _objc_msgSend$arrayWithObjects:count:
+000000000002ef20 s _objc_msgSend$aslMessageReceived:
+000000000002ef40 s _objc_msgSend$attributesOfItemAtPath:error:
+000000000002ef60 s _objc_msgSend$cStringUsingEncoding:
+000000000002ef80 s _objc_msgSend$captureAslLogs
+000000000002efa0 s _objc_msgSend$category
+000000000002efc0 s _objc_msgSend$class
+000000000002efe0 s _objc_msgSend$clearColorsForFlag:context:
+000000000002f000 s _objc_msgSend$close
+000000000002f020 s _objc_msgSend$closeAndReturnError:
+000000000002f040 s _objc_msgSend$closeFile
+000000000002f060 s _objc_msgSend$code
+000000000002f080 s _objc_msgSend$codeIndexForColor:
+000000000002f0a0 s _objc_msgSend$colorWithRed:green:blue:alpha:
+000000000002f0c0 s _objc_msgSend$compare:
+000000000002f0e0 s _objc_msgSend$componentsSeparatedByString:
+000000000002f100 s _objc_msgSend$configureAslQuery:
+000000000002f120 s _objc_msgSend$configureDateFormatter:
+000000000002f140 s _objc_msgSend$conformsToProtocol:
+000000000002f160 s _objc_msgSend$containsObject:
+000000000002f180 s _objc_msgSend$contentsOfDirectoryAtPath:error:
+000000000002f1a0 s _objc_msgSend$copy
+000000000002f1c0 s _objc_msgSend$count
+000000000002f1e0 s _objc_msgSend$countByEnumeratingWithState:objects:count:
+000000000002f200 s _objc_msgSend$createAndStartDeleteTimer
+000000000002f220 s _objc_msgSend$createDateFormatter
+000000000002f240 s _objc_msgSend$createDirectoryAtPath:withIntermediateDirectories:attributes:error:
+000000000002f260 s _objc_msgSend$createNewLogFile
+000000000002f280 s _objc_msgSend$createNewLogFileWithError:
+000000000002f2a0 s _objc_msgSend$createSuspendedSaveTimer
+000000000002f2c0 s _objc_msgSend$creationDate
+000000000002f2e0 s _objc_msgSend$currentHandler
+000000000002f300 s _objc_msgSend$currentSet
+000000000002f320 s _objc_msgSend$currentThread
+000000000002f340 s _objc_msgSend$dataUsingEncoding:
+000000000002f360 s _objc_msgSend$date
+000000000002f380 s _objc_msgSend$dateByAddingTimeInterval:
+000000000002f3a0 s _objc_msgSend$dateFromString:
+000000000002f3c0 s _objc_msgSend$dateWithTimeIntervalSince1970:
+000000000002f3e0 s _objc_msgSend$db_delete
+000000000002f400 s _objc_msgSend$db_log:
+000000000002f420 s _objc_msgSend$db_save
+000000000002f440 s _objc_msgSend$db_saveAndDelete
+000000000002f460 s _objc_msgSend$ddLogLevel
+000000000002f480 s _objc_msgSend$ddSetLogLevel:
+000000000002f4a0 s _objc_msgSend$defaultCenter
+000000000002f4c0 s _objc_msgSend$defaultLogsDirectory
+000000000002f4e0 s _objc_msgSend$defaultManager
+000000000002f500 s _objc_msgSend$deleteOldFilesForConfigurationChange
+000000000002f520 s _objc_msgSend$deleteOldLogFiles
+000000000002f540 s _objc_msgSend$denylist
+000000000002f560 s _objc_msgSend$description
+000000000002f580 s _objc_msgSend$destroyDeleteTimer
+000000000002f5a0 s _objc_msgSend$destroySaveTimer
+000000000002f5c0 s _objc_msgSend$dictionaryWithObjects:forKeys:count:
+000000000002f5e0 s _objc_msgSend$didAddLogger
+000000000002f600 s _objc_msgSend$didAddLoggerInQueue:
+000000000002f620 s _objc_msgSend$didAddToLogger:
+000000000002f640 s _objc_msgSend$didAddToLogger:inQueue:
+000000000002f660 s _objc_msgSend$didArchiveLogFile:
+000000000002f680 s _objc_msgSend$didArchiveLogFile:wasRolled:
+000000000002f6a0 s _objc_msgSend$didLogMessage
+000000000002f6c0 s _objc_msgSend$didLogMessage:
+000000000002f6e0 s _objc_msgSend$didRollAndArchiveLogFile:
+000000000002f700 s _objc_msgSend$enumerateByteRangesUsingBlock:
+000000000002f720 s _objc_msgSend$fileAttributes
+000000000002f740 s _objc_msgSend$fileDescriptor
+000000000002f760 s _objc_msgSend$fileHandleForWritingAtPath:
+000000000002f780 s _objc_msgSend$fileLogger
+000000000002f7a0 s _objc_msgSend$fileName
+000000000002f7c0 s _objc_msgSend$filePath
+000000000002f7e0 s _objc_msgSend$fileSize
+000000000002f800 s _objc_msgSend$fileSystemRepresentation
+000000000002f820 s _objc_msgSend$firstObject
+000000000002f840 s _objc_msgSend$flush
+000000000002f860 s _objc_msgSend$flushBuffer
+000000000002f880 s _objc_msgSend$flushLog
+000000000002f8a0 s _objc_msgSend$formatLogMessage:
+000000000002f8c0 s _objc_msgSend$getCString:maxLength:encoding:
+000000000002f8e0 s _objc_msgSend$getLogger
+000000000002f900 s _objc_msgSend$getOffset:error:
+000000000002f920 s _objc_msgSend$getRed:green:blue:alpha:
+000000000002f940 s _objc_msgSend$getRed:green:blue:fromColor:
+000000000002f960 s _objc_msgSend$handleFailureInMethod:object:file:lineNumber:description:
+000000000002f980 s _objc_msgSend$hasExtendedAttributeWithName:
+000000000002f9a0 s _objc_msgSend$hasPrefix:
+000000000002f9c0 s _objc_msgSend$hasSuffix:
+000000000002f9e0 s _objc_msgSend$hash
+000000000002fa00 s _objc_msgSend$informationWithLogger:andLevel:
+000000000002fa20 s _objc_msgSend$init
+000000000002fa40 s _objc_msgSend$initWithBytes:length:encoding:
+000000000002fa60 s _objc_msgSend$initWithBytesNoCopy:length:encoding:freeWhenDone:
+000000000002fa80 s _objc_msgSend$initWithCalendarIdentifier:
+000000000002faa0 s _objc_msgSend$initWithCapacity:
+000000000002fac0 s _objc_msgSend$initWithDateFormatter:
+000000000002fae0 s _objc_msgSend$initWithFileLogger:
+000000000002fb00 s _objc_msgSend$initWithFilePath:
+000000000002fb20 s _objc_msgSend$initWithForegroundColor:backgroundColor:flag:context:
+000000000002fb40 s _objc_msgSend$initWithFormat:
+000000000002fb60 s _objc_msgSend$initWithFormat:arguments:
+000000000002fb80 s _objc_msgSend$initWithLogFileManager:completionQueue:
+000000000002fba0 s _objc_msgSend$initWithLogger:andLevel:
+000000000002fbc0 s _objc_msgSend$initWithLogger:loggerQueue:level:
+000000000002fbe0 s _objc_msgSend$initWithLogsDirectory:
+000000000002fc00 s _objc_msgSend$initWithMessage:level:flag:context:file:function:line:tag:options:timestamp:
+000000000002fc20 s _objc_msgSend$initWithSubsystem:category:
+000000000002fc40 s _objc_msgSend$initialize_colors_16
+000000000002fc60 s _objc_msgSend$initialize_colors_256
+000000000002fc80 s _objc_msgSend$invokeWithTarget:
+000000000002fca0 s _objc_msgSend$isArchived
+000000000002fcc0 s _objc_msgSend$isEqual:
+000000000002fce0 s _objc_msgSend$isEqualToDate:
+000000000002fd00 s _objc_msgSend$isEqualToString:
+000000000002fd20 s _objc_msgSend$isInSet:
+000000000002fd40 s _objc_msgSend$isKindOfClass:
+000000000002fd60 s _objc_msgSend$isLogFile:
+000000000002fd80 s _objc_msgSend$isOnAllowlist:
+000000000002fda0 s _objc_msgSend$isOnDenylist:
+000000000002fdc0 s _objc_msgSend$isOnGlobalLoggingQueue
+000000000002fde0 s _objc_msgSend$isOnInternalLoggerQueue
+000000000002fe00 s _objc_msgSend$isRegisteredClass:
+000000000002fe20 s _objc_msgSend$lastObject
+000000000002fe40 s _objc_msgSend$lastPathComponent
+000000000002fe60 s _objc_msgSend$length
+000000000002fe80 s _objc_msgSend$lengthOfBytesUsingEncoding:
+000000000002fea0 s _objc_msgSend$levelForClass:
+000000000002fec0 s _objc_msgSend$loadDefaultColorProfiles
+000000000002fee0 s _objc_msgSend$localeWithLocaleIdentifier:
+000000000002ff00 s _objc_msgSend$log:level:flag:context:file:function:line:tag:format:args:
+000000000002ff20 s _objc_msgSend$log:message:
+000000000002ff40 s _objc_msgSend$log:message:level:flag:context:file:function:line:tag:
+000000000002ff60 s _objc_msgSend$logFileDateFormatter
+000000000002ff80 s _objc_msgSend$logFileHeader
+000000000002ffa0 s _objc_msgSend$logFileHeaderData
+000000000002ffc0 s _objc_msgSend$logFileProtection
+000000000002ffe0 s _objc_msgSend$logFileWithPath:
+0000000000030000 s _objc_msgSend$logFilesDiskQuota
+0000000000030020 s _objc_msgSend$logMessage:
+0000000000030040 s _objc_msgSend$logMessageForLine:originalMessage:
+0000000000030060 s _objc_msgSend$logger
+0000000000030080 s _objc_msgSend$loggerName
+00000000000300a0 s _objc_msgSend$loggerQueue
+00000000000300c0 s _objc_msgSend$loggingQueue
+00000000000300e0 s _objc_msgSend$logsDirectory
+0000000000030100 s _objc_msgSend$lt_addLogger:level:
+0000000000030120 s _objc_msgSend$lt_allLoggers
+0000000000030140 s _objc_msgSend$lt_allLoggersWithLevel
+0000000000030160 s _objc_msgSend$lt_cleanup
+0000000000030180 s _objc_msgSend$lt_currentLogFileHandle
+00000000000301a0 s _objc_msgSend$lt_currentLogFileInfo
+00000000000301c0 s _objc_msgSend$lt_dataForMessage:
+00000000000301e0 s _objc_msgSend$lt_flush
+0000000000030200 s _objc_msgSend$lt_log:
+0000000000030220 s _objc_msgSend$lt_logData:
+0000000000030240 s _objc_msgSend$lt_maybeRollLogFileDueToAge
+0000000000030260 s _objc_msgSend$lt_maybeRollLogFileDueToSize
+0000000000030280 s _objc_msgSend$lt_monitorCurrentLogFileForExternalChanges
+00000000000302a0 s _objc_msgSend$lt_removeAllLoggers
+00000000000302c0 s _objc_msgSend$lt_removeLogger:
+00000000000302e0 s _objc_msgSend$lt_rollLogFileNow
+0000000000030300 s _objc_msgSend$lt_scheduleTimerToRollLogFileDueToAge
+0000000000030320 s _objc_msgSend$lt_sendBufferedDataToFileLogger
+0000000000030340 s _objc_msgSend$lt_shouldLogFileBeArchived:
+0000000000030360 s _objc_msgSend$lt_shouldUseLogFile:isResuming:
+0000000000030380 s _objc_msgSend$mainBundle
+00000000000303a0 s _objc_msgSend$maxQueueLength
+00000000000303c0 s _objc_msgSend$maximumNumberOfLogFiles
+00000000000303e0 s _objc_msgSend$methodSignatureForSelector:
+0000000000030400 s _objc_msgSend$minQueueLength
+0000000000030420 s _objc_msgSend$modificationDate
+0000000000030440 s _objc_msgSend$moveItemAtPath:toPath:error:
+0000000000030460 s _objc_msgSend$name
+0000000000030480 s _objc_msgSend$new
+00000000000304a0 s _objc_msgSend$newLogFileName
+00000000000304c0 s _objc_msgSend$nodeWithLogger:loggerQueue:level:
+00000000000304e0 s _objc_msgSend$numberWithBool:
+0000000000030500 s _objc_msgSend$numberWithDouble:
+0000000000030520 s _objc_msgSend$numberWithInteger:
+0000000000030540 s _objc_msgSend$numberWithUnsignedLongLong:
+0000000000030560 s _objc_msgSend$objectAtIndexedSubscript:
+0000000000030580 s _objc_msgSend$objectForInfoDictionaryKey:
+00000000000305a0 s _objc_msgSend$objectForKeyedSubscript:
+00000000000305c0 s _objc_msgSend$offsetInFile
+00000000000305e0 s _objc_msgSend$open
+0000000000030600 s _objc_msgSend$outputStreamToMemory
+0000000000030620 s _objc_msgSend$pathExtension
+0000000000030640 s _objc_msgSend$performDelete
+0000000000030660 s _objc_msgSend$performSaveAndSuspendSaveTimer
+0000000000030680 s _objc_msgSend$processInfo
+00000000000306a0 s _objc_msgSend$processName
+00000000000306c0 s _objc_msgSend$processorCount
+00000000000306e0 s _objc_msgSend$propertyForKey:
+0000000000030700 s _objc_msgSend$queueLogMessage:asynchronously:
+0000000000030720 s _objc_msgSend$queueThreadLabelForLogMessage:
+0000000000030740 s _objc_msgSend$rangeOfString:options:
+0000000000030760 s _objc_msgSend$registeredClasses
+0000000000030780 s _objc_msgSend$removeAllLoggers
+00000000000307a0 s _objc_msgSend$removeAllObjects
+00000000000307c0 s _objc_msgSend$removeExtendedAttributeWithName:
+00000000000307e0 s _objc_msgSend$removeFromAllowlist:
+0000000000030800 s _objc_msgSend$removeFromDenylist:
+0000000000030820 s _objc_msgSend$removeFromSet:
+0000000000030840 s _objc_msgSend$removeItemAtPath:error:
+0000000000030860 s _objc_msgSend$removeLogger:
+0000000000030880 s _objc_msgSend$removeObject:
+00000000000308a0 s _objc_msgSend$removeObjectAtIndex:
+00000000000308c0 s _objc_msgSend$removeObjectForKey:
+00000000000308e0 s _objc_msgSend$reset
+0000000000030900 s _objc_msgSend$respondsToSelector:
+0000000000030920 s _objc_msgSend$rollLogFileWithCompletionBlock:
+0000000000030940 s _objc_msgSend$seekToEndOfFile
+0000000000030960 s _objc_msgSend$seekToEndReturningOffset:error:
+0000000000030980 s _objc_msgSend$selector
+00000000000309a0 s _objc_msgSend$setAttributes:ofItemAtPath:error:
+00000000000309c0 s _objc_msgSend$setCalendar:
+00000000000309e0 s _objc_msgSend$setDateFormat:
+0000000000030a00 s _objc_msgSend$setFileLogger:
+0000000000030a20 s _objc_msgSend$setForegroundColor:backgroundColor:forFlag:
+0000000000030a40 s _objc_msgSend$setForegroundColor:backgroundColor:forFlag:context:
+0000000000030a60 s _objc_msgSend$setFormatterBehavior:
+0000000000030a80 s _objc_msgSend$setIsArchived:
+0000000000030aa0 s _objc_msgSend$setLevel:forClass:
+0000000000030ac0 s _objc_msgSend$setLocale:
+0000000000030ae0 s _objc_msgSend$setObject:atIndexedSubscript:
+0000000000030b00 s _objc_msgSend$setObject:forKeyedSubscript:
+0000000000030b20 s _objc_msgSend$setTimeZone:
+0000000000030b40 s _objc_msgSend$set_loggers:
+0000000000030b60 s _objc_msgSend$sharedInstance
+0000000000030b80 s _objc_msgSend$shouldArchiveRecentLogFileInfo:
+0000000000030ba0 s _objc_msgSend$sortedArrayUsingComparator:
+0000000000030bc0 s _objc_msgSend$sortedLogFileInfos
+0000000000030be0 s _objc_msgSend$stringByAppendingFormat:
+0000000000030c00 s _objc_msgSend$stringByAppendingPathComponent:
+0000000000030c20 s _objc_msgSend$stringByAppendingPathExtension:
+0000000000030c40 s _objc_msgSend$stringByAppendingString:
+0000000000030c60 s _objc_msgSend$stringByDeletingLastPathComponent
+0000000000030c80 s _objc_msgSend$stringByDeletingPathExtension
+0000000000030ca0 s _objc_msgSend$stringByReplacingOccurrencesOfString:withString:
+0000000000030cc0 s _objc_msgSend$stringFromDate:
+0000000000030ce0 s _objc_msgSend$stringWithFormat:
+0000000000030d00 s _objc_msgSend$stringWithUTF8String:
+0000000000030d20 s _objc_msgSend$substringToIndex:
+0000000000030d40 s _objc_msgSend$subsystem
+0000000000030d60 s _objc_msgSend$synchronizeAndReturnError:
+0000000000030d80 s _objc_msgSend$synchronizeFile
+0000000000030da0 s _objc_msgSend$timeIntervalSince1970
+0000000000030dc0 s _objc_msgSend$timeIntervalSinceNow
+0000000000030de0 s _objc_msgSend$timeIntervalSinceReferenceDate
+0000000000030e00 s _objc_msgSend$timeZoneForSecondsFromGMT:
+0000000000030e20 s _objc_msgSend$unsignedLongLongValue
+0000000000030e40 s _objc_msgSend$unsortedLogFileInfos
+0000000000030e60 s _objc_msgSend$unsortedLogFilePaths
+0000000000030e80 s _objc_msgSend$updateAndResumeSaveTimer
+0000000000030ea0 s _objc_msgSend$updateDeleteTimer
+0000000000030ec0 s _objc_msgSend$willLogMessage
+0000000000030ee0 s _objc_msgSend$willLogMessage:
+0000000000030f00 s _objc_msgSend$willRemoveFromLogger:
+0000000000030f20 s _objc_msgSend$willRemoveLogger
+0000000000030f40 s _objc_msgSend$write:maxLength:
+0000000000030f60 s _objc_msgSend$writeData:
+0000000000030f80 s _objc_msgSend$writeData:error:
+0000000000030fa0 s _objc_msgSend$writeToFile:options:error:
+                 U _objc_msgSendSuper2
+                 U _objc_opt_self
+                 U _objc_release
+                 U _objc_retain
+                 U _objc_retainAutorelease
+                 U _objc_retainAutoreleaseReturnValue
+                 U _objc_retainAutoreleasedReturnValue
+                 U _objc_retainBlock
+                 U _objc_setHook_getClass
+                 U _objc_storeStrong
+                 U _object_getClass
+000000000001e91c t _objectdestroy.24Tm
+0000000000022918 t _objectdestroy.24Tm
+000000000001ef10 t _objectdestroy.46Tm
+000000000001e810 t _objectdestroy.5Tm
+000000000002b818 t _objectdestroyTm
+                 U _os_log_create
+                 U _os_log_type_enabled
+                 U _os_release
+                 U _os_unfair_lock_lock
+                 U _os_unfair_lock_unlock
+                 U _posix_memalign
+                 U _pthread_getspecific
+                 U _pthread_mutex_destroy
+                 U _pthread_mutex_init
+                 U _pthread_mutex_lock
+                 U _pthread_mutex_unlock
+                 U _pthread_setspecific
+                 U _pthread_threadid_np
+                 U _qos_class_self
+                 U _realloc
+                 U _removexattr
+                 U _rewind
+                 U _setxattr
+000000000004a3f0 b _sharedInstance
+000000000004a458 b _sharedInstance
+000000000004a488 b _sharedInstance
+000000000004a3e8 b _sharedInstance.DDASLLoggerOnceToken
+000000000004a450 b _sharedInstance.DDOSLoggerOnceToken
+000000000004a478 b _sharedInstance.DDTTYLoggerOnceToken
+000000000004a428 b _sharedInstance.onceToken
+000000000004a420 b _sharedInstance.sharedInstance
+                 U _snprintf
+                 U _sscanf
+                 U _strcasestr
+                 U _strcmp
+                 U _strerror
+                 U _strlen
+                 U _strnlen
+                 U _strtod
+                 U _swift_allocBox
+                 U _swift_allocObject
+                 U _swift_allocateGenericClassMetadata
+                 U _swift_arrayInitWithCopy
+                 U _swift_arrayInitWithTakeBackToFront
+                 U _swift_arrayInitWithTakeFrontToBack
+                 U _swift_beginAccess
+                 U _swift_bridgeObjectRelease
+                 U _swift_bridgeObjectRetain
+                 U _swift_checkMetadataState
+                 U _swift_deallocClassInstance
+                 U _swift_deallocObject
+                 U _swift_deletedMethodError
+                 U _swift_dynamicCast
+                 U _swift_dynamicCastClass
+                 U _swift_endAccess
+                 U _swift_errorRelease
+                 U _swift_errorRetain
+                 U _swift_getEnumCaseMultiPayload
+                 U _swift_getEnumTagSinglePayloadGeneric
+                 U _swift_getForeignTypeMetadata
+                 U _swift_getGenericMetadata
+                 U _swift_getObjCClassFromMetadata
+                 U _swift_getObjCClassMetadata
+                 U _swift_getObjectType
+                 U _swift_getSingletonMetadata
+                 U _swift_getTypeByMangledNameInContext
+                 U _swift_getTypeByMangledNameInContextInMetadataState
+                 U _swift_getWitnessTable
+                 U _swift_initClassMetadata2
+                 U _swift_initStackObject
+                 U _swift_initStructMetadata
+                 U _swift_isEscapingClosureAtFileLocation
+                 U _swift_isUniquelyReferencedNonObjC_nonNull_bridgeObject
+                 U _swift_isUniquelyReferenced_nonNull_native
+                 U _swift_isaMask
+                 U _swift_once
+                 U _swift_release
+                 U _swift_release_n
+                 U _swift_retain
+                 U _swift_retain_n
+                 U _swift_setDeallocating
+                 U _swift_storeEnumTagMultiPayload
+                 U _swift_storeEnumTagSinglePayloadGeneric
+                 U _swift_unexpectedError
+                 U _swift_unknownObjectRelease
+                 U _swift_unknownObjectRelease_n
+                 U _swift_unknownObjectRetain
+                 U _swift_unknownObjectRetain_n
+                 U _swift_unknownObjectWeakAssign
+                 U _swift_unknownObjectWeakDestroy
+                 U _swift_unknownObjectWeakInit
+                 U _swift_unknownObjectWeakLoadStrong
+                 U _swift_willThrow
+                 U _swift_willThrowTypedImpl
+0000000000033af8 s _symbolic $s7Combine9PublisherP
+000000000003423e s _symbolic $s8TrueTime06FrozenB0P
+00000000000340d2 s _symbolic $s8TrueTime11NTPTimeTypeP
+000000000003427c s _symbolic $s8TrueTime14TimedOperationP
+000000000003412a s _symbolic $s8TrueTime17ByteRepresentableP
+0000000000034106 s _symbolic $s8TrueTime21NTPTimevalConvertibleP
+0000000000033b7c s _symbolic $s8TrueTime23NetworkOrderConvertibleP
+0000000000033c1c s _symbolic $sSY
+0000000000033b1a s _symbolic 5Input_____Qz 7Combine10SubscriberP
+00000000000340f4 s _symbolic 9ValueType_____Qz 8TrueTime11NTPTimeTypeP
+0000000000034048 s _symbolic Ieg_Sg
+0000000000034074 s _symbolic Ieg_Sgz_Xx
+0000000000033cf8 s _symbolic Ig_
+0000000000033ed4 s _symbolic SDySSSay_____y_____So7NSErrorCGGG s6ResultOsRi_zRi0_zrlE 8TrueTime013FrozenNetworkC0V
+0000000000033ef6 s _symbolic SDySSSay_____y_____So7NSErrorCGGGz_Xx s6ResultOsRi_zRi0_zrlE 8TrueTime013FrozenNetworkC0V
+0000000000033c4e s _symbolic SS
+0000000000033d68 s _symbolic SS4host_Si4portt
+0000000000033d54 s _symbolic SSIegg_Sg
+000000000003426e s _symbolic SSSg
+00000000000341e0 s _symbolic SS_yXlt
+00000000000341ae s _symbolic SS_ypt
+0000000000033d0c s _symbolic SaySS4host_Si4porttG
+0000000000033e50 s _symbolic SaySSG
+0000000000033e0a s _symbolic SaySo17OS_dispatch_queueC_y_____y_____So7NSErrorCGctG s6ResultOsRi_zRi0_zrlE 8TrueTime09ReferenceC0C
+0000000000033cd2 s _symbolic Say_____G 8Dispatch0A13WorkItemFlagsV
+00000000000340b6 s _symbolic Say_____G 8TrueTime013FrozenNetworkB0V
+0000000000033e40 s _symbolic Say_____G 8TrueTime13NTPConnectionC
+0000000000033f1c s _symbolic Say_____G 8TrueTime13SocketAddressO
+0000000000033d5e s _symbolic Say_____G So17OS_dispatch_queueC8DispatchE10AttributesV
+0000000000033cfc s _symbolic Say_____G So18OS_dispatch_sourceC8DispatchE10TimerFlagsV
+0000000000033cae s _symbolic Sb
+0000000000033c52 s _symbolic Sd
+0000000000033e4a s _symbolic SdSg
+0000000000033c02 s _symbolic Si
+0000000000034268 s _symbolic SiSg
+0000000000033ada s _symbolic So12DDLogMessageC
+0000000000033abc s _symbolic So14DDLogFormatter_p
+0000000000033b4e s _symbolic So14DDLogFormatter_pSg
+0000000000033c30 s _symbolic So17OS_dispatch_queueC
+0000000000033fc2 s _symbolic So17OS_dispatch_queueCSg
+0000000000034184 s _symbolic So17OS_dispatch_queueC_yyct
+0000000000033c84 s _symbolic So24OS_dispatch_source_timer_pSg
+0000000000033b0e s _symbolic So5DDLogC
+0000000000033b40 s _symbolic So5DDLogCSgXw
+00000000000342ac s _symbolic So7NSErrorCIegg_Sg
+00000000000342e8 s _symbolic So7NSErrorCIeyBy_
+0000000000033b28 s _symbolic So8NSObjectC
+00000000000342ce s _symbolic So8NSObjectC
+0000000000033c12 s _symbolic Su
+0000000000034080 s _symbolic _____ 10Foundation4DataV
+000000000003425c s _symbolic _____ 10Foundation4DateV
+0000000000033b66 s _symbolic _____ 7Combine0A10IdentifierV
+0000000000034262 s _symbolic _____ 8TrueTime013FrozenNetworkB0V
+0000000000034256 s _symbolic _____ 8TrueTime015FrozenReferenceB0V
+0000000000033e96 s _symbolic _____ 8TrueTime09ReferenceB0C
+00000000000342c8 s _symbolic _____ 8TrueTime0aB5ErrorO
+000000000003429a s _symbolic _____ 8TrueTime0aB6ClientC
+0000000000034212 s _symbolic _____ 8TrueTime11NTPResponseV
+0000000000033c48 s _symbolic _____ 8TrueTime12HostResolverC
+0000000000033e04 s _symbolic _____ 8TrueTime12ReachabilityC
+0000000000033f94 s _symbolic _____ 8TrueTime13NTPConnectionC
+0000000000033f9a s _symbolic _____ 8TrueTime13SocketAddressO
+0000000000034230 s _symbolic _____ 8TrueTime18ReachabilityStatusO
+0000000000033c28 s _symbolic _____ 8TrueTime7GCDLockC
+0000000000033de8 s _symbolic _____ 8TrueTime9NTPClientC
+0000000000033dee s _symbolic _____ 8TrueTime9NTPConfigV
+0000000000033ab6 s _symbolic _____ So10DDLogLevelV
+0000000000033bde s _symbolic _____ So11sockaddr_inV
+0000000000033ba2 s _symbolic _____ So12ntp_packet_ta
+0000000000033bae s _symbolic _____ So12ntp_time32_ta
+0000000000033bc0 s _symbolic _____ So12ntp_time64_ta
+0000000000033bc6 s _symbolic _____ So12sockaddr_in6V
+0000000000033bfc s _symbolic _____ So13CFStreamErrora
+0000000000033bf6 s _symbolic _____ So14CFHostInfoTypeV
+0000000000033c0c s _symbolic _____ So20CFSocketCallBackTypeV
+0000000000033b36 s _symbolic _____ So5DDLogC20CocoaLumberjackSwiftE12Subscription33_79DC5ACFCB63B8FCC33E0FE71FD9D996LLC
+0000000000033af2 s _symbolic _____ So5DDLogC20CocoaLumberjackSwiftE16MessagePublisherV
+0000000000033be4 s _symbolic _____ So7in_addrV
+0000000000033c16 s _symbolic _____ So7timevalV
+0000000000033bd8 s _symbolic _____ So8in6_addrV
+0000000000033c22 s _symbolic _____ So8in6_addrV021__Unnamed_union___u6_B0V
+0000000000033d06 s _symbolic _____ So9CFHostRefa
+0000000000033c06 s _symbolic _____ s5Int32V
+0000000000034218 s _symbolic _____ s5Int64V
+0000000000033aec s _symbolic _____ s5NeverO
+0000000000033ba8 s _symbolic _____ s5UInt8V
+0000000000033bcc s _symbolic _____ s6UInt16V
+0000000000033bd2 s _symbolic _____ s6UInt32V
+00000000000342a0 s _symbolic _____Iegg_ 8TrueTime09ReferenceB0C
+00000000000342dc s _symbolic _____IeyBy_ 8TrueTime09ReferenceB0C
+0000000000033aa0 s _symbolic _____Sg 10Foundation4DateV
+0000000000033aae s _symbolic _____Sg 10Foundation6LocaleV
+0000000000033f46 s _symbolic _____Sg 8TrueTime013FrozenNetworkB0V
+0000000000033f66 s _symbolic _____Sg 8TrueTime09ReferenceB0C
+0000000000034008 s _symbolic _____Sg So11CFSocketRefa
+0000000000034018 s _symbolic _____Sg So12ntp_time64_ta
+0000000000034010 s _symbolic _____Sg So18CFRunLoopSourceRefa
+0000000000034228 s _symbolic _____Sg So24SCNetworkReachabilityRefa
+0000000000034000 s _symbolic _____Sg So7timevalV
+0000000000033ca6 s _symbolic _____Sg So9CFHostRefa
+00000000000342fa s _symbolic _____SgSg 8TrueTime09ReferenceB0C
+0000000000033d4a s _symbolic _____XMT 8TrueTime12HostResolverC
+0000000000033bb4 s _symbolic ______A3At s5UInt8V
+0000000000033bea s _symbolic ______A7At s4Int8V
+0000000000033d22 s _symbolic __________ySay_____GSo7NSErrorCGIeggg_ 8TrueTime12HostResolverC s6ResultOsRi_zRi0_zrlE AA13SocketAddressO
+0000000000034050 s _symbolic __________y_____So7NSErrorCGIeggn_ 8TrueTime13NTPConnectionC s6ResultOsRi_zRi0_zrlE AA013FrozenNetworkB0V
+0000000000033f5e s _symbolic ______p 8TrueTime06FrozenB0P
+000000000003430e s _symbolic ______pSg 8TrueTime06FrozenB0P
+0000000000033d7a s _symbolic _____ySS4host_Si4porttG s23_ContiguousArrayStorageC
+0000000000033f6e s _symbolic _____ySSSay_____y_____So7NSErrorCGGG s18_DictionaryStorageC s6ResultOsRi_zRi0_zrlE 8TrueTime013FrozenNetworkE0V
+00000000000341d0 s _symbolic _____ySS_yXltG s23_ContiguousArrayStorageC
+00000000000341a0 s _symbolic _____ySS_yptG s23_ContiguousArrayStorageC
+00000000000341e8 s _symbolic _____ySSyXlG s18_DictionaryStorageC
+00000000000341b6 s _symbolic _____ySSypG s18_DictionaryStorageC
+00000000000340a4 s _symbolic _____ySay_____GG s23_ContiguousArrayStorageC 8TrueTime013FrozenNetworkE0V
+0000000000033cdc s _symbolic _____ySay_____GSo7NSErrorCG s6ResultOsRi_zRi0_zrlE 8TrueTime13SocketAddressO
+0000000000033dc4 s _symbolic _____ySay_____y_____So7NSErrorCGGG s23_ContiguousArrayStorageC s6ResultOsRi_zRi0_zrlE 8TrueTime013FrozenNetworkF0V
+00000000000340c0 s _symbolic _____ySiG s23_ContiguousArrayStorageC
+00000000000341f6 s _symbolic _____ySnySiGG s23_ContiguousArrayStorageC
+000000000003414a s _symbolic _____ySo17OS_dispatch_queueC_y_____y_____So7NSErrorCGctG s23_ContiguousArrayStorageC s6ResultOsRi_zRi0_zrlE 8TrueTime09ReferenceF0C
+0000000000034020 s _symbolic _____ySuG s23_ContiguousArrayStorageC
+000000000003403a s _symbolic _____y_____G s23_ContiguousArrayStorageC 10Foundation4DataV
+0000000000034086 s _symbolic _____y_____G s23_ContiguousArrayStorageC 8TrueTime013FrozenNetworkE0V
+0000000000033daa s _symbolic _____y_____G s23_ContiguousArrayStorageC 8TrueTime13NTPConnectionC
+00000000000341c2 s _symbolic _____y_____G s23_ContiguousArrayStorageC 8TrueTime13SocketAddressO
+0000000000034204 s _symbolic _____y_____G s23_ContiguousArrayStorageC s5Int64V
+0000000000033df4 s _symbolic _____y_____SgG 8TrueTime7GCDLockC AA09ReferenceB0C
+0000000000034094 s _symbolic _____y_____SgG s23_ContiguousArrayStorageC 8TrueTime013FrozenNetworkE0V
+000000000003402a s _symbolic _____y_____SgG s23_ContiguousArrayStorageC 8TrueTime13SocketAddressO
+0000000000033d92 s _symbolic _____y_____So7NSErrorCG s6ResultOsRi_zRi0_zrlE 8TrueTime013FrozenNetworkC0V
+0000000000033ebc s _symbolic _____y_____So7NSErrorCG s6ResultOsRi_zRi0_zrlE 8TrueTime09ReferenceC0C
+0000000000033e78 s _symbolic _____y_____So7NSErrorCGIegg_ s6ResultOsRi_zRi0_zrlE 8TrueTime09ReferenceC0C
+0000000000033e58 s _symbolic _____y_____So7NSErrorCGIegg_Sg s6ResultOsRi_zRi0_zrlE 8TrueTime09ReferenceC0C
+0000000000033e9c s _symbolic _____y_____So7NSErrorCGytIegnr_ s6ResultOsRi_zRi0_zrlE 8TrueTime09ReferenceC0C
+0000000000033f4e s _symbolic _____y______pG 8TrueTime7GCDLockC AA06FrozenB0P
+0000000000033f26 s _symbolic _____y_____y_____So7NSErrorCGG s23_ContiguousArrayStorageC s6ResultOsRi_zRi0_zrlE 8TrueTime013FrozenNetworkF0V
+0000000000033db8 s _symbolic _____yyXlG s23_ContiguousArrayStorageC
+0000000000034304 s _symbolic _____yypG s23_ContiguousArrayStorageC
+0000000000033b18 s _symbolic x
+0000000000033c2e s _symbolic x
+0000000000033b3c s _symbolic xSg
+0000000000033c7c s _symbolic ySScSg
+0000000000033fa0 s _symbolic y_____Sg___________SgSVSgSvSgtXC So11CFSocketRefa So0A12CallBackTypeV So06CFDataB0a
+0000000000033cb2 s _symbolic y___________SPy_____GSgSvSgtXC So9CFHostRefa So0A8InfoTypeV So13CFStreamErrora
+0000000000033c56 s _symbolic y___________ySay_____GSo7NSErrorCGtc 8TrueTime12HostResolverC s6ResultOsRi_zRi0_zrlE AA13SocketAddressO
+0000000000033fdc s _symbolic y___________y_____So7NSErrorCGtcSg 8TrueTime13NTPConnectionC s6ResultOsRi_zRi0_zrlE AA013FrozenNetworkB0V
+000000000003421e s _symbolic y_____cSg 8TrueTime18ReachabilityStatusO
+0000000000033aa8 s _symbolic ypSg
+                 U _sysctl
+                 U _voucher_adopt
+                 U _writev
