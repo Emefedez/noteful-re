@@ -27,23 +27,28 @@ def main():
     installed=subprocess.check_output([str(bindgen),'--version'],text=True).split()[-1]
     if installed!=version:raise SystemExit(f'wasm-bindgen-cli {version} required, found {installed}')
     subprocess.run([cargo,'build','--locked','--release','-p','noteful-wasm','--target','wasm32-unknown-unknown'],cwd=ROOT,env=env,check=True)
-    pkg=ROOT/'web/pkg';pkg.mkdir(parents=True,exist_ok=True)
+    pkg=ROOT/'apps/reader/pkg';pkg.mkdir(parents=True,exist_ok=True)
     subprocess.run([str(bindgen),'--target','web','--out-dir',str(pkg),str(ROOT/'target/wasm32-unknown-unknown/release/noteful_wasm.wasm')],check=True)
     npm='npm.cmd' if os.name=='nt' else 'npm'
-    subprocess.run([npm,'ci','--ignore-scripts'],cwd=ROOT/'web',check=True)
-    pdfjs=ROOT/'web/node_modules/pdfjs-dist'
-    vendor=ROOT/'web/vendor/pdfjs';vendor.mkdir(parents=True,exist_ok=True)
+    subprocess.run([npm,'ci','--ignore-scripts'],cwd=ROOT/'apps/reader',check=True)
+    pdfjs=ROOT/'apps/reader/node_modules/pdfjs-dist'
+    vendor=ROOT/'apps/reader/vendor/pdfjs';vendor.mkdir(parents=True,exist_ok=True)
     for folder in ['build','cmaps','standard_fonts','wasm']:
         shutil.copytree(pdfjs/folder,vendor/folder,dirs_exist_ok=True)
     shutil.copy2(pdfjs/'LICENSE',vendor/'LICENSE')
-    examples=ROOT/'web/samples';examples.mkdir(exist_ok=True)
+    examples=ROOT/'apps/reader/samples';examples.mkdir(exist_ok=True)
     names=[]
     for p in sorted((ROOT/'samples').glob('*.noteful')):
         shutil.copy2(p,examples/p.name);names.append(p.name)
-    demo=ROOT/'examples/edicion-basica.nfedit'
+    demo=ROOT/'tests/fixtures/editing-demo.nfedit'
     if demo.is_file():
         shutil.copy2(demo,examples/demo.name);names.append(demo.name)
+    multi=ROOT/'tests/fixtures/multi-audio-synthetic.noteful'
+    shutil.copy2(multi,examples/multi.name);names.append(multi.name)
     (examples/'index.json').write_text(json.dumps(names,ensure_ascii=False)+'\n')
-    print('Built web/. Serve with any static HTTP server. No Python/Rust server required at runtime.')
+    assets=[str(p.relative_to(ROOT/'apps/reader')) for p in (ROOT/'apps/reader').rglob('*') if p.is_file() and not any(part in ('node_modules','samples') for part in p.relative_to(ROOT/'apps/reader').parts) and p.suffix not in ('.map',) and not p.name.endswith('.test.mjs') and p.name not in ('precache.json','package-lock.json','package.json','test.mjs')]
+    assets.extend(['./'])
+    (ROOT/'apps/reader/precache.json').write_text(json.dumps(assets)+'\n')
+    print('Built apps/reader/. Serve with any static HTTP server. No Python/Rust server required at runtime.')
 
 if __name__=='__main__':main()

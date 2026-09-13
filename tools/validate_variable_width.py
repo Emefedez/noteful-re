@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 import numpy as np
 from pypdf import PdfReader
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"research/python"))
 from noteful import parse, semantic_summary
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,7 +69,7 @@ def main():
                             'pdf_cap_radii':radii[idx].tolist(),
                             'center_error':float(np.linalg.norm(centers[idx]-xy[0])),
                             'radius_error':float(np.max(np.abs(radii[idx]-v[0])))})
-    target=ROOT/'evidence/variable-width-validation.json'
+    target=ROOT/'research/evidence/variable-width-validation.json'
     target.write_text(json.dumps({'method':'Initial circular caps in PDF, matched by center and circularity. Radius tested independently. Geometry sampled at 16 intervals; coordinates scaled 11/6. Corpus validation, not runtime tracing.','strokes':results},indent=2)+'\n')
     print('strokes:',len(results))
     print('max center error:',max(s['center_error'] for s in results))

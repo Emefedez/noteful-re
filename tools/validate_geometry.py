@@ -9,10 +9,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
-    baseline = Image.open(next((ROOT / "evidence/extracted/nota_vacia").glob("*.jpg"))).convert("RGB")
+    baseline = Image.open(next((ROOT / "research/evidence/extracted/nota_vacia").glob("*.jpg"))).convert("RGB")
     results = []
     for name in ("nota_1linea", "nota_2lineas", "nota_lineagruesa"):
-        folder = ROOT / "evidence/extracted" / name
+        folder = ROOT / "research/evidence/extracted" / name
         report = json.loads((folder / "manifest.json").read_text())
         im = Image.open(next(folder.glob("*.jpg"))).convert("RGB")
         w, h = report["semantic_summary"]["pages"][0]["size"]
@@ -39,7 +39,7 @@ def main():
                     "max_nearest_ink_pixel_distance": max(distances),
                     "note": "Corroborates position/shape only; does not verify engine smoothing, thickness or general codec.",
                 })
-    (ROOT / "evidence/geometry-validation.json").write_text(json.dumps(results, indent=2) + "\n")
+    (ROOT / "research/evidence/geometry-validation.json").write_text(json.dumps(results, indent=2) + "\n")
     print("Geometry evidence saved for", len(results), "strokes")
 
 

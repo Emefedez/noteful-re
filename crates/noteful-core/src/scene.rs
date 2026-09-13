@@ -8,6 +8,7 @@ pub struct Scene {
     pub pages: Vec<Page>,
     pub audio: Vec<crate::AudioAsset>,
     pub recordings: Vec<crate::Recording>,
+    pub layers: Vec<crate::Layer>,
     pub(crate) pdf_assets: Vec<crate::media::PdfAsset>,
 }
 pub struct Page {
@@ -17,6 +18,7 @@ pub struct Page {
     pub pdf_background: Option<crate::PdfBackground>,
     pub timings: Vec<crate::InkTiming>,
     pub(crate) background: String,
+    pub(crate) editable_id: String,
     pub(crate) items: Vec<Item>,
 }
 pub(crate) struct Item {
@@ -25,6 +27,7 @@ pub(crate) struct Item {
     pub hit: Vec<[f64; 2]>,
     pub radius: f64,
     pub z: u64,
+    pub layer: u32,
     pub text: Option<crate::RichText>,
 }
 fn fields(fs: &[Field]) -> Value {
@@ -271,6 +274,7 @@ fn object(o: &Value, package: &Package<'_>, index: usize) -> Result<Item> {
         radius,
         z: o["5"].as_u64().unwrap_or(0),
         text: rich_text,
+        layer: o["4"].as_u64().unwrap_or(0) as u32,
     })
 }
 impl Scene {
@@ -300,6 +304,7 @@ impl Scene {
             })
             .collect();
         let mut recordings = Vec::new();
+        let mut layers = Vec::new();
         let mut title = String::new();
         let mut records = Vec::new();
         for b in &package.blocks {
@@ -310,6 +315,17 @@ impl Scene {
                 }
                 if b.kind == "drawing_metadata" {
                     records.extend(arr(&v["2"]["0"]).iter().cloned());
+                    let mut layer_records = arr(&v["3"]["0"]).to_vec();
+                    layer_records.sort_by(|a, b| text(&a["3"]).cmp(text(&b["3"])));
+                    for l in layer_records {
+                        layers.push(crate::Layer {
+                            id: l["2"].as_u64().unwrap_or(0) as u32,
+                            name: text(&l["1"]).to_owned(),
+                            visible: l["4"].as_u64().unwrap_or(0) == 0,
+                            locked: l["5"].as_u64().unwrap_or(0) != 0,
+                            opacity: num(&l["6"], 1.).clamp(0., 1.),
+                        });
+                    }
                     for r in arr(&v["7"]["0"]) {
                         if let (Some(start), Some(duration)) = (r["5"].as_u64(), r["6"].as_f64()) {
                             if duration.is_finite() && duration >= 0. {
@@ -405,6 +421,7 @@ impl Scene {
                             hit: s.points.clone(),
                             radius: s.radii.iter().copied().fold(s.radius, f64::max),
                             z: s.z_order,
+                            layer: s.layer,
                             text: None,
                         }),
                         Err(e) => warnings.push(e.to_string()),
@@ -429,17 +446,33 @@ impl Scene {
                 id: text(&record["1"]).to_owned(),
                 size,
                 background,
+                editable_id: id.to_owned(),
                 pdf_background,
                 timings,
                 items,
                 warnings,
             });
         }
+        if layers.is_empty() {
+            layers.push(crate::Layer::default());
+        }
+        for page in &pages {
+            for item in &page.items {
+                if !layers.iter().any(|l| l.id == item.layer) {
+                    layers.push(crate::Layer {
+                        id: item.layer,
+                        name: format!("Layer {}", item.layer + 1),
+                        ..Default::default()
+                    });
+                }
+            }
+        }
         Ok(Self {
             title,
             pages,
             audio,
             recordings,
+            layers,
             pdf_assets,
         })
     }

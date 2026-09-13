@@ -12,10 +12,18 @@ pub struct Line {
     pub points: Vec<[f64; 2]>,
     pub width: f64,
     pub rgba: [f64; 4],
+    #[serde(default)]
+    pub tool: u16,
+    #[serde(default)]
+    pub layer: u32,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub shape: Option<crate::Shape>,
 }
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "kind", deny_unknown_fields)]
-enum Edit {
+pub(crate) enum Edit {
+    Replace { page: usize, id: String, line: Line },
+    Layer { layer: crate::Layer },
     Add { page: usize, line: Line },
     Erase { page: usize, ids: Vec<String> },
 }
@@ -25,14 +33,14 @@ struct Project {
     format: String,
     version: u32,
     source_base64: String,
-    history: Vec<Edit>,
-    cursor: usize,
+    pub(crate) history: Vec<Edit>,
+    pub(crate) cursor: usize,
 }
 pub struct Editor {
-    source: Vec<u8>,
+    pub(crate) source: Vec<u8>,
     pub scene: Scene,
-    history: Vec<Edit>,
-    cursor: usize,
+    pub(crate) history: Vec<Edit>,
+    pub(crate) cursor: usize,
 }
 
 fn points_valid(points: &[[f64; 2]]) -> bool {
@@ -102,7 +110,7 @@ impl Editor {
             .get(page)
             .ok_or_else(|| Error::new(0, "Page outside document"))
     }
-    fn deleted(&self, page: usize) -> HashSet<&str> {
+    pub(crate) fn deleted(&self, page: usize) -> HashSet<&str> {
         self.history[..self.cursor]
             .iter()
             .filter_map(|e| match e {
@@ -112,12 +120,27 @@ impl Editor {
             .flatten()
             .collect()
     }
-    fn additions(&self, page: usize) -> impl Iterator<Item = (String, &Line)> {
+    pub(crate) fn additions(&self, page: usize) -> impl Iterator<Item = (String, &Line)> {
         self.history[..self.cursor]
             .iter()
             .enumerate()
             .filter_map(move |(i, e)| match e {
-                Edit::Add { page: p, line } if *p == page => Some((format!("new:{i}"), line)),
+                Edit::Add { page: p, line } if *p == page => {
+                    let id = format!("new:{i}");
+                    let line = self.history[..self.cursor]
+                        .iter()
+                        .rev()
+                        .find_map(|edit| match edit {
+                            Edit::Replace {
+                                page: p,
+                                id: key,
+                                line,
+                            } if *p == page && *key == id => Some(line),
+                            _ => None,
+                        })
+                        .unwrap_or(line);
+                    Some((id, line))
+                }
                 _ => None,
             })
     }
@@ -130,9 +153,39 @@ impl Editor {
         self.cursor += 1;
         Ok(())
     }
-    pub fn add_line(&mut self, page: usize, line: Line) -> Result<()> {
+    pub fn layers(&self) -> Vec<crate::Layer> {
+        let mut layers = self.scene.layers.clone();
+        for edit in &self.history[..self.cursor] {
+            if let Edit::Layer { layer } = edit {
+                if let Some(l) = layers.iter_mut().find(|l| l.id == layer.id) {
+                    *l = layer.clone();
+                } else {
+                    layers.push(layer.clone());
+                }
+            }
+        }
+        layers
+    }
+    pub fn set_layer(&mut self, layer: crate::Layer) -> Result<()> {
+        if layer.name.trim().is_empty()
+            || !layer.opacity.is_finite()
+            || !(0.0..=1.0).contains(&layer.opacity)
+        {
+            return Err(Error::new(0, "Invalid layer"));
+        }
+        self.commit(Edit::Layer { layer })
+    }
+    pub fn add_line(&mut self, page: usize, mut line: Line) -> Result<()> {
         self.page(page)?;
-        if !points_valid(&line.points)
+        if let Some(shape) = &line.shape {
+            line.points = shape.points();
+        }
+        if line.tool > 1
+            || !self
+                .layers()
+                .iter()
+                .any(|l| l.id == line.layer && l.visible && !l.locked)
+            || !points_valid(&line.points)
             || !line.width.is_finite()
             || !(0.1..=100.).contains(&line.width)
             || line
@@ -144,6 +197,32 @@ impl Editor {
         }
         self.commit(Edit::Add { page, line })
     }
+    pub fn resize_shape(&mut self, page: usize, id: &str, shape: crate::Shape) -> Result<()> {
+        let mut line = self
+            .additions(page)
+            .find(|(key, _)| key == id)
+            .map(|(_, l)| l.clone())
+            .ok_or_else(|| Error::new(0, "Shape not found"))?;
+        if self.deleted(page).contains(id)
+            || line.shape.as_ref().is_none_or(|s| s.kind != shape.kind)
+            || !self
+                .layers()
+                .iter()
+                .any(|l| l.id == line.layer && l.visible && !l.locked)
+        {
+            return Err(Error::new(0, "Shape cannot be resized"));
+        }
+        line.points = shape.points();
+        if !points_valid(&line.points) {
+            return Err(Error::new(0, "Invalid shape coordinates"));
+        }
+        line.shape = Some(shape);
+        self.commit(Edit::Replace {
+            page,
+            id: id.to_owned(),
+            line,
+        })
+    }
     /// Sweep a round eraser; remove each touched whole stroke in one undo action.
     /// Imported images and filled shapes are not eraser targets.
     pub fn erase_path(&mut self, page: usize, path: &[[f64; 2]], radius: f64) -> Result<usize> {
@@ -152,14 +231,21 @@ impl Editor {
             return Err(Error::new(0, "Invalid eraser path"));
         }
         let deleted = self.deleted(page);
+        let layers = self.layers();
+        let editable = |id| layers.iter().any(|l| l.id == id && l.visible && !l.locked);
         let mut ids = Vec::new();
         for item in &p.items {
-            if !deleted.contains(item.id.as_str()) && hits(path, &item.hit, radius + item.radius) {
+            if editable(item.layer)
+                && !deleted.contains(item.id.as_str())
+                && hits(path, &item.hit, radius + item.radius)
+            {
                 ids.push(item.id.clone());
             }
         }
         for (id, line) in self.additions(page) {
-            if !deleted.contains(id.as_str()) && hits(path, &line.points, radius + line.width / 2.)
+            if editable(line.layer)
+                && !deleted.contains(id.as_str())
+                && hits(path, &line.points, radius + line.width / 2.)
             {
                 ids.push(id);
             }
@@ -182,20 +268,28 @@ impl Editor {
         let mut content = p.background.clone();
         let mut imported = 0;
         let mut added = 0;
-        for item in &p.items {
-            if !deleted.contains(item.id.as_str()) {
-                content.push_str(&format!("<g data-item=\"{}\">{}</g>", item.id, item.svg));
-                imported += 1;
+        let layers = self.layers();
+        for layer in &layers {
+            if !layer.visible {
+                continue;
             }
-        }
-        for (id, line) in self.additions(page) {
-            if !deleted.contains(id.as_str()) {
-                content.push_str(&format!(
-                    "<g data-item=\"{id}\">{}</g>",
-                    line_svg(&line.points, line.width / 2., &line.rgba)
-                ));
-                added += 1;
+            content.push_str(&format!(
+                "<g data-layer=\"{}\" opacity=\"{}\">",
+                layer.id, layer.opacity
+            ));
+            for item in p.items.iter().filter(|i| i.layer == layer.id) {
+                if !deleted.contains(item.id.as_str()) {
+                    content.push_str(&format!("<g data-item=\"{}\">{}</g>", item.id, item.svg));
+                    imported += 1;
+                }
             }
+            for (id, line) in self.additions(page).filter(|(_, l)| l.layer == layer.id) {
+                if !deleted.contains(id.as_str()) {
+                    content.push_str(&format!("<g data-item=\"{id}\">{}</g>", added_svg(line)));
+                    added += 1;
+                }
+            }
+            content.push_str("</g>");
         }
         let [w, h] = p.size;
         let texts: Vec<_> = p
@@ -206,7 +300,7 @@ impl Editor {
             .collect();
         let svg=format!("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 {w} {h}\" width=\"{w}\" height=\"{h}\" style=\"isolation:isolate\">{content}</svg>");
         Ok(
-            json!({"title":self.scene.title,"pages":self.scene.pages.len(),"page":page,"size":p.size,"svg":svg,"warnings":p.warnings,"texts":texts,"audio":self.scene.audio,"recordings":self.scene.recordings,"pdf_background":p.pdf_background,"timings":p.timings.iter().filter(|t| !deleted.contains(t.item_id.as_str())).collect::<Vec<_>>(),"visible_imported":imported,"visible_added":added,"erased":deleted.len(),"can_undo":self.cursor>0,"can_redo":self.cursor<self.history.len(),"edit_count":self.cursor}),
+            json!({"title":self.scene.title,"pages":self.scene.pages.len(),"page":page,"size":p.size,"svg":svg,"warnings":p.warnings,"texts":texts,"audio":self.scene.audio,"recordings":self.scene.recordings,"layers":layers,"shapes":self.additions(page).filter(|(id,l)| l.shape.is_some()&&!deleted.contains(id.as_str())&&layers.iter().any(|layer|layer.id==l.layer&&layer.visible)).map(|(id,l)|json!({"id":id,"line":l})).collect::<Vec<_>>(),"page_sizes":self.scene.pages.iter().map(|p|p.size).collect::<Vec<_>>(),"pdf_background":p.pdf_background,"timings":p.timings.iter().filter(|t| !deleted.contains(t.item_id.as_str())).collect::<Vec<_>>(),"visible_imported":imported,"visible_added":added,"erased":deleted.len(),"can_undo":self.cursor>0,"can_redo":self.cursor<self.history.len(),"edit_count":self.cursor}),
         )
     }
     pub fn save_project(&self) -> Result<String> {
@@ -253,6 +347,25 @@ impl Editor {
         let mut editor = Self::open(&source)?;
         for edit in project.history {
             match edit {
+                Edit::Replace { page, id, line } => {
+                    let previous = editor
+                        .additions(page)
+                        .find(|(key, _)| *key == id)
+                        .map(|(_, l)| l)
+                        .ok_or_else(|| Error::new(0, "Invalid replaced shape"))?;
+                    if line.width != previous.width
+                        || line.rgba != previous.rgba
+                        || line.tool != previous.tool
+                        || line.layer != previous.layer
+                    {
+                        return Err(Error::new(0, "Resize cannot change style"));
+                    }
+                    let shape = line
+                        .shape
+                        .ok_or_else(|| Error::new(0, "Missing replacement shape"))?;
+                    editor.resize_shape(page, &id, shape)?;
+                }
+                Edit::Layer { layer } => editor.set_layer(layer)?,
                 Edit::Add { page, line } => editor.add_line(page, line)?,
                 Edit::Erase { page, ids } => {
                     let p = editor.page(page)?;
@@ -279,5 +392,14 @@ impl Editor {
         }
         editor.cursor = project.cursor;
         Ok(editor)
+    }
+}
+
+pub(crate) fn added_svg(line: &Line) -> String {
+    let svg = line_svg(&line.points, line.width / 2., &line.rgba);
+    if line.tool == 1 {
+        format!("<g opacity=\"0.5\" style=\"mix-blend-mode:multiply\">{svg}</g>")
+    } else {
+        svg
     }
 }

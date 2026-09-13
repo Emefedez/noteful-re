@@ -22,6 +22,7 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: python tools/check_rust_parity.py
       - run: python tools/check_scene_parity.py
+      - run: python tools/check_export.py
   android-core:
     runs-on: ubuntu-latest
     steps:
@@ -30,6 +31,14 @@ jobs:
         with:
           targets: aarch64-linux-android
       - run: cargo check -p noteful-core --locked --target aarch64-linux-android
+  ios-core:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios
+      - run: cargo check -p noteful-core --locked --target aarch64-apple-ios
   webassembly:
     runs-on: ubuntu-latest
     steps:
@@ -45,4 +54,5 @@ jobs:
           node-version: '22'
       - run: cargo install wasm-bindgen-cli --version 0.2.128 --locked --root work/wasm-tools
       - run: python tools/build_web.py
-      - run: node web/test.mjs
+      - run: node apps/reader/test.mjs
+      - run: node apps/reader/audio.test.mjs

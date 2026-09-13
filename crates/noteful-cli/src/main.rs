@@ -8,13 +8,13 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     let mut args = std::env::args_os().skip(1);
     let cmd = args
         .next()
-        .ok_or("Usage: noteful inspect|verify|render <file|->")?;
+        .ok_or("Usage: noteful inspect|verify|render|export <file|->")?;
     let source = args.next().ok_or("Missing input file (or - for stdin)")?;
     if args.next().is_some() {
         return Err("Too many arguments".into());
     }
-    if cmd != "inspect" && cmd != "verify" && cmd != "render" {
-        return Err("Expected inspect, verify or render".into());
+    if cmd != "inspect" && cmd != "verify" && cmd != "render" && cmd != "export" {
+        return Err("Expected inspect, verify, render or export".into());
     }
     let mut input: Box<dyn Read> = if source == "-" {
         Box::new(io::stdin())
@@ -30,6 +30,11 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         data.try_reserve(n)?;
         data.extend_from_slice(&chunk[..n]);
+    }
+    if cmd == "export" {
+        let editor = noteful_core::Editor::open_project(std::str::from_utf8(&data)?)?;
+        io::stdout().lock().write_all(&editor.export_noteful()?)?;
+        return Ok(());
     }
     if cmd == "render" {
         let editor = noteful_core::Editor::open(&data)?;

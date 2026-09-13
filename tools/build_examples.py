@@ -4,6 +4,8 @@ import hashlib
 import html
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"research/python"))
 from render_note import render
 
 ROOT = Path(__file__).resolve().parents[1]

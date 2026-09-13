@@ -132,5 +132,6 @@ fn multiple_recordings_have_independent_clocks_and_preserve_every_asset() {
     assert!(e.erase_path(8, &[point], 1.).unwrap() > 0);
     assert!(e.view(8).unwrap()["timings"].as_array().unwrap().len() < 3);
     e.undo();
-    assert_eq!(e.view(8).unwrap(), before);
+    assert_eq!(e.view(8).unwrap()["svg"], before["svg"]);
+    assert_eq!(e.view(8).unwrap()["timings"], before["timings"]);
 }

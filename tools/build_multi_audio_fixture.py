@@ -7,6 +7,8 @@ This is a parser/UI fixture, NOT evidence of a native multiple-recording export.
 from pathlib import Path
 import copy, struct, sys
 sys.path.insert(0,str(Path(__file__).resolve().parent))
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"research/python"))
 from noteful import parse,encode_fields,MAGIC
 ROOT=Path(__file__).resolve().parents[1]
 def build():

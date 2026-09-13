@@ -1,137 +1,76 @@
-# Noteful RE
+# Noteful Reader
 
-Lector, visor y editor experimental `.noteful`, validado con nueve notas aportadas.
-Trabajo realizado en esta carpeta; archivos originales de Downloads conservados.
+A local-first reader and editor for `.noteful` archives, built on a portable Rust core. Open existing notes without running Noteful or depending on a Mac/iPad. The browser app targets desktop, Android and iOS browsers; native store packages are not included yet.
 
-## Núcleo Rust portable
+## Run
 
-Migrados: contenedor, campos tipados, recursos, trazos, escena SVG y edición
-no destructiva. El mismo núcleo funciona nativo y en WebAssembly. Arquitectura y fases:
-[ARCHITECTURE.md](docs/ARCHITECTURE.md). Especificación independiente:
-[noteful-v0.1.md](spec/noteful-v0.1.md).
+Build requirements: Rust 1.93+, the `wasm32-unknown-unknown` target, Node 22+, Python 3.11+ for the build helper, and `wasm-bindgen-cli` matching Cargo.lock (currently 0.2.128).
 
 ```sh
-cargo build --workspace --locked
-cargo run -p noteful-cli -- inspect "samples/Examen wuolah.noteful"
-cargo run -p noteful-cli -- verify "samples/Examen wuolah.noteful"
-cargo test --workspace --locked
-python3 tools/check_rust_parity.py
-python3 tools/viewer.py --engine rust
-```
-
-Paridad comprobada en nueve notas: campos, trazos, resumen semántico, SVG y round-trip.
-La prueba inicial usa el renderer Python común. `check_scene_parity.py` comprueba
-también el renderer Rust independiente, con tolerancia numérica. El adaptador CLI es temporal;
-la futura aplicación Android necesitará enlace al núcleo dentro del proceso.
-Núcleo sin dependencias de GUI o sistema de archivos; lectura de archivos en CLI.
-JSON de diagnóstico puede contener enteros de 64 bits: no es DTO de JavaScript.
-
-## Editor web: dibujar y borrar
-
-```sh
+rustup target add wasm32-unknown-unknown
+cargo install wasm-bindgen-cli --version 0.2.128 --locked --root work/wasm-tools
 python3 tools/build_web.py
-node tools/serve_web.mjs
+node tools/serve_web.mjs 8765
 ```
 
-Abrir **http://127.0.0.1:8767/**. Lápiz de grosor fijo/color, borrador de trazos
-completos importados/nuevos, deshacer/rehacer, zoom y navegación. Funciona en el
-navegador con Rust/WASM; el servidor solo entrega archivos estáticos.
-**Guardar proyecto** crea `.nfedit` con original y cambios; puede reabrirse.
-**Exportar SVG** guarda la página visible. La exportación `.noteful` modificada
-compatible con la app original sigue pendiente. Instrucciones: [WEB.md](docs/WEB.md).
+Open http://127.0.0.1:8765/. The generated `apps/reader/` directory can also be served by any static HTTP server. No Python, Rust server, Noteful installation or network API is needed at runtime. For mobile installation, serve over HTTPS and use the browser's Add to Home Screen / Install option. The service worker caches application assets for offline use; opened notes are never uploaded or cached by the service worker.
 
-## Abrir una nota
+## Features
 
-Doble clic en **Abrir Noteful.command**. Abre navegador y carga el examen.
-Usa **Abrir archivo .noteful**, arrastra un archivo o elige uno de los nueve ejemplos.
-Flechas cambian de página; **Comparar con PDF del examen** muestra referencia
-independiente. **Guardar SVG** exporta la reconstrucción de la página actual.
+- Scrollable pages with lazy rendering; actual embedded PDF backgrounds, images, imported ink and rich text.
+- Fixed-width pen, highlighter, line, rectangle, ellipse, triangle and arrow tools. New shapes are editable stroke outlines with direct insertion and draggable/keyboard corner handles.
+- Whole-stroke eraser, global undo/redo and non-destructive `.nfedit` projects.
+- Layer selection, creation, renaming, visibility, lock and opacity.
+- Multiple audio recordings through one player. Seeking restores full opacity to traces whose pen-down time has passed; future traces stay at 20%. Original ink alpha/highlighter blend remains intact.
+- Export the current page as SVG, including its PDF raster background and displayed audio state.
+- Experimental `.nfedit → .noteful` export preserving original media and untouched records. Native-app import validation remains outstanding.
+- No fixed note size or note count limit. Platform memory/address space and format field widths still apply.
 
-También puedes abrir `examples/index.html` directamente: nueve vistas HTML y once
-páginas SVG, sin servidor. Estas vistas estáticas no cargan archivos nuevos.
+The ten original notes in `samples/` cover 204 pages. `tests/fixtures/` contains explicitly synthetic cases and a saved editing project. User-supplied PDF exports are independent visual references, never substitutes for editable ink.
+
+## Repository layout
+
+| Path | Responsibility |
+|---|---|
+| `crates/noteful-core/` | Byte parser, typed wire encoder, scene, text, audio timing, layers, editing and native writer; no OS/UI APIs |
+| `crates/noteful-wasm/` | Browser bindings around the same core |
+| `crates/noteful-cli/` | Inspection, verification, scene output and native export CLI |
+| `apps/reader/` | Responsive reader/PWA, PDF.js adapter, virtual pages, tools and audio controls |
+| `spec/` | Observed native grammar and our project format |
+| `docs/` | Architecture, user guide, evidence interpretation and limitations, in English |
+| `research/python/` | Independent Python oracle and historical viewer backend |
+| `research/ghidra/` | Reproducible read-only Ghidra extraction scripts |
+| `research/evidence/` | Source manifests, extracted data, decompilation and validation reports |
+| `research/legacy-viewer/` | Historical comparison UI; not the product reader |
+| `tools/` | Build, serve, fixture generation and validation scripts |
+| `samples/`, `tests/` | Original corpus and regression suites |
+
+Generated dependencies, WASM bindings, galleries, Python caches and `work/` are ignored. The local Ghidra database and original Git history were backed up before removing build/research scratch data from published history.
+
+## CLI
 
 ```sh
-python3 tools/noteful.py  # abre visor
-python3 tools/noteful.py "samples/Examen wuolah.noteful" --view
-python3 tools/viewer.py --file "/ruta/nota.noteful"
+cargo run -p noteful-cli -- inspect 'samples/Practice book (vol. 1).noteful'
+cargo run -p noteful-cli -- verify 'samples/Examen wuolah.noteful'
+cargo run -p noteful-cli -- render 'samples/texto.noteful' > scene.json
+cargo run -p noteful-cli -- export project.nfedit > edited.noteful
 ```
 
-Requiere Python 3.10 o posterior. Servidor limitado a `127.0.0.1`; ningún archivo
-sale del equipo. Ctrl+C en Terminal cierra servidor. No modifica los originales.
+`render` emits scene SVG plus PDF resource references; the browser adapter composites the PDF. `verify` checks binary round-trip, not complete visual semantics. Redirect export to a new filename; it writes binary bytes to stdout.
 
-## Resultados
-
-- Magic `AA BB CC DE`; índice situado por tráiler de 16 bytes.
-- Extracción exacta de bloques JPEG, PDF, PNG y estructuras editables.
-- Decodificación recursiva de campos, arrays y sufijos de 64 bits asociados a cambios.
-- Relaciones nota → página → fondo / conjunto editable / adjuntos; capas recuperadas.
-- Examen: 2.008 trazos en tres páginas (621 / 939 / 448), colores y herramientas.
-- Comandos `F1 01` de geometría y `F1 02` de estilo; puntos float32 o cuantizados.
-- Radio por punto recuperado en 23 trazos; canal auxiliar en 12 aún sin resolver.
-- Subrayador sobre fotografías: Multiply al 50%, como el PDF exportado.
-- Figuras: elipses, polígonos, curvas cúbicas y rectángulos redondeados.
-- Herramienta línea e imagen son objetos distintos de los trazos libres.
-- Ocho archivos reconstruidos byte a byte; doce pruebas automáticas pasan.
-
-Ver [especificación y límites](docs/FORMAT.md), [evidencia comparativa](evidence/corpus.json)
-y [estado de Ghidra](docs/GHIDRA.md).
-
-## Uso
-
-Python 3, sin dependencias para lector y pruebas. Ejecutar desde esta carpeta:
+## Validation
 
 ```sh
-python3 tools/noteful.py samples/nota_1linea.noteful
-python3 tools/noteful.py samples/nota_1linea.noteful --extract work/mi-extraccion
-python3 tools/analyze_corpus.py
-python3 -m unittest discover -s tests -v
-file -m docs/noteful.magic samples/nota_1linea.noteful
-```
-
-`--extract` exige una carpeta nueva. Produce bloques sin alterar, `index.bin`,
-`manifest.json` con offsets absolutos y resumen semántico. Los blobs originales de
-tinta se guardan aparte. Las siete extracciones ya están en `evidence/extracted/`.
-
-`encode_fields()` permite reconstruir los campos observados. No se presenta como
-editor general: todavía no se ha importado un archivo modificado en Noteful.
-El visor representa los 74 objetos y los 2.008 trazos del examen, con grosor
-variable y subrayadores transparentes. Interpolación de tinta todavía aproximada.
-Fondos PDF genéricos, otros tipos de figura y semántica de borrado pendientes.
-Los antiguos `freehand-provisional.svg` son evidencia histórica en negro.
-`examples/` contiene la reconstrucción actual con color y páginas separadas.
-
-## Organización
-
-- `samples/`: copias de nueve notas y PDF exportado del examen.
-- `examples/`: galería estática, SVG por página y referencia rasterizada del PDF.
-- `viewer/`: interfaz local.
-- `tools/`: lector, codificador de campos, comparación y scripts de análisis.
-- `tests/`: corpus, relaciones, reconstrucción y entradas inválidas.
-- `docs/`: formato, identificación libmagic y estado de Ghidra.
-- `evidence/`: hashes, offsets, extracciones, comparaciones y resultados estáticos.
-- `work/`: entorno Cerberus y proyecto Ghidra; material intermedio.
-
-Regenerar ejemplos: `python3 tools/build_examples.py`. Referencias PNG creadas con
-Poppler desde el PDF aportado; no se usan para reconstruir tinta. Hashes en
-`evidence/exam-source-manifest.json`. Detalles nuevos: `docs/EXAMEN.md`.
-
-Actualización de transparencia, figuras, radios y copia completa de seguridad:
-[RENDERING.md](docs/RENDERING.md).
-
-## Validación del núcleo y editor
-
-```sh
+cargo fmt --all --check
+cargo clippy --workspace --all-targets --locked -- -D warnings
 cargo test --workspace --locked
+python3 -m unittest discover -s tests -v
 python3 tools/check_rust_parity.py
 python3 tools/check_scene_parity.py
-node web/test.mjs
+node apps/reader/test.mjs
+node apps/reader/audio.test.mjs
 ```
 
-15 pruebas Python, 15 pruebas Rust y ejecución WASM con las nueve notas y operaciones
-de edición. Paridad de primitivas SVG con Python: once páginas, tolerancia 2e-5.
-Linux/Windows/Android pasan `cargo check` del núcleo; aplicaciones nativas y pruebas
-en esos dispositivos pendientes. Proyecto de ejemplo: `examples/edicion-basica.nfedit`.
+The CI matrix runs core/reference checks on Linux, Windows and macOS, plus Android target checking and actual WASM runtime tests. Local cross-target checks do not substitute for device execution. Native `.noteful` export is tested by re-importing into both decoders, preserving resource bytes, undo/redo and edit semantics; it has not yet been validated by importing modified output into Noteful.app.
 
-Texto ya renderizado con tamaño, negrita, cursiva, subrayado/tachado y familias:
-[TEXT.md](docs/TEXT.md). Audio: conservación, reproducción independiente y
-sincronización aún pendiente: [AUDIO.md](docs/AUDIO.md). Sin techo fijo de MB.
+Known limitations: exact native ink interpolation, unknown auxiliary ink channels, advanced text layout, text editing, native parametric shape creation, native recording capture, and some format variants. See [architecture](docs/ARCHITECTURE.md), [reader guide](docs/WEB.md), [audio evidence](docs/AUDIO.md) and [native export](docs/EXPORT.md).

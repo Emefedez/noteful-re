@@ -41,6 +41,19 @@ impl EditorSession {
     pub fn redo(&mut self) {
         self.inner.redo();
     }
+    pub fn resize_shape(&mut self, page: usize, id: &str, shape: &str) -> Result<(), JsValue> {
+        self.inner
+            .resize_shape(page, id, serde_json::from_str(shape).map_err(js_error)?)
+            .map_err(js_error)
+    }
+    pub fn set_layer(&mut self, layer: &str) -> Result<(), JsValue> {
+        self.inner
+            .set_layer(serde_json::from_str(layer).map_err(js_error)?)
+            .map_err(js_error)
+    }
+    pub fn export_noteful(&self) -> Result<Vec<u8>, JsValue> {
+        self.inner.export_noteful().map_err(js_error)
+    }
     pub fn save_project(&self) -> Result<String, JsValue> {
         self.inner.save_project().map_err(js_error)
     }

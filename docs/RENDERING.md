@@ -1,96 +1,38 @@
-# Transparencia, figuras y grosor variable
+# Rendering evidence
 
-Actualización: 2026-09-13. Análisis del contenedor y del PDF exportado aportado;
-no se realizó nueva instrumentación de Noteful.app. Sustituye los límites de
-representación descritos inicialmente en EXAMEN.md.
+## Highlighter over images
 
-## Copia de seguridad anterior a estos cambios
+Object tag 8 is opacity and tag 9 selects normal ink (0) or highlighter (1) in the corpus. The supplied PDF uses `/BM /Multiply`, fill alpha `/ca 0.5` and stroke alpha `/CA 0.5`. Evidence: `research/evidence/pdf-blend-states.json`. The page-2 yellow line has width 28 and tool 1, above a JPEG photograph.
 
-Archivo completo: `../Noteful-RE-backups/Noteful-RE-20260912-190800.tar.gz`.
-Incluye Ghidra, entorno de trabajo, muestras, código, ejemplos y evidencia.
-4.415 archivos verificados contra el contenido del archivo comprimido;
-162.836.122 bytes. SHA-256:
-`211a56a1546f865216792978a5603e8de552a10a1607880eb00eeed5bb9c8377`.
-El manifiesto se guarda junto a la copia, con sufijo `.tar.manifest.json`.
+Shapes and freehand ink share a single compositing operation per object/stroke: Multiply at 0.5 for highlighter, multiplied by the original object/color alpha. This avoids darkening self-overlapping pieces separately. The actual embedded PDF is inserted as an SVG image below the ink in the product reader. Layer groups compose in order with their opacity.
 
-## Transparencia del subrayador sobre imágenes
+## Recovered shapes
 
-El fallo concreto estaba en las formas de tipo 20: el renderer interpretaba
-su geometría y color, pero omitía campos del objeto que controlan opacidad y
-herramienta. Por eso el subrayado recto amarillo tapaba el texto de la fotografía.
+| Kind | Geometry | Previously missing exam objects |
+|---|---|---:|
+| 3 | Filled rounded rectangle; payload/20 radius, payload/5 fill | 1 |
+| 6 | Ellipse; payload/7 outline | 5 |
+| 12 | Closed polygon; payload/13 commands | 3 |
+| 21 | Cubic curve; payload/13 commands | 3 |
 
-Campos observados en el objeto, fuera del payload:
+Kind 20 handles straight lines. Path commands: 0 move (one point), 1 line (one), 3 cubic (three), 4 close (none). Unsupported commands and incomplete coordinates produce diagnostics. Native geometry is scaled into placement dimensions before center translation and rotation; zero width/height is valid for degenerate straight lines. The sample's 74 objects all render, without claiming support for every Noteful object type.
 
-| Tag | Valor observado | Interpretación contrastada |
-|---|---|---|
-| 8 | 1.0 | Factor de opacidad del objeto |
-| 9 | 0 / 1 | Dibujo normal / subrayador |
+New UI shapes are fixed-width stroke outlines (line, rectangle, ellipse, triangle, arrow). They can be erased, undone, assigned to layers and exported as native ink. They are not native parametric objects with editing handles.
 
-El PDF usa `/BM /Multiply` y `/ca 0.5` para rellenos, `/CA 0.5` para contornos.
-Se conserva evidencia en `evidence/pdf-blend-states.json`. La forma de subrayado
-de página 2 tiene grosor 28 y modo 1, y se coloca encima de una imagen JPEG.
+## Variable-width ink
 
-Ahora formas y tinta comparten composición: Multiply con factor 0,5 para modo 1.
-Alpha del color y del objeto se respetan. La composición se aplica una sola vez
-por objeto/trazo, evitando oscurecer sus segmentos solapados. Se conserva el
-orden raw de dibujo, de modo que la foto sirve como fondo real de la mezcla.
-El factor de objeto distinto de 1 está probado mediante caso sintético; todas
-las formas de esta muestra tienen factor 1. No se infieren otros modos de mezcla.
+For 23 exam strokes with flag 1, the third sample dimension matches the initial circle radius in the independent exported PDF. It is not normalized Apple Pencil pressure. The old diagnostic `pressure_candidate` alias is retained, but `radii` is the supported interpretation.
 
-## Las doce figuras que faltaban
+Independent endpoint comparisons: maximum center error 0.000128113 internal units, maximum radius error 0.000071836. Circle selection used position/circularity, not the candidate radius. See `research/evidence/variable-width-validation.json`. A prior failed nearest-outline experiment is retained separately and does not support the renderer.
 
-| Tipo raw | Forma | Cantidad nueva | Datos usados |
-|---|---|---:|---|
-| 3 | Rectángulo redondeado relleno | 1 | Tamaño, radio payload/20, relleno payload/5 |
-| 6 | Elipse | 5 | Tamaño, contorno payload/7 |
-| 12 | Polígono cerrado | 3 | Coordenadas y comandos payload/13 |
-| 21 | Curva cúbica | 3 | Coordenadas y comandos payload/13 |
+Rendering uses a union of sample discs and their external tangents, composed once. It preserves measured endpoints and varying width but does not reproduce the native filtering/Bezier smoothing exactly. Auxiliary channel bytes are preserved without assigning unproven eraser/pressure semantics.
 
-Comandos observados: 0 = mover (un punto), 1 = línea (un punto), 3 = curva cúbica
-(tres puntos), 4 = cerrar (sin coordenadas). Cantidades y consumo se validan;
-comandos desconocidos se rechazan explícitamente. No se presupone comando 2.
+## Text and PDF
 
-Transformación: centro, rotación y tamaño colocado; geometría en coordenadas
-nativas, escalando también el contorno. Un eje nativo cero es válido para líneas.
-La elipse y las curvas se corroboran con comandos del PDF. El rectángulo
-amarillo recupera relleno y redondeo. Total del examen: 74/74 objetos representados.
-Esto no afirma soporte de todos los tipos posibles del formato.
+Text is decoded into escaped SVG text/tspans; [font details](TEXT.md) document approximations. PDF.js reads each page's actual indexed PDF resource and page index, including paper templates. Only nearby pages rasterize; the embedded image participates in the same SVG composition as strokes. SVG export includes that image. The native CLI scene carries a PDF descriptor, leaving rasterization to its host adapter.
 
-## El tercer canal contiene radios
+## Backups
 
-En 23 trazos con `flags & 1`, el tercer valor por muestra se almacenaba antes
-como `pressure_candidate`. No es presión normalizada: el primer valor coincide
-con radio del círculo inicial dibujado en el PDF, tras convertir coordenadas por
-factor 11/6. Se añade nombre `radii`; el alias anterior permanece por compatibilidad.
+Before earlier rendering work: `Noteful-RE-20260912-190800.tar.gz`, 4,415 files verified, 162,836,122 bytes, SHA-256 `211a56a1546f865216792978a5603e8de552a10a1607880eb00eeed5bb9c8377`.
 
-Validación independiente de 23 extremos iniciales:
-
-- Error máximo del centro: 0,000128113 unidades internas.
-- Error máximo del radio: 0,000071836 unidades internas.
-- Círculos seleccionados por posición y circularidad, sin usar radio candidato
-  para seleccionarlos. Evidencia: `evidence/variable-width-validation.json`.
-
-El visor usa ahora radio por muestra, discos y tangentes externas entre discos,
-componiendo todo el trazo una vez. Los extremos y el grosor variable quedan
-representados. La interpolación entre muestras sigue siendo aproximada; no se
-ha reproducido el suavizado exacto de curvas del motor de Noteful.
-
-El primer experimento midió distancia al contorno más cercano y produjo errores
-grandes: el lector de evidencia conservaba solo el último subcontorno del relleno
-compuesto. Se abandonó esa métrica. Se conserva como experimento fallido en
-`evidence/variable-width-outline-experiment.json`; no respalda el renderer.
-
-## Reproducir comprobaciones
-
-`python3 -m unittest discover -s tests -v`: 12 pruebas, sin dependencias externas.
-Incluyen las ocho notas, figuras, subrayado encima de imagen, alpha y radios
-contrastados con evidencia de círculos del PDF.
-
-`python3 tools/validate_variable_width.py`: regenerar contraste geométrico; requiere
-`pypdf` y `numpy` (disponibles en el runtime de desarrollo usado aquí).
-`python3 tools/build_examples.py`: regenerar ocho ejemplos y diez SVG.
-
-Pendiente: significado de canales auxiliares/borrado, interpolación exacta de tinta,
-otros estilos y tipos de objeto, fondos PDF genéricos y escritura de archivos
-modificados validada por importación real en Noteful. Visibilidad y orden entre
-múltiples capas requieren corpus controlado; este examen solo tiene una capa.
+Before export/reorganization: `Noteful-RE-20260913-171805-source.tar.gz`, 469 files verified, SHA-256 `e75f2e9ed156be18303a027f4362058673252b8d425ba219b58ee8dfab1563ac`. This source/artifact snapshot excludes `.git`, `work`, `target`, dependency runtimes and Python caches. Original Git history is separately retained in `before-cleanup-20260913.bundle`. All backups are in the sibling `Noteful-RE-backups` directory.

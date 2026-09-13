@@ -1,0 +1,53 @@
+const $=id=>document.getElementById(id);
+function recordingName(recording,index){
+ if(recording?.name?.trim())return recording.name;
+ if(recording?.start_us){const date=new Date((Number(BigInt(recording.start_us)/1000n)+978307200000));if(Number.isFinite(date.getTime()))return `Grabación ${index+1} · ${date.toLocaleString('es',{dateStyle:'medium',timeStyle:'short'})}`;}
+ return `Audio ${index+1}`;
+}
+const clock=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
+export class AudioController {
+ constructor(read,jump,changed){
+  this.read=read;this.jump=jump;this.changed=changed;this.audio=$('audio');this.token=0;this.urls=new Map();this.positions=new Map();this.entries=[];
+  $('recording').onchange=()=>this.select(Number($('recording').value));
+  $('playAudio').onclick=()=>{if(this.audio.paused)this.audio.play().catch(e=>$('audioState').textContent=e.message);else this.audio.pause();};
+  $('backAudio').onclick=()=>this.seek(Math.max(0,this.audio.currentTime-10));
+  $('forwardAudio').onclick=()=>this.seek(Math.min(this.audio.duration||0,this.audio.currentTime+10));
+  $('audioSeek').oninput=()=>this.seek(Number($('audioSeek').value));
+  $('audioPage').onclick=()=>{const target=this.entries[this.index]?.recording?.pages?.[0];if(target!==undefined)this.jump(Number(target));};
+  $('syncEnabled').onchange=()=>this.changed();
+  this.audio.ontimeupdate=()=>this.update();this.audio.onseeked=()=>this.update();
+  this.audio.onplay=()=>{this.update();this.tick();};this.audio.onpause=()=>{cancelAnimationFrame(this.frame);this.update();};
+  this.audio.onended=this.audio.onpause;
+  this.audio.onerror=()=>{$('audioState').textContent='Este navegador no reproduce el formato. Puedes descargar el audio.';};
+ }
+ get recording(){return $('syncEnabled').checked?this.entries[this.index]?.recording:null;}
+ get time(){return this.audio.currentTime||0;}
+ tick(){this.changed();if(!this.audio.paused)this.frame=requestAnimationFrame(()=>this.tick());}
+ seek(t){if(this.audio.readyState){this.audio.currentTime=t;this.update();}}
+ reset(){this.token++;this.audio.pause();this.audio.removeAttribute('src');this.audio.load();cancelAnimationFrame(this.frame);for(const url of this.urls.values())URL.revokeObjectURL(url);this.urls.clear();this.positions.clear();this.entries=[];this.index=undefined;$('audioBar').hidden=true;}
+ open(assets,recordings){
+  this.reset();this.entries=recordings.map(recording=>({recording,asset:assets.find(a=>a.id===recording.asset_id)}));
+  for(const asset of assets)if(!recordings.some(r=>r.asset_id===asset.id))this.entries.push({asset});
+  $('audioBar').hidden=!this.entries.length;$('recording').replaceChildren();
+  for(const [i,e] of this.entries.entries()){const o=document.createElement('option');o.value=i;o.textContent=recordingName(e.recording,i);$('recording').append(o);}
+  if(this.entries.length)this.select(0);
+ }
+ async select(index){
+  if(this.index!==undefined)this.positions.set(this.index,this.time);
+  this.audio.pause();const token=++this.token;this.index=index;const entry=this.entries[index];this.audio.onloadedmetadata=null;$('recordingTitle').textContent=recordingName(entry?.recording,index);$('recording').title=$('recordingTitle').textContent;
+  this.audio.removeAttribute('src');this.audio.load();$('playAudio').disabled=true;$('audioSeek').disabled=true;$('audioState').textContent='Cargando audio…';$('audioDownload').hidden=true;
+  $('audioPage').disabled=!entry?.recording?.pages.length;this.changed();
+  if(!entry?.asset){$('audioState').textContent='Recurso de audio ausente.';return;}
+  try {
+   const asset=entry.asset;
+   if(!this.urls.has(asset.id)){const bytes=await this.read(asset.id);if(token!==this.token)return;this.urls.set(asset.id,URL.createObjectURL(new Blob([bytes],{type:asset.mime})));}
+   if(token!==this.token)return;const url=this.urls.get(asset.id);
+   this.audio.onloadedmetadata=()=>{if(token!==this.token)return;this.audio.currentTime=Math.min(this.positions.get(index)||0,this.audio.duration||0);$('playAudio').disabled=false;$('audioSeek').disabled=!Number.isFinite(this.audio.duration);$('audioSeek').max=this.audio.duration||0;$('audioState').textContent='';this.update();};
+   this.audio.src=url;$('audioDownload').href=url;$('audioDownload').download=`audio-${index+1}.${asset.kind}`;$('audioDownload').hidden=false;
+  } catch(e){if(token===this.token)$('audioState').textContent=e.message;}
+ }
+ update(){
+  $('audioSeek').value=this.time;$('audioTime').textContent=`${clock(this.time)} / ${clock(this.audio.duration||0)}`;
+  $('playAudio').textContent=this.audio.paused?'Reproducir':'Pausa';this.changed();
+ }
+}

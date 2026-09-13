@@ -1,9 +1,14 @@
 .DS_Store
 /target/
 **/__pycache__/
-/web/pkg/
-/web/samples/
+/apps/reader/pkg/
+/apps/reader/samples/
 /work/wasm-tools/
 
-/web/node_modules/
-/web/vendor/
+/apps/reader/node_modules/
+/apps/reader/vendor/
+
+/apps/reader/precache.json
+/work/
+
+/examples/

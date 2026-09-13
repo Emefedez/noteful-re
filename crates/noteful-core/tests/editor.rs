@@ -8,6 +8,9 @@ fn line() -> Line {
         points: vec![[10., 10.], [100., 10.]],
         width: 2.,
         rgba: [0., 0., 1., 1.],
+        tool: 0,
+        layer: 0,
+        shape: None,
     }
 }
 #[test]

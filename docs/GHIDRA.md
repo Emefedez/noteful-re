@@ -1,103 +1,33 @@
-# Ghidra y Cerberus: estado reproducible
+# Ghidra / Cerberus reproduction
 
-## Entorno
+Local environment: Ghidra 12.1.2 at `/opt/homebrew/Cellar/ghidra/12.1.2/bin/ghidraRun`; Cerberus skill at `/Users/m1-max/.codex/skills/cerberus-re`; local CLI under ignored `work/cerberus-venv`. Project: `work/ghidra/projects/noteful/noteful.gpr`, program `Noteful`.
 
-- Ghidra 12.1.2: `/opt/homebrew/Cellar/ghidra/12.1.2/bin/ghidraRun`.
-- Skill Cerberus: `/Users/m1-max/.codex/skills/cerberus-re`.
-- CLI instalada editable en `work/cerberus-venv/` para conservar acceso a sus scripts.
-- Proyecto: `work/ghidra/projects/noteful/noteful.gpr`; programa `Noteful`.
-- Binario: `/Applications/Noteful.app/Wrapper/Noteful.app/Noteful`.
-- Noteful 1.4.36, build 200; ARM64; image base `0x100000000`.
-- SHA-256: `edb8a4d5317b3a9d384a37acaef96c2026b22ac42876b2ca31066e53dfae84e0`.
+Analyzed binary: `/Applications/Noteful.app/Wrapper/Noteful.app/Noteful`, version 1.4.36/build 200, ARM64, image base `0x100000000`, SHA-256 `edb8a4d5317b3a9d384a37acaef96c2026b22ac42876b2ca31066e53dfae84e0`. Addresses below apply only to this binary and exclude ASLR.
 
-Puente Python existente detectado:
-`/Users/m1-max/Documents/GhidraMCP_Python/bridge_mcp_ghidra.py`, configurado para
-`http://127.0.0.1:8089`. La conexión fue rechazada: proceso del puente activo no
-equivale a servidor de Ghidra disponible. No hubo herramientas Ghidra callable en
-esta sesión. Se utilizó Ghidra headless mediante Cerberus y después scripts locales.
+An existing Python MCP bridge was configured for localhost:8089, but its Ghidra connection was refused and no callable Ghidra tools were available. Analysis used headless Ghidra/Cerberus and local scripts. The app was not modified/re-signed, and no live attach was performed.
 
-Importación completa, guardada correctamente. Se omitieron reexports Mach-O.
-No se modificó ni re-firmó la app; no hubo attach o validación dinámica.
-
-## Hallazgos estáticos
-
-Direcciones virtuales sin ASLR, correspondientes exclusivamente al hash anterior.
-Nombres `FUN_...` son los de Ghidra; nombres semánticos de tabla son interpretaciones
-apoyadas por campos de clase y operaciones del código.
-
-| Dirección | Interpretación respaldada |
+| Address | Static interpretation |
 |---|---|
-| `0x100991034` | Función que devuelve `0xaabbccde` |
-| `0x100adf3d8` | Inicialización de `PackageFileReader`: `toc`, `url`, `handle`; seek al final menos 16, lectura de 16 bytes, comprobación de magic y carga del índice |
-| `0x100ae186c` | Helper llamado para decodificar tráiler; usa `0x100ae1678` y callback `0x100ae20dc` |
-| `0x100ae197c` | Lectura del índice desde campos; tag 1 como Float, compara límite `1.21` |
-| `0x100ae2190` | Inicialización de `PackageFileWriter`: `toc`, `offset`, `footer`; footer magic y escritura inicial de bytes `AA BB CC DE` |
+| 0x100991034 | Returns magic 0xaabbccde |
+| 0x100adf3d8 | PackageFileReader initialization; seek EOF−16, check magic and read index |
+| 0x100ae186c | Trailer decode helper, calls 0x100ae1678 and callback 0x100ae20dc |
+| 0x100ae197c | Index reader; float tag 1, compares version limit 1.21 |
+| 0x100ae2190 | PackageFileWriter initialization, leading/trailing magic |
 
-El escritor inicializa el índice con bits Float32 `0x3f9ae148` (≈1.21).
-Las muestras usan `0x3f9851ec` (≈1.19). Hay diferencia de versión entre corpus
-y app instalada. No confundir versión de paquete con `CFBundleShortVersionString`.
+The writer's float bits 0x3f9ae148 represent approximately 1.21; initial corpus bits 0x3f9851ec represent approximately 1.19. The newly supplied Practice file uses 1.21. On little-endian ARM64, storing register value 0xdeccbbaa emits bytes AA BB CC DE; this does not contradict the archive's big-endian numeric fields.
 
-En ARM64 little-endian el escritor carga `0xdeccbbaa` antes de anexar cuatro bytes:
-produce `AA BB CC DE` en archivo. Ese detalle no contradice big-endian del contenedor.
+Static targets and pseudocode are under `research/evidence/ghidra-targets`; text/font targets under `research/evidence/ghidra-text`. Ghidra temporary registers and recovered Swift signatures are not exact source declarations. StrokeDecoder.parse string: 0x100c5b130, data xref 0x100f81620; StrokeDecoder name 0x100bc51c3/descriptor reference 0x100c9cfcc; StrokeEncoder name 0x100bc51eb/reference 0x100c9d008. These references alone do not mean the stroke parser was decompiled successfully.
 
-Pseudocódigo completo en `evidence/ghidra-targets/*.c`; búsquedas en
-`evidence/ghidra-targets/string-targets.json`; instrucciones en
-`evidence/magic-instructions.json`. No interpretar registros `unaff_x20`,
-`unaff_x21` y variables descompiladas como firmas Swift exactas.
+Mach-O reports LC_ENCRYPTION_INFO_64 cryptid=1, cryptoff=0x4000, cryptsize=0x1000. No decrypted runtime image was obtained. Selected results are outside that range, but analysis included decompiler/analyzer failures, 73 unresolved dependencies and 52,718 names DemangleAllScript could not demangle. Those names are not equivalent to invalid functions. Full import logs/database remain local under `work/`; the 345 MB database is intentionally excluded from Git history.
 
-## Puntos concretos para continuar con tinta
-
-| Evidencia | Dirección |
-|---|---|
-| String `StrokeDecoder.parse` | `0x100c5b130` |
-| Referencia de datos a esa string | `0x100f81620` |
-| Nombre `StrokeDecoder` | `0x100bc51c3` |
-| Referencia relativa al nombre en descriptor | `0x100c9cfcc` |
-| Nombre `StrokeEncoder` | `0x100bc51eb` |
-| Referencia relativa al nombre en descriptor | `0x100c9d008` |
-
-Ghidra no recuperó llamadas directas a esas strings mediante esta búsqueda.
-No se afirma haber descompilado `StrokeDecoder.parse`. Continuación recomendada:
-recuperar métodos desde metadatos Swift y confirmar lectura de `F1 01`, contador
-en +0x34 y normalización de coordenadas. Tratar prefijo y los 38 bytes siguientes
-como opacos hasta corroborarlo.
-
-## Límites del análisis
-
-Mach-O declara `LC_ENCRYPTION_INFO_64`: cryptid=1, cryptoff=0x4000,
-cryptsize=0x1000. No se recuperó una imagen descifrada en ejecución. Hubo errores
-del descompilador, incluido el área inicial, y excepciones de analizadores.
-Los resultados seleccionados están fuera de ese intervalo, pero todas las
-inferencias estáticas deben contrastarse antes de afirmar comportamiento runtime.
-
-Importación registra 73 dependencias sin resolver y 52718 nombres que el script
-`DemangleAllScript` no pudo demanglear. Muchos son etiquetas/propiedades; ese número
-no equivale a 52718 funciones inválidas. Log íntegro en `work/ghidra/logs/noteful/`;
-resumen en `evidence/ghidra-import.log`.
-
-## Reproducir
-
-Desde `/Users/m1-max/Documents/Noteful-RE`, para un proyecto nuevo (el importador
-usa overwrite: cambiar nombre si interesa conservar el proyecto existente):
-
-```sh
-GHIDRA_INSTALL_DIR=/opt/homebrew/opt/ghidra/libexec \
-GHIDRA_WORKSPACE=/Users/m1-max/Documents/Noteful-RE/work/ghidra \
-work/cerberus-venv/bin/cerberus-re import analyze \
-  /Applications/Noteful.app/Wrapper/Noteful.app/Noteful \
-  noteful_nueva_importacion --skip-macho-reexports
-```
-
-Repetir solamente extracción estática, sin análisis global ni escritura del proyecto:
+Read-only extraction from the existing project:
 
 ```sh
 JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home \
 /opt/homebrew/opt/ghidra/libexec/support/analyzeHeadless \
   work/ghidra/projects/noteful noteful -process Noteful -noanalysis -readOnly \
-  -scriptPath /Users/m1-max/Documents/Noteful-RE/tools \
-  -postScript NotefulTargets.java \
-  /Users/m1-max/Documents/Noteful-RE/evidence/ghidra-targets
+  -scriptPath research/ghidra \
+  -postScript NotefulTargets.java research/evidence/ghidra-targets
 ```
 
-Puede abrirse el `.gpr` en interfaz gráfica de Ghidra cuando no haya operación
-headless usando ese proyecto. No es necesario reinstalar Ghidra.
+Use `NotefulTextTargets.java` with a separate output directory for text attributes. Do not reimport over the preserved project; choose a new project name when changing import options. Native runtime/import validation remains outstanding.

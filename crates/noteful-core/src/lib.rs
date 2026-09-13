@@ -3,6 +3,11 @@
 #![forbid(unsafe_code)]
 
 mod editor;
+mod export;
+mod layer;
+mod shape;
+pub use layer::Layer;
+pub use shape::{Shape, ShapeKind};
 mod media;
 mod package;
 mod scene;

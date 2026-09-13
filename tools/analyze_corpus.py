@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import re
 import zlib
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"research/python"))
 from noteful import parse, semantic_summary
 from render_note import render
 
@@ -17,7 +19,7 @@ def main():
         data = source.read_bytes()
         report = parse(data)
         summary = semantic_summary(report)
-        target = ROOT / "evidence/extracted" / source.stem
+        target = ROOT / "research/evidence/extracted" / source.stem
         target.mkdir(parents=True, exist_ok=True)
         page = summary["pages"][0]
         w, h = page["size"]
@@ -52,8 +54,8 @@ def main():
                           "blocks": [{k: b[k] for k in ("id", "offset", "size", "kind", "sha256")}
                                      for b in report["blocks"]],
                           "semantics": summary, "freehand": strokes, "pdf_content_streams": pdf_streams})
-    (ROOT / "evidence/corpus.json").write_text(json.dumps(summaries, indent=2, ensure_ascii=False) + "\n")
-    print(f"Compared {len(summaries)} samples; evidence/corpus.json")
+    (ROOT / "research/evidence/corpus.json").write_text(json.dumps(summaries, indent=2, ensure_ascii=False) + "\n")
+    print(f"Compared {len(summaries)} samples; research/evidence/corpus.json")
 
 
 if __name__ == "__main__":

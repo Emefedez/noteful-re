@@ -5,7 +5,7 @@ import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "tools"))
+sys.path.insert(0, str(ROOT / "research/python"))
 from noteful import FormatError, Reader, decode_sample_strokes, encode_fields, parse, semantic_summary
 
 

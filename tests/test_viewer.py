@@ -10,7 +10,7 @@ import urllib.request
 from http.server import ThreadingHTTPServer
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / 'tools'))
+sys.path.insert(0, str(ROOT / 'research/python'))
 from noteful import FormatError, decode_sample_strokes, parse, values, semantic_summary
 from render_note import render, path_geometry, composite, variable_ink
 from viewer import Handler, LocalServer
@@ -92,7 +92,7 @@ class ViewerTests(unittest.TestCase):
     def test_variable_radius_matches_independent_pdf_caps(self):
         report = parse((ROOT / 'samples/Examen wuolah.noteful').read_bytes())
         strokes = {s['id_raw']:s for b in report['blocks'] for s in b.get('strokes', [])}
-        evidence = json.loads((ROOT / 'evidence/variable-width-validation.json').read_text())
+        evidence = json.loads((ROOT / 'research/evidence/variable-width-validation.json').read_text())
         self.assertEqual(len(evidence['strokes']), 23)
         for row in evidence['strokes']:
             radius = strokes[row['stroke_id']]['radii'][0]

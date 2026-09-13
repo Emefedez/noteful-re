@@ -9,6 +9,8 @@ import json, math, re, subprocess, sys
 from pathlib import Path
 import xml.etree.ElementTree as ET
 sys.path.insert(0,str(Path(__file__).resolve().parent))
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"research/python"))
 from render_note import render
 ROOT=Path(__file__).resolve().parents[1]
 NUMBER=re.compile(r'[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?')
@@ -20,7 +22,7 @@ def primitives(svg):
     result=[]
     def visit(node,parents):
         tag=node.tag.rsplit('}',1)[-1]
-        attrs={k:normalize_attr(k,v) for k,v in node.attrib.items() if k not in ('data-item','data-background') and not (k=='opacity' and float(v)==1.)}
+        attrs={k:normalize_attr(k,v) for k,v in node.attrib.items() if k not in ('data-item','data-background','data-layer') and not (k=='opacity' and float(v)==1.)}
         if tag=='svg': attrs={}
         if tag in ('svg','g'):
             chain=parents+([attrs] if attrs else [])
@@ -56,6 +58,6 @@ def main():
             counts.append(len(aa))
         result.append({'file':source.name,'pages':len(counts),'primitives':counts,'passed':True})
     report={'scope':'Ordered SVG primitives, inherited transforms/compositing, image bytes; no pixel equivalence claim','absolute_tolerance':2e-5,'samples':result}
-    (ROOT/'evidence/rust-scene-parity.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
+    (ROOT/'research/evidence/rust-scene-parity.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     print('Native scene parity:',len(result),'notes passed')
 if __name__=='__main__':main()

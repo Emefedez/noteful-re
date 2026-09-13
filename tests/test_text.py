@@ -1,7 +1,7 @@
 import sys, unittest
 from pathlib import Path
 from xml.etree import ElementTree as ET
-ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'research/python'))
 from noteful import parse,semantic_summary,values
 from rich_text import decode_rich_text,text_svg
 from render_note import render
