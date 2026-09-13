@@ -1,0 +1,72 @@
+{
+  "scope": "Ordered SVG primitives, inherited transforms/compositing, image bytes; no pixel equivalence claim",
+  "absolute_tolerance": 2e-05,
+  "samples": [
+    {
+      "file": "Examen wuolah.noteful",
+      "pages": 3,
+      "primitives": [
+        1270,
+        2276,
+        461
+      ],
+      "passed": true
+    },
+    {
+      "file": "nota_1linea.noteful",
+      "pages": 1,
+      "primitives": [
+        6
+      ],
+      "passed": true
+    },
+    {
+      "file": "nota_2lineas.noteful",
+      "pages": 1,
+      "primitives": [
+        7
+      ],
+      "passed": true
+    },
+    {
+      "file": "nota_herramientaline+imagen.noteful",
+      "pages": 1,
+      "primitives": [
+        7
+      ],
+      "passed": true
+    },
+    {
+      "file": "nota_herramientalinea.noteful",
+      "pages": 1,
+      "primitives": [
+        6
+      ],
+      "passed": true
+    },
+    {
+      "file": "nota_imagen.noteful",
+      "pages": 1,
+      "primitives": [
+        6
+      ],
+      "passed": true
+    },
+    {
+      "file": "nota_lineagruesa.noteful",
+      "pages": 1,
+      "primitives": [
+        6
+      ],
+      "passed": true
+    },
+    {
+      "file": "nota_vacia.noteful",
+      "pages": 1,
+      "primitives": [
+        5
+      ],
+      "passed": true
+    }
+  ]
+}

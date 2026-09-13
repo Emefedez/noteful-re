@@ -41,7 +41,9 @@ class Handler(BaseHTTPRequestHandler):
             return self.reply(200,(ROOT/f'examples/reference/examen-{url.path.split("/")[-1]}').read_bytes(),'image/png')
         return self.reply(404,{'error':'Ruta no encontrada.'})
     def open_note(self,data,name):
-        try:result=render(data,name)
+        try:
+            parser=getattr(self.server,'parser',None)
+            result=render(data,name,parser=parser) if parser else render(data,name)
         except (FormatError,ValueError,KeyError,TypeError,IndexError) as e:
             return self.reply(422,{'error':'No se pudo interpretar archivo: '+str(e)})
         return self.reply(200,result)
@@ -59,13 +61,16 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main(argv=None):
-    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--port',type=int,default=0);ap.add_argument('--no-browser',action='store_true');ap.add_argument('--example',default='Examen wuolah.noteful');ap.add_argument('--file',type=Path);a=ap.parse_args(argv)
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--port',type=int,default=0);ap.add_argument('--no-browser',action='store_true');ap.add_argument('--example',default='Examen wuolah.noteful');ap.add_argument('--file',type=Path);ap.add_argument('--engine',choices=['python','rust'],default='python');a=ap.parse_args(argv)
     samples={p.name:p for p in (ROOT/'samples').glob('*.noteful')}
     if a.file:
         if not a.file.is_file():ap.error('Archivo no encontrado: '+str(a.file))
         samples[a.file.name]=a.file.resolve();a.example=a.file.name
     server=LocalServer(('127.0.0.1',a.port),Handler);server.initial=a.example
     server.samples=samples
+    if a.engine=='rust':
+        from rust_backend import parse as rust_parse
+        server.parser=rust_parse
     url=f'http://127.0.0.1:{server.server_port}/';print('Visor Noteful: '+url,flush=True);print('Ctrl+C para cerrar. Archivos permanecen en este equipo.',flush=True)
     if not a.no_browser:threading.Timer(.3,lambda:webbrowser.open(url)).start()
     try:server.serve_forever()

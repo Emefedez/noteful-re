@@ -1,0 +1,56 @@
+   Compiling noteful-core v0.1.0 (/Users/m1-max/Documents/Noteful-RE/crates/noteful-core)
+   Compiling noteful-wasm v0.1.0 (/Users/m1-max/Documents/Noteful-RE/crates/noteful-wasm)
+   Compiling noteful-cli v0.1.0 (/Users/m1-max/Documents/Noteful-RE/crates/noteful-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.72s
+     Running unittests src/main.rs (target/debug/deps/noteful-9a48cc403b7236b1)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/noteful_core-276053a303babdd9)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/corpus.rs (target/debug/deps/corpus-5d2ffb534eb4ff45)
+
+running 4 tests
+test raw_radii_auxiliary_and_style_commands ... ok
+test field_nesting_and_unknown_types_are_bounded ... ok
+test truncated_and_forged_extents_fail_without_panics ... ok
+test entire_corpus_round_trips_and_decodes_ink ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/editor.rs (target/debug/deps/editor-af6cba1a8e9dddb8)
+
+running 5 tests
+test straight_line_object_can_be_erased_and_undone ... ok
+test erase_imported_ink_keeps_images_and_restores_original ... ok
+test native_scene_renders_entire_corpus_and_exam_objects ... ok
+test draw_swept_erase_undo_redo_and_project_round_trip ... ok
+test malformed_edits_and_projects_leave_state_intact ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+
+     Running unittests src/lib.rs (target/debug/deps/noteful_wasm-741ca96accca6d7a)
+
+running 1 test
+test tests::summary_contains_only_browser_safe_values ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+   Doc-tests noteful_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests noteful_wasm
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -2,6 +2,7 @@
 import base64
 import math
 from noteful import FormatError, parse, semantic_summary, values
+from rich_text import decode_rich_text, text_svg
 
 HIGHLIGHTER_OPACITY = .5  # /ca and /CA in the supplied Noteful PDF export.
 
@@ -91,8 +92,8 @@ def shape_element(obj, payload):
     return f'<g transform="scale({num(sx)} {num(sy)})">{element}</g>'
 
 
-def render(data, name='Nota'):
-    report = parse(data)
+def render(data, name='Nota', parser=parse):
+    report = parser(data)
     summary = semantic_summary(report)
     blocks = {b['id']: b for b in report['blocks']}
     pages = []
@@ -137,6 +138,12 @@ def render(data, name='Nota'):
                 b=blocks[o['asset_id']];raw=data[b['offset']:b['offset']+b['size']]
                 mime={'jpeg':'image/jpeg','png':'image/png'}.get(b['kind'])
                 if mime:el=f'<image width="{num(ow)}" height="{num(oh)}" preserveAspectRatio="none" href="data:{mime};base64,{base64.b64encode(raw).decode()}"/>'
+            elif o['type_raw'] == 2:
+                text = decode_rich_text(values(payload.get(4, [])))
+                warnings.extend(text['warnings'])
+                sx = ow/sw if abs(sw)>1e-9 else 1
+                sy = oh/sh if abs(sh)>1e-9 else 1
+                el = f'<g transform="scale({num(sx)} {num(sy)})">{text_svg(text,sw)}</g>'
             elif o['type_raw'] in (3,6,12,20,21):
                 try:
                     el=shape_element(o,payload)

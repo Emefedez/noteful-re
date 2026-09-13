@@ -1,1 +1,6 @@
 .DS_Store
+/target/
+**/__pycache__/
+/web/pkg/
+/web/samples/
+/work/wasm-tools/

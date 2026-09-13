@@ -1,0 +1,10 @@
+Examen wuolah.noteful 3 2008 74
+nota_1linea.noteful 1 1 0
+nota_2lineas.noteful 1 2 0
+nota_herramientaline+imagen.noteful 1 0 2
+nota_herramientalinea.noteful 1 0 1
+nota_imagen.noteful 1 0 1
+nota_lineagruesa.noteful 1 1 0
+nota_vacia.noteful 1 0 0
+WASM runtime: eight samples verified; invalid file rejected.
+WASM editor: 2082 imported elements, draw, swept erase, undo/redo, project reload, invalid edit rejection passed.

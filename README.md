@@ -1,7 +1,44 @@
 # Noteful RE
 
-Lector y visor experimental `.noteful`, validado con ocho notas aportadas.
+Lector, visor y editor experimental `.noteful`, validado con ocho notas aportadas.
 Trabajo realizado en esta carpeta; archivos originales de Downloads conservados.
+
+## Núcleo Rust portable
+
+Migrados: contenedor, campos tipados, recursos, trazos, escena SVG y edición
+no destructiva. El mismo núcleo funciona nativo y en WebAssembly. Arquitectura y fases:
+[ARCHITECTURE.md](docs/ARCHITECTURE.md). Especificación independiente:
+[noteful-v0.1.md](spec/noteful-v0.1.md).
+
+```sh
+cargo build --workspace --locked
+cargo run -p noteful-cli -- inspect "samples/Examen wuolah.noteful"
+cargo run -p noteful-cli -- verify "samples/Examen wuolah.noteful"
+cargo test --workspace --locked
+python3 tools/check_rust_parity.py
+python3 tools/viewer.py --engine rust
+```
+
+Paridad comprobada en ocho notas: campos, trazos, resumen semántico, SVG y round-trip.
+La prueba inicial usa el renderer Python común. `check_scene_parity.py` comprueba
+también el renderer Rust independiente, con tolerancia numérica. El adaptador CLI es temporal;
+la futura aplicación Android necesitará enlace al núcleo dentro del proceso.
+Núcleo sin dependencias de GUI o sistema de archivos; lectura de archivos en CLI.
+JSON de diagnóstico puede contener enteros de 64 bits: no es DTO de JavaScript.
+
+## Editor web: dibujar y borrar
+
+```sh
+python3 tools/build_web.py
+node tools/serve_web.mjs
+```
+
+Abrir **http://127.0.0.1:8767/**. Lápiz de grosor fijo/color, borrador de trazos
+completos importados/nuevos, deshacer/rehacer, zoom y navegación. Funciona en el
+navegador con Rust/WASM; el servidor solo entrega archivos estáticos.
+**Guardar proyecto** crea `.nfedit` con original y cambios; puede reabrirse.
+**Exportar SVG** guarda la página visible. La exportación `.noteful` modificada
+compatible con la app original sigue pendiente. Instrucciones: [WEB.md](docs/WEB.md).
 
 ## Abrir una nota
 
@@ -80,3 +117,17 @@ Poppler desde el PDF aportado; no se usan para reconstruir tinta. Hashes en
 
 Actualización de transparencia, figuras, radios y copia completa de seguridad:
 [RENDERING.md](docs/RENDERING.md).
+
+## Validación del núcleo y editor
+
+```sh
+cargo test --workspace --locked
+python3 tools/check_rust_parity.py
+python3 tools/check_scene_parity.py
+node web/test.mjs
+```
+
+12 pruebas Python, 10 pruebas Rust y ejecución WASM con las ocho notas y operaciones
+de edición. Paridad de primitivas SVG con Python: diez páginas, tolerancia 2e-5.
+Linux/Windows/Android pasan `cargo check` del núcleo; aplicaciones nativas y pruebas
+en esos dispositivos pendientes. Proyecto de ejemplo: `examples/edicion-basica.nfedit`.

@@ -1,0 +1,105 @@
+{
+  "scope": "Rust decoder/field encoder vs Python reference; existing Python renderer; host execution only",
+  "float_tolerance": {
+    "relative": 1e-13,
+    "absolute": 1e-10
+  },
+  "samples": [
+    {
+      "sample": "Examen wuolah.noteful",
+      "sha256": "ce2b73a3af90ac2d8c0ab95f28c3cb8818f0a55d0d2ebd4c6d50cdf2abf79432",
+      "blocks": 9,
+      "strokes": 2008,
+      "pages": 3,
+      "objects": 74,
+      "all_native_fields_match": true,
+      "semantic_equality": true,
+      "svg_byte_equality": true,
+      "binary_round_trip": true
+    },
+    {
+      "sample": "nota_1linea.noteful",
+      "sha256": "2fd9dd9ced69723e209012a241362cf3f57ee529d49f6e3dcdaa063257aede90",
+      "blocks": 5,
+      "strokes": 1,
+      "pages": 1,
+      "objects": 0,
+      "all_native_fields_match": true,
+      "semantic_equality": true,
+      "svg_byte_equality": true,
+      "binary_round_trip": true
+    },
+    {
+      "sample": "nota_2lineas.noteful",
+      "sha256": "eb4da2412cf0884d03a25ef906f210970874e3f7ab468721e9943acb86c48248",
+      "blocks": 5,
+      "strokes": 2,
+      "pages": 1,
+      "objects": 0,
+      "all_native_fields_match": true,
+      "semantic_equality": true,
+      "svg_byte_equality": true,
+      "binary_round_trip": true
+    },
+    {
+      "sample": "nota_herramientaline+imagen.noteful",
+      "sha256": "4b0d09f07c9668446faf49c12b47ca487776ba9b93efdade115bdb275371ec34",
+      "blocks": 6,
+      "strokes": 0,
+      "pages": 1,
+      "objects": 2,
+      "all_native_fields_match": true,
+      "semantic_equality": true,
+      "svg_byte_equality": true,
+      "binary_round_trip": true
+    },
+    {
+      "sample": "nota_herramientalinea.noteful",
+      "sha256": "f30e4579623e627059344afe620f190c0427a5538760e5dfb4783c0e9727417c",
+      "blocks": 5,
+      "strokes": 0,
+      "pages": 1,
+      "objects": 1,
+      "all_native_fields_match": true,
+      "semantic_equality": true,
+      "svg_byte_equality": true,
+      "binary_round_trip": true
+    },
+    {
+      "sample": "nota_imagen.noteful",
+      "sha256": "5cccaecbb134a4b8d59ee115e4d13be48a37e39599606e0bcdb1e936ccd4a8ee",
+      "blocks": 6,
+      "strokes": 0,
+      "pages": 1,
+      "objects": 1,
+      "all_native_fields_match": true,
+      "semantic_equality": true,
+      "svg_byte_equality": true,
+      "binary_round_trip": true
+    },
+    {
+      "sample": "nota_lineagruesa.noteful",
+      "sha256": "5ded7f3544d5ccdad2f9506ea3cabbc38bed866e2affe481d883d1bd632905c6",
+      "blocks": 5,
+      "strokes": 1,
+      "pages": 1,
+      "objects": 0,
+      "all_native_fields_match": true,
+      "semantic_equality": true,
+      "svg_byte_equality": true,
+      "binary_round_trip": true
+    },
+    {
+      "sample": "nota_vacia.noteful",
+      "sha256": "ddcca6e7528521af293a2cfb4d81f6a78ca481275abeaaad2b22c889600cb7e9",
+      "blocks": 4,
+      "strokes": 0,
+      "pages": 1,
+      "objects": 0,
+      "all_native_fields_match": true,
+      "semantic_equality": true,
+      "svg_byte_equality": true,
+      "binary_round_trip": true
+    }
+  ]
+}

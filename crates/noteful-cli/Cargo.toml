@@ -1,0 +1,13 @@
+[package]
+name = "noteful-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "noteful"
+path = "src/main.rs"
+
+[dependencies]
+noteful-core = { path = "../noteful-core" }
+serde_json.workspace = true

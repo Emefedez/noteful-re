@@ -298,7 +298,7 @@ def semantic_summary(report):
                 payload = values(ov[6])
                 result["objects"].append({
                     "id": ov[1], "type_raw": payload.get(1),
-                    "kind_in_samples": {1: "image", 3: "rounded_rectangle", 6: "ellipse",
+                    "kind_in_samples": {1: "image", 2: "rich_text", 3: "rounded_rectangle", 6: "ellipse",
                                         12: "polygon", 20: "line_shape", 21: "curve"}.get(payload.get(1), "unknown"),
                     "transform_raw": values(ov[2]).get(1),
                     "size": payload.get(2), "asset_id": payload.get(10),

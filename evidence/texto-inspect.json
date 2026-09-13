@@ -1,0 +1,1696 @@
+{
+  "magic": "aabbccde",
+  "byte_order": "big-endian",
+  "size": 107523,
+  "sha256": "b9d30b6f89bce4905ac61a9b802b1fb216aac22ffc8fa888a81045bf48ec673b",
+  "index_offset": 107043,
+  "index_size": 464,
+  "index_fields": [
+    {
+      "tag": 1,
+      "type": "0x0003",
+      "offset": 107043,
+      "value": 1.2100000381469727,
+      "size": 8
+    },
+    {
+      "tag": 2,
+      "type": "0x0405",
+      "offset": 107051,
+      "value": [
+        "A67869128158466A850BA8F7485452B0"
+      ],
+      "size": 44
+    },
+    {
+      "tag": 3,
+      "type": "0x0405",
+      "offset": 107095,
+      "value": [
+        "4DAE75135CBA4C4D86316DCA75596857",
+        "7E4F4DC52177415AB2E508D2F46B8B09"
+      ],
+      "size": 80
+    },
+    {
+      "tag": 4,
+      "type": "0x0405",
+      "offset": 107175,
+      "value": [
+        "D87A25CA82D7434CABC7933A88E4C93D"
+      ],
+      "size": 44
+    },
+    {
+      "tag": 10,
+      "type": "0x0405",
+      "offset": 107219,
+      "value": [
+        "D87A25CA82D7434CABC7933A88E4C93D",
+        "4DAE75135CBA4C4D86316DCA75596857",
+        "7E4F4DC52177415AB2E508D2F46B8B09",
+        "d:A67869128158466A850BA8F7485452B0",
+        "n:A67869128158466A850BA8F7485452B0"
+      ],
+      "size": 192
+    },
+    {
+      "tag": 11,
+      "type": "0x0402",
+      "offset": 107411,
+      "value": [
+        105036,
+        483,
+        100336,
+        99378,
+        4
+      ],
+      "size": 48
+    },
+    {
+      "tag": 12,
+      "type": "0x0402",
+      "offset": 107459,
+      "value": [
+        2007,
+        98895,
+        4700,
+        958,
+        479
+      ],
+      "size": 48
+    }
+  ],
+  "blocks": [
+    {
+      "id": "D87A25CA82D7434CABC7933A88E4C93D",
+      "offset": 105036,
+      "size": 2007,
+      "kind": "stroke_object_set",
+      "sha256": "8eceb4d0670287dd7bafd3361204fd0b8d7073c89721304afbb3fd42b4842f06",
+      "fields": [
+        {
+          "tag": 1,
+          "type": "0x0002",
+          "offset": 105036,
+          "value": 288,
+          "size": 12
+        },
+        {
+          "tag": 2,
+          "type": "0x0006",
+          "offset": 105048,
+          "value": {
+            "offset": 105056,
+            "size": 0,
+            "hex": ""
+          },
+          "size": 8
+        },
+        {
+          "tag": 3,
+          "type": "0x0402",
+          "offset": 105056,
+          "value": [],
+          "size": 8
+        },
+        {
+          "tag": 4,
+          "type": "0x0402",
+          "offset": 105064,
+          "value": [],
+          "size": 8
+        },
+        {
+          "tag": 5,
+          "type": "0x0007",
+          "offset": 105072,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 105080,
+              "value": [
+                "844E05F045AD40E8BC444E4F3BD04ED3",
+                "84EEB5AA7C2B4FAC9EA73BB7BFF6D490",
+                "6BE535F50B0E40F7B6B99C9656B60F5D",
+                "ECBE9152469A488CA2306C160A15B8D8",
+                "AFF92774232F4399A578D9D024770573"
+              ],
+              "size": 188
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 105268,
+              "value": [
+                810984728307815,
+                810984744108172,
+                810984616546876,
+                810984696986889,
+                810984791634937
+              ],
+              "size": 48
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 105316,
+              "value": [
+                0,
+                1,
+                1,
+                0,
+                1
+              ],
+              "size": 13
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 105329,
+              "value": [
+                [
+                  {
+                    "tag": 1,
+                    "type": "0x0005",
+                    "offset": 105341,
+                    "value": "84EEB5AA7C2B4FAC9EA73BB7BFF6D490",
+                    "size": 40
+                  },
+                  {
+                    "tag": 2,
+                    "type": "0x0807",
+                    "offset": 105381,
+                    "value": [
+                      {
+                        "tag": 1,
+                        "type": "0x0420",
+                        "offset": 105389,
+                        "value": [
+                          646.41119511859,
+                          659.9800419839302,
+                          146.48307291666666,
+                          49.959635416666664,
+                          0.0
+                        ],
+                        "size": 48
+                      }
+                    ],
+                    "clock_raw": 810984744108077,
+                    "size": 64
+                  },
+                  {
+                    "tag": 4,
+                    "type": "0x0812",
+                    "offset": 105445,
+                    "value": 0,
+                    "clock_raw": 810984734027694,
+                    "size": 16
+                  },
+                  {
+                    "tag": 5,
+                    "type": "0x0802",
+                    "offset": 105461,
+                    "value": 810984734027694,
+                    "clock_raw": 810984734027695,
+                    "size": 20
+                  },
+                  {
+                    "tag": 6,
+                    "type": "0x0007",
+                    "offset": 105481,
+                    "value": [
+                      {
+                        "tag": 22,
+                        "type": "0x0002",
+                        "offset": 105489,
+                        "value": 288,
+                        "size": 12
+                      },
+                      {
+                        "tag": 1,
+                        "type": "0x0002",
+                        "offset": 105501,
+                        "value": 2,
+                        "size": 12
+                      },
+                      {
+                        "tag": 2,
+                        "type": "0x0821",
+                        "offset": 105513,
+                        "value": [
+                          146.48307291666666,
+                          49.95963541666668
+                        ],
+                        "clock_raw": 810984744108078,
+                        "size": 28
+                      },
+                      {
+                        "tag": 4,
+                        "type": "0x0007",
+                        "offset": 105541,
+                        "value": [
+                          {
+                            "tag": 1,
+                            "type": "0x0002",
+                            "offset": 105549,
+                            "value": 810984744107163,
+                            "size": 12
+                          },
+                          {
+                            "tag": 2,
+                            "type": "0x0405",
+                            "offset": 105561,
+                            "value": [
+                              "Bocadillo",
+                              "​"
+                            ],
+                            "size": 28
+                          },
+                          {
+                            "tag": 3,
+                            "type": "0x0402",
+                            "offset": 105589,
+                            "value": [
+                              5,
+                              1
+                            ],
+                            "size": 24
+                          },
+                          {
+                            "tag": 4,
+                            "type": "0x0414",
+                            "offset": 105613,
+                            "value": [
+                              14,
+                              13,
+                              10,
+                              2,
+                              9,
+                              10
+                            ],
+                            "size": 32
+                          },
+                          {
+                            "tag": 5,
+                            "type": "0x0405",
+                            "offset": 105645,
+                            "value": [
+                              "GillSans-Bold",
+                              "Gill Sans"
+                            ],
+                            "size": 38
+                          },
+                          {
+                            "tag": 6,
+                            "type": "0x0401",
+                            "offset": 105683,
+                            "value": [
+                              1
+                            ],
+                            "size": 9
+                          },
+                          {
+                            "tag": 7,
+                            "type": "0x0407",
+                            "offset": 105692,
+                            "value": [],
+                            "size": 8
+                          },
+                          {
+                            "tag": 8,
+                            "type": "0x0402",
+                            "offset": 105700,
+                            "value": [],
+                            "size": 8
+                          },
+                          {
+                            "tag": 9,
+                            "type": "0x0407",
+                            "offset": 105708,
+                            "value": [
+                              [
+                                {
+                                  "tag": 1,
+                                  "type": "0x0407",
+                                  "offset": 105720,
+                                  "value": [],
+                                  "size": 8
+                                }
+                              ]
+                            ],
+                            "size": 20
+                          },
+                          {
+                            "tag": 10,
+                            "type": "0x0420",
+                            "offset": 105728,
+                            "value": [
+                              29.333333333333332,
+                              29.333333333333332
+                            ],
+                            "size": 24
+                          }
+                        ],
+                        "size": 211
+                      },
+                      {
+                        "tag": 9,
+                        "type": "0x0807",
+                        "offset": 105752,
+                        "value": [
+                          {
+                            "tag": 0,
+                            "type": "0x0002",
+                            "offset": 105760,
+                            "value": 0,
+                            "size": 12
+                          }
+                        ],
+                        "clock_raw": 810984734028680,
+                        "size": 28
+                      },
+                      {
+                        "tag": 19,
+                        "type": "0x0807",
+                        "offset": 105780,
+                        "value": [
+                          {
+                            "tag": 0,
+                            "type": "0x0002",
+                            "offset": 105788,
+                            "value": 1,
+                            "size": 12
+                          }
+                        ],
+                        "clock_raw": 810984734028695,
+                        "size": 28
+                      },
+                      {
+                        "tag": 20,
+                        "type": "0x0820",
+                        "offset": 105808,
+                        "value": 0.0,
+                        "clock_raw": 810984734028687,
+                        "size": 20
+                      },
+                      {
+                        "tag": 21,
+                        "type": "0x0820",
+                        "offset": 105828,
+                        "value": 0.0,
+                        "clock_raw": 810984734028689,
+                        "size": 20
+                      }
+                    ],
+                    "size": 367
+                  },
+                  {
+                    "tag": 7,
+                    "type": "0x0805",
+                    "offset": 105848,
+                    "value": "",
+                    "clock_raw": 810984734027697,
+                    "size": 16
+                  },
+                  {
+                    "tag": 8,
+                    "type": "0x0820",
+                    "offset": 105864,
+                    "value": 1.0,
+                    "clock_raw": 810984734028682,
+                    "size": 20
+                  },
+                  {
+                    "tag": 9,
+                    "type": "0x0811",
+                    "offset": 105884,
+                    "value": 0,
+                    "clock_raw": 810984734027697,
+                    "size": 14
+                  },
+                  {
+                    "tag": 10,
+                    "type": "0x0002",
+                    "offset": 105898,
+                    "value": 810984734027698,
+                    "size": 12
+                  }
+                ],
+                [
+                  {
+                    "tag": 1,
+                    "type": "0x0005",
+                    "offset": 105914,
+                    "value": "6BE535F50B0E40F7B6B99C9656B60F5D",
+                    "size": 40
+                  },
+                  {
+                    "tag": 2,
+                    "type": "0x0807",
+                    "offset": 105954,
+                    "value": [
+                      {
+                        "tag": 1,
+                        "type": "0x0420",
+                        "offset": 105962,
+                        "value": [
+                          769.6119205416963,
+                          581.3654460955539,
+                          153.48697916666666,
+                          55.733333333333334,
+                          0.0
+                        ],
+                        "size": 48
+                      }
+                    ],
+                    "clock_raw": 810984616546773,
+                    "size": 64
+                  },
+                  {
+                    "tag": 4,
+                    "type": "0x0812",
+                    "offset": 106018,
+                    "value": 0,
+                    "clock_raw": 810984613210427,
+                    "size": 16
+                  },
+                  {
+                    "tag": 5,
+                    "type": "0x0802",
+                    "offset": 106034,
+                    "value": 810984613210427,
+                    "clock_raw": 810984613210428,
+                    "size": 20
+                  },
+                  {
+                    "tag": 6,
+                    "type": "0x0007",
+                    "offset": 106054,
+                    "value": [
+                      {
+                        "tag": 22,
+                        "type": "0x0002",
+                        "offset": 106062,
+                        "value": 288,
+                        "size": 12
+                      },
+                      {
+                        "tag": 1,
+                        "type": "0x0002",
+                        "offset": 106074,
+                        "value": 2,
+                        "size": 12
+                      },
+                      {
+                        "tag": 2,
+                        "type": "0x0821",
+                        "offset": 106086,
+                        "value": [
+                          153.48697916666666,
+                          55.733333333333334
+                        ],
+                        "clock_raw": 810984616546774,
+                        "size": 28
+                      },
+                      {
+                        "tag": 4,
+                        "type": "0x0007",
+                        "offset": 106114,
+                        "value": [
+                          {
+                            "tag": 1,
+                            "type": "0x0002",
+                            "offset": 106122,
+                            "value": 810984616546115,
+                            "size": 12
+                          },
+                          {
+                            "tag": 2,
+                            "type": "0x0405",
+                            "offset": 106134,
+                            "value": [
+                              "texto texto ",
+                              "​"
+                            ],
+                            "size": 31
+                          },
+                          {
+                            "tag": 3,
+                            "type": "0x0402",
+                            "offset": 106165,
+                            "value": [
+                              4,
+                              1
+                            ],
+                            "size": 24
+                          },
+                          {
+                            "tag": 4,
+                            "type": "0x0414",
+                            "offset": 106189,
+                            "value": [
+                              14,
+                              13,
+                              10,
+                              9,
+                              10
+                            ],
+                            "size": 28
+                          },
+                          {
+                            "tag": 5,
+                            "type": "0x0405",
+                            "offset": 106217,
+                            "value": [
+                              "Helvetica",
+                              "Helvetica"
+                            ],
+                            "size": 34
+                          },
+                          {
+                            "tag": 6,
+                            "type": "0x0401",
+                            "offset": 106251,
+                            "value": [],
+                            "size": 8
+                          },
+                          {
+                            "tag": 7,
+                            "type": "0x0407",
+                            "offset": 106259,
+                            "value": [],
+                            "size": 8
+                          },
+                          {
+                            "tag": 8,
+                            "type": "0x0402",
+                            "offset": 106267,
+                            "value": [],
+                            "size": 8
+                          },
+                          {
+                            "tag": 9,
+                            "type": "0x0407",
+                            "offset": 106275,
+                            "value": [
+                              [
+                                {
+                                  "tag": 1,
+                                  "type": "0x0407",
+                                  "offset": 106287,
+                                  "value": [],
+                                  "size": 8
+                                }
+                              ]
+                            ],
+                            "size": 20
+                          },
+                          {
+                            "tag": 10,
+                            "type": "0x0420",
+                            "offset": 106295,
+                            "value": [
+                              29.333333333333332,
+                              29.333333333333332
+                            ],
+                            "size": 24
+                          }
+                        ],
+                        "size": 205
+                      },
+                      {
+                        "tag": 9,
+                        "type": "0x0807",
+                        "offset": 106319,
+                        "value": [
+                          {
+                            "tag": 0,
+                            "type": "0x0002",
+                            "offset": 106327,
+                            "value": 0,
+                            "size": 12
+                          }
+                        ],
+                        "clock_raw": 810984613210570,
+                        "size": 28
+                      },
+                      {
+                        "tag": 19,
+                        "type": "0x0807",
+                        "offset": 106347,
+                        "value": [
+                          {
+                            "tag": 0,
+                            "type": "0x0002",
+                            "offset": 106355,
+                            "value": 1,
+                            "size": 12
+                          }
+                        ],
+                        "clock_raw": 810984613210581,
+                        "size": 28
+                      },
+                      {
+                        "tag": 20,
+                        "type": "0x0820",
+                        "offset": 106375,
+                        "value": 0.0,
+                        "clock_raw": 810984613210575,
+                        "size": 20
+                      },
+                      {
+                        "tag": 21,
+                        "type": "0x0820",
+                        "offset": 106395,
+                        "value": 0.0,
+                        "clock_raw": 810984613210576,
+                        "size": 20
+                      }
+                    ],
+                    "size": 361
+                  },
+                  {
+                    "tag": 7,
+                    "type": "0x0805",
+                    "offset": 106415,
+                    "value": "",
+                    "clock_raw": 810984613210428,
+                    "size": 16
+                  },
+                  {
+                    "tag": 8,
+                    "type": "0x0820",
+                    "offset": 106431,
+                    "value": 1.0,
+                    "clock_raw": 810984613210573,
+                    "size": 20
+                  },
+                  {
+                    "tag": 9,
+                    "type": "0x0811",
+                    "offset": 106451,
+                    "value": 0,
+                    "clock_raw": 810984613210429,
+                    "size": 14
+                  },
+                  {
+                    "tag": 10,
+                    "type": "0x0002",
+                    "offset": 106465,
+                    "value": 810984613210429,
+                    "size": 12
+                  }
+                ],
+                [
+                  {
+                    "tag": 1,
+                    "type": "0x0005",
+                    "offset": 106481,
+                    "value": "AFF92774232F4399A578D9D024770573",
+                    "size": 40
+                  },
+                  {
+                    "tag": 2,
+                    "type": "0x0807",
+                    "offset": 106521,
+                    "value": [
+                      {
+                        "tag": 1,
+                        "type": "0x0420",
+                        "offset": 106529,
+                        "value": [
+                          404.2856462893624,
+                          415.0243073326524,
+                          57.0078125,
+                          41.91015625,
+                          0.0
+                        ],
+                        "size": 48
+                      }
+                    ],
+                    "clock_raw": 810984791634847,
+                    "size": 64
+                  },
+                  {
+                    "tag": 4,
+                    "type": "0x0812",
+                    "offset": 106585,
+                    "value": 0,
+                    "clock_raw": 810984779122060,
+                    "size": 16
+                  },
+                  {
+                    "tag": 5,
+                    "type": "0x0802",
+                    "offset": 106601,
+                    "value": 810984779122061,
+                    "clock_raw": 810984779122062,
+                    "size": 20
+                  },
+                  {
+                    "tag": 6,
+                    "type": "0x0007",
+                    "offset": 106621,
+                    "value": [
+                      {
+                        "tag": 22,
+                        "type": "0x0002",
+                        "offset": 106629,
+                        "value": 288,
+                        "size": 12
+                      },
+                      {
+                        "tag": 1,
+                        "type": "0x0002",
+                        "offset": 106641,
+                        "value": 2,
+                        "size": 12
+                      },
+                      {
+                        "tag": 2,
+                        "type": "0x0821",
+                        "offset": 106653,
+                        "value": [
+                          57.0078125,
+                          41.91015625
+                        ],
+                        "clock_raw": 810984791634848,
+                        "size": 28
+                      },
+                      {
+                        "tag": 4,
+                        "type": "0x0007",
+                        "offset": 106681,
+                        "value": [
+                          {
+                            "tag": 1,
+                            "type": "0x0002",
+                            "offset": 106689,
+                            "value": 810984791634269,
+                            "size": 12
+                          },
+                          {
+                            "tag": 2,
+                            "type": "0x0405",
+                            "offset": 106701,
+                            "value": [
+                              "Hola",
+                              "​"
+                            ],
+                            "size": 23
+                          },
+                          {
+                            "tag": 3,
+                            "type": "0x0402",
+                            "offset": 106724,
+                            "value": [
+                              5,
+                              1
+                            ],
+                            "size": 24
+                          },
+                          {
+                            "tag": 4,
+                            "type": "0x0414",
+                            "offset": 106748,
+                            "value": [
+                              14,
+                              13,
+                              10,
+                              3,
+                              9,
+                              10
+                            ],
+                            "size": 32
+                          },
+                          {
+                            "tag": 5,
+                            "type": "0x0405",
+                            "offset": 106780,
+                            "value": [
+                              "Galvji-Oblique",
+                              "Galvji"
+                            ],
+                            "size": 36
+                          },
+                          {
+                            "tag": 6,
+                            "type": "0x0401",
+                            "offset": 106816,
+                            "value": [
+                              1
+                            ],
+                            "size": 9
+                          },
+                          {
+                            "tag": 7,
+                            "type": "0x0407",
+                            "offset": 106825,
+                            "value": [],
+                            "size": 8
+                          },
+                          {
+                            "tag": 8,
+                            "type": "0x0402",
+                            "offset": 106833,
+                            "value": [],
+                            "size": 8
+                          },
+                          {
+                            "tag": 9,
+                            "type": "0x0407",
+                            "offset": 106841,
+                            "value": [
+                              [
+                                {
+                                  "tag": 1,
+                                  "type": "0x0407",
+                                  "offset": 106853,
+                                  "value": [],
+                                  "size": 8
+                                }
+                              ]
+                            ],
+                            "size": 20
+                          },
+                          {
+                            "tag": 10,
+                            "type": "0x0420",
+                            "offset": 106861,
+                            "value": [
+                              22.0,
+                              22.0
+                            ],
+                            "size": 24
+                          }
+                        ],
+                        "size": 204
+                      },
+                      {
+                        "tag": 9,
+                        "type": "0x0807",
+                        "offset": 106885,
+                        "value": [
+                          {
+                            "tag": 0,
+                            "type": "0x0002",
+                            "offset": 106893,
+                            "value": 0,
+                            "size": 12
+                          }
+                        ],
+                        "clock_raw": 810984779123831,
+                        "size": 28
+                      },
+                      {
+                        "tag": 19,
+                        "type": "0x0807",
+                        "offset": 106913,
+                        "value": [
+                          {
+                            "tag": 0,
+                            "type": "0x0002",
+                            "offset": 106921,
+                            "value": 1,
+                            "size": 12
+                          }
+                        ],
+                        "clock_raw": 810984779123856,
+                        "size": 28
+                      },
+                      {
+                        "tag": 20,
+                        "type": "0x0820",
+                        "offset": 106941,
+                        "value": 0.0,
+                        "clock_raw": 810984779123841,
+                        "size": 20
+                      },
+                      {
+                        "tag": 21,
+                        "type": "0x0820",
+                        "offset": 106961,
+                        "value": 0.0,
+                        "clock_raw": 810984779123844,
+                        "size": 20
+                      }
+                    ],
+                    "size": 360
+                  },
+                  {
+                    "tag": 7,
+                    "type": "0x0805",
+                    "offset": 106981,
+                    "value": "",
+                    "clock_raw": 810984779122065,
+                    "size": 16
+                  },
+                  {
+                    "tag": 8,
+                    "type": "0x0820",
+                    "offset": 106997,
+                    "value": 1.0,
+                    "clock_raw": 810984779123837,
+                    "size": 20
+                  },
+                  {
+                    "tag": 9,
+                    "type": "0x0811",
+                    "offset": 107017,
+                    "value": 0,
+                    "clock_raw": 810984779122067,
+                    "size": 14
+                  },
+                  {
+                    "tag": 10,
+                    "type": "0x0002",
+                    "offset": 107031,
+                    "value": 810984779122068,
+                    "size": 12
+                  }
+                ]
+              ],
+              "size": 1714
+            }
+          ],
+          "size": 1971
+        }
+      ],
+      "json_values": [],
+      "encoding_version_raw": 288,
+      "freehand_blob_size": 0,
+      "strokes": [],
+      "object_ids": [
+        "844E05F045AD40E8BC444E4F3BD04ED3",
+        "84EEB5AA7C2B4FAC9EA73BB7BFF6D490",
+        "6BE535F50B0E40F7B6B99C9656B60F5D",
+        "ECBE9152469A488CA2306C160A15B8D8",
+        "AFF92774232F4399A578D9D024770573"
+      ]
+    },
+    {
+      "id": "4DAE75135CBA4C4D86316DCA75596857",
+      "offset": 483,
+      "size": 98895,
+      "kind": "jpeg",
+      "sha256": "a34d9885d25678521852759f88bfe86dc61e9e6f286bd5aeaac384f6aafd4a98"
+    },
+    {
+      "id": "7E4F4DC52177415AB2E508D2F46B8B09",
+      "offset": 100336,
+      "size": 4700,
+      "kind": "pdf",
+      "sha256": "29019ca6cca356bfa3d944b0fe551400d702f6f75c0b8bc303e93b0f04616f8d"
+    },
+    {
+      "id": "d:A67869128158466A850BA8F7485452B0",
+      "offset": 99378,
+      "size": 958,
+      "kind": "drawing_metadata",
+      "sha256": "0e41b30bcfee24cd853a50029f1d562465e5f2cc827df9e2bad081b77f7d732d",
+      "fields": [
+        {
+          "tag": 1,
+          "type": "0x0005",
+          "offset": 99378,
+          "value": "A67869128158466A850BA8F7485452B0",
+          "size": 40
+        },
+        {
+          "tag": 2,
+          "type": "0x0007",
+          "offset": 99418,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 99426,
+              "value": [
+                "ED85EBC868C44A68814A780274A88C2F"
+              ],
+              "size": 44
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 99470,
+              "value": [
+                810984607447784
+              ],
+              "size": 16
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 99486,
+              "value": [
+                1
+              ],
+              "size": 9
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 99495,
+              "value": [
+                [
+                  {
+                    "tag": 1,
+                    "type": "0x0005",
+                    "offset": 99507,
+                    "value": "ED85EBC868C44A68814A780274A88C2F",
+                    "size": 40
+                  },
+                  {
+                    "tag": 2,
+                    "type": "0x0007",
+                    "offset": 99547,
+                    "value": [
+                      {
+                        "tag": 0,
+                        "type": "0x0005",
+                        "offset": 99555,
+                        "value": "D87A25CA82D7434CABC7933A88E4C93D",
+                        "size": 40
+                      },
+                      {
+                        "tag": 2,
+                        "type": "0x0405",
+                        "offset": 99595,
+                        "value": [],
+                        "size": 8
+                      },
+                      {
+                        "tag": 3,
+                        "type": "0x0405",
+                        "offset": 99603,
+                        "value": [],
+                        "size": 8
+                      }
+                    ],
+                    "size": 64
+                  },
+                  {
+                    "tag": 4,
+                    "type": "0x0807",
+                    "offset": 99611,
+                    "value": [
+                      {
+                        "tag": 0,
+                        "type": "0x0011",
+                        "offset": 99619,
+                        "value": 2,
+                        "size": 6
+                      },
+                      {
+                        "tag": 1,
+                        "type": "0x0021",
+                        "offset": 99625,
+                        "value": [
+                          1091.3385826771655,
+                          1543.464566929134
+                        ],
+                        "size": 20
+                      },
+                      {
+                        "tag": 2,
+                        "type": "0x0001",
+                        "offset": 99645,
+                        "value": 0,
+                        "size": 5
+                      },
+                      {
+                        "tag": 3,
+                        "type": "0x0005",
+                        "offset": 99650,
+                        "value": "7E4F4DC52177415AB2E508D2F46B8B09",
+                        "size": 40
+                      },
+                      {
+                        "tag": 4,
+                        "type": "0x0005",
+                        "offset": 99690,
+                        "value": "56a60c50b55178092428edd4ae8fa87a199415f1",
+                        "size": 48
+                      },
+                      {
+                        "tag": 5,
+                        "type": "0x0005",
+                        "offset": 99738,
+                        "value": "cb.simpleline",
+                        "size": 21
+                      },
+                      {
+                        "tag": 6,
+                        "type": "0x0005",
+                        "offset": 99759,
+                        "value": "{\"lh\":16,\"name\":\"Con líneas\",\"pi\":\"cb.simpleline-ruled1.basic\",\"type\":0}",
+                        "size": 81
+                      },
+                      {
+                        "tag": 7,
+                        "type": "0x0002",
+                        "offset": 99840,
+                        "value": 0,
+                        "size": 12
+                      }
+                    ],
+                    "clock_raw": 810984607447770,
+                    "size": 249
+                  },
+                  {
+                    "tag": 5,
+                    "type": "0x0805",
+                    "offset": 99860,
+                    "value": "+E3NDuJ",
+                    "clock_raw": 810984607447770,
+                    "size": 23
+                  },
+                  {
+                    "tag": 6,
+                    "type": "0x0005",
+                    "offset": 99883,
+                    "value": "DA716EE893F142389D97D87B42336EF7",
+                    "size": 40
+                  },
+                  {
+                    "tag": 7,
+                    "type": "0x0801",
+                    "offset": 99923,
+                    "value": 0,
+                    "clock_raw": 810984607447770,
+                    "size": 13
+                  },
+                  {
+                    "tag": 9,
+                    "type": "0x0801",
+                    "offset": 99936,
+                    "value": 0,
+                    "clock_raw": 810984607447771,
+                    "size": 13
+                  }
+                ]
+              ],
+              "size": 454
+            }
+          ],
+          "size": 531
+        },
+        {
+          "tag": 3,
+          "type": "0x0007",
+          "offset": 99949,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0412",
+              "offset": 99957,
+              "value": [
+                0
+              ],
+              "size": 12
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 99969,
+              "value": [
+                810984607447807
+              ],
+              "size": 16
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 99985,
+              "value": [
+                1
+              ],
+              "size": 9
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 99994,
+              "value": [
+                [
+                  {
+                    "tag": 1,
+                    "type": "0x0805",
+                    "offset": 100006,
+                    "value": "Capa 1",
+                    "clock_raw": 810984607447752,
+                    "size": 22
+                  },
+                  {
+                    "tag": 2,
+                    "type": "0x0012",
+                    "offset": 100028,
+                    "value": 0,
+                    "size": 8
+                  },
+                  {
+                    "tag": 3,
+                    "type": "0x0805",
+                    "offset": 100036,
+                    "value": "0",
+                    "clock_raw": 810984607447752,
+                    "size": 17
+                  },
+                  {
+                    "tag": 4,
+                    "type": "0x0801",
+                    "offset": 100053,
+                    "value": 0,
+                    "clock_raw": 0,
+                    "size": 13
+                  },
+                  {
+                    "tag": 5,
+                    "type": "0x0801",
+                    "offset": 100066,
+                    "value": 0,
+                    "clock_raw": 0,
+                    "size": 13
+                  },
+                  {
+                    "tag": 6,
+                    "type": "0x0803",
+                    "offset": 100079,
+                    "value": 1.0,
+                    "clock_raw": 810984607447753,
+                    "size": 16
+                  },
+                  {
+                    "tag": 7,
+                    "type": "0x0801",
+                    "offset": 100095,
+                    "value": 0,
+                    "clock_raw": 810984607447752,
+                    "size": 13
+                  }
+                ]
+              ],
+              "size": 114
+            }
+          ],
+          "size": 159
+        },
+        {
+          "tag": 7,
+          "type": "0x0007",
+          "offset": 100108,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 100116,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 100124,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 100132,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 100140,
+              "value": [],
+              "size": 8
+            }
+          ],
+          "size": 40
+        },
+        {
+          "tag": 4,
+          "type": "0x0007",
+          "offset": 100148,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 100156,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 100164,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 100172,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 100180,
+              "value": [],
+              "size": 8
+            }
+          ],
+          "size": 40
+        },
+        {
+          "tag": 5,
+          "type": "0x0007",
+          "offset": 100188,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 100196,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 100204,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 100212,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 100220,
+              "value": [],
+              "size": 8
+            }
+          ],
+          "size": 40
+        },
+        {
+          "tag": 6,
+          "type": "0x0005",
+          "offset": 100228,
+          "value": "4B27C6FDA75246DBB9366DE00E80A870",
+          "size": 40
+        },
+        {
+          "tag": 8,
+          "type": "0x0812",
+          "offset": 100268,
+          "value": 0,
+          "clock_raw": 810984607447812,
+          "size": 16
+        },
+        {
+          "tag": 9,
+          "type": "0x0002",
+          "offset": 100284,
+          "value": 0,
+          "size": 12
+        },
+        {
+          "tag": 10,
+          "type": "0x0007",
+          "offset": 100296,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0405",
+              "offset": 100304,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 2,
+              "type": "0x0402",
+              "offset": 100312,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 3,
+              "type": "0x0401",
+              "offset": 100320,
+              "value": [],
+              "size": 8
+            },
+            {
+              "tag": 0,
+              "type": "0x0407",
+              "offset": 100328,
+              "value": [],
+              "size": 8
+            }
+          ],
+          "size": 40
+        }
+      ],
+      "json_values": [
+        {
+          "offset": 99759,
+          "value": {
+            "lh": 16,
+            "name": "Con líneas",
+            "pi": "cb.simpleline-ruled1.basic",
+            "type": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "n:A67869128158466A850BA8F7485452B0",
+      "offset": 4,
+      "size": 479,
+      "kind": "note_metadata",
+      "sha256": "843e100f0d7d5446e893948690a40058233b6fb9eaeb6badf153260cdc1b824b",
+      "fields": [
+        {
+          "tag": 1,
+          "type": "0x0005",
+          "offset": 4,
+          "value": "A67869128158466A850BA8F7485452B0",
+          "size": 40
+        },
+        {
+          "tag": 2,
+          "type": "0x0002",
+          "offset": 44,
+          "value": 0,
+          "size": 12
+        },
+        {
+          "tag": 3,
+          "type": "0x0805",
+          "offset": 56,
+          "value": "Notas del 13/9/26",
+          "clock_raw": 810984607460650,
+          "size": 33
+        },
+        {
+          "tag": 4,
+          "type": "0x0805",
+          "offset": 89,
+          "value": "",
+          "clock_raw": 810984607460651,
+          "size": 16
+        },
+        {
+          "tag": 5,
+          "type": "0x0004",
+          "offset": 105,
+          "value": 810984793.655108,
+          "size": 12
+        },
+        {
+          "tag": 6,
+          "type": "0x0007",
+          "offset": 117,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0801",
+              "offset": 125,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 2,
+              "type": "0x0801",
+              "offset": 138,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 3,
+              "type": "0x0801",
+              "offset": 151,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 4,
+              "type": "0x0801",
+              "offset": 164,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 5,
+              "type": "0x0801",
+              "offset": 177,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            },
+            {
+              "tag": 6,
+              "type": "0x0801",
+              "offset": 190,
+              "value": 0,
+              "clock_raw": 0,
+              "size": 13
+            }
+          ],
+          "size": 86
+        },
+        {
+          "tag": 7,
+          "type": "0x0807",
+          "offset": 203,
+          "value": [
+            {
+              "tag": 1,
+              "type": "0x0005",
+              "offset": 211,
+              "value": "4DAE75135CBA4C4D86316DCA75596857",
+              "size": 40
+            },
+            {
+              "tag": 2,
+              "type": "0x0005",
+              "offset": 251,
+              "value": "DA716EE893F142389D97D87B42336EF7",
+              "size": 40
+            }
+          ],
+          "clock_raw": 810984793655108,
+          "size": 96
+        },
+        {
+          "tag": 8,
+          "type": "0x0805",
+          "offset": 299,
+          "value": "",
+          "clock_raw": 810984607460651,
+          "size": 16
+        },
+        {
+          "tag": 9,
+          "type": "0x0805",
+          "offset": 315,
+          "value": "",
+          "clock_raw": 810984607460652,
+          "size": 16
+        },
+        {
+          "tag": 10,
+          "type": "0x0005",
+          "offset": 331,
+          "value": "96687680F94147B189DC1877D553072E",
+          "size": 40
+        },
+        {
+          "tag": 11,
+          "type": "0x0807",
+          "offset": 371,
+          "value": [
+            {
+              "tag": 0,
+              "type": "0x0002",
+              "offset": 379,
+              "value": 0,
+              "size": 12
+            },
+            {
+              "tag": 1,
+              "type": "0x0007",
+              "offset": 391,
+              "value": [
+                {
+                  "tag": 0,
+                  "type": "0x0403",
+                  "offset": 399,
+                  "value": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "size": 24
+                }
+              ],
+              "size": 32
+            }
+          ],
+          "clock_raw": 810984607460652,
+          "size": 60
+        },
+        {
+          "tag": 12,
+          "type": "0x0004",
+          "offset": 431,
+          "value": 810984607.460393,
+          "size": 12
+        },
+        {
+          "tag": 13,
+          "type": "0x0013",
+          "offset": 443,
+          "value": 7167,
+          "size": 12
+        },
+        {
+          "tag": 14,
+          "type": "0x0002",
+          "offset": 455,
+          "value": 0,
+          "size": 12
+        },
+        {
+          "tag": 15,
+          "type": "0x0805",
+          "offset": 467,
+          "value": "",
+          "clock_raw": 810984607460652,
+          "size": 16
+        }
+      ],
+      "json_values": []
+    }
+  ],
+  "coverage": "exact"
+}
