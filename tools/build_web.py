@@ -29,6 +29,13 @@ def main():
     subprocess.run([cargo,'build','--locked','--release','-p','noteful-wasm','--target','wasm32-unknown-unknown'],cwd=ROOT,env=env,check=True)
     pkg=ROOT/'web/pkg';pkg.mkdir(parents=True,exist_ok=True)
     subprocess.run([str(bindgen),'--target','web','--out-dir',str(pkg),str(ROOT/'target/wasm32-unknown-unknown/release/noteful_wasm.wasm')],check=True)
+    npm='npm.cmd' if os.name=='nt' else 'npm'
+    subprocess.run([npm,'ci','--ignore-scripts'],cwd=ROOT/'web',check=True)
+    pdfjs=ROOT/'web/node_modules/pdfjs-dist'
+    vendor=ROOT/'web/vendor/pdfjs';vendor.mkdir(parents=True,exist_ok=True)
+    for folder in ['build','cmaps','standard_fonts','wasm']:
+        shutil.copytree(pdfjs/folder,vendor/folder,dirs_exist_ok=True)
+    shutil.copy2(pdfjs/'LICENSE',vendor/'LICENSE')
     examples=ROOT/'web/samples';examples.mkdir(exist_ok=True)
     names=[]
     for p in sorted((ROOT/'samples').glob('*.noteful')):

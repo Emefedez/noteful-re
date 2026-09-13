@@ -1,6 +1,6 @@
 //! Non-destructive edits over an immutable imported archive.
 //! `.nfedit` is our project format, not an interoperable Noteful export.
-use crate::{scene::line_svg, Error, Result, Scene, MAX_FILE_BYTES};
+use crate::{scene::line_svg, Error, Result, Scene};
 use base64::{engine::general_purpose::STANDARD, Engine};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
@@ -122,20 +122,9 @@ impl Editor {
             })
     }
     fn commit(&mut self, edit: Edit) -> Result<()> {
-        let points: usize = self.history[..self.cursor]
-            .iter()
-            .filter_map(|e| match e {
-                Edit::Add { line, .. } => Some(line.points.len()),
-                _ => None,
-            })
-            .sum();
-        let added = match &edit {
-            Edit::Add { line, .. } => line.points.len(),
-            _ => 0,
-        };
-        if self.cursor >= 10_000 || points + added > 1_000_000 {
-            return Err(Error::new(0, "Edit budget exceeded"));
-        }
+        self.history
+            .try_reserve(1)
+            .map_err(|e| Error::new(0, e.to_string()))?;
         self.history.truncate(self.cursor);
         self.history.push(edit);
         self.cursor += 1;
@@ -217,7 +206,7 @@ impl Editor {
             .collect();
         let svg=format!("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 {w} {h}\" width=\"{w}\" height=\"{h}\" style=\"isolation:isolate\">{content}</svg>");
         Ok(
-            json!({"title":self.scene.title,"pages":self.scene.pages.len(),"page":page,"size":p.size,"svg":svg,"warnings":p.warnings,"texts":texts,"visible_imported":imported,"visible_added":added,"erased":deleted.len(),"can_undo":self.cursor>0,"can_redo":self.cursor<self.history.len(),"edit_count":self.cursor}),
+            json!({"title":self.scene.title,"pages":self.scene.pages.len(),"page":page,"size":p.size,"svg":svg,"warnings":p.warnings,"texts":texts,"audio":self.scene.audio,"recordings":self.scene.recordings,"pdf_background":p.pdf_background,"timings":p.timings.iter().filter(|t| !deleted.contains(t.item_id.as_str())).collect::<Vec<_>>(),"visible_imported":imported,"visible_added":added,"erased":deleted.len(),"can_undo":self.cursor>0,"can_redo":self.cursor<self.history.len(),"edit_count":self.cursor}),
         )
     }
     pub fn save_project(&self) -> Result<String> {
@@ -229,20 +218,31 @@ impl Editor {
             cursor: self.cursor,
         })
         .map_err(|e| Error::new(0, e.to_string()))?;
-        if data.len() > MAX_FILE_BYTES * 2 {
-            return Err(Error::new(0, "Project size limit exceeded"));
-        }
         Ok(data)
     }
+    pub fn pdf_bytes(&self, id: &str) -> Result<&[u8]> {
+        let asset = self
+            .scene
+            .pdf_assets
+            .iter()
+            .find(|a| a.id == id)
+            .ok_or_else(|| Error::new(0, "PDF resource not found"))?;
+        Ok(&self.source[asset.offset..asset.offset + asset.bytes])
+    }
+    pub fn audio_bytes(&self, id: &str) -> Result<&[u8]> {
+        let asset = self
+            .scene
+            .audio
+            .iter()
+            .find(|a| a.id == id)
+            .ok_or_else(|| Error::new(0, "Audio resource not found"))?;
+        Ok(&self.source[asset.offset..asset.offset + asset.bytes])
+    }
     pub fn open_project(data: &str) -> Result<Self> {
-        if data.len() > MAX_FILE_BYTES * 2 {
-            return Err(Error::new(0, "Project size limit exceeded"));
-        }
         let project: Project =
             serde_json::from_str(data).map_err(|e| Error::new(0, e.to_string()))?;
         if project.format != "noteful-re-project"
             || project.version != 1
-            || project.history.len() > 10_000
             || project.cursor > project.history.len()
         {
             return Err(Error::new(0, "Unsupported or invalid project"));

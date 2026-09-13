@@ -14,7 +14,7 @@ fn samples() -> Vec<std::path::PathBuf> {
 #[test]
 fn entire_corpus_round_trips_and_decodes_ink() {
     let files = samples();
-    assert_eq!(files.len(), 8);
+    assert_eq!(files.len(), 10);
     for path in files {
         let data = std::fs::read(&path).unwrap();
         let p = Package::parse(&data).unwrap();

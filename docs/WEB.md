@@ -63,6 +63,9 @@ radio. No convertir relojes/IDs uint64 a Number: el JSON diagnóstico completo d
 CLI sigue reservado para RE/Python. La GUI recibe conteos acotados y IDs locales.
 El Worker conserva una sesión y entrega solo la página actual tras cada operación.
 
+Texto y fuentes: [TEXT.md](TEXT.md). Audio incrustado y sincronización pendiente:
+[AUDIO.md](AUDIO.md).
+
 ## Límites explícitos
 
 `.nfedit` es un formato propio: **no** es un `.noteful` editado que la app original
@@ -76,14 +79,15 @@ genérico, semántica de borrado nativa, capas editables y exportación interope
 siguen pendientes. La GUI tiene unidades fijas, no gestión de presión.
 
 Por ahora, SVG de toda la página se reconstruye tras cada operación. Para notas
-mucho mayores habrá que medir/trocear ese trabajo. Límite: 64 MiB por nota,
-128 MiB por proyecto, 8.192 muestras por gesto, 10.000 acciones y un millón de
-puntos nuevos en el historial. No se ha medido latencia en hardware Android.
+mucho mayores habrá que medir/trocear ese trabajo. No hay un techo fijo de MB
+para notas/proyectos ni un máximo global de acciones/puntos. La memoria y el
+direccionamiento de plataforma siguen importando. Cada gesto nuevo admite hasta
+8.192 muestras. No se ha medido latencia en hardware Android.
 
 ## Validación
 
-- Ocho notas: lectura/round-trip WASM real en Node.
-- Diez páginas: primitivas SVG Rust contra Python (tolerancia 2e-5), conservando
+- Nueve notas: lectura/round-trip WASM real en Node.
+- Once páginas: primitivas SVG Rust contra Python (tolerancia 2e-5), conservando
   orden, transformaciones, composición e imágenes; `evidence/rust-scene-parity.json`.
 - Pruebas Rust y WASM de dibujo, barrido, undo/redo, proyectos y errores.
 - Navegador integrado: apertura, dibujo real con ratón, borrado, recuperación,

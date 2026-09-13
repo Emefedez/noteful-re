@@ -1,0 +1,8 @@
+{
+  "fixture": "tests/fixtures/audio-synthetic.noteful",
+  "synthetic": true,
+  "source": "nota_vacia.noteful with a generated 0.25 second WAV resource",
+  "sha256": "fad1f33453c2ee92dec5bf1703228ac5188cdba7dadfcc3f5bfb36d2ca476896",
+  "audio_bytes": 8044,
+  "synchronization": "none; not a Noteful recording example"
+}

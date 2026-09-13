@@ -1,7 +1,7 @@
 # Especificación observada Noteful — revisión 0.1
 
 Esta revisión versiona nuestro conocimiento, no una versión oficial de Noteful.
-Corpus: ocho archivos originales `samples/*.noteful`; SHA-256 en evidencia/corpus.
+Corpus: nueve archivos originales `samples/*.noteful`; SHA-256 en evidencia/corpus.
 Separar requisitos sintácticos de interpretaciones visuales contrastadas.
 
 ## Contenedor
@@ -64,15 +64,14 @@ del decoder binario. La fase Rust actual preserva esos campos para consumidor.
 
 ## Límites de implementación, no del formato
 
-Archivo ≤64 MiB; profundidad anidada ≤40; presupuesto de 1.000.000 campos/valores
-por bloque y 1.000.000 puntos por blob. No significa que Noteful imponga esos
-límites. Los bloques se validan antes de decodificar; offsets usan aritmética
-comprobada antes de convertirse a rangos en memoria. Tipos desconocidos no se
-inventan ni normalizan.
+Sin techo fijo de tamaño de archivo. Profundidad anidada ≤40. Presupuesto de
+campos/valores proporcional a los bytes de cada bloque; cada array y lectura debe
+caber en su buffer. El direccionamiento y la memoria del destino siguen siendo
+límites técnicos, no reglas del formato Noteful.
 
 ## Criterios de conformidad de esta fase
 
-1. Decodificar las ocho muestras sin error de tinta.
+1. Decodificar las nueve muestras sin error de tinta.
 2. Reemitir campos e índice, preservando recursos y blobs: mismos bytes completos.
 3. Coincidir con Python en datos emitidos y semántica. Tolerancia de cálculo de
    coordenadas: relativa 1e-13, absoluta 1e-10; datos binarios siempre exactos.
@@ -82,3 +81,5 @@ inventan ni normalizan.
 El JSON de CLI es diagnóstico para Python/RE y puede contener uint64 mayores que
 2^53. No es API estable de GUI JavaScript. Versionar una DTO distinta al crear
 bindings. No usar SVG exportado como modelo editable de documento.
+
+Texto atribuido: [TEXT.md](../docs/TEXT.md). Audio y preservación: [AUDIO.md](../docs/AUDIO.md).

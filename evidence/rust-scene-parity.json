@@ -67,6 +67,14 @@
         5
       ],
       "passed": true
+    },
+    {
+      "file": "texto.noteful",
+      "pages": 1,
+      "primitives": [
+        7
+      ],
+      "passed": true
     }
   ]
 }

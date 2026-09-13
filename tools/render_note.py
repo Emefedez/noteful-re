@@ -108,7 +108,7 @@ def render(data, name='Nota', parser=parse):
             path=f'M 0 {gap} L {gap} {gap}'
             if paper['lt']==2:path+=f' M {gap} 0 L {gap} {gap}'
             parts.append(f'<defs><pattern id="paper" width="{gap}" height="{gap}" patternUnits="userSpaceOnUse"><path d="{path}" fill="none" stroke="#9a9888" stroke-width="{linew}"/></pattern></defs><rect width="100%" height="100%" fill="url(#paper)"/>')
-        if not paper:
+        if not paper and page.get("background_pdf_id") not in blocks:
             warnings.append('Fondo PDF genérico aún sin reconstruir; descarga recurso original.')
         editable=blocks.get(page.get('stroke_object_set_id'),{})
         strokes=editable.get('strokes',[])

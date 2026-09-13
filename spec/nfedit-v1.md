@@ -35,6 +35,7 @@ un cambio incompatible necesita migración de versión, no reinterpretación tá
 
 Validación: página existente; 1–8192 puntos finitos con coordenadas |v|≤1e6;
 0.1≤width≤100; RGBA finito dentro de [0,1]; cursor dentro del historial;
-≤10.000 acciones; ≤1.000.000 puntos nuevos; nota ≤64 MiB; JSON ≤128 MiB.
+sin techo fijo de MB ni máximo global de acciones/puntos. La memoria del destino
+puede impedir cargar un proyecto grande.
 La apertura valida todas las acciones, incluyendo redo, antes de devolver sesión.
 No hay escritura parcial al archivo original. No se evalúa código ni HTML del JSON.

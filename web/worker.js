@@ -13,6 +13,10 @@ self.onmessage = async ({data:{id,op,page=0,...args}}) => {
     if(op==='erase') session.erase(page,JSON.stringify(args.points),args.radius);
     if(op==='undo') session.undo();
     if(op==='redo') session.redo();
+    if(op==='audio'||op==='pdf') {
+      const bytes=op==='audio'?session.audio_bytes(args.resource):session.pdf_bytes(args.resource);
+      postMessage({id,result:bytes},[bytes.buffer]); return;
+    }
     postMessage({id,result:op==='save' ? session.save_project() : JSON.parse(session.view(page))});
   } catch(e) { postMessage({id,error:String(e)}); }
 };

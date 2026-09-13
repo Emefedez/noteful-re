@@ -1,4 +1,4 @@
-use crate::{hex, Cursor, Error, Result, MAX_ITEMS};
+use crate::{hex, Cursor, Error, Result};
 use serde_json::{json, Value};
 use std::collections::HashSet;
 
@@ -83,7 +83,7 @@ pub fn decode_fields(data: &[u8], origin: usize) -> Result<Vec<Field>> {
     origin
         .checked_add(data.len())
         .ok_or_else(|| Error::new(origin, "Offset overflow"))?;
-    let mut budget = MAX_ITEMS;
+    let mut budget = data.len();
     fields_inner(data, origin, 0, &mut budget)
 }
 fn spend(budget: &mut usize, at: usize) -> Result<()> {

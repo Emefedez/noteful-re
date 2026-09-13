@@ -20,7 +20,7 @@ def primitives(svg):
     result=[]
     def visit(node,parents):
         tag=node.tag.rsplit('}',1)[-1]
-        attrs={k:normalize_attr(k,v) for k,v in node.attrib.items() if k!='data-item' and not (k=='opacity' and float(v)==1.)}
+        attrs={k:normalize_attr(k,v) for k,v in node.attrib.items() if k not in ('data-item','data-background') and not (k=='opacity' and float(v)==1.)}
         if tag=='svg': attrs={}
         if tag in ('svg','g'):
             chain=parents+([attrs] if attrs else [])

@@ -6,5 +6,7 @@ nota_herramientalinea.noteful 1 0 1
 nota_imagen.noteful 1 0 1
 nota_lineagruesa.noteful 1 1 0
 nota_vacia.noteful 1 0 0
-WASM runtime: eight samples verified; invalid file rejected.
+texto.noteful 1 0 3
+WASM runtime: nine samples verified; invalid file rejected.
 WASM editor: 2082 imported elements, draw, swept erase, undo/redo, project reload, invalid edit rejection passed.
+WASM text: three real text blocks, sizes and traits verified. Synthetic WAV: exact project preservation verified; sync not claimed.

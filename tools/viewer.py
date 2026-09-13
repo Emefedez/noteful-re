@@ -11,7 +11,6 @@ import webbrowser
 from noteful import FormatError
 from render_note import render
 ROOT=Path(__file__).resolve().parents[1]
-MAX_BYTES=64*1024*1024
 
 
 class LocalServer(ThreadingHTTPServer):
@@ -54,7 +53,7 @@ class Handler(BaseHTTPRequestHandler):
         if origin and origin!=allowed:return self.reply(403,{'error':'Origen no permitido.'})
         try:n=int(self.headers.get('Content-Length','0'))
         except ValueError:return self.reply(400,{'error':'Longitud inválida.'})
-        if not 0<n<=MAX_BYTES:return self.reply(413,{'error':'Archivo vacío o mayor que 64 MB.'})
+        if n<=0:return self.reply(400,{'error':'Archivo vacío o longitud inválida.'})
         data=self.rfile.read(n)
         return self.open_note(data,'Archivo local')
     def log_message(self,fmt,*args):pass

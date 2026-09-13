@@ -1,6 +1,6 @@
 # Noteful RE
 
-Lector, visor y editor experimental `.noteful`, validado con ocho notas aportadas.
+Lector, visor y editor experimental `.noteful`, validado con nueve notas aportadas.
 Trabajo realizado en esta carpeta; archivos originales de Downloads conservados.
 
 ## Núcleo Rust portable
@@ -19,7 +19,7 @@ python3 tools/check_rust_parity.py
 python3 tools/viewer.py --engine rust
 ```
 
-Paridad comprobada en ocho notas: campos, trazos, resumen semántico, SVG y round-trip.
+Paridad comprobada en nueve notas: campos, trazos, resumen semántico, SVG y round-trip.
 La prueba inicial usa el renderer Python común. `check_scene_parity.py` comprueba
 también el renderer Rust independiente, con tolerancia numérica. El adaptador CLI es temporal;
 la futura aplicación Android necesitará enlace al núcleo dentro del proceso.
@@ -43,11 +43,11 @@ compatible con la app original sigue pendiente. Instrucciones: [WEB.md](docs/WEB
 ## Abrir una nota
 
 Doble clic en **Abrir Noteful.command**. Abre navegador y carga el examen.
-Usa **Abrir archivo .noteful**, arrastra un archivo o elige uno de los ocho ejemplos.
+Usa **Abrir archivo .noteful**, arrastra un archivo o elige uno de los nueve ejemplos.
 Flechas cambian de página; **Comparar con PDF del examen** muestra referencia
 independiente. **Guardar SVG** exporta la reconstrucción de la página actual.
 
-También puedes abrir `examples/index.html` directamente: ocho vistas HTML y diez
+También puedes abrir `examples/index.html` directamente: nueve vistas HTML y once
 páginas SVG, sin servidor. Estas vistas estáticas no cargan archivos nuevos.
 
 ```sh
@@ -102,7 +102,7 @@ Los antiguos `freehand-provisional.svg` son evidencia histórica en negro.
 
 ## Organización
 
-- `samples/`: copias de ocho notas y PDF exportado del examen.
+- `samples/`: copias de nueve notas y PDF exportado del examen.
 - `examples/`: galería estática, SVG por página y referencia rasterizada del PDF.
 - `viewer/`: interfaz local.
 - `tools/`: lector, codificador de campos, comparación y scripts de análisis.
@@ -127,7 +127,11 @@ python3 tools/check_scene_parity.py
 node web/test.mjs
 ```
 
-12 pruebas Python, 10 pruebas Rust y ejecución WASM con las ocho notas y operaciones
-de edición. Paridad de primitivas SVG con Python: diez páginas, tolerancia 2e-5.
+15 pruebas Python, 15 pruebas Rust y ejecución WASM con las nueve notas y operaciones
+de edición. Paridad de primitivas SVG con Python: once páginas, tolerancia 2e-5.
 Linux/Windows/Android pasan `cargo check` del núcleo; aplicaciones nativas y pruebas
 en esos dispositivos pendientes. Proyecto de ejemplo: `examples/edicion-basica.nfedit`.
+
+Texto ya renderizado con tamaño, negrita, cursiva, subrayado/tachado y familias:
+[TEXT.md](docs/TEXT.md). Audio: conservación, reproducción independiente y
+sincronización aún pendiente: [AUDIO.md](docs/AUDIO.md). Sin techo fijo de MB.

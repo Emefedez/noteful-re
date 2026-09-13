@@ -44,6 +44,12 @@ impl EditorSession {
     pub fn save_project(&self) -> Result<String, JsValue> {
         self.inner.save_project().map_err(js_error)
     }
+    pub fn pdf_bytes(&self, id: &str) -> Result<Vec<u8>, JsValue> {
+        Ok(self.inner.pdf_bytes(id).map_err(js_error)?.to_vec())
+    }
+    pub fn audio_bytes(&self, id: &str) -> Result<Vec<u8>, JsValue> {
+        Ok(self.inner.audio_bytes(id).map_err(js_error)?.to_vec())
+    }
 }
 
 fn get(fields: &[Field], tag: u16) -> Option<&WireValue> {

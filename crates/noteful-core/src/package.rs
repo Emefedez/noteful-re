@@ -1,6 +1,6 @@
 use crate::{
     decode_fields, decode_strokes, encode_fields, wire::field, Cursor, Error, Field, Result,
-    Stroke, WireValue, MAGIC, MAX_FILE_BYTES,
+    Stroke, WireValue, MAGIC,
 };
 use serde_json::{json, Value};
 use std::collections::HashSet;
@@ -37,9 +37,6 @@ fn address(value: u64) -> Result<usize> {
 }
 impl<'a> Package<'a> {
     pub fn parse(data: &'a [u8]) -> Result<Self> {
-        if data.len() > MAX_FILE_BYTES {
-            return Err(Error::new(0, "File size limit exceeded"));
-        }
         if data.len() < 20 || data[..4] != MAGIC || data[data.len() - 16..data.len() - 12] != MAGIC
         {
             return Err(Error::new(0, "Noteful start/end magic missing"));
@@ -59,6 +56,13 @@ impl<'a> Package<'a> {
             return Err(Error::new(index_offset, "Inconsistent index arrays"));
         }
         let mut editable = HashSet::new();
+        let resources: HashSet<&str> = array(&index, 3)?
+            .iter()
+            .map(|v| {
+                v.as_text()
+                    .ok_or_else(|| Error::new(index_offset, "Invalid resource ID"))
+            })
+            .collect::<Result<_>>()?;
         if field(&index, 4).is_some() {
             for item in array(&index, 4)? {
                 editable.insert(
@@ -100,10 +104,14 @@ impl<'a> Package<'a> {
                 "jpeg"
             } else if raw.starts_with(b"\x89PNG\r\n\x1a\n") {
                 "png"
+            } else if let Some(kind) = crate::audio_kind(raw) {
+                kind
             } else if id.starts_with("n:") {
                 "note_metadata"
             } else if id.starts_with("d:") {
                 "drawing_metadata"
+            } else if resources.contains(id) {
+                "binary"
             } else {
                 "structured"
             };

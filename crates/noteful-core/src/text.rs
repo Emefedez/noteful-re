@@ -192,7 +192,11 @@ fn family(s: &str) -> String {
 pub fn text_svg(text: &RichText, width: f64) -> String {
     let mut lines: Vec<Vec<(&TextRun, String)>> = vec![vec![]];
     for run in &text.runs {
-        let content = run.text.replace("\r\n", "\n").replace('\r', "\n").replace("\u{200b}", "");
+        let content = run
+            .text
+            .replace("\r\n", "\n")
+            .replace('\r', "\n")
+            .replace("\u{200b}", "");
         for (i, part) in content.split('\n').enumerate() {
             if i > 0 {
                 lines.push(vec![]);

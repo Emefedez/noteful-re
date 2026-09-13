@@ -1,4 +1,4 @@
-use noteful_core::{Package, MAX_FILE_BYTES};
+use noteful_core::Package;
 use std::{
     io::{self, Read, Write},
     process::ExitCode,
@@ -16,15 +16,21 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     if cmd != "inspect" && cmd != "verify" && cmd != "render" {
         return Err("Expected inspect, verify or render".into());
     }
-    let input: Box<dyn Read> = if source == "-" {
+    let mut input: Box<dyn Read> = if source == "-" {
         Box::new(io::stdin())
     } else {
         Box::new(std::fs::File::open(source)?)
     };
     let mut data = Vec::new();
-    input
-        .take((MAX_FILE_BYTES + 1) as u64)
-        .read_to_end(&mut data)?;
+    let mut chunk = vec![0; 1024 * 1024];
+    loop {
+        let n = input.read(&mut chunk)?;
+        if n == 0 {
+            break;
+        }
+        data.try_reserve(n)?;
+        data.extend_from_slice(&chunk[..n]);
+    }
     if cmd == "render" {
         let editor = noteful_core::Editor::open(&data)?;
         let pages = (0..editor.scene.pages.len())

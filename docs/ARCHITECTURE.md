@@ -6,7 +6,7 @@ referencia ejecutable. No reemplazar a la vez formato, renderer y aplicación.
 
 ## Límites del engine actual
 
-Comprendemos el corpus de ocho notas, no todo Noteful. El renderer representa
+Comprendemos el corpus de nueve notas, no todo Noteful. El renderer representa
 2.008 trazos y 74 objetos del examen. La edición propia ya permite dibujar/borrar,
 pero la semántica de borrado de Noteful, canales auxiliares, interpolación
 exacta, otros tipos de objetos, PDF genérico y edición interoperable siguen abiertos.
@@ -86,10 +86,10 @@ núcleo antes de elegir/empaquetar React, Tauri o React Native.
 `tools/check_rust_parity.py` compara recursivamente todos los campos emitidos por
 Rust contra Python, incluidas coordenadas, radios, estilos y bytes auxiliares.
 Compara también resumen semántico y SVG exacto usando el renderer Python común.
-Ejecuta round-trip Rust de los ocho documentos. Reporte: `evidence/rust-parity.json`.
+Ejecuta round-trip Rust de los nueve documentos. Reporte: `evidence/rust-parity.json`.
 Esa prueba inicial no demuestra equivalencia de renderers. Ahora
 `tools/check_scene_parity.py` compara primitivas SVG del renderer Rust separado
-contra Python: ocho notas, diez páginas, orden, transformaciones, composición e
+contra Python: nueve notas, once páginas, orden, transformaciones, composición e
 imágenes; tolerancia absoluta 2e-5. No equivale a una comparación de píxeles.
 
 Las doce pruebas Python siguen vigentes. Rust añade corpus, errores/truncamiento,

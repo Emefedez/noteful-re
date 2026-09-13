@@ -16,6 +16,16 @@ import struct
 MAGIC = bytes.fromhex("aabbccde")
 
 
+def audio_kind(raw):
+    if raw.startswith(b'caff'):return 'caf'
+    if len(raw)>=12 and raw[:4]==b'RIFF' and raw[8:12]==b'WAVE':return 'wav'
+    if len(raw)>=12 and raw[4:8]==b'ftyp' and raw[8:12] in (b'M4A ',b'M4B '):return 'm4a'
+    if raw.startswith(b'ID3'):return 'mp3'
+    if raw.startswith(b'fLaC'):return 'flac'
+    if raw.startswith(b'OggS'):return 'ogg'
+    return None
+
+
 class FormatError(ValueError):
     pass
 
@@ -225,8 +235,10 @@ def parse(data):
         kind = ("pdf" if raw.startswith(b"%PDF-") else
                 "jpeg" if raw.startswith(b"\xff\xd8\xff") else
                 "png" if raw.startswith(b"\x89PNG\r\n\x1a\n") else
+                audio_kind(raw) if audio_kind(raw) else
                 "note_metadata" if key.startswith("n:") else
-                "drawing_metadata" if key.startswith("d:") else "structured")
+                "drawing_metadata" if key.startswith("d:") else
+                "binary" if key in index.get(3,[]) else "structured")
         block = {"id": key, "offset": offset, "size": size, "kind": kind,
                  "sha256": sha256(raw)}
         if kind in ("note_metadata", "drawing_metadata", "structured"):
@@ -281,10 +293,10 @@ def semantic_summary(report):
                 result["pages"].append({
                     "id": page[1], "stroke_object_set_id": assets.get(0),
                     "attachment_ids": assets.get(2, []),
-                    "size": background.get(1), "background_pdf_id": background.get(3),
+                    "size": background.get(1), "background_pdf_id": background.get(4) if background.get(0) == 1 else background.get(3),
                     "background_provider": background.get(5),
                     "paper": json.loads(background[6]) if background.get(6) else None,
-                    "background_page_raw": background.get(7, 0),
+                    "background_page_raw": background.get(3, 0) if background.get(0) == 1 else background.get(7, 0),
                     "order_key": page.get(5, ""),
                 })
             for layer in values(v[3]).get(0, []):

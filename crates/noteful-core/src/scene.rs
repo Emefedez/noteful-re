@@ -6,11 +6,16 @@ use serde_json::{json, Value};
 pub struct Scene {
     pub title: String,
     pub pages: Vec<Page>,
+    pub audio: Vec<crate::AudioAsset>,
+    pub recordings: Vec<crate::Recording>,
+    pub(crate) pdf_assets: Vec<crate::media::PdfAsset>,
 }
 pub struct Page {
     pub id: String,
     pub size: [f64; 2],
     pub warnings: Vec<String>,
+    pub pdf_background: Option<crate::PdfBackground>,
+    pub timings: Vec<crate::InkTiming>,
     pub(crate) background: String,
     pub(crate) items: Vec<Item>,
 }
@@ -271,6 +276,30 @@ fn object(o: &Value, package: &Package<'_>, index: usize) -> Result<Item> {
 impl Scene {
     pub fn parse(data: &[u8]) -> Result<Self> {
         let package = Package::parse(data)?;
+        let audio = package
+            .blocks
+            .iter()
+            .filter_map(|b| {
+                crate::audio_mime(b.kind).map(|mime| crate::AudioAsset {
+                    id: b.id.clone(),
+                    kind: b.kind.to_owned(),
+                    mime,
+                    bytes: b.size,
+                    offset: b.offset,
+                })
+            })
+            .collect();
+        let pdf_assets = package
+            .blocks
+            .iter()
+            .filter(|b| b.kind == "pdf")
+            .map(|b| crate::media::PdfAsset {
+                id: b.id.clone(),
+                offset: b.offset,
+                bytes: b.size,
+            })
+            .collect();
+        let mut recordings = Vec::new();
         let mut title = String::new();
         let mut records = Vec::new();
         for b in &package.blocks {
@@ -281,6 +310,20 @@ impl Scene {
                 }
                 if b.kind == "drawing_metadata" {
                     records.extend(arr(&v["2"]["0"]).iter().cloned());
+                    for r in arr(&v["7"]["0"]) {
+                        if let (Some(start), Some(duration)) = (r["5"].as_u64(), r["6"].as_f64()) {
+                            if duration.is_finite() && duration >= 0. {
+                                recordings.push(crate::Recording {
+                                    id: text(&r["1"]).to_owned(),
+                                    name: text(&r["2"]).to_owned(),
+                                    asset_id: text(&r["3"]).to_owned(),
+                                    start_us: start.to_string(),
+                                    duration,
+                                    pages: Vec::new(),
+                                });
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -292,6 +335,21 @@ impl Scene {
                 return Err(Error::new(0, "Invalid page size"));
             }
             let mut warnings = Vec::new();
+            let bg = &record["4"];
+            let (pdf_id, pdf_page) = if bg["0"].as_u64() == Some(1) {
+                (text(&bg["4"]), bg["3"].as_u64().unwrap_or(0))
+            } else {
+                (text(&bg["3"]), bg["7"].as_u64().unwrap_or(0))
+            };
+            let pdf_background = package
+                .blocks
+                .iter()
+                .find(|b| b.id == pdf_id && b.kind == "pdf")
+                .map(|_| crate::PdfBackground {
+                    resource_id: pdf_id.to_owned(),
+                    page_index: pdf_page,
+                });
+            let mut timings = Vec::new();
             let paper: Value = serde_json::from_str(text(&record["4"]["6"])).unwrap_or(Value::Null);
             let mut background = format!(
                 "<rect width=\"100%\" height=\"100%\" fill=\"#{:06x}\"/>",
@@ -309,9 +367,10 @@ impl Scene {
                     background.push_str(&format!("<defs><pattern id=\"paper\" width=\"{gap}\" height=\"{gap}\" patternUnits=\"userSpaceOnUse\"><path d=\"M 0 {gap} L {gap} {gap}{vertical}\" fill=\"none\" stroke=\"#9a9888\" stroke-width=\"{width}\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(#paper)\"/>"));
                 }
             }
-            if paper.is_null() {
-                warnings.push("Fondo PDF genérico aún sin reconstruir.".to_owned());
+            if paper.is_null() && pdf_background.is_none() {
+                warnings.push("No se encontró el recurso de fondo PDF.".to_owned());
             }
+            background = format!("<g data-background=\"true\">{background}</g>");
             let id = text(&record["2"]["0"]);
             let mut items = Vec::new();
             if let Some(b) = package.blocks.iter().find(|b| b.id == id) {
@@ -319,6 +378,26 @@ impl Scene {
                     warnings.push(err.to_string());
                 }
                 for (i, s) in b.strokes.iter().flatten().enumerate() {
+                    let end = u64::from_be_bytes(s.header[10..18].try_into().unwrap());
+                    let start = u64::from_be_bytes(s.header[18..26].try_into().unwrap());
+                    for recording in &mut recordings {
+                        let base: u64 = recording.start_us.parse().unwrap();
+                        // A trace belongs to a recording only if pen-down falls in its interval.
+                        if start >= base && end >= start {
+                            let relative = (start - base) as f64 / 1e6;
+                            if relative <= recording.duration {
+                                timings.push(crate::InkTiming {
+                                    item_id: format!("stroke:{i}"),
+                                    recording_id: recording.id.clone(),
+                                    start: relative,
+                                    end: (end - base) as f64 / 1e6,
+                                });
+                                if !recording.pages.contains(&pages.len()) {
+                                    recording.pages.push(pages.len());
+                                }
+                            }
+                        }
+                    }
                     match stroke_svg(s) {
                         Ok(svg) => items.push(Item {
                             id: format!("stroke:{i}"),
@@ -350,10 +429,18 @@ impl Scene {
                 id: text(&record["1"]).to_owned(),
                 size,
                 background,
+                pdf_background,
+                timings,
                 items,
                 warnings,
             });
         }
-        Ok(Self { title, pages })
+        Ok(Self {
+            title,
+            pages,
+            audio,
+            recordings,
+            pdf_assets,
+        })
     }
 }

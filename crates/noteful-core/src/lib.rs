@@ -3,10 +3,12 @@
 #![forbid(unsafe_code)]
 
 mod editor;
+mod media;
 mod package;
 mod scene;
 mod stroke;
 mod text;
+pub use media::{audio_kind, audio_mime, AudioAsset, InkTiming, PdfBackground, Recording};
 mod wire;
 pub use text::{decode_rich_text, text_svg, RichText, TextRun};
 
@@ -18,8 +20,6 @@ pub use stroke::{decode_strokes, Stroke, Style};
 pub use wire::{decode_fields, encode_fields, Field, WireValue};
 
 pub const MAGIC: [u8; 4] = [0xaa, 0xbb, 0xcc, 0xde];
-pub const MAX_FILE_BYTES: usize = 64 * 1024 * 1024;
-pub(crate) const MAX_ITEMS: usize = 1_000_000;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Error {

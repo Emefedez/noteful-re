@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 const root=fileURLToPath(new URL('../web/',import.meta.url));
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8',
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8',
   '.css':'text/css; charset=utf-8','.json':'application/json','.wasm':'application/wasm','.noteful':'application/octet-stream'};
 http.createServer(async(req,res)=>{
   if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);return res.end();}
@@ -18,4 +18,4 @@ http.createServer(async(req,res)=>{
       'Content-Length':bytes.length,'Cache-Control':'no-store'});
     res.end(req.method==='HEAD'?undefined:bytes);
   }catch{res.writeHead(404);res.end('Not found');}
-}).listen(8767,'127.0.0.1',()=>console.log('Noteful web editor: http://127.0.0.1:8767/'));
+}).listen(Number(process.argv[2]||8767),'127.0.0.1',()=>console.log(`Noteful web editor: http://127.0.0.1:${process.argv[2]||8767}/`));

@@ -1,4 +1,4 @@
-use crate::{hex, Cursor, Error, Result, MAX_ITEMS};
+use crate::{hex, Cursor, Error, Result};
 use serde_json::{json, Value};
 
 #[derive(Debug, Clone, PartialEq)]
@@ -51,7 +51,7 @@ pub fn decode_strokes(data: &[u8]) -> Result<Vec<Stroke>> {
     let mut r = Cursor::new(data, 0);
     let mut style = Style::default();
     let mut out = Vec::new();
-    let mut budget = MAX_ITEMS;
+    let mut budget = data.len();
     while r.remaining() > 0 {
         let offset = r.pos;
         let cmd = r.uint(2)?;
