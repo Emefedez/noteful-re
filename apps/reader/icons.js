@@ -1,4 +1,5 @@
 const paths = {
+ collapse:'m6 14 6-6 6 6',
  pan:'M8 12V6a2 2 0 0 1 4 0v5-7a2 2 0 0 1 4 0v7-5a2 2 0 0 1 4 0v8c0 5-3 8-7 8h-1c-2 0-3-1-4-3l-4-6a2 2 0 0 1 3-2l1 1Z',
  draw:'m4 16-1 5 5-1L20 8l-4-4L4 16Zm10-10 4 4M4 16l4 4',
  highlight:'m9 4 8 8-5 5-8-8 5-5ZM5 10l-3 6 6-2M2 22h20',
@@ -20,5 +21,5 @@ export function icon(name) {
 }
 export function decorateIcons(){
  for(const el of document.querySelectorAll('[data-icon]'))el.prepend(icon(el.dataset.icon));
- for(const el of document.querySelectorAll('button[data-tool]'))el.prepend(icon(el.dataset.tool));
+ for(const el of document.querySelectorAll('button[data-tool]')){el.setAttribute('aria-label',el.textContent.trim());el.title=el.textContent.trim();el.prepend(icon(el.dataset.tool));}
 }

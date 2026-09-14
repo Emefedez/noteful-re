@@ -22,5 +22,5 @@ export function readerServer(){return http.createServer(async(req,res)=>{
 });}
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const port=Number(process.argv[2]||8767),host=process.argv.includes('--lan')?'0.0.0.0':'127.0.0.1';
- readerServer().listen(port,host,()=>console.log(`Noteful web editor: http://${host}:${port}/`));
+ readerServer().listen(port,host,()=>console.log(`NoteComplete: http://${host}:${port}/`));
 }

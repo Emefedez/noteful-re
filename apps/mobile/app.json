@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Noteful Reader",
-    "slug": "noteful-reader",
+    "name": "NoteComplete - a RE noteful viewer",
+    "slug": "notecomplete",
     "version": "1.0.0",
     "orientation": "default",
     "userInterfaceStyle": "automatic",

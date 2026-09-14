@@ -61,3 +61,33 @@ main{padding:0 28px 18px}#status{font-size:.75rem;color:var(--muted);min-height:
  #playAudio{font-size:.8rem}#backAudio,#forwardAudio{min-height:44px}
  .select-menu [role=option]{font-size:.92rem;min-height:46px}
 }
+/* Compact chrome gives the remaining viewport to the document, without height estimates. */
+body:has(#editor:not([hidden])){height:100dvh;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+body:has(#editor:not([hidden])) header{flex-shrink:0;padding-top:12px;padding-bottom:12px}
+body:has(#editor:not([hidden])) main{flex:1;min-height:0;display:flex;flex-direction:column;padding-bottom:10px}
+#editor:not([hidden]){flex:1;min-height:0;display:flex;flex-direction:column}
+#status,.toolbar,.navigation,.audio-bar,#warnings,#textInfo{flex-shrink:0}
+.workspace{flex:1;min-height:0}body #viewport,body:has(#audioBar:not([hidden])) #viewport{height:auto;min-height:0}
+#layersPanel{max-height:100%}#textInfo[open]{max-height:25vh;overflow:auto}
+.toolbar{gap:7px;padding:6px 8px;flex-wrap:wrap}.segmented button{min-height:44px;flex-direction:row;gap:6px;min-width:0;font-size:.76rem;padding:6px 9px}.segmented button svg{width:19px;height:19px}
+.toolbar-actions{display:flex;gap:2px;margin-left:auto}.toolbar-actions button{width:38px;min-height:40px;padding:7px}
+.tool-options,.option-group{display:flex;align-items:center;gap:7px}.tool-options{order:1;border-left:1px solid var(--line);padding-left:10px}
+.toolbar-actions{order:2}.tool-options .select-trigger{min-height:38px;font-size:.78rem}.tool-options .color-label{height:38px;width:36px}
+#insertShape{font-size:.78rem;width:auto;gap:5px;min-height:38px}#layersToggle{font-size:0;margin:0;width:38px}#toolbarToggle svg{transition:transform .15s ease-out}
+.navigation{min-height:44px;padding:5px 3px}.navigation .select-trigger,.navigation input{min-height:32px}
+.compact-chrome #toolbarToggle svg{transform:rotate(180deg)}
+.compact-chrome #status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0;min-height:0}
+.compact-chrome .tool-name{display:none}.compact-chrome .segmented button{min-width:40px;min-height:40px;padding:7px}
+body.compact-chrome header.chrome{padding-top:6px;padding-bottom:6px}.compact-chrome header p{display:none}.compact-chrome .app-icon{height:34px;width:32px;border-radius:10px}
+.compact-chrome .navigation{min-height:38px;padding-block:3px}.compact-chrome .audio-bar{grid-template-columns:1fr;padding:7px 12px;margin-top:8px}.compact-chrome .audio-meta,.compact-chrome .audio-bar h2{display:none}.compact-chrome .audio-transport{grid-column:1;grid-row:auto;max-width:none}
+@media(max-width:1100px){.tool-options{order:3;flex-basis:100%;border-left:0;border-top:1px solid var(--line);padding:6px 0 0}.toolbar-actions{order:2}.audio-bar{gap:4px}.audio-meta{gap:4px!important}}
+@media(max-width:750px){
+ body:has(#editor:not([hidden])) header.chrome{padding:8px 12px}.brand{gap:8px}.app-icon{height:32px;width:30px}header p{margin-top:2px}header>.row{margin-top:4px}header>.row button,header>.row .select-trigger,header>.row summary{min-height:36px;padding-block:6px}
+ .toolbar{gap:2px;padding:4px;border-radius:14px;flex-wrap:wrap}.segmented{width:auto;flex:1;justify-content:space-between;padding:0;gap:0;background:transparent}.segmented button{flex:1;flex-direction:column;gap:2px;min-height:44px;padding:3px 4px;font-size:.62rem}.segmented button svg{width:18px;height:18px}
+ .toolbar-actions{gap:0;margin-left:3px}.toolbar-actions button,#layersToggle{width:32px;min-width:0;min-height:44px;padding:6px}
+ .tool-options{gap:7px;padding:6px 4px 2px}.tool-options .select-trigger{font-size:.8rem;min-height:40px;padding:6px 9px;min-width:65px}.tool-options .select-trigger[data-select=shape]{min-width:100px;max-width:115px}.tool-options .color-label{min-height:40px;width:34px}.option-group{gap:4px}#insertShape{font-size:0;gap:0;min-height:40px;width:30px;padding:5px}
+ .navigation{font-size:.72rem;min-height:40px;padding-block:3px}.navigation label{gap:5px}.navigation input{padding:4px}.navigation .select-trigger{min-height:32px;padding:4px 9px}
+ body.compact-chrome header.chrome{display:none}.compact-chrome .toolbar{padding:3px 4px}.compact-chrome .segmented button{min-width:0;min-height:44px}.compact-chrome .toolbar-actions button{min-height:44px}.compact-chrome .navigation{min-height:36px}.compact-chrome .audio-bar{padding:5px 8px}
+ .audio-bar{padding:8px 10px;margin-top:8px}.audio-meta .audio-icon{display:none}.audio-bar h2{font-size:.78rem}.audio-transport{gap:2px!important}
+}
+@media(prefers-reduced-motion:reduce){#toolbarToggle svg{transition:none}}

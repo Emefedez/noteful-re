@@ -1,4 +1,6 @@
-# Noteful Reader
+# NoteComplete
+
+*a RE noteful viewer*
 
 A local-first reader and editor for `.noteful` archives, built on a portable Rust core. Open existing notes without running Noteful or depending on a Mac/iPad. The browser app targets desktop, Android and iOS browsers; Expo Go is the mobile app entry point; store packages are not required.
 
@@ -30,7 +32,7 @@ Scan the QR using Expo Go on the same Wi-Fi as the computer. The launcher starts
 ## Features
 
 - Scrollable pages with lazy rendering; actual embedded PDF backgrounds, images, imported ink and rich text.
-- Fixed-width pen, highlighter, line, rectangle, ellipse, triangle and arrow tools. New shapes are editable stroke outlines with direct insertion and draggable/keyboard corner handles.
+- Fixed-width pen, straight/freehand highlighter, line, rectangle, ellipse, triangle and arrow tools. New shapes are editable stroke outlines with direct insertion and draggable/keyboard corner handles.
 - Whole-stroke eraser, global undo/redo and non-destructive `.nfedit` projects.
 - Layer selection, creation, renaming, visibility, lock and opacity.
 - Multiple audio recordings through one player. Seeking restores full opacity to traces whose pen-down time has passed; future traces stay at 20%. Original ink alpha/highlighter blend remains intact.

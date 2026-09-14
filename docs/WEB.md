@@ -31,3 +31,11 @@ The welcome illustration and toolbar icons are local SVG/CSS assets. The mobile 
 Playback indexes only timed ink when a page mounts. Unrecorded items are excluded, DOM references are reused, and opacity is written only when the timeline crosses a stroke start or when seeking/switching recordings changes its state. The static server streams files rather than reading whole assets for each request.
 
 For the mobile QR workflow, see [Expo Go](EXPO.md).
+
+## Straight highlighting and compact controls
+
+Select **Subrayar**, then **Recto** (the default) or **Libre**. Recto previews and saves a single segment between the gesture's endpoints, preserving the highlighter's width, color, transparency and layer. Libre retains sampled freehand points. Both modes support the existing eraser, undo and exports.
+
+Only options relevant to the selected tool are shown. Scrolling down collapses the chrome after a movement threshold; scrolling back up restores it. The toolbar arrow always provides a manual override, and choosing a tool reveals its settings. Toolbar changes are deferred during an active drawing gesture. On phones, compact mode also hides the document header and secondary audio controls; playback and its seek bar remain available. The editor uses the actual remaining viewport height rather than fixed height deductions.
+
+Browser validation at 390 × 844 CSS pixels with the supplied audio note measured 455 px of paper viewport when expanded and 681 px when compact. Down/up scrolling and manual expansion were checked. A drawn Recto highlight had exactly two points and multiply blending at 50% opacity; a Libre gesture retained nine samples. No mobile horizontal overflow was observed. These are browser checks, not physical Expo Go device checks.
