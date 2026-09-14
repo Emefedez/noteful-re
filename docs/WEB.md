@@ -21,3 +21,13 @@ Export menu:
 Unsaved projects trigger a replacement/navigation confirmation. Exporting `.noteful` does not mark the richer editing project as saved. Files are downloaded, never overwritten in place.
 
 The manifest and service worker support home-screen installation on compatible Android/iOS browsers over HTTPS. Once installed and cached, the app shell works offline with user-selected notes. Bundled examples are not part of the offline cache. Browser files, fonts, media codecs and memory limits vary by device. Native APK/IPA installers have not been produced.
+
+## Reader materials and controls
+
+Toolbars use restrained translucent materials, while option menus use an opaque light or dark surface. All dropdowns share the same layout, with a checked selection, wrapped long names and keyboard support: arrows, Home/End, typing to find an option, Enter/Space to select, Escape to dismiss and Tab to continue. The native select remains the data model; the custom trigger follows disabled state and option updates.
+
+The welcome illustration and toolbar icons are local SVG/CSS assets. The mobile layout keeps the tool names, uses compact insertion/layer icons with accessible names, and wraps audio metadata without horizontal overflow. Reduced transparency, reduced motion and increased contrast preferences have independent fallbacks.
+
+Playback indexes only timed ink when a page mounts. Unrecorded items are excluded, DOM references are reused, and opacity is written only when the timeline crosses a stroke start or when seeking/switching recordings changes its state. The static server streams files rather than reading whole assets for each request.
+
+For the mobile QR workflow, see [Expo Go](EXPO.md).

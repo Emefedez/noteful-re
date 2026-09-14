@@ -1,0 +1,24 @@
+const paths = {
+ pan:'M8 12V6a2 2 0 0 1 4 0v5-7a2 2 0 0 1 4 0v7-5a2 2 0 0 1 4 0v8c0 5-3 8-7 8h-1c-2 0-3-1-4-3l-4-6a2 2 0 0 1 3-2l1 1Z',
+ draw:'m4 16-1 5 5-1L20 8l-4-4L4 16Zm10-10 4 4M4 16l4 4',
+ highlight:'m9 4 8 8-5 5-8-8 5-5ZM5 10l-3 6 6-2M2 22h20',
+ erase:'m14 3 7 7a2 2 0 0 1 0 3l-7 8H8l-6-6a2 2 0 0 1 0-3L11 3a2 2 0 0 1 3 0ZM6 8l10 10M13 21h9',
+ shape:'M3 3h12v12H3zM15 9a7 7 0 1 1-6 6',
+ layers:'m12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5',
+ undo:'M9 5 3 11l6 6M3 11h11a6 6 0 0 1 6 6',
+ redo:'m15 5 6 6-6 6m6-6H10a6 6 0 0 0-6 6',
+ open:'M12 16V3m-5 5 5-5 5 5M4 14v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6',
+ export:'M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4',
+ plus:'M12 5v14M5 12h14',
+ note:'M6 3h10l4 4v14H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm9 0v5h5M8 12h8M8 16h6',
+ headphones:'M4 14v-3a8 8 0 0 1 16 0v3M4 12H2v8h5v-8H4Zm16 0h2v8h-5v-8h3'
+};
+export function icon(name) {
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ for(const [key,value] of Object.entries({viewBox:'0 0 24 24',fill:'none',stroke:'currentColor','stroke-width':'1.65','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'}))svg.setAttribute(key,value);
+ const path=document.createElementNS(svg.namespaceURI,'path');path.setAttribute('d',paths[name]||paths.note);svg.append(path);return svg;
+}
+export function decorateIcons(){
+ for(const el of document.querySelectorAll('[data-icon]'))el.prepend(icon(el.dataset.icon));
+ for(const el of document.querySelectorAll('button[data-tool]'))el.prepend(icon(el.dataset.tool));
+}

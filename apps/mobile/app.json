@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Noteful Reader",
+    "slug": "noteful-reader",
+    "version": "1.0.0",
+    "orientation": "default",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "edgeToEdgeEnabled": true
+    },
+    "extra": {
+      "readerPort": 8768
+    }
+  }
+}

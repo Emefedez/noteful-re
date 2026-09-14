@@ -1,6 +1,6 @@
 # Noteful Reader
 
-A local-first reader and editor for `.noteful` archives, built on a portable Rust core. Open existing notes without running Noteful or depending on a Mac/iPad. The browser app targets desktop, Android and iOS browsers; native store packages are not included yet.
+A local-first reader and editor for `.noteful` archives, built on a portable Rust core. Open existing notes without running Noteful or depending on a Mac/iPad. The browser app targets desktop, Android and iOS browsers; Expo Go is the mobile app entry point; store packages are not required.
 
 ## Run
 
@@ -14,6 +14,18 @@ node tools/serve_web.mjs 8765
 ```
 
 Open http://127.0.0.1:8765/. The generated `apps/reader/` directory can also be served by any static HTTP server. No Python, Rust server, Noteful installation or network API is needed at runtime. For mobile installation, serve over HTTPS and use the browser's Add to Home Screen / Install option. The service worker caches application assets for offline use; opened notes are never uploaded or cached by the service worker.
+
+## Open with Expo Go
+
+After building the reader:
+
+```sh
+cd apps/mobile
+npm ci
+npm start
+```
+
+Scan the QR using Expo Go on the same Wi-Fi as the computer. The launcher starts both required servers. See [Expo setup and device validation limits](docs/EXPO.md).
 
 ## Features
 
@@ -35,6 +47,7 @@ The ten original notes in `samples/` cover 204 pages. `tests/fixtures/` contains
 | `crates/noteful-core/` | Byte parser, typed wire encoder, scene, text, audio timing, layers, editing and native writer; no OS/UI APIs |
 | `crates/noteful-wasm/` | Browser bindings around the same core |
 | `crates/noteful-cli/` | Inspection, verification, scene output and native export CLI |
+| `apps/mobile/` | Expo Go entry point, safe areas and system file sharing |
 | `apps/reader/` | Responsive reader/PWA, PDF.js adapter, virtual pages, tools and audio controls |
 | `spec/` | Observed native grammar and our project format |
 | `docs/` | Architecture, user guide, evidence interpretation and limitations, in English |
@@ -69,6 +82,7 @@ python3 tools/check_rust_parity.py
 python3 tools/check_scene_parity.py
 node apps/reader/test.mjs
 node apps/reader/audio.test.mjs
+node --test apps/reader/ink-timeline.test.mjs tools/serve_web.test.mjs apps/mobile/connection.test.mjs
 ```
 
 The CI matrix runs core/reference checks on Linux, Windows and macOS, plus Android target checking and actual WASM runtime tests. Local cross-target checks do not substitute for device execution. Native `.noteful` export is tested by re-importing into both decoders, preserving resource bytes, undo/redo and edit semantics; it has not yet been validated by importing modified output into Noteful.app.

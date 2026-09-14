@@ -56,3 +56,20 @@ jobs:
       - run: python tools/build_web.py
       - run: node apps/reader/test.mjs
       - run: node apps/reader/audio.test.mjs
+
+  expo-go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+      - run: npm ci
+        working-directory: apps/mobile
+      - run: npm run check
+        working-directory: apps/mobile
+      - run: node --test apps/mobile/connection.test.mjs apps/reader/ink-timeline.test.mjs apps/reader/download.test.mjs tools/serve_web.test.mjs
+      - run: npm run export
+        working-directory: apps/mobile

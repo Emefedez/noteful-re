@@ -1,0 +1,20 @@
+import {test} from 'node:test';
+import {strict as assert} from 'node:assert';
+const windowTarget=new EventTarget();globalThis.window=windowTarget;
+globalThis.document=new EventTarget();
+globalThis.FileReader=class {async readAsDataURL(blob){this.result=`data:${blob.type};base64,${Buffer.from(await blob.arrayBuffer()).toString('base64')}`;this.onload();}};
+const {download}=await import('./download.js');
+test('Expo download transfers exact bytes, waits for the share sheet, and propagates failures',async()=>{
+ let request;
+ window.ReactNativeWebView={postMessage(data){request=JSON.parse(data);}};
+ let complete=false;
+ const operation=download(new Uint8Array([0,1,128,255]),'Note.noteful','application/octet-stream').then(result=>{complete=true;return result;});
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(complete,false);assert.equal(request.type,'noteful-export');assert.deepEqual([...Buffer.from(request.base64,'base64')],[0,1,128,255]);
+ window.dispatchEvent(new MessageEvent('message',{data:JSON.stringify({type:'noteful-export-result',id:request.id})}));
+ assert.deepEqual(await operation,{shared:true});
+ const failure=download('abc','Note.nfedit','application/json');
+ await new Promise(resolve=>setImmediate(resolve));
+ document.dispatchEvent(new MessageEvent('message',{data:JSON.stringify({type:'noteful-export-result',id:request.id,error:'No storage'})}));
+ await assert.rejects(failure,/No storage/);
+});
