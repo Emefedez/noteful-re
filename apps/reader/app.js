@@ -47,7 +47,14 @@ function buildPages(sizes){
  for(const p of panels)observer.observe(p.el);
 }
 function placeholder(p){p.render=null;p.overlay=null;p.ink=null;const span=document.createElement('span');span.className='page-placeholder';span.textContent=`Page ${p.index+1}`;p.el.replaceChildren(span);}
-function resize(){if(!doc)return;const fit=zoom==='fit',space=$('viewport').clientWidth-48;for(const p of panels)p.el.style.width=(fit?Math.min(p.size[0],Math.max(100,space)):p.size[0]*zoom)+'px';updateZoom();selection.render(panels[selection.item?.page]);}
+function resize(){
+ if(!doc)return;
+ const fit=zoom==='fit',pages=$('pages'),styles=getComputedStyle(pages);
+ const gutter=parseFloat(styles.paddingLeft)+parseFloat(styles.paddingRight);
+ const space=Math.max(1,$('viewport').clientWidth-gutter);
+ for(const p of panels)p.el.style.width=(fit?Math.min(p.size[0],space):p.size[0]*zoom)+'px';
+ updateZoom();selection.render(panels[selection.item?.page]);
+}
 async function renderPage(p,provided){
  if(p.loading){p.retry=true;return;}p.retry=false;p.loading=true;const token=++p.token,version=revision,note=epoch;
  try {
@@ -73,6 +80,12 @@ function updateTools(result){
 }
 function setPage(index){if(index===page)return;panels[page]?.el.classList.remove('active');page=index;const p=panels[page];p.el.classList.add('active');$('pageNumber').value=page+1;if(p.view)updateTools(p.view);else renderPage(p);updateZoom();}
 function jump(index){if(!doc||!Number.isInteger(index)||index<0||index>=doc.pages)return;cancelGesture();setPage(index);const viewport=$('viewport');viewport.scrollTop+=panels[index].el.getBoundingClientRect().top-viewport.getBoundingClientRect().top-24;status(`Page ${index+1}.`);}
+function scrollViewport(key){
+ const viewport=$('viewport'),vertical=Math.max(48,Math.round(viewport.clientHeight*.8)),horizontal=Math.max(48,Math.round(viewport.clientWidth*.8));
+ const delta={ArrowUp:[0,-vertical],ArrowDown:[0,vertical],ArrowLeft:[-horizontal,0],ArrowRight:[horizontal,0]}[key];
+ if(!delta)return false;
+ viewport.scrollBy({left:delta[0],top:delta[1],behavior:'smooth'});return true;
+}
 $('viewport').onscroll=()=>{cancelAnimationFrame(scrollFrame);scrollFrame=requestAnimationFrame(()=>{if(!doc)return;const top=$('viewport').getBoundingClientRect().top+80;let low=0,high=panels.length-1;while(low<high){const mid=(low+high)>>1;if(panels[mid].el.getBoundingClientRect().bottom<top)low=mid+1;else high=mid;}setPage(low);if(!gesture&&!selection.active&&!chromeSettling)setCompact(chromeState.observe($('viewport').scrollTop));});};
 function toolOptions(){
  $('shapeOptions').hidden=tool!=='shape';$('highlightOptions').hidden=tool!=='highlight';
@@ -138,7 +151,12 @@ $('highlightMode').onchange=()=>{cancelGesture();status($('highlightMode').value
 $('shape').onchange=()=>document.querySelector('[data-tool="shape"]').click();
 $('pageNumber').onchange=()=>jump(Number($('pageNumber').value)-1);$('zoomFit').onclick=()=>setZoom('fit');$('zoomOut').onclick=()=>stepZoom(-1);$('zoomIn').onclick=()=>stepZoom(1);new ResizeObserver(resize).observe($('viewport'));
 $('undo').onclick=()=>{cancelGesture();action('undo');};$('redo').onclick=()=>{cancelGesture();action('redo');};
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){cancelGesture();return;}if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'){e.preventDefault();action(e.shiftKey?'redo':'undo');}});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'){cancelGesture();return;}
+ if(e.target.matches?.('input,select,textarea,button,[contenteditable=true]'))return;
+ if(!e.metaKey&&!e.ctrlKey&&!e.altKey&&scrollViewport(e.key)){e.preventDefault();return;}
+ if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'){e.preventDefault();action(e.shiftKey?'redo':'undo');}
+});
 $('open').onclick=()=>$('file').click();$('file').onchange=e=>{if(e.target.files[0]&&canReplace())load(e.target.files[0]);e.target.value='';};
 for(const event of ['dragover','drop'])$('drop').addEventListener(event,e=>{e.preventDefault();$('drop').classList.toggle('drag',event==='dragover');if(event==='drop'&&e.dataTransfer.files[0]&&canReplace())load(e.dataTransfer.files[0]);});$('drop').ondragleave=()=>$('drop').classList.remove('drag');
 function filename(){return (doc?.title||'Note').replace(/[<>:"/\\|?*\x00-\x1f]/g,'_');}
