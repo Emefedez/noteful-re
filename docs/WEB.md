@@ -2,15 +2,15 @@
 
 Build with `python3 tools/build_web.py`, then run `node tools/serve_web.mjs 8765`. Open the printed URL. For another port, pass its number. The double-click macOS launcher uses the same static reader.
 
-Open a `.noteful` note or `.nfedit` project from the file picker, drag and drop, or choose a bundled example. Pages scroll continuously. The page field jumps directly to any page; Fit adapts to the viewport. Only nearby pages render, including the 193-page Practice book.
+Open a `.noteful` note or `.nfedit` project with **Open note** or drag and drop. The interface is in English; note content and saved recording/layer names retain their original text. Pages scroll continuously. The page field jumps directly to any page; Fit adapts to the viewport; the adjacent minus/plus buttons adjust zoom in 10-percentage-point steps from 10% to 400%. The visible percentage reflects the current page scale. Only nearby pages render, including the 193-page Practice book.
 
-Select a shape and click Insert shape for immediate insertion, or draw its bounding box. Insertion switches to Edit mode and selects the new shape. Select **Editar** and tap existing ink, a supported native shape, image or text block. Drag the item to move it, its four corner handles to resize it, or the upper handle to rotate it. Arrow keys on handles also work (Shift for 10-unit steps). The inspector provides exact width, height and angle, plus stroke thickness and color for ink/shapes. Each completed adjustment is undoable and persists in the project. Text content/font editing and separate shape fill-color editing are not provided by this inspector.
+Select a shape and click Insert shape for immediate insertion, or draw its bounding box. Insertion switches to Edit mode and selects the new shape. Select **Edit** and tap existing ink, a supported native shape, image or text block. Drag the item to move it, its four corner handles to resize it, or the upper handle to rotate it. Arrow keys on handles also work (Shift for 10-unit steps). The inspector provides exact width, height and angle, plus stroke thickness and color for ink/shapes. Each completed adjustment is undoable and persists in the project. Text content/font editing and separate shape fill-color editing are not provided by this inspector.
 
 Select Pen for fixed-width freehand ink, Highlight for Multiply at 50%, Shapes for line/rectangle/ellipse/triangle/arrow outlines, or Erase for whole-stroke removal. Choose color and width. Move supports mouse dragging and native touch scrolling. Pointer cancellation/Escape cancels unfinished gestures. Undo/redo work across pages with Ctrl/Cmd Z and Shift Z. Pressure is not required.
 
 Open Layers to choose the drawing layer, add one, rename it, change visibility/opacity or lock it. Hidden and locked layers cannot receive new strokes and are excluded from erasing. Original images, text and unsupported imported shape types are preserved. New outline shapes are erasable strokes.
 
-A note with recordings shows one audio bar. Select a recording, play/pause or scrub; Ver escritura jumps to its first annotated page. Future strokes from that recording are shown at 20% until pen-down. Seeking backwards restores the shadowed state. Disable the synchronization checkbox to see all ink normally. The duration displayed by the browser can differ slightly from recording metadata due to media padding. A download link remains available for unsupported codecs.
+A note with recordings shows one audio bar. Select a recording, play/pause or scrub; Show handwriting jumps to its first annotated page. Future strokes from that recording are shown at 20% until pen-down. Seeking backwards restores the shadowed state. Disable the synchronization checkbox to see all ink normally. The duration displayed by the browser can differ slightly from recording metadata due to media padding. A download link remains available for unsupported codecs.
 
 Export menu:
 
@@ -34,7 +34,7 @@ For the mobile QR workflow, see [Expo Go](EXPO.md).
 
 ## Straight highlighting and compact controls
 
-Select **Subrayar**, then **Recto** (the default) or **Libre**. Recto previews and saves a single segment between the gesture's endpoints, preserving the highlighter's width, color, transparency and layer. Libre retains sampled freehand points. Both modes support the existing eraser, undo and exports.
+Select **Highlight**, then **Straight** (the default) or **Freehand**. Straight previews and saves a single segment between the gesture's endpoints, preserving the highlighter's width, color, transparency and layer. Freehand retains sampled freehand points. Both modes support the existing eraser, undo and exports.
 
 Only options relevant to the selected tool are shown. Scrolling down collapses the chrome after a movement threshold; scrolling back up restores it. The toolbar arrow always provides a manual override, and choosing a tool reveals its settings. Toolbar changes are deferred during an active drawing gesture. On phones, compact mode also hides the document header and secondary audio controls; playback and its seek bar remain available. The editor uses the actual remaining viewport height rather than fixed height deductions.
 
@@ -45,3 +45,5 @@ Browser validation at 390 × 844 CSS pixels with the supplied audio note measure
 Dragging previews an SVG matrix on the selected item at most once per animation frame. Pointer movement sends no worker messages. On release, Rust validates and saves one compact absolute adjustment, then returns only that item's SVG and selection metadata. The browser patches that element without rebuilding the page, rasterizing its PDF again or recreating audio nodes. Immutable source geometry avoids repeated point rounding; history stores parameters instead of another point array per movement. Hidden and locked layers cannot be selected or changed.
 
 Tests cover rotated corner resizing with the opposite corner fixed, style/rotation changes, hit testing and erasing after movement, undo/redo, project reopening, native export, recording timestamps and exact media preservation. Browser checks verified rectangle color, thickness, angle, rotated resizing and undo, plus tap selection and movement of an imported native line. The inspector fits a 390 × 844 CSS-pixel viewport without horizontal overflow. These checks do not establish official Noteful interoperability.
+
+The examples dropdown has been removed. Zoom uses an always-visible Fit / minus / percentage / plus control with opaque contrast and an active Fit state. File-picker opening, zoom increments, Fit restoration and a 390 px mobile layout were checked in the browser; no horizontal overflow or console errors were observed.

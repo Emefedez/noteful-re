@@ -1,7 +1,7 @@
 const $=id=>document.getElementById(id);
 function recordingName(recording,index){
  if(recording?.name?.trim())return recording.name;
- if(recording?.start_us){const date=new Date((Number(BigInt(recording.start_us)/1000n)+978307200000));if(Number.isFinite(date.getTime()))return `Grabación ${index+1} · ${date.toLocaleString('es',{dateStyle:'medium',timeStyle:'short'})}`;}
+ if(recording?.start_us){const date=new Date((Number(BigInt(recording.start_us)/1000n)+978307200000));if(Number.isFinite(date.getTime()))return `Recording ${index+1} · ${date.toLocaleString('en',{dateStyle:'medium',timeStyle:'short'})}`;}
  return `Audio ${index+1}`;
 }
 const clock=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
@@ -18,7 +18,7 @@ export class AudioController {
   this.audio.ontimeupdate=()=>this.update();this.audio.onseeked=()=>this.update();
   this.audio.onplay=()=>{this.update();this.tick();};this.audio.onpause=()=>{cancelAnimationFrame(this.frame);this.update();};
   this.audio.onended=this.audio.onpause;
-  this.audio.onerror=()=>{$('audioState').textContent='Este navegador no reproduce el formato. Puedes descargar el audio.';};
+  this.audio.onerror=()=>{$('audioState').textContent='This browser cannot play this format. You can download the audio.';};
  }
  get recording(){return $('syncEnabled').checked?this.entries[this.index]?.recording:null;}
  get time(){return this.audio.currentTime||0;}
@@ -35,9 +35,9 @@ export class AudioController {
  async select(index){
   if(this.index!==undefined)this.positions.set(this.index,this.time);
   this.audio.pause();const token=++this.token;this.index=index;const entry=this.entries[index];this.audio.onloadedmetadata=null;$('recordingTitle').textContent=recordingName(entry?.recording,index);$('recording').title=$('recordingTitle').textContent;
-  this.audio.removeAttribute('src');this.audio.load();$('playAudio').disabled=true;$('audioSeek').disabled=true;$('audioState').textContent='Cargando audio…';$('audioDownload').hidden=true;
+  this.audio.removeAttribute('src');this.audio.load();$('playAudio').disabled=true;$('audioSeek').disabled=true;$('audioState').textContent='Loading audio…';$('audioDownload').hidden=true;
   $('audioPage').disabled=!entry?.recording?.pages.length;this.changed();
-  if(!entry?.asset){$('audioState').textContent='Recurso de audio ausente.';return;}
+  if(!entry?.asset){$('audioState').textContent='Audio resource is missing.';return;}
   try {
    const asset=entry.asset;
    if(!this.urls.has(asset.id)){const bytes=await this.read(asset.id);if(token!==this.token)return;this.urls.set(asset.id,URL.createObjectURL(new Blob([bytes],{type:asset.mime})));}
@@ -48,6 +48,6 @@ export class AudioController {
  }
  update(){
   $('audioSeek').value=this.time;$('audioTime').textContent=`${clock(this.time)} / ${clock(this.audio.duration||0)}`;
-  $('playAudio').textContent=this.audio.paused?'Reproducir':'Pausa';this.changed();
+  $('playAudio').textContent=this.audio.paused?'Play':'Pause';this.changed();
  }
 }

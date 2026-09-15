@@ -8,7 +8,7 @@ self.onmessage = async ({data:{id,op,page=0,...args}}) => {
       session?.free(); session = undefined;
       const bytes = new Uint8Array(args.bytes);
       session = args.project ? EditorSession.load_project(new TextDecoder('utf-8',{fatal:true}).decode(bytes)) : new EditorSession(bytes);
-    } else if (!session) { throw Error('Abre un documento primero.'); }
+    } else if (!session) { throw Error('Open a document first.'); }
     if(op==='pick'){postMessage({id,result:JSON.parse(session.pick_item(page,args.x,args.y,args.tolerance))});return;}
     if(op==='selection'){postMessage({id,result:JSON.parse(session.selection(page,args.itemId))});return;}
     if(op==='adjust'){postMessage({id,result:JSON.parse(session.adjust_item(page,args.itemId,JSON.stringify(args.adjustment)))});return;}

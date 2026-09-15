@@ -100,3 +100,14 @@ body.compact-chrome header.chrome{padding-top:6px;padding-bottom:6px}.compact-ch
 #deleteSelection{color:#cf4b42}#selectedColor{width:28px;height:28px}#selectionOptions{min-width:0}
 .toolbar:has(#selectionOptions:not([hidden])) .tool-options{order:3;flex-basis:100%;border-left:0;border-top:1px solid var(--line);padding:6px 0 0}
 @media(max-width:750px){.segmented button{padding-inline:2px;font-size:.59rem}.toolbar-actions button,#layersToggle{width:29px}.toolbar-actions{margin-left:1px}#selectionFields{gap:7px}#selectionFields input[type=number],#selectionFields button{min-height:40px}.tool-options:has(#selectionOptions:not([hidden])){padding:6px 4px}#selectionFields input[type=number]{width:58px}}
+
+/* Zoom stays visible and readable without a floating menu. */
+.zoom-controls{display:flex;align-items:center;gap:2px;flex:none;padding:3px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);box-shadow:0 1px 3px #172d4510}
+.zoom-controls button{min-width:32px;min-height:32px;padding:4px 7px;border:0;border-radius:8px;background:transparent;font-size:.85rem;box-shadow:none}
+.zoom-controls button:hover{background:var(--accent-soft)}
+.zoom-controls button[aria-pressed=true]{background:var(--accent-soft);color:var(--accent)}
+.zoom-controls output{min-width:42px;text-align:center;font-size:.73rem;font-variant-numeric:tabular-nums}
+.zoom-divider{width:1px;height:16px;background:var(--line);margin:0 2px}
+header>.row .menu{margin-left:auto}
+@media(max-width:750px){.navigation{gap:5px;flex-wrap:wrap}.zoom-controls{margin-left:auto}.zoom-controls button{min-width:30px;min-height:36px;padding-inline:5px}.zoom-controls output{min-width:37px}.navigation label{gap:4px}}
+@media(pointer:coarse){.zoom-controls button{min-height:44px;min-width:36px}}

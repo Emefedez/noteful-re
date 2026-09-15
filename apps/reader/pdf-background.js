@@ -7,11 +7,11 @@ export class PdfBackgrounds {
       pdfjs ||= await import('./vendor/pdfjs/build/pdf.mjs');
       pdfjs.GlobalWorkerOptions.workerSrc=new URL('./vendor/pdfjs/build/pdf.worker.mjs',import.meta.url).href;
       const data=await this.read(id);
-      if(this.closed)throw Error('Documento cerrado');
+      if(this.closed)throw Error('Document closed');
       const base=new URL('./vendor/pdfjs/',import.meta.url).href;
       const task=pdfjs.getDocument({data,cMapUrl:base+'cmaps/',cMapPacked:true,standardFontDataUrl:base+'standard_fonts/',wasmUrl:base+'wasm/',isEvalSupported:false});
       const doc=await task.promise;
-      if(this.closed){await doc.destroy();throw Error('Documento cerrado');}
+      if(this.closed){await doc.destroy();throw Error('Document closed');}
       return doc;
     })());
     return this.documents.get(id);

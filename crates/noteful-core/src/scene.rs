@@ -399,7 +399,7 @@ impl Scene {
                 }
             }
             if paper.is_null() && pdf_background.is_none() {
-                warnings.push("No se encontró el recurso de fondo PDF.".to_owned());
+                warnings.push("PDF background resource not found.".to_owned());
             }
             background = format!("<g data-background=\"true\">{background}</g>");
             let id = text(&record["2"]["0"]);

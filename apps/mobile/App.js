@@ -21,15 +21,15 @@ export default function App() {
   let request;
   try {
    request = exportRequest(event.nativeEvent.data, event.nativeEvent.url, uri);
-   if (sharing.current) throw Error('Termina de guardar el archivo anterior.');
+   if (sharing.current) throw Error('Finish saving the previous file first.');
    sharing.current = true;
    try {
-    if (!await Sharing.isAvailableAsync()) throw Error('No hay un menú para compartir archivos disponible.');
+    if (!await Sharing.isAvailableAsync()) throw Error('File sharing is not available.');
     const directory = `${FileSystem.cacheDirectory}noteful-${Date.now()}-${request.id}/`;
     await FileSystem.makeDirectoryAsync(directory, {intermediates:true});
     const file = directory + request.name;
     await FileSystem.writeAsStringAsync(file, request.base64, {encoding:FileSystem.EncodingType.Base64});
-    await Sharing.shareAsync(file, {mimeType:request.mime || 'application/octet-stream', dialogTitle:'Guardar una copia'});
+    await Sharing.shareAsync(file, {mimeType:request.mime || 'application/octet-stream', dialogTitle:'Save a copy'});
     reply({id:request.id});
    } finally { sharing.current = false; }
   } catch (e) { if (request) reply({id:request.id,error:e.message}); }
@@ -37,14 +37,14 @@ export default function App() {
  return <SafeAreaProvider><SafeAreaView style={[styles.root,{backgroundColor:background}]}>
   <StatusBar style={dark ? 'light' : 'dark'}/>
   {error || configError ? <View style={styles.message}>
-   <Text style={[styles.title,{color:ink}]}>Tu cuaderno está cerca.</Text>
-   <Text style={[styles.description,{color:ink}]}>Mantén el ordenador y el móvil en la misma Wi-Fi, con el lector abierto en el ordenador.</Text>
+   <Text style={[styles.title,{color:ink}]}>Your notebook is within reach.</Text>
+   <Text style={[styles.description,{color:ink}]}>Keep your computer and phone on the same Wi-Fi, with the reader running on your computer.</Text>
    <Text selectable style={[styles.detail,{color:ink}]}>{error || configError}</Text>
-   <Pressable accessibilityRole="button" style={styles.retry} onPress={()=>{setError('');setAttempt(attempt+1);}}><Text style={styles.retryText}>Volver a conectar</Text></Pressable>
+   <Pressable accessibilityRole="button" style={styles.retry} onPress={()=>{setError('');setAttempt(attempt+1);}}><Text style={styles.retryText}>Reconnect</Text></Pressable>
   </View> : <WebView key={attempt} ref={web} source={{uri}} style={{flex:1,backgroundColor:background}}
    originWhitelist={[new URL(uri).origin]} onShouldStartLoadWithRequest={request=>allowsNavigation(request.url,uri)}
-   onMessage={onMessage} onError={event=>setError(event.nativeEvent.description)} onHttpError={event=>setError(`No se pudo abrir el lector (${event.nativeEvent.statusCode}).`)}
-   startInLoadingState renderLoading={()=> <View style={[styles.loading,{backgroundColor:background}]}><ActivityIndicator size="large" color="#438ee3"/><Text style={[styles.description,{color:ink}]}>Preparando tu espacio…</Text></View>}
+   onMessage={onMessage} onError={event=>setError(event.nativeEvent.description)} onHttpError={event=>setError(`Could not open the reader (${event.nativeEvent.statusCode}).`)}
+   startInLoadingState renderLoading={()=> <View style={[styles.loading,{backgroundColor:background}]}><ActivityIndicator size="large" color="#438ee3"/><Text style={[styles.description,{color:ink}]}>Preparing your workspace…</Text></View>}
    allowsInlineMediaPlayback mediaPlaybackRequiresUserAction bounces={false} allowsBackForwardNavigationGestures={false}
    setSupportMultipleWindows={false} javaScriptEnabled domStorageEnabled textZoom={100}
   />}

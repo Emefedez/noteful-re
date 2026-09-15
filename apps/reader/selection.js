@@ -17,7 +17,7 @@ export class SelectionController {
  }
  inspect(){
   const item=this.item;if(!item)return;const a=item.adjustment;
-  $('selectionOptions').hidden=false;$('selectionKind').textContent={shape:'Forma',ink:'Trazo',image:'Imagen',text:'Texto'}[item.kind];
+  $('selectionOptions').hidden=false;$('selectionKind').textContent={shape:'Shape',ink:'Stroke',image:'Image',text:'Text'}[item.kind];
   $('selectedStyle').hidden=!item.styled;
   const rgba=a.rgba||item.base_rgba;
   $('selectedColor').value='#'+rgba.slice(0,3).map(n=>Math.round(n*255).toString(16).padStart(2,'0')).join('');
@@ -50,13 +50,13 @@ export class SelectionController {
   this.overlay?.remove();this.overlay=null;
   const el=p.render?.querySelector(`[data-item="${this.item.id}"]`);if(!el){this.clear();return;}
   const item=this.item,points=corners(item),unit=p.size[0]/p.el.getBoundingClientRect().width;
-  const overlay=svg('svg',{viewBox:`0 0 ${p.size.join(' ')}`,class:'selection-overlay', 'aria-label':'Elemento seleccionado'});
+  const overlay=svg('svg',{viewBox:`0 0 ${p.size.join(' ')}`,class:'selection-overlay', 'aria-label':'Selected item'});
   overlay.append(svg('polygon',{points:points.map(p=>p.join(',')).join(' '),fill:'none',stroke:'#1683ed','stroke-width':unit,'stroke-dasharray':`${4*unit} ${3*unit}`}));
   const angle=(item.base_rotation+item.adjustment.rotation)*Math.PI/180;
   const top=[(points[0][0]+points[1][0])/2,(points[0][1]+points[1][1])/2],rotate=[top[0]+Math.sin(angle)*30*unit,top[1]-Math.cos(angle)*30*unit];
   overlay.append(svg('line',{x1:top[0],y1:top[1],x2:rotate[0],y2:rotate[1],stroke:'#1683ed','stroke-width':unit}));
   for(const [i,at] of [...points,rotate].entries()){
-   const handle=svg('circle',{cx:at[0],cy:at[1],r:8*unit,fill:i===4?'#1683ed':'white',stroke:'#1683ed','stroke-width':1.5*unit,tabindex:0,role:'button','data-selection-handle':i,'aria-label':i===4?'Girar elemento':'Esquina '+(i+1)});
+   const handle=svg('circle',{cx:at[0],cy:at[1],r:8*unit,fill:i===4?'#1683ed':'white',stroke:'#1683ed','stroke-width':1.5*unit,tabindex:0,role:'button','data-selection-handle':i,'aria-label':i===4?'Rotate item':'Corner '+(i+1)});
    handle.style.pointerEvents='all';handle.style.cursor=i===4?'grab':['nwse-resize','nesw-resize','nwse-resize','nesw-resize'][i];
    handle.onkeydown=event=>{const delta={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[event.key];if(!delta||!this.editable())return;event.preventDefault();event.stopPropagation();const step=event.shiftKey?10:1;const a=i===4?{...clone(item.adjustment),rotation:item.adjustment.rotation+(delta[0]||delta[1])*step}:resizeAdjustment(item,i,[at[0]+delta[0]*step,at[1]+delta[1]*step]);this.commit(a);};
    overlay.append(handle);

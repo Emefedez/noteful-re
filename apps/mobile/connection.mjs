@@ -4,7 +4,7 @@ export function readerURL(explicit, hostUri, port = 8768) {
   if (!['http:', 'https:'].includes(url.protocol)) throw Error('Reader URL must use HTTP or HTTPS.');
   return url.href;
  }
- if (!hostUri) throw Error('No se encontró el ordenador. Inicia npm start y escanea su QR.');
+ if (!hostUri) throw Error('Computer not found. Run npm start and scan its QR code.');
  const host = new URL(`http://${hostUri}`).hostname;
  return `http://${host}:${port}/`;
 }
