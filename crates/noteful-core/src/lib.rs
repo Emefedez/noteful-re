@@ -3,6 +3,8 @@
 #![forbid(unsafe_code)]
 
 mod editor;
+mod manipulation;
+pub use manipulation::Adjustment;
 mod export;
 mod layer;
 mod shape;

@@ -4,7 +4,7 @@ use crate::{scene::line_svg, Error, Result, Scene};
 use base64::{engine::general_purpose::STANDARD, Engine};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -22,10 +22,27 @@ pub struct Line {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "kind", deny_unknown_fields)]
 pub(crate) enum Edit {
-    Replace { page: usize, id: String, line: Line },
-    Layer { layer: crate::Layer },
-    Add { page: usize, line: Line },
-    Erase { page: usize, ids: Vec<String> },
+    Adjust {
+        page: usize,
+        id: String,
+        adjustment: crate::Adjustment,
+    },
+    Replace {
+        page: usize,
+        id: String,
+        line: Line,
+    },
+    Layer {
+        layer: crate::Layer,
+    },
+    Add {
+        page: usize,
+        line: Line,
+    },
+    Erase {
+        page: usize,
+        ids: Vec<String>,
+    },
 }
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -51,7 +68,7 @@ fn points_valid(points: &[[f64; 2]]) -> bool {
             .flatten()
             .all(|v| v.is_finite() && v.abs() <= 1e6)
 }
-fn point_distance(p: [f64; 2], a: [f64; 2], b: [f64; 2]) -> f64 {
+pub(crate) fn point_distance(p: [f64; 2], a: [f64; 2], b: [f64; 2]) -> f64 {
     let d = [b[0] - a[0], b[1] - a[1]];
     let len = d[0] * d[0] + d[1] * d[1];
     let t = if len > 0. {
@@ -104,7 +121,7 @@ impl Editor {
             cursor: 0,
         })
     }
-    fn page(&self, page: usize) -> Result<&crate::Page> {
+    pub(crate) fn page(&self, page: usize) -> Result<&crate::Page> {
         self.scene
             .pages
             .get(page)
@@ -121,30 +138,27 @@ impl Editor {
             .collect()
     }
     pub(crate) fn additions(&self, page: usize) -> impl Iterator<Item = (String, &Line)> {
+        let mut replacements = HashMap::new();
+        for edit in &self.history[..self.cursor] {
+            if let Edit::Replace { page: p, id, line } = edit {
+                if *p == page {
+                    replacements.insert(id.as_str(), line);
+                }
+            }
+        }
         self.history[..self.cursor]
             .iter()
             .enumerate()
             .filter_map(move |(i, e)| match e {
                 Edit::Add { page: p, line } if *p == page => {
                     let id = format!("new:{i}");
-                    let line = self.history[..self.cursor]
-                        .iter()
-                        .rev()
-                        .find_map(|edit| match edit {
-                            Edit::Replace {
-                                page: p,
-                                id: key,
-                                line,
-                            } if *p == page && *key == id => Some(line),
-                            _ => None,
-                        })
-                        .unwrap_or(line);
+                    let line = replacements.get(id.as_str()).copied().unwrap_or(line);
                     Some((id, line))
                 }
                 _ => None,
             })
     }
-    fn commit(&mut self, edit: Edit) -> Result<()> {
+    pub(crate) fn commit(&mut self, edit: Edit) -> Result<()> {
         self.history
             .try_reserve(1)
             .map_err(|e| Error::new(0, e.to_string()))?;
@@ -231,13 +245,33 @@ impl Editor {
             return Err(Error::new(0, "Invalid eraser path"));
         }
         let deleted = self.deleted(page);
+        let adjustments = self.adjustments(page);
         let layers = self.layers();
         let editable = |id| layers.iter().any(|l| l.id == id && l.visible && !l.locked);
         let mut ids = Vec::new();
         for item in &p.items {
-            if editable(item.layer)
+            if !item.hit_points().is_empty()
+                && editable(item.layer)
                 && !deleted.contains(item.id.as_str())
-                && hits(path, &item.hit, radius + item.radius)
+                && if let Some(a) = adjustments.get(item.id.as_str()) {
+                    let points = if let Some(s) = &item.stroke {
+                        crate::manipulation::adjusted_stroke(s, a).points
+                    } else {
+                        crate::scene::object(
+                            &crate::manipulation::adjusted_object(item, a),
+                            None,
+                            0,
+                        )?
+                        .hit
+                    };
+                    hits(
+                        path,
+                        &points,
+                        radius + a.width.unwrap_or(item.radius * 2.) / 2.,
+                    )
+                } else {
+                    hits(path, item.hit_points(), radius + item.radius)
+                }
             {
                 ids.push(item.id.clone());
             }
@@ -245,7 +279,12 @@ impl Editor {
         for (id, line) in self.additions(page) {
             if editable(line.layer)
                 && !deleted.contains(id.as_str())
-                && hits(path, &line.points, radius + line.width / 2.)
+                && if let Some(a) = adjustments.get(id.as_str()) {
+                    let line = crate::manipulation::adjusted_line(line, a);
+                    hits(path, &line.points, radius + line.width / 2.)
+                } else {
+                    hits(path, &line.points, radius + line.width / 2.)
+                }
             {
                 ids.push(id);
             }
@@ -265,6 +304,8 @@ impl Editor {
     pub fn view(&self, page: usize) -> Result<Value> {
         let p = self.page(page)?;
         let deleted = self.deleted(page);
+        let adjustments = self.adjustments(page);
+        let additions: Vec<_> = self.additions(page).collect();
         let mut content = p.background.clone();
         let mut imported = 0;
         let mut added = 0;
@@ -279,13 +320,28 @@ impl Editor {
             ));
             for item in p.items.iter().filter(|i| i.layer == layer.id) {
                 if !deleted.contains(item.id.as_str()) {
-                    content.push_str(&format!("<g data-item=\"{}\">{}</g>", item.id, item.svg));
+                    content.push_str(&format!(
+                        "<g data-item=\"{}\">{}</g>",
+                        item.id,
+                        crate::manipulation::item_svg(
+                            item,
+                            adjustments.get(item.id.as_str()).copied()
+                        )?
+                    ));
                     imported += 1;
                 }
             }
-            for (id, line) in self.additions(page).filter(|(_, l)| l.layer == layer.id) {
+            for (id, line) in additions.iter().filter(|(_, l)| l.layer == layer.id) {
                 if !deleted.contains(id.as_str()) {
-                    content.push_str(&format!("<g data-item=\"{id}\">{}</g>", added_svg(line)));
+                    content.push_str(&format!(
+                        "<g data-item=\"{id}\">{}</g>",
+                        added_svg(
+                            &adjustments
+                                .get(id.as_str())
+                                .map(|a| crate::manipulation::adjusted_line(line, a))
+                                .unwrap_or_else(|| (*line).clone())
+                        )
+                    ));
                     added += 1;
                 }
             }
@@ -347,6 +403,11 @@ impl Editor {
         let mut editor = Self::open(&source)?;
         for edit in project.history {
             match edit {
+                Edit::Adjust {
+                    page,
+                    id,
+                    adjustment,
+                } => editor.adjust_item(page, &id, adjustment)?,
                 Edit::Replace { page, id, line } => {
                     let previous = editor
                         .additions(page)
@@ -373,7 +434,6 @@ impl Editor {
                     let valid: HashSet<String> = p
                         .items
                         .iter()
-                        .filter(|i| !i.hit.is_empty())
                         .map(|i| i.id.clone())
                         .chain(editor.additions(page).map(|(id, _)| id))
                         .collect();

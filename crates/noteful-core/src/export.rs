@@ -135,6 +135,94 @@ fn new_stroke(out: &mut Vec<u8>, line: &Line, id: u64, time: u64, z: u64) {
         }
     }
 }
+fn edited_stroke(out: &mut Vec<u8>, s: &crate::Stroke) {
+    style(out, &s.style);
+    out.extend([0xf1, 1]);
+    out.extend(s.header);
+    out.extend(s.radius.to_be_bytes());
+    out.extend(s.unknown.to_be_bytes());
+    out.extend((s.points.len() as u32).to_be_bytes());
+    out.extend(&s.auxiliary);
+    let dim = if s.flags & 1 != 0 { 3 } else { 2 };
+    let component = |i: usize, axis: usize| {
+        if axis < 2 {
+            s.points[i][axis]
+        } else {
+            s.radii[i]
+        }
+    };
+    let mut bounds = vec![(0f32, 0f32); dim];
+    if s.points.len() > 4 {
+        for (axis, bound) in bounds.iter_mut().enumerate() {
+            let min = (0..s.points.len())
+                .map(|i| component(i, axis))
+                .fold(f64::INFINITY, f64::min) as f32;
+            let span = ((0..s.points.len())
+                .map(|i| component(i, axis))
+                .fold(f64::NEG_INFINITY, f64::max)
+                - f64::from(min))
+            .max(0.) as f32;
+            out.extend(min.to_be_bytes());
+            out.extend(span.to_be_bytes());
+            *bound = (min, span);
+        }
+    }
+    for i in 0..s.points.len() {
+        for (axis, &(min, span)) in bounds.iter().enumerate() {
+            let v = component(i, axis);
+            if s.points.len() <= 4 {
+                out.extend((v as f32).to_be_bytes());
+            } else {
+                let q = if span == 0. {
+                    0
+                } else {
+                    ((v - f64::from(min)) / f64::from(span) * 65535.)
+                        .round()
+                        .clamp(0., 65535.) as u16
+                };
+                out.extend(q.to_be_bytes());
+            }
+        }
+    }
+}
+fn edit_object(
+    fs: &mut [Field],
+    item: &crate::scene::Item,
+    a: &crate::Adjustment,
+    time: u64,
+) -> Result<()> {
+    let edited = crate::manipulation::adjusted_object(item, a);
+    let values = edited["2"]["1"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|n| V::Float(n.as_f64().unwrap()))
+        .collect();
+    set(nested(fs, 2)?, 1, 0x403, V::Array(values), time);
+    if crate::manipulation::item_geometry(item).styled {
+        let st = nested(nested(fs, 6)?, 7)?;
+        set(
+            st,
+            2,
+            0x803,
+            V::Float(edited["6"]["7"]["2"].as_f64().unwrap()),
+            time,
+        );
+        if let Some(rgba) = a.rgba {
+            if field(st, 7).is_none() {
+                set(st, 7, 7, V::Fields(vec![]), time);
+            }
+            set(
+                nested(st, 7)?,
+                0,
+                0x403,
+                V::Array(rgba.iter().map(|n| V::Float(*n)).collect()),
+                time,
+            );
+        }
+    }
+    Ok(())
+}
 impl Editor {
     /// Flatten the applied history into a native container. Redo entries stay unapplied.
     pub fn export_noteful(&self) -> Result<Vec<u8>> {
@@ -190,11 +278,19 @@ impl Editor {
         let mut page_assets = HashMap::new();
         for (page_no, page) in self.scene.pages.iter().enumerate() {
             let deleted = self.deleted(page_no);
+            let adjustments = self.adjustments(page_no);
             let added: Vec<_> = self
                 .additions(page_no)
                 .filter(|(id, _)| !deleted.contains(id.as_str()))
+                .map(|(id, line)| {
+                    let line = adjustments
+                        .get(id.as_str())
+                        .map(|a| crate::manipulation::adjusted_line(line, a))
+                        .unwrap_or_else(|| line.clone());
+                    (id, line)
+                })
                 .collect();
-            if deleted.is_empty() && added.is_empty() {
+            if deleted.is_empty() && added.is_empty() && adjustments.is_empty() {
                 continue;
             }
             let existing = package.blocks.iter().find(|b| b.id == page.editable_id);
@@ -234,6 +330,18 @@ impl Editor {
                     if deleted.contains(format!("stroke:{i}").as_str()) {
                         array(&mut fields, 3)?.push(V::UInt(s.id));
                         array(&mut fields, 4)?.push(V::UInt(time));
+                    } else if let Some(a) = adjustments.get(format!("stroke:{i}").as_str()) {
+                        let edited = crate::manipulation::adjusted_stroke(s, a);
+                        if a.translation == [0., 0.]
+                            && a.scale == [1., 1.]
+                            && a.rotation == 0.
+                            && a.width.is_none()
+                        {
+                            style(&mut ink, &edited.style);
+                            ink.extend(&raw[s.offset..s.offset + s.size]);
+                        } else {
+                            edited_stroke(&mut ink, &edited);
+                        }
                     } else {
                         style(&mut ink, &s.style);
                         ink.extend(&raw[s.offset..s.offset + s.size]);
@@ -250,7 +358,7 @@ impl Editor {
                 z = z
                     .checked_add(1)
                     .ok_or_else(|| Error::new(0, "Z-order overflow"))?;
-                new_stroke(&mut ink, line, next_id, time, z);
+                new_stroke(&mut ink, &line, next_id, time, z);
             }
             set(
                 &mut fields,
@@ -265,6 +373,21 @@ impl Editor {
             let objects = nested(&mut fields, 5)?;
             let mut removed = HashSet::new();
             let values = array(objects, 0)?;
+            for (i, value) in values.iter_mut().enumerate() {
+                let id = format!("object:{i}");
+                if let Some(a) = adjustments.get(id.as_str()) {
+                    if !deleted.contains(id.as_str()) {
+                        let item = page
+                            .items
+                            .iter()
+                            .find(|item| item.id == id)
+                            .ok_or_else(|| Error::new(0, "Adjusted object missing"))?;
+                        if let V::Fields(fs) = value {
+                            edit_object(fs, item, a, time)?;
+                        }
+                    }
+                }
+            }
             let mut i = 0;
             values.retain(|v| {
                 let remove = deleted.contains(format!("object:{i}").as_str());

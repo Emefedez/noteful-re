@@ -76,3 +76,14 @@ assert.deepEqual(JSON.parse(shapeSession.view(0)).shapes[0].line.shape.start,[50
 shapeSession.undo();assert.deepEqual(JSON.parse(shapeSession.view(0)).shapes[0].line.shape.start,[100,100]);shapeSession.redo();
 const shapeRestored=EditorSession.load_project(shapeSession.save_project());assert.deepEqual(JSON.parse(shapeRestored.view(0)).shapes,JSON.parse(shapeSession.view(0)).shapes);shapeRestored.free();shapeSession.free();
 console.log('WASM shape resize: corners, undo/redo and project reload passed.');
+const modifySession=new EditorSession(readFileSync(new URL('../../samples/nota_vacia.noteful',import.meta.url)));
+modifySession.draw(0,JSON.stringify({points:[[20,20],[120,20]],width:3,rgba:[1,1,0,1],tool:1}));
+const picked=JSON.parse(modifySession.pick_item(0,70,20,5));assert.equal(picked.id,'new:0');
+const patch=JSON.parse(modifySession.adjust_item(0,picked.id,JSON.stringify({translation:[60,80],scale:[1.5,1],rotation:45,width:12,rgba:[0,1,0,1]})));
+assert.equal(patch.edit_count,2);assert.ok(patch.svg.includes('stroke-width="12"'));assert.ok(patch.svg.includes('multiply'));assert.equal(patch.selection.adjustment.rotation,45);
+assert.equal(patch.pages,undefined);assert.equal(patch.pdf_background,undefined);assert.ok(patch.svg.length<1000);
+const modifiedProject=EditorSession.load_project(modifySession.save_project());assert.deepEqual(JSON.parse(modifiedProject.view(0)),JSON.parse(modifySession.view(0)));
+modifiedProject.undo();assert.equal(JSON.parse(modifiedProject.selection(0,'new:0')).adjustment.rotation,0);modifiedProject.redo();
+const modifiedNative=new EditorSession(modifiedProject.export_noteful());assert.ok(JSON.parse(modifiedNative.view(0)).svg.includes('rgb(0,255,0)'));
+modifiedNative.free();modifiedProject.free();modifySession.free();
+console.log('WASM item editing: hit selection, compact item patch, style/rotation, project undo/redo and native export passed.');

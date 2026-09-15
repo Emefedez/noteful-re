@@ -91,3 +91,12 @@ body.compact-chrome header.chrome{padding-top:6px;padding-bottom:6px}.compact-ch
  .audio-bar{padding:8px 10px;margin-top:8px}.audio-meta .audio-icon{display:none}.audio-bar h2{font-size:.78rem}.audio-transport{gap:2px!important}
 }
 @media(prefers-reduced-motion:reduce){#toolbarToggle svg{transition:none}}
+.selection-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.sheet[data-tool=select]{cursor:default}
+#selectionFields{border:0;padding:0;margin:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0}
+#selectionFields label{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:.72rem}
+#selectionFields input[type=number]{width:65px;min-height:36px;padding:5px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:.78rem}
+#selectionKind{font-size:.78rem;font-weight:600}#selectionFields button{font-size:.76rem;min-height:36px;padding:5px 9px}
+#deleteSelection{color:#cf4b42}#selectedColor{width:28px;height:28px}#selectionOptions{min-width:0}
+.toolbar:has(#selectionOptions:not([hidden])) .tool-options{order:3;flex-basis:100%;border-left:0;border-top:1px solid var(--line);padding:6px 0 0}
+@media(max-width:750px){.segmented button{padding-inline:2px;font-size:.59rem}.toolbar-actions button,#layersToggle{width:29px}.toolbar-actions{margin-left:1px}#selectionFields{gap:7px}#selectionFields input[type=number],#selectionFields button{min-height:40px}.tool-options:has(#selectionOptions:not([hidden])){padding:6px 4px}#selectionFields input[type=number]{width:58px}}

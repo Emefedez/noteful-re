@@ -9,6 +9,10 @@ self.onmessage = async ({data:{id,op,page=0,...args}}) => {
       const bytes = new Uint8Array(args.bytes);
       session = args.project ? EditorSession.load_project(new TextDecoder('utf-8',{fatal:true}).decode(bytes)) : new EditorSession(bytes);
     } else if (!session) { throw Error('Abre un documento primero.'); }
+    if(op==='pick'){postMessage({id,result:JSON.parse(session.pick_item(page,args.x,args.y,args.tolerance))});return;}
+    if(op==='selection'){postMessage({id,result:JSON.parse(session.selection(page,args.itemId))});return;}
+    if(op==='adjust'){postMessage({id,result:JSON.parse(session.adjust_item(page,args.itemId,JSON.stringify(args.adjustment)))});return;}
+    if(op==='remove')session.remove_item(page,args.itemId);
     if(op==='export'){const bytes=session.export_noteful();postMessage({id,result:bytes},[bytes.buffer]);return;}
     if(op==='resize')session.resize_shape(page,args.shapeId,JSON.stringify(args.shape));
     if(op==='layer')session.set_layer(JSON.stringify(args.layer));

@@ -31,6 +31,50 @@ impl EditorSession {
         let line = serde_json::from_str(line).map_err(js_error)?;
         self.inner.add_line(page, line).map_err(js_error)
     }
+    pub fn pick_item(
+        &self,
+        page: usize,
+        x: f64,
+        y: f64,
+        tolerance: f64,
+    ) -> Result<String, JsValue> {
+        serde_json::to_string(
+            &self
+                .inner
+                .pick_item(page, [x, y], tolerance)
+                .map_err(js_error)?,
+        )
+        .map_err(js_error)
+    }
+    pub fn selection(&self, page: usize, id: &str) -> Result<String, JsValue> {
+        Ok(self
+            .inner
+            .selection(page, id)
+            .map_err(js_error)?
+            .to_string())
+    }
+    pub fn adjust_item(
+        &mut self,
+        page: usize,
+        id: &str,
+        adjustment: &str,
+    ) -> Result<String, JsValue> {
+        self.inner
+            .adjust_item(
+                page,
+                id,
+                serde_json::from_str(adjustment).map_err(js_error)?,
+            )
+            .map_err(js_error)?;
+        Ok(self
+            .inner
+            .item_patch(page, id)
+            .map_err(js_error)?
+            .to_string())
+    }
+    pub fn remove_item(&mut self, page: usize, id: &str) -> Result<(), JsValue> {
+        self.inner.remove_item(page, id).map_err(js_error)
+    }
     pub fn erase(&mut self, page: usize, path: &str, radius: f64) -> Result<usize, JsValue> {
         let path: Vec<[f64; 2]> = serde_json::from_str(path).map_err(js_error)?;
         self.inner.erase_path(page, &path, radius).map_err(js_error)

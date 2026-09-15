@@ -22,6 +22,9 @@ pub struct Page {
     pub(crate) items: Vec<Item>,
 }
 pub(crate) struct Item {
+    pub stroke: Option<Stroke>,
+    pub object: Option<Value>,
+    pub bounds: [f64; 4],
     pub id: String,
     pub svg: String,
     pub hit: Vec<[f64; 2]>,
@@ -29,6 +32,14 @@ pub(crate) struct Item {
     pub z: u64,
     pub layer: u32,
     pub text: Option<crate::RichText>,
+}
+impl Item {
+    pub(crate) fn hit_points(&self) -> &[[f64; 2]] {
+        self.stroke
+            .as_ref()
+            .map(|s| s.points.as_slice())
+            .unwrap_or(&self.hit)
+    }
 }
 fn fields(fs: &[Field]) -> Value {
     Value::Object(
@@ -110,7 +121,7 @@ pub(crate) fn line_svg(points: &[[f64; 2]], radius: f64, rgba: &[f64; 4]) -> Str
         .join(" ");
     format!("<polyline points=\"{p}\" fill=\"none\" stroke=\"{}\" stroke-width=\"{}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" opacity=\"{}\"/>",color(rgba),radius*2.,rgba[3])
 }
-fn stroke_svg(s: &Stroke) -> Result<String> {
+pub(crate) fn stroke_svg(s: &Stroke) -> Result<String> {
     if s.radius < 0. || s.radii.iter().any(|r| *r < 0.) {
         return Err(Error::new(0, "Negative ink radius"));
     }
@@ -157,7 +168,7 @@ fn stroke_svg(s: &Stroke) -> Result<String> {
     };
     composite(el, s.style.rgba[3], u64::from(s.style.tool))
 }
-fn object(o: &Value, package: &Package<'_>, index: usize) -> Result<Item> {
+pub(crate) fn object(o: &Value, package: Option<&Package<'_>>, index: usize) -> Result<Item> {
     let p = &o["6"];
     let kind = p["1"].as_u64().unwrap_or(0);
     let [x, y, w, h, a] = floats::<5>(&o["2"]["1"])?;
@@ -167,6 +178,7 @@ fn object(o: &Value, package: &Package<'_>, index: usize) -> Result<Item> {
     let mut rich_text = None;
     let el = if kind == 1 {
         let id = text(&p["10"]);
+        let package = package.ok_or_else(|| Error::new(0, "Missing image package"))?;
         let b = package
             .blocks
             .iter()
@@ -269,6 +281,9 @@ fn object(o: &Value, package: &Package<'_>, index: usize) -> Result<Item> {
     )?;
     Ok(Item {
         id: format!("object:{index}"),
+        stroke: None,
+        object: Some(o.clone()),
+        bounds: [x - w / 2., y - h / 2., w, h],
         svg,
         hit,
         radius,
@@ -417,8 +432,16 @@ impl Scene {
                     match stroke_svg(s) {
                         Ok(svg) => items.push(Item {
                             id: format!("stroke:{i}"),
+                            stroke: Some(Stroke {
+                                bounds: Vec::new(),
+                                quantized: Vec::new(),
+                                auxiliary: Vec::new(),
+                                ..s.clone()
+                            }),
+                            object: None,
+                            bounds: crate::manipulation::bounds(&s.points),
                             svg,
-                            hit: s.points.clone(),
+                            hit: Vec::new(),
                             radius: s.radii.iter().copied().fold(s.radius, f64::max),
                             z: s.z_order,
                             layer: s.layer,
@@ -429,7 +452,7 @@ impl Scene {
                 }
                 if let Some(fs) = &b.fields {
                     for (i, o) in arr(&fields(fs)["5"]["0"]).iter().enumerate() {
-                        match object(o, &package, i) {
+                        match object(o, Some(&package), i) {
                             Ok(item) => {
                                 if let Some(text) = &item.text {
                                     warnings.extend(text.warnings.iter().cloned());
