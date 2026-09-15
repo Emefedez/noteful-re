@@ -2,20 +2,30 @@
 """Compare candidate coordinates to JPEG ink. Optional dependency: Pillow."""
 import json
 import math
+import io
+import sys
 from pathlib import Path
 from PIL import Image
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "research/python"))
+from noteful import parse, semantic_summary
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def sample(name):
+    data = (ROOT / "samples" / (name + ".noteful")).read_bytes()
+    report = parse(data)
+    block = next(b for b in report["blocks"] if b["kind"] == "jpeg")
+    image = Image.open(io.BytesIO(data[block["offset"]:block["offset"] + block["size"]])).convert("RGB")
+    return report, image
+
+
 def main():
-    baseline = Image.open(next((ROOT / "research/evidence/extracted/nota_vacia").glob("*.jpg"))).convert("RGB")
+    _, baseline = sample("nota_vacia")
     results = []
     for name in ("nota_1linea", "nota_2lineas", "nota_lineagruesa"):
-        folder = ROOT / "research/evidence/extracted" / name
-        report = json.loads((folder / "manifest.json").read_text())
-        im = Image.open(next(folder.glob("*.jpg"))).convert("RGB")
-        w, h = report["semantic_summary"]["pages"][0]["size"]
+        report, im = sample(name)
+        w, h = semantic_summary(report)["pages"][0]["size"]
         sx, sy = im.width / w, im.height / h
         for block in report["blocks"]:
             for stroke in block.get("strokes", []):
@@ -39,7 +49,8 @@ def main():
                     "max_nearest_ink_pixel_distance": max(distances),
                     "note": "Corroborates position/shape only; does not verify engine smoothing, thickness or general codec.",
                 })
-    (ROOT / "research/evidence/geometry-validation.json").write_text(json.dumps(results, indent=2) + "\n")
+    (ROOT / "work/reports").mkdir(parents=True, exist_ok=True)
+    (ROOT / "work/reports/geometry-validation.json").write_text(json.dumps(results, indent=2) + "\n")
     print("Geometry evidence saved for", len(results), "strokes")
 
 

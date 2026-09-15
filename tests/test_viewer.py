@@ -135,8 +135,8 @@ class ViewerTests(unittest.TestCase):
                 req = urllib.request.Request(url+'/api/open', data=p.read_bytes())
                 with urllib.request.urlopen(req) as response:
                     self.assertGreater(json.load(response)['page_count'], 0)
-            with urllib.request.urlopen(url+'/reference/2.png') as response:
-                self.assertTrue(response.read().startswith(b'\x89PNG'))
+            with urllib.request.urlopen(url+'/reference.pdf') as response:
+                self.assertTrue(response.read().startswith(b'%PDF'))
         finally:
             server.shutdown()
             server.server_close()

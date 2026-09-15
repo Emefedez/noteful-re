@@ -92,7 +92,7 @@ def shape_element(obj, payload):
     return f'<g transform="scale({num(sx)} {num(sy)})">{element}</g>'
 
 
-def render(data, name='Nota', parser=parse):
+def render(data, name='Note', parser=parse):
     report = parser(data)
     summary = semantic_summary(report)
     blocks = {b['id']: b for b in report['blocks']}
@@ -109,7 +109,7 @@ def render(data, name='Nota', parser=parse):
             if paper['lt']==2:path+=f' M {gap} 0 L {gap} {gap}'
             parts.append(f'<defs><pattern id="paper" width="{gap}" height="{gap}" patternUnits="userSpaceOnUse"><path d="{path}" fill="none" stroke="#9a9888" stroke-width="{linew}"/></pattern></defs><rect width="100%" height="100%" fill="url(#paper)"/>')
         if not paper and page.get("background_pdf_id") not in blocks:
-            warnings.append('Fondo PDF genérico aún sin reconstruir; descarga recurso original.')
+            warnings.append('This research preview does not render the imported PDF; use the product reader for its actual background.')
         editable=blocks.get(page.get('stroke_object_set_id'),{})
         strokes=editable.get('strokes',[])
         if editable.get('stroke_decode_error'):warnings.append(editable['stroke_decode_error'])
@@ -153,8 +153,8 @@ def render(data, name='Nota', parser=parse):
             else:
                 el=composite(f'<g transform="{transform}">{el}</g>',o['opacity'],o['tool_raw'])
                 elements.append((o.get('z_order_raw',0),el))
-        if unsupported:warnings.append(f'{len(unsupported)} objetos aún sin representación (tipos {sorted(set(unsupported))}).')
+        if unsupported:warnings.append(f'{len(unsupported)} objects without a renderer (types {sorted(set(unsupported))}).')
         parts.extend(el for _,el in sorted(elements,key=lambda pair:pair[0]))
         parts.append('</svg>')
         pages.append({'id':page['id'],'svg':''.join(parts),'stroke_count':len(strokes),'object_count':len(objects),'warnings':warnings,'variable_count':sum(bool(s['flags']&1) for s in strokes),'auxiliary_count':sum(bool(s['flags']&2) for s in strokes)})
-    return {'name':summary.get('title') or name,'size':len(data),'page_count':len(pages),'stroke_count':sum(p['stroke_count'] for p in pages),'object_count':len(summary['objects']),'pages':pages,'notes':'Subrayador: Multiply al 50%. Grosor variable recuperado. Interpolación de tinta aproximada; canales auxiliares y borrado pendientes. Figuras no compatibles se indican por página.'}
+    return {'name':summary.get('title') or name,'size':len(data),'page_count':len(pages),'stroke_count':sum(p['stroke_count'] for p in pages),'object_count':len(summary['objects']),'pages':pages,'notes':'Research preview: highlighter Multiply at 50%, decoded variable radius, approximate ink interpolation and paper. Auxiliary channels are preserved; this viewer does not edit notes. Unsupported objects are listed per page.'}

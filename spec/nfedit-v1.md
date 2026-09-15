@@ -25,7 +25,7 @@ Our non-destructive UTF-8 JSON project format, not an official Noteful format. R
 
 Validation: existing page/layer; 1–8192 finite points per gesture with coordinate absolute value ≤1e6; width 0.1–100; finite RGBA/opacity within 0–1; supported tool; nonempty layer name; valid history cursor and IDs. No global action/point or MB ceiling. Loading validates the entire history including redo before returning a session.
 
-Saving a project never reconstructs the original archive. Native export is a separate flattening operation over applied edits and does not retain redo history. See [native writer](../docs/EXPORT.md). No script/HTML from a project is executed.
+Saving a project never reconstructs the original archive. Native export is a separate flattening operation over applied edits and does not retain redo history. See [native writer](#native-export). No script/HTML from a project is executed.
 
 ## Shape metadata and corner edits
 
@@ -46,3 +46,21 @@ Translation, scale and rotation are required. `width` and `rgba` may be omitted 
 Validation requires finite translation within ±1e6, scale in 0.001–1000, rotation within ±36000, optional width in 0.1–100 and RGBA in 0–1. Target IDs must exist and remain visible, unlocked and undeleted at that point in history. Identity/repeated adjustments do not add an action. Each completed gesture or inspector change is one undo step. Current readers load older v1 histories; older readers must reject the unfamiliar `Adjust` action rather than silently omit it.
 
 Native export transforms current geometry while retaining original imported IDs, audio timing and auxiliary stroke data. `.nfedit` keeps the unchanged source and complete edit history.
+
+## Native export
+
+`Editor::export_noteful()` and `EditorSession.export_noteful()` flatten the applied `.nfedit` history into a native `.noteful` archive. CLI: `noteful export project.nfedit > edited.noteful`. The source is never changed. With cursor zero, export returns the exact original bytes.
+
+The writer retains unknown fields and every original resource. PDF, image and audio blocks remain byte-exact. Unadjusted surviving F101 records are copied without requantization, with their effective F102 style emitted explicitly. Removed imported ink is excluded from the stroke blob; deletion IDs/times are appended to the observed tombstone arrays. Removed selected objects leave the live object collection and update collection flags/clocks.
+
+New pen/highlighter/shape-outline strokes use fixed width, normalized RGBA, tool 0/1, a collision-checked stroke ID, the selected layer and increasing z-order. Up to four points use direct float32 coordinates; longer strokes use per-axis float32 bounds and uint16 quantization. Maximum observed round-trip tolerance in the tests is 0.002 page units. New timestamps follow original clocks and all recordings, so new untimed strokes are not attached to old audio.
+
+A page without an editable block receives one and its page/index references are updated. Layer metadata is updated with visibility, lock, opacity, name and order. All block offsets, lengths, index and trailer are rebuilt. The output is parsed again before being returned.
+
+Regression coverage includes empty-note creation, imported stroke removal, straight-line object removal, new highlighter ink, five outline shapes, multiple layers, undo/redo cursor handling, preservation of every media resource, and reopening the output through Rust/WASM and the Python oracle.
+
+**Interoperability is experimental.** Modified output has not yet been imported into the official Noteful app. Native CRDT merge behavior, tombstone semantics, layer flags and thumbnail invalidation require controlled native round-trip samples. The existing thumbnail is preserved and may remain stale until another app regenerates it. Newly drawn shapes export as stroke outlines. Adjusted imported shapes remain native parametric objects. No unsupported field is intentionally discarded, but byte preservation alone does not prove every application-specific invariant.
+
+## Adjusted items
+
+Color-only imported ink edits retain exact original F101 bytes and change the effective style. Geometry/thickness edits re-encode positions/radii while preserving the stroke ID, layer, z-order, start/end timestamps, flags and auxiliary data; thickness changes retain relative per-point radii. Existing recordings therefore keep their stroke associations. Imported shapes, images and text placement update their native geometry fields; supported shape stroke style updates in place. New items export their adjusted outline. Tests reopen these exports through the core and WASM and verify original audio/media bytes remain exact.

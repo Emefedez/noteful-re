@@ -1,3 +1,3 @@
-# Expo HAS CHANGED
+# Mobile development
 
-Read the exact versioned docs at https://docs.expo.dev/versions/v54.0.0/ before writing any code.
+This app uses Expo SDK 57. Before changing Expo APIs, read the versioned documentation at https://docs.expo.dev/versions/v57.0.0/.

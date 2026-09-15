@@ -9,7 +9,7 @@ const mobile=fileURLToPath(new URL('../apps/mobile/',import.meta.url));
 const server=readerServer();
 server.on('error',error=>{console.error(`Reader could not start: ${error.message}`);process.exitCode=1;});
 server.listen(8768,'0.0.0.0',()=>{
- console.log('Reader ready on port 8768. Computer and phone must share Wi-Fi.\nThe reader and included examples are available to devices on this LAN.\nScan the Expo Go QR below. Ctrl-C stops both servers.');
+ console.log('Reader ready on port 8768. Computer and phone must share Wi-Fi.\nThe reader assets are available to devices on this LAN.\nScan the Expo Go QR below. Ctrl-C stops both servers.');
  const expo=spawn(process.execPath,[path.join(mobile,'node_modules/expo/bin/cli'),'start','--go','--lan','--port','8081'],{cwd:mobile,stdio:'inherit',env:process.env});
  let stopping=false;
  const stop=()=>{if(stopping)return;stopping=true;expo.kill('SIGTERM');server.close();};

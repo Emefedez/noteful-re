@@ -1,5 +1,0 @@
-# Identification only; use tools/noteful.py for structural validation.
-0 belong 0xaabbccde Noteful note container
-!:mime application/x-noteful
-!:ext noteful
->-16 belong 0xaabbccde (matching trailer magic)

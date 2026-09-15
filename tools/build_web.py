@@ -32,23 +32,18 @@ def main():
     npm='npm.cmd' if os.name=='nt' else 'npm'
     subprocess.run([npm,'ci','--ignore-scripts'],cwd=ROOT/'apps/reader',check=True)
     pdfjs=ROOT/'apps/reader/node_modules/pdfjs-dist'
-    vendor=ROOT/'apps/reader/vendor/pdfjs';vendor.mkdir(parents=True,exist_ok=True)
-    for folder in ['build','cmaps','standard_fonts','wasm']:
+    vendor=ROOT/'apps/reader/vendor/pdfjs'
+    if vendor.exists(): shutil.rmtree(vendor)
+    (vendor/'build').mkdir(parents=True,exist_ok=True)
+    for name in ['pdf.mjs','pdf.worker.mjs']: shutil.copy2(pdfjs/'build'/name,vendor/'build'/name)
+    for folder in ['cmaps','standard_fonts','wasm']:
         shutil.copytree(pdfjs/folder,vendor/folder,dirs_exist_ok=True)
     shutil.copy2(pdfjs/'LICENSE',vendor/'LICENSE')
-    examples=ROOT/'apps/reader/samples';examples.mkdir(exist_ok=True)
-    names=[]
-    for p in sorted((ROOT/'samples').glob('*.noteful')):
-        shutil.copy2(p,examples/p.name);names.append(p.name)
-    demo=ROOT/'tests/fixtures/editing-demo.nfedit'
-    if demo.is_file():
-        shutil.copy2(demo,examples/demo.name);names.append(demo.name)
-    multi=ROOT/'tests/fixtures/multi-audio-synthetic.noteful'
-    shutil.copy2(multi,examples/multi.name);names.append(multi.name)
-    (examples/'index.json').write_text(json.dumps(names,ensure_ascii=False)+'\n')
-    assets=[str(p.relative_to(ROOT/'apps/reader')) for p in (ROOT/'apps/reader').rglob('*') if p.is_file() and not any(part in ('node_modules','samples') for part in p.relative_to(ROOT/'apps/reader').parts) and p.suffix not in ('.map',) and not p.name.endswith('.test.mjs') and p.name not in ('precache.json','package-lock.json','package.json','test.mjs')]
-    assets.extend(['./'])
-    (ROOT/'apps/reader/precache.json').write_text(json.dumps(assets)+'\n')
+    reader=ROOT/'apps/reader'
+    assets=sorted(p.name for p in reader.iterdir() if p.is_file() and p.suffix in ('.html','.js','.css','.svg','.webmanifest'))
+    assets+=sorted(str(p.relative_to(reader)) for folder in ('pkg','vendor') for p in (reader/folder).rglob('*') if p.is_file() and p.suffix not in ('.map','.ts'))
+    assets.append('./')
+    (reader/'precache.json').write_text(json.dumps(assets)+'\n')
     print('Built apps/reader/. Serve with any static HTTP server. No Python/Rust server required at runtime.')
 
 if __name__=='__main__':main()

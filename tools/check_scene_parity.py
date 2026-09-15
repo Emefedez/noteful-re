@@ -8,11 +8,10 @@ No browser/PDF raster is used as reconstruction input.
 import json, math, re, subprocess, sys
 from pathlib import Path
 import xml.etree.ElementTree as ET
-sys.path.insert(0,str(Path(__file__).resolve().parent))
-import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"research/python"))
 from render_note import render
 ROOT=Path(__file__).resolve().parents[1]
+REPORTS=ROOT/'work/reports';REPORTS.mkdir(parents=True,exist_ok=True)
 NUMBER=re.compile(r'[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?')
 def normalize_attr(key,value):
     if key in ('href','fill','stroke','id','patternUnits','preserveAspectRatio','stroke-linecap','stroke-linejoin','style'):
@@ -58,6 +57,6 @@ def main():
             counts.append(len(aa))
         result.append({'file':source.name,'pages':len(counts),'primitives':counts,'passed':True})
     report={'scope':'Ordered SVG primitives, inherited transforms/compositing, image bytes; no pixel equivalence claim','absolute_tolerance':2e-5,'samples':result}
-    (ROOT/'research/evidence/rust-scene-parity.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
+    (REPORTS/'rust-scene-parity.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     print('Native scene parity:',len(result),'notes passed')
 if __name__=='__main__':main()

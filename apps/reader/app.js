@@ -1,3 +1,4 @@
+import {receiveNativeFiles} from './import.js';
 import {SelectionController} from './selection.js';
 import {ChromeState,highlightPoints} from './chrome-state.js';
 import {download} from './download.js';
@@ -19,7 +20,7 @@ const selection=new SelectionController({call,patch:patchItem,remove:item=>actio
 function status(text,error=false){$('status').textContent=text;$('status').className=error?'error':'';}
 function call(op,args={}){return new Promise((resolve,reject)=>{const id=++request;pending.set(id,{resolve,reject});worker.postMessage({id,op,page,...args},args.bytes?[args.bytes]:[]);});}
 worker.onmessage=({data})=>{
- if(data.ready){ready=true;$('open').disabled=false;status('Ready. Everything is processed on your device.');return;}
+ if(data.ready){ready=true;$('open').disabled=false;status('Ready. Everything is processed on your device.');window.ReactNativeWebView?.postMessage(JSON.stringify({type:'noteful-ready'}));return;}
  if(data.fatal){status(data.fatal,true);return;}const p=pending.get(data.id);if(!p)return;pending.delete(data.id);data.error?p.reject(Error(data.error)):p.resolve(data.result);
 };
 worker.onerror=e=>{for(const p of pending.values())p.reject(Error(e.message));pending.clear();ready=false;status('Engine error: '+e.message,true);};
@@ -173,3 +174,5 @@ function currentZoom(){const p=panels[page];return p?p.el.getBoundingClientRect(
 function updateZoom(){const value=currentZoom();$('zoomValue').textContent=Math.round(value*100)+'%';$('zoomFit').setAttribute('aria-pressed',String(zoom==='fit'));$('zoomOut').disabled=value<=.1;$('zoomIn').disabled=value>=4;}
 function setZoom(value){cancelGesture();zoom=value;resize();}
 function stepZoom(direction){const value=Math.round(currentZoom()*100)/100;setZoom(Math.max(.1,Math.min(4,value+direction*.1)));}
+
+receiveNativeFiles({open:load,canReplace,isBusy:()=>editing,status});

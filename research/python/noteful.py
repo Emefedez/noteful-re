@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Experimental, strict reader for the eight supplied Noteful samples.
+"""Experimental, strict reader for the observed Noteful corpus.
 
 Standard library only. Unknown encodings fail explicitly. Sources are never modified.
 Wire field numbers are retained; semantic names are only used where supported.

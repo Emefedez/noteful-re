@@ -1,6 +1,6 @@
 //! Attributed text: run strings + attribute deltas + shared typed value pools.
 //! Wire keys 2/3/10/13/14 are confirmed by texto.noteful; decorations and pool
-//! types are backed by Ghidra functions 100a485ec / 100a49e04 (see docs/TEXT.md).
+//! types are backed by Ghidra functions 100a485ec / 100a49e04 (see spec/noteful-v0.1.md).
 use crate::{Error, Result};
 use serde::Serialize;
 use serde_json::Value;

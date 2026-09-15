@@ -1,6 +1,0 @@
-Rust core compilation checks only; not device execution.
-x86_64-unknown-linux-gnu: PASS
-x86_64-pc-windows-gnu: PASS
-aarch64-linux-android: PASS
-aarch64-apple-ios: PASS
-wasm32-unknown-unknown: PASS

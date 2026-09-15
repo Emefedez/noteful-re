@@ -2,24 +2,26 @@
 
 *a RE noteful viewer*
 
-A local-first reader and editor for `.noteful` archives, built on a portable Rust core. Open existing notes without running Noteful or depending on a Mac/iPad. The browser app targets desktop, Android and iOS browsers; Expo Go is the mobile app entry point; store packages are not required.
+A local-first reader and editor for Noteful notes, powered by a portable Rust core. The web app runs in desktop and mobile browsers. Expo Go provides the Android/iOS development entry point using the same reader.
 
-## Run
+Read embedded PDF pages, images, ink, text and synchronized audio; draw, highlight, erase, edit object geometry/style, manage layers and save projects. Native `.noteful` export is experimental: modified files have not yet been validated in official Noteful. No fixed note-size or note-count cap is imposed.
 
-Build requirements: Rust 1.93+, the `wasm32-unknown-unknown` target, Node 22+, Python 3.11+ for the build helper, and `wasm-bindgen-cli` matching Cargo.lock (currently 0.2.128).
+## Run the web reader
+
+Requirements: Rust 1.93+, Node 22.13+ and Python 3.11+. Install the WASM target and a wasm-bindgen CLI matching `Cargo.lock`:
 
 ```sh
 rustup target add wasm32-unknown-unknown
 cargo install wasm-bindgen-cli --version 0.2.128 --locked --root work/wasm-tools
 python3 tools/build_web.py
-node tools/serve_web.mjs 8765
+node tools/serve_web.mjs 8767
 ```
 
-Open http://127.0.0.1:8765/. The generated `apps/reader/` directory can also be served by any static HTTP server. No Python, Rust server, Noteful installation or network API is needed at runtime. For mobile installation, serve over HTTPS and use the browser's Add to Home Screen / Install option. The service worker caches application assets for offline use; opened notes are never uploaded or cached by the service worker.
+Open [localhost:8767](http://127.0.0.1:8767/) and choose **Open note**. Files are processed in the browser. No Noteful installation or decoding server is needed. The build stages WASM and PDF.js in `apps/reader/`; serve that directory with a static HTTP server. Original test notes are not copied into the app.
 
-## Open with Expo Go
+## Expo Go
 
-After building the reader:
+After building the web reader:
 
 ```sh
 cd apps/mobile
@@ -27,40 +29,45 @@ npm ci
 npm start
 ```
 
-Scan the QR using Expo Go on the same Wi-Fi as the computer. The launcher starts both required servers. See [Expo setup and device validation limits](docs/EXPO.md).
+Use Expo Go compatible with SDK 57 and scan the QR on the same Wi-Fi. The command owns both Metro and the LAN reader server; Ctrl-C stops both. See [mobile setup and Android file opening](docs/USER_GUIDE.md#mobile-and-android-file-opening).
 
-## Features
+## Documentation
 
-- Scrollable pages with lazy rendering; actual embedded PDF backgrounds, images, imported ink and rich text.
-- Fixed-width pen, straight/freehand highlighter, line, rectangle, ellipse, triangle and arrow tools. New shapes are editable stroke outlines with direct insertion and draggable/keyboard corner handles.
-- Whole-stroke eraser, global undo/redo and non-destructive `.nfedit` projects.
-- Layer selection, creation, renaming, visibility, lock and opacity.
-- Multiple audio recordings through one player. Seeking restores full opacity to traces whose pen-down time has passed; future traces stay at 20%. Original ink alpha/highlighter blend remains intact.
-- Export the current page as SVG, including its PDF raster background and displayed audio state.
-- Experimental `.nfedit → .noteful` export preserving original media and untouched records. Native-app import validation remains outstanding.
-- No fixed note size or note count limit. Platform memory/address space and format field widths still apply.
+- [User guide](docs/USER_GUIDE.md): controls, files, playback, exports and mobile setup.
+- [Development](DEVELOPMENT.md): user-provided inputs, RE process, evidence snippets, architecture, every Python tool and remaining work.
+- [Native format](spec/noteful-v0.1.md): observed byte grammar, objects, text, audio and rendering semantics.
+- [Project format and native writer](spec/nfedit-v1.md): edit history, validation and export behavior.
 
-The ten original notes in `samples/` cover 204 pages. `tests/fixtures/` contains explicitly synthetic cases and a saved editing project. User-supplied PDF exports are independent visual references, never substitutes for editable ink.
+## Repository
 
-## Repository layout
-
-| Path | Responsibility |
+| Directory | Purpose |
 |---|---|
-| `crates/noteful-core/` | Byte parser, typed wire encoder, scene, text, audio timing, layers, editing and native writer; no OS/UI APIs |
-| `crates/noteful-wasm/` | Browser bindings around the same core |
-| `crates/noteful-cli/` | Inspection, verification, scene output and native export CLI |
-| `apps/mobile/` | Expo Go entry point, safe areas and system file sharing |
-| `apps/reader/` | Responsive reader/PWA, PDF.js adapter, virtual pages, tools and audio controls |
-| `spec/` | Observed native grammar and our project format |
-| `docs/` | Architecture, user guide, evidence interpretation and limitations, in English |
-| `research/python/` | Independent Python oracle and historical viewer backend |
-| `research/ghidra/` | Reproducible read-only Ghidra extraction scripts |
-| `research/evidence/` | Source manifests, extracted data, decompilation and validation reports |
-| `research/legacy-viewer/` | Historical comparison UI; not the product reader |
-| `tools/` | Build, serve, fixture generation and validation scripts |
-| `samples/`, `tests/` | Original corpus and regression suites |
+| `crates/` | Rust core, CLI and WASM adapter |
+| `apps/reader/`, `apps/mobile/` | Browser UI and Expo wrapper |
+| `samples/` | One unchanged corpus: ten native notes, 204 pages, one independent PDF reference; hashes in `manifest.json` |
+| `tests/` | Python regressions and explicitly synthetic fixtures |
+| `research/python/`, `research/legacy-viewer/` | Preserved independent oracle and historical comparison UI |
+| `research/ghidra/`, `research/evidence/` | Static-analysis scripts and small retained evidence baselines |
+| `tools/` | Build, serve, fixture generation and evidence checks |
+| `work/` | Ignored reports, optional galleries, extracted blocks and local tooling |
 
-Generated dependencies, WASM bindings, galleries, Python caches and `work/` are ignored. The local Ghidra database and original Git history were backed up before removing build/research scratch data from published history.
+The corpus is required by tests; it is not a demo bundle. Generated WASM/vendor files and installed dependencies are ignored. Large process extractions and caches are not versioned.
+
+## Validate
+
+```sh
+cargo fmt --all --check
+cargo clippy --workspace --all-targets --locked -- -D warnings
+cargo test --workspace --locked
+python3 -m unittest discover -s tests -v
+python3 tools/check_rust_parity.py
+python3 tools/check_scene_parity.py
+python3 tools/check_export.py
+node apps/reader/test.mjs
+node --test apps/reader/*.test.mjs apps/mobile/*.test.mjs tools/*.test.mjs
+```
+
+WASM runtime tests require the web build above. Python checks write current reports under `work/reports/`. In `apps/mobile`, run `npm run check`, `npm test` and `npm run export`. CI runs desktop conformance, Android/iOS core target checks, WASM execution and Expo bundling. Device execution remains separate from compilation.
 
 ## CLI
 
@@ -71,22 +78,4 @@ cargo run -p noteful-cli -- render 'samples/texto.noteful' > scene.json
 cargo run -p noteful-cli -- export project.nfedit > edited.noteful
 ```
 
-`render` emits scene SVG plus PDF resource references; the browser adapter composites the PDF. `verify` checks binary round-trip, not complete visual semantics. Redirect export to a new filename; it writes binary bytes to stdout.
-
-## Validation
-
-```sh
-cargo fmt --all --check
-cargo clippy --workspace --all-targets --locked -- -D warnings
-cargo test --workspace --locked
-python3 -m unittest discover -s tests -v
-python3 tools/check_rust_parity.py
-python3 tools/check_scene_parity.py
-node apps/reader/test.mjs
-node apps/reader/audio.test.mjs
-node --test apps/reader/ink-timeline.test.mjs tools/serve_web.test.mjs apps/mobile/connection.test.mjs
-```
-
-The CI matrix runs core/reference checks on Linux, Windows and macOS, plus Android target checking and actual WASM runtime tests. Local cross-target checks do not substitute for device execution. Native `.noteful` export is tested by re-importing into both decoders, preserving resource bytes, undo/redo and edit semantics; it has not yet been validated by importing modified output into Noteful.app.
-
-Known limitations: exact native ink interpolation, unknown auxiliary ink channels, advanced text layout, text editing, native parametric shape creation, native recording capture, and some format variants. See [architecture](docs/ARCHITECTURE.md), [reader guide](docs/WEB.md), [audio evidence](docs/AUDIO.md) and [native export](docs/EXPORT.md).
+`render` emits SVG with PDF descriptors for the host adapter. `verify` checks binary round-trip, not complete visual equivalence. Export writes binary bytes to stdout; use a new filename.

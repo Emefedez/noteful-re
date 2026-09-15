@@ -5,22 +5,25 @@ import json
 from pathlib import Path
 import re
 import zlib
+import shutil
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"research/python"))
-from noteful import parse, semantic_summary
+from noteful import parse, semantic_summary, extract
 from render_note import render
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    (ROOT / "work/reports").mkdir(parents=True, exist_ok=True)
     summaries = []
     for source in sorted((ROOT / "samples").glob("*.noteful")):
         data = source.read_bytes()
         report = parse(data)
         summary = semantic_summary(report)
-        target = ROOT / "research/evidence/extracted" / source.stem
-        target.mkdir(parents=True, exist_ok=True)
+        target = ROOT / "work/extracted" / source.stem
+        if target.exists(): shutil.rmtree(target)
+        extract(source, target)
         page = summary["pages"][0]
         w, h = page["size"]
         svg = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}">',
@@ -54,8 +57,8 @@ def main():
                           "blocks": [{k: b[k] for k in ("id", "offset", "size", "kind", "sha256")}
                                      for b in report["blocks"]],
                           "semantics": summary, "freehand": strokes, "pdf_content_streams": pdf_streams})
-    (ROOT / "research/evidence/corpus.json").write_text(json.dumps(summaries, indent=2, ensure_ascii=False) + "\n")
-    print(f"Compared {len(summaries)} samples; research/evidence/corpus.json")
+    (ROOT / "work/reports/corpus.json").write_text(json.dumps(summaries, indent=2, ensure_ascii=False) + "\n")
+    print(f"Compared {len(summaries)} samples; work/reports/corpus.json")
 
 
 if __name__ == "__main__":

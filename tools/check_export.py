@@ -3,6 +3,7 @@
 import base64,json,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+REPORTS=ROOT/'work/reports';REPORTS.mkdir(parents=True,exist_ok=True)
 sys.path.insert(0,str(ROOT/'research/python'))
 from noteful import parse,semantic_summary
 subprocess.run(['cargo','build','--locked','-p','noteful-cli'],cwd=ROOT,check=True)
@@ -20,5 +21,5 @@ for source in sorted((ROOT/'samples').glob('*.noteful')):
    new=by_id[b['id']];assert raw[b['offset']:b['offset']+b['size']]==output[new['offset']:new['offset']+new['size']]
  assert len(semantic_summary(parsed)['pages'])==len(semantic_summary(original)['pages'])
  rows.append({'file':source.name,'independent_parse':True,'added_strokes':1,'media_exact':True})
-(ROOT/'research/evidence/native-export-validation.json').write_text(json.dumps(rows,indent=2)+'\n')
+(REPORTS/'native-export-validation.json').write_text(json.dumps(rows,indent=2)+'\n')
 print('Independent native export validation:',len(rows),'notes passed')

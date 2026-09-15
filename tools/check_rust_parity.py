@@ -5,12 +5,12 @@ import math
 from pathlib import Path
 import subprocess
 import sys
-import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"research/python"))
 from noteful import parse, semantic_summary
 from render_note import render
 
 ROOT=Path(__file__).resolve().parents[1]
+REPORTS=ROOT/'work/reports';REPORTS.mkdir(parents=True,exist_ok=True)
 BIN=ROOT/'target/debug'/('noteful.exe' if sys.platform=='win32' else 'noteful')
 
 def rust_parse(data):
@@ -47,7 +47,7 @@ def main():
                      'all_native_fields_match':True,'semantic_equality':True,'svg_byte_equality':True,'binary_round_trip':True})
     output={'scope':'Rust decoder/field encoder vs Python reference; existing Python renderer; host execution only',
             'float_tolerance':{'relative':1e-13,'absolute':1e-10},'samples':rows}
-    (ROOT/'research/evidence/rust-parity.json').write_text(json.dumps(output,indent=2,ensure_ascii=False)+'\n')
+    (REPORTS/'rust-parity.json').write_text(json.dumps(output,indent=2,ensure_ascii=False)+'\n')
     print(f'Parity passed: {len(rows)} notes; all decoded fields, semantics, SVG and binary round-trip.')
 
 if __name__=='__main__':main()

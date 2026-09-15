@@ -1,5 +1,5 @@
 //! Pure byte-oriented core. No filesystem, UI, network, or platform APIs.
-//! Wire grammar and evidence: docs/FORMAT.md, docs/EXAMEN.md, docs/RENDERING.md.
+//! Wire grammar and evidence: spec/noteful-v0.1.md and DEVELOPMENT.md.
 #![forbid(unsafe_code)]
 
 mod editor;
