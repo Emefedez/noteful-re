@@ -22,6 +22,25 @@ export async function openPdf(data) {
     throw error;
   }
 }
+
+// Keep raster output sharp when a page is shown wider than its PDF user units.
+// The cache is keyed by the resulting pixel size so zooming can request a
+// higher-resolution image without reusing a blurry fit-width raster.
+export function rasterTarget(original, cssWidth, pixelRatio = globalThis.devicePixelRatio || 1) {
+  const quality = Math.max(2, Math.min(Number(pixelRatio) || 1, 3));
+  const maxPixels = 8192;
+  const requestedWidth = Math.max(1, Math.ceil(cssWidth * quality));
+  const scale = Math.min(
+    requestedWidth / original.width,
+    maxPixels / Math.max(original.width, original.height),
+  );
+  return {
+    scale,
+    width: Math.ceil(original.width * scale),
+    height: Math.ceil(original.height * scale),
+  };
+}
+
 export class PdfBackgrounds {
   constructor(read) {
     this.read = read;
@@ -46,21 +65,17 @@ export class PdfBackgrounds {
       );
     return this.documents.get(id);
   }
-  async image(background, size) {
-    const key = JSON.stringify([background, size]);
+  async image(background, size, displayWidth = size[0]) {
+    const key = JSON.stringify([background, size, Math.ceil(displayWidth)]);
     if (this.images.has(key)) return this.images.get(key);
     const doc = await this.document(background.resource_id);
     const page = await doc.getPage(background.page_index + 1);
     const original = page.getViewport({ scale: 1 });
-    // Canvas budget bounds preview resolution, never the size of the input note.
-    const scale = Math.min(
-      (size[0] * Math.min(devicePixelRatio || 1, 2)) / original.width,
-      4096 / Math.max(original.width, original.height),
-    );
-    const viewport = page.getViewport({ scale });
+    const target = rasterTarget(original, displayWidth);
+    const viewport = page.getViewport({ scale: target.scale });
     const canvas = document.createElement("canvas");
-    canvas.width = Math.ceil(viewport.width);
-    canvas.height = Math.ceil(viewport.height);
+    canvas.width = target.width;
+    canvas.height = target.height;
     try {
       await page.render({ canvasContext: canvas.getContext("2d"), viewport })
         .promise;

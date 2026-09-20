@@ -43,6 +43,7 @@ const chromeState = new ChromeState();
 let chromeSettling = false;
 let panels = [],
   observer = null,
+  thumbnailObserver = null,
   scrollFrame = 0,
   zoom = "fit";
 const audio = new AudioController(
@@ -110,6 +111,7 @@ function reset() {
   chromeState.reset();
   setCompact(false);
   observer?.disconnect();
+  thumbnailObserver?.disconnect();
   backgrounds?.close();
   audio.reset();
   panels = [];
@@ -228,6 +230,7 @@ function buildPages(sizes) {
       token: 0,
       loading: false,
       pdfReady: false,
+      rasterWidth: 0,
     };
     placeholder(p);
     fragment.append(el);
@@ -272,10 +275,16 @@ function buildPageList() {
     const button = document.createElement("button");
     button.className = "page-link";
     button.setAttribute("aria-label", `Page ${panel.index + 1}`);
-    const number = document.createElement("span");
-    number.className = "page-icon";
-    number.textContent = panel.index + 1;
-    button.append(number, document.createTextNode(`Page ${panel.index + 1}`));
+    const thumb = document.createElement("span");
+    thumb.className = "page-thumb";
+    const fallback = document.createElement("span");
+    fallback.className = "thumb-fallback";
+    fallback.textContent = panel.index + 1;
+    thumb.append(fallback);
+    const label = document.createElement("span");
+    label.className = "page-label";
+    label.textContent = `Page ${panel.index + 1}`;
+    button.append(thumb, label);
     button.onclick = () => {
       jump(panel.index);
       $("pagesPanel").classList.remove("open");
@@ -285,7 +294,66 @@ function buildPageList() {
     fragment.append(button);
   }
   $("pageList").replaceChildren(fragment);
+  thumbnailObserver?.disconnect();
+  thumbnailObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const panel = panels.find((candidate) => candidate.pageButton === entry.target);
+        if (panel && !panel.thumbnailReady) renderThumbnail(panel);
+      }
+    },
+    { root: $("pagesPanel"), rootMargin: "240px 0px" },
+  );
+  for (const panel of panels) thumbnailObserver.observe(panel.pageButton);
   markPage();
+}
+async function renderThumbnail(panel) {
+  if (panel.thumbnailLoading || panel.thumbnailReady || !doc) return;
+  panel.thumbnailLoading = true;
+  try {
+    const result = panel.view || (await call("view", { page: panel.index }));
+    const render = document.createElement("div");
+    render.innerHTML = result.svg;
+    if (result.pdf_background) {
+      const thumb = panel.pageButton.querySelector(".page-thumb");
+      const width = Math.max(80, thumb?.clientWidth || 128);
+      const image = await backgrounds.image(result.pdf_background, panel.size, width);
+      const el = document.createElementNS(ns, "image");
+      for (const [key, value] of Object.entries({
+        href: image,
+        width: panel.size[0],
+        height: panel.size[1],
+        preserveAspectRatio: "none",
+      }))
+        el.setAttribute(key, value);
+      render.querySelector("[data-background]")?.replaceChildren(el);
+    }
+    const source = render.querySelector(":scope > svg");
+    const target = panel.pageButton.querySelector(".page-thumb");
+    if (source && target) {
+      source.removeAttribute("width");
+      source.removeAttribute("height");
+      source.setAttribute("aria-hidden", "true");
+      target.replaceChildren(source);
+      panel.thumbnailReady = true;
+    }
+  } catch {
+    // The numbered fallback remains useful if a thumbnail cannot be decoded.
+  } finally {
+    panel.thumbnailLoading = false;
+  }
+}
+function updatePagePreview(panel) {
+  const thumb = panel.pageButton?.querySelector(".page-thumb");
+  const source = panel.render?.querySelector(":scope > svg");
+  if (!thumb || !source) return;
+  const preview = source.cloneNode(true);
+  preview.removeAttribute("width");
+  preview.removeAttribute("height");
+  preview.setAttribute("aria-hidden", "true");
+  thumb.replaceChildren(preview);
+  panel.thumbnailReady = true;
 }
 function markPage() {
   for (const panel of panels) {
@@ -342,11 +410,22 @@ function resize() {
   const gutter =
     parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
   const space = Math.max(1, $("viewport").clientWidth - gutter);
-  for (const p of panels)
+  const reraster = [];
+  for (const p of panels) {
     p.el.style.width =
-      (fit ? Math.min(p.size[0], space) : p.size[0] * zoom) + "px";
+      (fit ? space : p.size[0] * zoom) + "px";
+    const width = p.el.clientWidth;
+    if (
+      p.view?.pdf_background &&
+      p.rasterWidth > 0 &&
+      Math.abs(width - p.rasterWidth) / p.rasterWidth > 0.08 &&
+      !p.loading
+    )
+      reraster.push(p);
+  }
   updateZoom();
   selection.render(panels[selection.item?.page]);
+  for (const p of reraster) renderPage(p, p.view);
 }
 async function renderPage(p, provided) {
   if (gesture?.panel === p) {
@@ -384,8 +463,14 @@ async function renderPage(p, provided) {
     syncInk();
     shapeHandles(p);
     if (p.index === page) updateTools(result);
+    updatePagePreview(p);
     if (result.pdf_background) {
-      const image = await backgrounds.image(result.pdf_background, p.size);
+      const displayWidth = p.el.clientWidth || p.size[0];
+      const image = await backgrounds.image(
+        result.pdf_background,
+        p.size,
+        displayWidth,
+      );
       if (note !== epoch || token !== p.token || version !== revision) return;
       const el = document.createElementNS(ns, "image");
       for (const [k, v] of Object.entries({
@@ -397,6 +482,8 @@ async function renderPage(p, provided) {
         el.setAttribute(k, v);
       render.querySelector("[data-background]").replaceChildren(el);
       p.pdfReady = true;
+      p.rasterWidth = displayWidth;
+      updatePagePreview(p);
     }
   } catch (e) {
     if (note === epoch && token === p.token) {
@@ -1099,7 +1186,7 @@ function currentZoom() {
 }
 function updateZoom() {
   const value = currentZoom();
-  $("zoomValue").textContent = Math.round(value * 100) + "%";
+  $("zoomValue").textContent = zoom === "fit" ? "Fit" : Math.round(value * 100) + "%";
   $("zoomFit").setAttribute("aria-pressed", String(zoom === "fit"));
   $("zoomOut").disabled = value <= 0.1;
   $("zoomIn").disabled = value >= 4;
