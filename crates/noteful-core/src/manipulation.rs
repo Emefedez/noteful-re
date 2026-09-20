@@ -240,6 +240,9 @@ impl Editor {
         if let Some(item) = self.page(page)?.items.iter().find(|i| i.id == id) {
             return Ok(item_geometry(item));
         }
+        if let Some((key, image)) = self.images(page).find(|(key, _)| key == id) {
+            return Ok(item_geometry(&image.item(key)));
+        }
         self.additions(page)
             .find(|(key, _)| key == id)
             .map(|(_, l)| line_geometry(l))
@@ -259,6 +262,11 @@ impl Editor {
                 self.additions(page)
                     .find(|(key, _)| key == id)
                     .map(|(_, l)| l.layer)
+            })
+            .or_else(|| {
+                self.images(page)
+                    .find(|(key, _)| key == id)
+                    .map(|(_, image)| image.layer)
             })
             .ok_or_else(|| Error::new(0, "Item not found"))?;
         if !self
@@ -327,6 +335,8 @@ impl Editor {
         let a = adjustments.get(id).copied();
         let svg = if let Some(item) = self.page(page)?.items.iter().find(|i| i.id == id) {
             item_svg(item, a)?
+        } else if let Some((key, image)) = self.images(page).find(|(key, _)| key == id) {
+            item_svg(&image.item(key), a)?
         } else {
             let (_, line) = self
                 .additions(page)
@@ -367,6 +377,27 @@ impl Editor {
                         &line.points,
                         adjustments.get(id.as_str()).copied(),
                         false,
+                    )
+                {
+                    return self.selection(page, id).map(Some);
+                }
+            }
+            for (id, image) in self
+                .images(page)
+                .collect::<Vec<_>>()
+                .iter()
+                .rev()
+                .filter(|(_, image)| image.layer == layer.id)
+            {
+                let item = image.item(id.clone());
+                if !deleted.contains(id.as_str())
+                    && hit_geometry(
+                        p,
+                        tolerance,
+                        &item_geometry(&item),
+                        &[],
+                        adjustments.get(id.as_str()).copied(),
+                        true,
                     )
                 {
                     return self.selection(page, id).map(Some);

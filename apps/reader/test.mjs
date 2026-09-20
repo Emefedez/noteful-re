@@ -87,3 +87,24 @@ modifiedProject.undo();assert.equal(JSON.parse(modifiedProject.selection(0,'new:
 const modifiedNative=new EditorSession(modifiedProject.export_noteful());assert.ok(JSON.parse(modifiedNative.view(0)).svg.includes('rgb(0,255,0)'));
 modifiedNative.free();modifiedProject.free();modifySession.free();
 console.log('WASM item editing: hit selection, compact item patch, style/rotation, project undo/redo and native export passed.');
+
+// Exercise the actual worker protocol, including failed replacement preservation.
+const responses=[];
+globalThis.self={};globalThis.postMessage=message=>responses.push(message);
+await import('./worker.js');
+const send=async data=>{await self.onmessage({data});return responses.findLast(r=>r.id===data.id);};
+const source=readFileSync(new URL('../../samples/nota_vacia.noteful',import.meta.url));
+assert.ok((await send({id:1,op:'open',bytes:source})).result);
+await send({id:2,op:'draw',line:{points:[[10,10],[100,100]],width:2,rgba:[0,0,1,1]}});
+const before=(await send({id:3,op:'save'})).result;
+assert.ok((await send({id:4,op:'open',project:true,bytes:new TextEncoder().encode('{"invalid":true}')})).error);
+assert.equal((await send({id:5,op:'save'})).result,before);
+const imported=await send({id:6,op:'open',title:'PDF import',sizes:[[612,792],[792,612]],bytes:new TextEncoder().encode('%PDF-1.7\nfixture\n%%EOF')});
+assert.equal(imported.result.pages,2);
+const image={base64:'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aB1sAAAAASUVORK5CYII=',mime:'image/png',bounds:[10,20,100,60],layer:0};
+assert.equal((await send({id:7,op:'image',page:1,image})).result.visible_added,1);
+const savedImport=(await send({id:8,op:'save'})).result;
+const reloadedImport=EditorSession.load_project(savedImport);
+assert.equal(JSON.parse(reloadedImport.view(1)).visible_added,1);
+reloadedImport.undo();assert.equal(JSON.parse(reloadedImport.view(1)).visible_added,0);reloadedImport.free();
+console.log('WASM imports: PDF pages, image undo/reload and failed document replacement preserve the session.');

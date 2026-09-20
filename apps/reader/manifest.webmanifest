@@ -1,5 +1,5 @@
 {
-  "name": "NoteComplete - a RE noteful viewer",
+  "name": "NoteComplete",
   "short_name": "NoteComplete",
   "start_url": "./",
   "scope": "./",
@@ -14,5 +14,5 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "A local-first reader and editor for Noteful notes."
+  "description": "A local-first reader and editor for notes, PDFs and images."
 }

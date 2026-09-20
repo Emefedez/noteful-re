@@ -22,6 +22,10 @@ pub struct Line {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "kind", deny_unknown_fields)]
 pub(crate) enum Edit {
+    Image {
+        page: usize,
+        image: crate::Image,
+    },
     Adjust {
         page: usize,
         id: String,
@@ -331,6 +335,22 @@ impl Editor {
                     imported += 1;
                 }
             }
+            for (id, image) in self
+                .images(page)
+                .filter(|(_, image)| image.layer == layer.id)
+            {
+                if !deleted.contains(id.as_str()) {
+                    let item = image.item(id.clone());
+                    content.push_str(&format!(
+                        "<g data-item=\"{id}\">{}</g>",
+                        crate::manipulation::item_svg(
+                            &item,
+                            adjustments.get(id.as_str()).copied()
+                        )?
+                    ));
+                    added += 1;
+                }
+            }
             for (id, line) in additions.iter().filter(|(_, l)| l.layer == layer.id) {
                 if !deleted.contains(id.as_str()) {
                     content.push_str(&format!(
@@ -362,7 +382,11 @@ impl Editor {
     pub fn save_project(&self) -> Result<String> {
         let data = serde_json::to_string(&Project {
             format: "noteful-re-project".to_owned(),
-            version: 1,
+            version: if self.history.iter().any(|e| matches!(e, Edit::Image { .. })) {
+                2
+            } else {
+                1
+            },
             source_base64: STANDARD.encode(&self.source),
             history: self.history.clone(),
             cursor: self.cursor,
@@ -392,7 +416,7 @@ impl Editor {
         let project: Project =
             serde_json::from_str(data).map_err(|e| Error::new(0, e.to_string()))?;
         if project.format != "noteful-re-project"
-            || project.version != 1
+            || !matches!(project.version, 1 | 2)
             || project.cursor > project.history.len()
         {
             return Err(Error::new(0, "Unsupported or invalid project"));
@@ -403,6 +427,7 @@ impl Editor {
         let mut editor = Self::open(&source)?;
         for edit in project.history {
             match edit {
+                Edit::Image { page, image } => editor.add_image(page, image)?,
                 Edit::Adjust {
                     page,
                     id,
@@ -436,6 +461,7 @@ impl Editor {
                         .iter()
                         .map(|i| i.id.clone())
                         .chain(editor.additions(page).map(|(id, _)| id))
+                        .chain(editor.images(page).map(|(id, _)| id))
                         .collect();
                     let unique: HashSet<_> = ids.iter().collect();
                     if ids.is_empty()

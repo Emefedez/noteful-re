@@ -3,6 +3,8 @@
 #![forbid(unsafe_code)]
 
 mod editor;
+mod imports;
+pub use imports::Image;
 mod manipulation;
 pub use manipulation::Adjustment;
 mod export;

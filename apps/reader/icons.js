@@ -1,4 +1,6 @@
 const paths = {
+ image:'M3 3h18v18H3zM3 17l6-6 4 4 3-3 5 5M15 7h.01',
+ pages:'M4 3h16v18H4zM9 3v18M6 7h1M6 11h1M6 15h1',
  select:'m5 3 15 9-7 2-4 7L5 3Z',
  collapse:'m6 14 6-6 6 6',
  pan:'M8 12V6a2 2 0 0 1 4 0v5-7a2 2 0 0 1 4 0v7-5a2 2 0 0 1 4 0v8c0 5-3 8-7 8h-1c-2 0-3-1-4-3l-4-6a2 2 0 0 1 3-2l1 1Z',

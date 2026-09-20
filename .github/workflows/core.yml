@@ -70,6 +70,6 @@ jobs:
         working-directory: apps/mobile
       - run: npm run check
         working-directory: apps/mobile
-      - run: node --test apps/mobile/*.test.mjs apps/reader/ink-timeline.test.mjs apps/reader/chrome-state.test.mjs apps/reader/selection-geometry.test.mjs apps/reader/selection.test.mjs apps/reader/download.test.mjs apps/reader/import.test.mjs tools/serve_web.test.mjs
+      - run: node --test apps/mobile/*.test.mjs apps/reader/ink-timeline.test.mjs apps/reader/chrome-state.test.mjs apps/reader/selection-geometry.test.mjs apps/reader/selection.test.mjs apps/reader/download.test.mjs apps/reader/import.test.mjs apps/reader/media-import.test.mjs tools/serve_web.test.mjs
       - run: npm run export
         working-directory: apps/mobile

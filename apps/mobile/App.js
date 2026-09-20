@@ -11,13 +11,14 @@ import {readerURL, exportRequest, allowsNavigation} from './connection.mjs';
 
 export default function App() {
  const web = useRef(null), sharing = useRef(false), incoming = useRef(null);
+ const [notice, setNotice] = useState('');
  const [error, setError] = useState(''), [attempt, setAttempt] = useState(0);
  const dark = useColorScheme() === 'dark';
  const background = dark ? '#1c2839' : '#f1f5f9', ink = dark ? '#e8eef8' : '#202d40';
  let uri, configError;
  try { uri = readerURL(process.env.EXPO_PUBLIC_READER_URL, Constants.expoConfig?.hostUri, Constants.expoConfig?.extra?.readerPort); }
  catch (e) { configError = e.message; }
- if(!incoming.current)incoming.current=new IncomingFiles({read:uri=>FileSystem.readAsStringAsync(uri,{encoding:FileSystem.EncodingType.Base64}),post:message=>web.current?.postMessage(JSON.stringify(message)),error:e=>setError('Could not read the opened file: '+e.message)});
+ if(!incoming.current)incoming.current=new IncomingFiles({read:uri=>FileSystem.readAsStringAsync(uri,{encoding:FileSystem.EncodingType.Base64}),post:message=>web.current?.postMessage(JSON.stringify(message)),error:e=>setNotice('Could not open that file: '+e.message)});
  useEffect(()=>{const subscription=Linking.addEventListener('url',event=>incoming.current.open(event.url));Linking.getInitialURL().then(url=>incoming.current.open(url)).catch(e=>setError(e.message));return()=>subscription.remove();},[]);
  const reply = result => web.current?.postMessage(JSON.stringify({type:'noteful-export-result', ...result}));
  async function onMessage(event) {
@@ -43,6 +44,7 @@ export default function App() {
  }
  return <SafeAreaProvider><SafeAreaView style={[styles.root,{backgroundColor:background}]}>
   <StatusBar style={dark ? 'light' : 'dark'}/>
+  {notice ? <View style={styles.notice}><Text style={{color:ink,flex:1}}>{notice}</Text><Pressable accessibilityRole="button" accessibilityLabel="Dismiss file error" onPress={()=>setNotice('')} style={{padding:12}}><Text style={{color:ink}}>Dismiss</Text></Pressable></View> : null}
   {error || configError ? <View style={styles.message}>
    <Text style={[styles.title,{color:ink}]}>Your notebook is within reach.</Text>
    <Text style={[styles.description,{color:ink}]}>Keep your computer and phone on the same Wi-Fi, with the reader running on your computer.</Text>
@@ -58,6 +60,7 @@ export default function App() {
  </SafeAreaView></SafeAreaProvider>;
 }
 const styles = StyleSheet.create({
+ notice:{padding:12,flexDirection:'row',alignItems:'center',gap:8},
  root:{flex:1}, loading:{...StyleSheet.absoluteFillObject,alignItems:'center',justifyContent:'center',gap:20},
  message:{flex:1,justifyContent:'center',padding:32,gap:20}, title:{fontSize:30,fontWeight:'600',letterSpacing:-1},
  description:{fontSize:16,lineHeight:25,opacity:.8},detail:{fontSize:12,lineHeight:18,opacity:.65},

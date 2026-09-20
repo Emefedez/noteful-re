@@ -24,6 +24,17 @@ impl EditorSession {
             inner: noteful_core::Editor::open_project(data).map_err(js_error)?,
         })
     }
+    pub fn create_document(title: &str, sizes: &str, pdf: &[u8]) -> Result<EditorSession, JsValue> {
+        let sizes: Vec<[f64; 2]> = serde_json::from_str(sizes).map_err(js_error)?;
+        Ok(Self {
+            inner: noteful_core::Editor::create_document(title, &sizes, pdf).map_err(js_error)?,
+        })
+    }
+    pub fn add_image(&mut self, page: usize, image: &str) -> Result<(), JsValue> {
+        self.inner
+            .add_image(page, serde_json::from_str(image).map_err(js_error)?)
+            .map_err(js_error)
+    }
     pub fn view(&self, page: usize) -> Result<String, JsValue> {
         Ok(self.inner.view(page).map_err(js_error)?.to_string())
     }

@@ -4,7 +4,7 @@ use crate::{
     MAGIC,
 };
 use std::collections::{HashMap, HashSet};
-fn f(tag: u16, wire_type: u16, value: V) -> Field {
+pub(crate) fn f(tag: u16, wire_type: u16, value: V) -> Field {
     Field {
         tag,
         wire_type,
@@ -44,7 +44,7 @@ fn array(fs: &mut [Field], tag: u16) -> Result<&mut Vec<V>> {
         _ => Err(Error::new(0, format!("Missing array tag {tag}"))),
     }
 }
-fn collection(id_type: u16) -> Vec<Field> {
+pub(crate) fn collection(id_type: u16) -> Vec<Field> {
     vec![
         f(1, 0x400 | id_type, V::Array(vec![])),
         f(2, 0x402, V::Array(vec![])),
@@ -290,7 +290,11 @@ impl Editor {
                     (id, line)
                 })
                 .collect();
-            if deleted.is_empty() && added.is_empty() && adjustments.is_empty() {
+            if deleted.is_empty()
+                && added.is_empty()
+                && adjustments.is_empty()
+                && self.images(page_no).next().is_none()
+            {
                 continue;
             }
             let existing = package.blocks.iter().find(|b| b.id == page.editable_id);
@@ -347,6 +351,35 @@ impl Editor {
                         ink.extend(&raw[s.offset..s.offset + s.size]);
                     }
                 }
+            }
+            let mut image_objects = Vec::new();
+            for (id, image) in self
+                .images(page_no)
+                .filter(|(id, _)| !deleted.contains(id.as_str()))
+            {
+                let mut suffix = 0;
+                let resource = loop {
+                    let key = format!("image-{time}-{page_no}-{id}-{suffix}");
+                    if !blocks.iter().any(|(existing, _)| existing == &key) {
+                        break key;
+                    }
+                    suffix += 1;
+                };
+                z = z
+                    .checked_add(1)
+                    .ok_or_else(|| Error::new(0, "Z-order overflow"))?;
+                let object_id = format!("object-{resource}");
+                image_objects.push((
+                    object_id.clone(),
+                    V::Fields(image.native_object(
+                        &object_id,
+                        &resource,
+                        z,
+                        adjustments.get(id.as_str()).copied(),
+                    )),
+                ));
+                array(&mut index, 3)?.push(V::Text(resource.clone()));
+                blocks.push((resource, image.bytes()?));
             }
             for (_, line) in added {
                 while ids.contains(&next_id) {
@@ -413,6 +446,12 @@ impl Editor {
                         *v = V::UInt(time);
                     }
                 }
+            }
+            for (id, value) in image_objects {
+                array(objects, 0)?.push(value);
+                array(objects, 1)?.push(V::Text(id));
+                array(objects, 2)?.push(V::UInt(time));
+                array(objects, 3)?.push(V::UInt(1));
             }
             let encoded = crate::encode_fields(&fields)?;
             if let Some(b) = existing {
