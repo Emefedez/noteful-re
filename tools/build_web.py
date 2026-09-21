@@ -39,6 +39,16 @@ def main():
     for folder in ['cmaps','standard_fonts','wasm']:
         shutil.copytree(pdfjs/folder,vendor/folder,dirs_exist_ok=True)
     shutil.copy2(pdfjs/'LICENSE',vendor/'LICENSE')
+    # Bundle the local speech engine; model weights are fetched only on user request.
+    speech=ROOT/'apps/reader/vendor/transformers'
+    if speech.exists(): shutil.rmtree(speech)
+    speech.mkdir(parents=True,exist_ok=True)
+    transformers=ROOT/'apps/reader/node_modules/@huggingface/transformers'
+    shutil.copy2(transformers/'dist/transformers.min.js',speech/'transformers.min.js')
+    shutil.copy2(transformers/'LICENSE',speech/'LICENSE')
+    runtime=ROOT/'apps/reader/node_modules/onnxruntime-web/dist'
+    for name in ['ort-wasm-simd-threaded.asyncify.mjs','ort-wasm-simd-threaded.asyncify.wasm']:
+        shutil.copy2(runtime/name,speech/name)
     reader=ROOT/'apps/reader'
     assets=sorted(p.name for p in reader.iterdir() if p.is_file() and p.suffix in ('.html','.js','.css','.svg','.webmanifest'))
     assets+=sorted(str(p.relative_to(reader)) for folder in ('pkg','vendor') for p in (reader/folder).rglob('*') if p.is_file() and p.suffix not in ('.map','.ts'))

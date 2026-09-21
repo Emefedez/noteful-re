@@ -14,6 +14,17 @@
     href="./icon.svg"
   /><link rel="stylesheet" href="./style.css" />
   <header class="chrome">
+    <details id="documentMenu" class="menu document-menu">
+      <summary aria-label="Document menu" title="Document menu" data-icon="menu"></summary>
+      <div class="menu-content">
+        <p id="menuTitle" class="muted">Local documents</p>
+        <button id="open" data-icon="open" disabled>Open document</button>
+        <button id="save" disabled>Save project</button>
+        <hr />
+        <button id="native" disabled>Export .noteful <span class="experimental">Experimental</span></button>
+        <button id="svg" disabled>Export page SVG</button>
+      </div>
+    </details>
     <div class="brand">
       <span class="app-icon" data-icon="note"></span>
       <div>
@@ -22,10 +33,8 @@
         <span id="saveState" hidden>Unsaved changes</span>
       </div>
     </div>
-    <div class="row">
-      <button id="open" data-icon="open" disabled>Open</button
-      ><button id="save" class="primary" disabled>Save project</button
-      ><input
+    <div hidden>
+      <input
         id="file"
         type="file"
         accept=".noteful,.nfedit,.pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/png,image/jpeg,image/webp"
@@ -37,15 +46,6 @@
         multiple
         hidden
       />
-      <details class="menu">
-        <summary data-icon="export">Export</summary>
-        <div class="menu-content">
-          <button id="native" disabled>
-            Export .noteful
-            <span class="experimental">Experimental</span></button
-          ><button id="svg" disabled>Export page SVG</button>
-        </div>
-      </details>
     </div>
   </header>
   <main id="drop">
@@ -77,16 +77,16 @@
           ><button data-tool="shape" aria-pressed="false">
             <span class="tool-name">Shapes</span>
           </button>
-        </div>
-        <div class="toolbar-actions">
           <button
             id="importImage"
             aria-label="Import image"
             title="Import image"
             data-icon="image"
             disabled
-          ></button
-          ><button
+          ><span class="tool-name">Image</span></button>
+        </div>
+        <div class="toolbar-actions">
+          <button
             id="undo"
             title="Ctrl/⌘ Z"
             aria-label="Undo"
@@ -299,6 +299,27 @@
           /><output id="audioTime">0:00 / 0:00</output>
         </div>
         <p id="audioState" role="status"></p>
+        <details id="transcriptPanel" class="transcript-panel">
+          <summary>Transcript <span class="muted">On device</span></summary>
+          <div class="transcript-controls">
+            <select id="transcriptLanguage" aria-label="Spoken language">
+              <option value="">Detect language</option>
+              <option value="spanish" selected>Castellano</option>
+              <option value="galician">Galego</option>
+              <option value="english">English</option>
+              <option value="catalan">Catalan</option>
+              <option value="french">French</option>
+              <option value="german">German</option>
+              <option value="italian">Italian</option>
+              <option value="portuguese">Portuguese</option>
+            </select>
+            <button id="transcribeAudio" type="button">Transcribe recording</button>
+            <button id="cancelTranscript" type="button" hidden>Cancel</button>
+            <button id="downloadTranscript" type="button" hidden>Export transcript</button>
+          </div>
+          <p id="transcriptStatus" role="status">Whisper downloads its model on first use. Audio stays on this device.</p>
+          <div id="transcriptWords" aria-label="Transcript words"></div>
+        </details>
         <audio id="audio" preload="metadata"></audio>
       </section>
       <p id="warnings" class="muted"></p>

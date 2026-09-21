@@ -22,9 +22,18 @@ export class AudioController {
  }
  get recording(){return $('syncEnabled').checked?this.entries[this.index]?.recording:null;}
  get time(){return this.audio.currentTime||0;}
- tick(){this.changed();if(!this.audio.paused)this.frame=requestAnimationFrame(()=>this.tick());}
+ tick(){this.changed();this.transcript?.update();if(!this.audio.paused)this.frame=requestAnimationFrame(()=>this.tick());}
  seek(t){if(this.audio.readyState){this.audio.currentTime=t;this.update();}}
- reset(){this.token++;this.audio.pause();this.audio.removeAttribute('src');this.audio.load();cancelAnimationFrame(this.frame);for(const url of this.urls.values())URL.revokeObjectURL(url);this.urls.clear();this.positions.clear();this.entries=[];this.index=undefined;$('audioBar').hidden=true;}
+ async seekRecording(id,time){
+  const index=this.entries.findIndex(entry=>entry.recording?.id===id);
+  if(index<0||!this.entries[index].asset||!Number.isFinite(time)||time<0)return false;
+  this.positions.set(index,time);
+  if(this.index===index){this.seek(time);return true;}
+  $('recording').value=String(index);
+  await this.select(index);
+  return true;
+ }
+ reset(){this.transcript?.reset();this.token++;this.audio.pause();this.audio.removeAttribute('src');this.audio.load();cancelAnimationFrame(this.frame);for(const url of this.urls.values())URL.revokeObjectURL(url);this.urls.clear();this.positions.clear();this.entries=[];this.index=undefined;$('audioBar').hidden=true;}
  open(assets,recordings){
   this.reset();this.entries=recordings.map(recording=>({recording,asset:assets.find(a=>a.id===recording.asset_id)}));
   for(const asset of assets)if(!recordings.some(r=>r.asset_id===asset.id))this.entries.push({asset});
@@ -35,6 +44,7 @@ export class AudioController {
  async select(index){
   if(this.index!==undefined)this.positions.set(this.index,this.time);
   this.audio.pause();const token=++this.token;this.index=index;const entry=this.entries[index];this.audio.onloadedmetadata=null;$('recordingTitle').textContent=recordingName(entry?.recording,index);$('recording').title=$('recordingTitle').textContent;
+  this.transcript?.select(entry?.asset);
   this.audio.removeAttribute('src');this.audio.load();$('playAudio').disabled=true;$('audioSeek').disabled=true;$('audioState').textContent='Loading audio…';$('audioDownload').hidden=true;
   $('audioPage').disabled=!entry?.recording?.pages.length;this.changed();
   if(!entry?.asset){$('audioState').textContent='Audio resource is missing.';return;}
@@ -48,6 +58,6 @@ export class AudioController {
  }
  update(){
   $('audioSeek').value=this.time;$('audioTime').textContent=`${clock(this.time)} / ${clock(this.audio.duration||0)}`;
-  $('playAudio').textContent=this.audio.paused?'Play':'Pause';this.changed();
+  $('playAudio').textContent=this.audio.paused?'Play':'Pause';this.changed();this.transcript?.update();
  }
 }

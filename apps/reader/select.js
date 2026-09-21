@@ -29,6 +29,8 @@ export function enhanceSelects() {
       if (button.disabled) return;
       active?.close();
       menu = document.createElement('div'); menu.className = 'select-menu';
+      const compact = !!select.closest('#toolOptions');
+      if (compact) menu.classList.add('compact-select');
       menu.id = `${select.id}-options`; menu.setAttribute('role', 'listbox');
       menu.setAttribute('aria-label', select.getAttribute('aria-label'));
       button.setAttribute('aria-controls', menu.id); button.setAttribute('aria-expanded', 'true');
@@ -43,7 +45,7 @@ export function enhanceSelects() {
       }
       document.body.append(menu);
       const rect = button.getBoundingClientRect(), margin = 12;
-      menu.style.width = `${Math.min(Math.max(rect.width, select.id === 'recording' ? 330 : 210), innerWidth - margin * 2)}px`;
+      menu.style.width = `${Math.min(Math.max(rect.width, select.id === 'recording' ? 330 : compact ? 140 : 210), innerWidth - margin * 2)}px`;
       const below = innerHeight - rect.bottom - margin, above = rect.top - margin;
       menu.style.maxHeight = `${Math.min(380, Math.max(below, above))}px`;
       menu.style.left = `${Math.max(margin, Math.min(rect.left, innerWidth - menu.offsetWidth - margin))}px`;

@@ -16,4 +16,10 @@ assert.equal(elements.get('recordingTitle').textContent,'Questions');assert.equa
 elements.get('audioPage').onclick();assert.deepEqual(jumps,[8,12]);controller.seek(11);
 elements.get('recording').value='0';await elements.get('recording').onchange();elements.get('audio').onloadedmetadata();assert.equal(controller.time,8.5);assert.deepEqual(reads,['a','b']);
 elements.get('syncEnabled').checked=false;assert.equal(controller.recording,null);elements.get('audioPage').onclick();assert.deepEqual(jumps,[8,12,8]);
-controller.reset();assert.ok(elements.get('audioBar').hidden);console.log('Audio transport: real names, separate positions, resource cache, page jumps and disabled sync passed.');
+assert.equal(await controller.seekRecording('missing',2),false);
+assert.equal(await controller.seekRecording('r2',4.2),true);
+assert.equal(elements.get('recording').value,'1');
+elements.get('audio').onloadedmetadata();assert.equal(controller.time,4.2);
+assert.equal(await controller.seekRecording('r2',7),true);assert.equal(controller.time,7);
+assert.deepEqual(reads,['a','b']);
+controller.reset();assert.ok(elements.get('audioBar').hidden);console.log('Audio transport: real names, positions, resource cache, page jumps, timed-stroke seeking and disabled sync passed.');

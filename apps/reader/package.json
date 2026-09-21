@@ -1,1 +1,1 @@
-{"private":true,"type":"module","scripts":{"test":"node test.mjs"},"dependencies":{"pdfjs-dist":"6.3.289"}}
+{"private":true,"type":"module","scripts":{"test":"node test.mjs"},"dependencies":{"@huggingface/transformers":"4.3.0","pdfjs-dist":"6.3.289"}}

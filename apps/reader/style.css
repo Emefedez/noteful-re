@@ -470,6 +470,7 @@ input[type="color"]::-webkit-color-swatch {
   touch-action: pan-x pan-y;
   cursor: grab;
 }
+.sheet[data-tool="pan"] [data-timed-ink] { cursor: pointer; }
 .sheet:not([data-tool="pan"]) {
   touch-action: none;
   cursor: crosshair;
@@ -998,8 +999,51 @@ main.drag {
   }
 }
 
+/* Compact document chrome and floating tool settings preserve the canvas. */
+header.chrome { min-height: 48px; padding: 4px 12px; justify-content: flex-start; gap: 8px; }
+header .app-icon, header h1 { display: none; }
+header .brand > div { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
+header p { font-size: 13px; max-width: 65vw; }
+.document-menu > summary { width: 40px; height: 40px; padding: 10px; }
+.document-menu > summary svg { display: block; }
+.document-menu .menu-content { left: 0; right: auto; width: min(290px, calc(100vw - 24px)); }
+.document-menu #open, .document-menu #save { width: 100%; max-width: none; font-size: 13px; gap: 8px; justify-content: flex-start; }
+.document-menu hr { border: 0; border-top: 1px solid var(--line); margin: 5px; }
+#menuTitle { max-width: none; padding: 6px 10px; font-size: 12px; }
+.segmented > header.chrome { padding: 0; border: 0; min-height: 36px; background: transparent; }
+.segmented > header.chrome .brand { display: none; }
+.segmented > header.chrome .document-menu > summary { height: 36px; }
+.toolbar { position: relative; }
+.tool-options { position: absolute; top: calc(100% + 6px); left: 12px; z-index: 20; width: max-content; max-width: calc(100% - 24px); padding: 7px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); box-shadow: 0 5px 20px #0002; }
+.tool-options { top: calc(100% + 52px); }
+.tool-options .option-group { gap: 5px; }
+.tool-options .select-trigger { min-width: 65px; }
+.compact-select .select-heading { padding: 4px 8px; }
+.compact-select [role="option"] { min-height: 36px; padding: 5px 26px 5px 8px; }
+.transcript-panel { grid-column: 1 / -1; min-width: 0; }
+.transcript-panel > summary { font-size: 12px; padding: 2px 0; min-height: 28px; }
+.transcript-controls { display: flex; gap: 6px; flex-wrap: wrap; }
+#transcriptStatus { font-size: 12px; color: var(--muted); margin: 5px 0; }
+#transcriptWords { max-height: 160px; overflow: auto; line-height: 1.9; padding: 4px 0; }
+#transcriptWords button { display: inline; min-height: 0; padding: 2px 3px; border-radius: 3px; font-size: 14px; line-height: inherit; }
+#transcriptWords button[aria-current="true"] { background: var(--accent); color: white; }
 #audioDetails { display: none; }
 @media (max-width:700px) {
+  header.chrome { min-height: 46px; padding: 3px 8px; }
+  header .brand > div { display: block; }
+  header p { max-width: calc(100vw - 78px); }
+  header #saveState { font-size: 10px; }
+  .segmented { gap: 1px; }
+  .segmented > header.chrome { flex: none; width: 32px; }
+  .segmented > header.chrome .document-menu > summary { width: 32px; padding: 6px; }
+  .segmented button { min-width: 35px; font-size: 10px; }
+  .segmented .document-menu .menu-content { top: auto; bottom: calc(100% + 12px); }
+  .segmented .document-menu button { flex-direction: row; width: 100%; min-height: 40px; font-size: 13px; }
+  .tool-options { top: auto; bottom: calc(100% + 6px); left: 6px; width: max-content; max-width: calc(100% - 12px); padding: 6px; border: 1px solid var(--line); max-height: 30dvh; }
+  .tool-options button, .tool-options .select-trigger { min-height: 36px; }
+  .tool-options .color-label { width: 36px; height: 36px; }
+  #selectionFields { max-width: 330px; gap: 5px; }
+  #transcriptWords { max-height: 110px; }
   #audioDetails { display: inline-flex; justify-self: start; grid-row: 2; min-height: 36px; font-size: 12px; }
   .audio-bar.expanded .audio-meta { display: flex; grid-row: 3; padding-top: 5px; }
   .audio-bar .audio-transport { grid-row: 1; }

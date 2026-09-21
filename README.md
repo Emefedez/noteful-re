@@ -19,6 +19,27 @@ node tools/serve_web.mjs 8767
 
 Open [localhost:8767](http://127.0.0.1:8767/) and choose **Open note**. Files are processed in the browser. No Noteful installation or decoding server is needed. The build stages WASM and PDF.js in `apps/reader/`; serve that directory with a static HTTP server. Original test notes are not copied into the app.
 
+## On-device transcripts
+
+For notes with audio, expand **Transcript** in the playback controls and choose
+**Transcribe recording**. Whisper Tiny runs in a local WASM worker and detects
+the spoken language when **Detect language** is selected. Castellano is the
+default, with Galego and English available alongside other language options.
+The first run downloads model weights from Hugging Face; audio is never uploaded.
+Downloaded weights are browser-cached when storage is available.
+
+Words follow playback and clicking a word seeks the same clock used for timed
+handwriting. Ink synchronization requires the note's original recording timestamps.
+With **Pan** selected, click a timed stroke to seek its recording; dragging still
+scrolls the page. The correct recording is selected automatically.
+Automatic transcription and word boundaries can be inaccurate, especially for
+noise or quiet speech. Processing speed and memory depend on the device.
+
+Transcripts are cached by audio content in this browser on secure origins
+(including localhost), and can be exported as JSON with word timestamps.
+They are not included in `.nfedit` or `.noteful` exports. On LAN HTTP without
+SubtleCrypto, transcripts remain available for the session and can be exported.
+
 ## Expo Go
 
 After building the web reader:

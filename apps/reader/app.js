@@ -12,12 +12,22 @@ import { enhanceSelects, refreshSelects } from "./select.js";
 import { decorateIcons } from "./icons.js";
 import { PdfBackgrounds } from "./pdf-background.js";
 import { AudioController } from "./audio.js";
+import { TranscriptController } from "./transcript.js";
 import { indexTimedInk, updateTimedInk } from "./ink-timeline.js";
 import { shapePoints } from "./shapes.js";
 const $ = (id) => document.getElementById(id),
   ns = "http://www.w3.org/2000/svg";
 enhanceSelects();
 decorateIcons();
+document.addEventListener("click", (event) => {
+  const menu = $("documentMenu");
+  if (!menu.contains(event.target) || event.target.closest(".menu-content button"))
+    menu.open = false;
+});
+document.addEventListener("pointerdown", (event) => {
+  if (!event.target.closest("#toolbar,.select-menu") && !$("toolOptions").hidden)
+    setCompact(true);
+});
 const worker = new Worker("./worker.js", { type: "module" }),
   pending = new Map();
 let request = 0,
@@ -51,6 +61,7 @@ const audio = new AudioController(
   jump,
   syncInk,
 );
+audio.transcript = new TranscriptController(audio);
 const selection = new SelectionController({
   call,
   patch: patchItem,
@@ -106,6 +117,7 @@ function canReplace() {
   );
 }
 function reset() {
+  document.body.prepend(document.querySelector("header.chrome"));
   selection.clear();
   cancelGesture();
   chromeState.reset();
@@ -152,6 +164,8 @@ async function load(file) {
       return call("pdf", { resource });
     });
     $("title").textContent = result.title || "Untitled note";
+    $("menuTitle").textContent = $("title").textContent;
+    document.querySelector(".segmented").prepend(document.querySelector("header.chrome"));
     $("editor").hidden = false;
     $("empty").hidden = true;
     $("pageNumber").max = result.pages;
@@ -234,10 +248,32 @@ function buildPages(sizes) {
     };
     placeholder(p);
     fragment.append(el);
-    el.onpointerdown = (e) => pointerDown(e, p);
-    el.onpointermove = pointerMove;
+    el.onpointerdown = (e) => {
+      p.audioTap = tool === "pan" && e.button === 0 ? [e.clientX, e.clientY] : null;
+      pointerDown(e, p);
+    };
+    el.onpointermove = (e) => {
+      if (p.audioTap && Math.hypot(e.clientX - p.audioTap[0], e.clientY - p.audioTap[1]) > 6)
+        p.audioTap = null;
+      pointerMove(e);
+    };
     el.onpointerup = pointerUp;
-    el.onpointercancel = cancelGesture;
+    el.onpointercancel = () => { p.audioTap = null; cancelGesture(); };
+    el.onclick = async (event) => {
+      if (!p.audioTap || tool !== "pan" || !p.view?.timings.length) return;
+      p.audioTap = null;
+      const note = epoch, [x, y] = point(event, p);
+      try {
+        const item = await call("pick", { page: p.index, x, y,
+          tolerance: 8 * p.size[0] / p.el.getBoundingClientRect().width });
+        if (note !== epoch || tool !== "pan") return;
+        const timing = p.view?.timings.find(t => t.item_id === item?.id);
+        if (timing && await audio.seekRecording(timing.recording_id, timing.start)) {
+          refreshSelects();
+          status(`Audio positioned at ${timing.start.toFixed(1)} seconds.`);
+        }
+      } catch (error) { status(error.message, true); }
+    };
     el.onlostpointercapture = () => {
       if (gesture?.panel === p) cancelGesture();
       selection.lostCapture(p);
@@ -460,6 +496,12 @@ async function renderPage(p, provided) {
     p.el.replaceChildren(render, overlay);
     p.pdfReady = !result.pdf_background;
     p.ink = indexTimedInk(render, result.timings);
+    for (const item of p.ink) {
+      item.el.setAttribute("data-timed-ink", "");
+      const title = document.createElementNS(ns, "title");
+      title.textContent = `Pan: click to seek audio to ${item.timing.start.toFixed(1)} seconds`;
+      item.el.prepend(title);
+    }
     syncInk();
     shapeHandles(p);
     if (p.index === page) updateTools(result);
@@ -592,6 +634,10 @@ function toolOptions() {
     chromeState.compact ||
     (!["draw", "highlight", "shape"].includes(tool) &&
       !(tool === "select" && selection.item));
+  $("toolbarToggle").setAttribute("aria-expanded", String(!$("toolOptions").hidden));
+  const settingsLabel = $("toolOptions").hidden ? "Show tool settings" : "Hide tool settings";
+  $("toolbarToggle").setAttribute("aria-label", settingsLabel);
+  $("toolbarToggle").title = settingsLabel;
 }
 function setCompact(compact) {
   const changed =
@@ -918,6 +964,10 @@ function pointerUp(e) {
 for (const button of document.querySelectorAll("[data-tool]"))
   button.onclick = () => {
     cancelGesture();
+    if (tool === button.dataset.tool) {
+      setCompact(!chromeState.compact);
+      return;
+    }
     tool = button.dataset.tool;
     if (tool !== "select") selection.clear();
     chromeState.reset($("viewport").scrollTop);
@@ -975,6 +1025,7 @@ $("redo").onclick = () => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     cancelGesture();
+    setCompact(true);
     $("layersPanel").hidden = true;
     $("layersToggle").setAttribute("aria-expanded", "false");
     $("pagesPanel").classList.remove("open");
