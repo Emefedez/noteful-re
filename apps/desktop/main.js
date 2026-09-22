@@ -3,6 +3,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { desktopCredentials, desktopSignIn } from './google-auth.js';
+import { publicDriveURL } from './reader/drive-public.js';
 import { assetPath } from './asset-path.js';
 
 const home = 'notecomplete://reader/';
@@ -27,6 +28,13 @@ app.whenReady().then(() => {
   });
   const pendingAuth = new Map();
   const trusted = event => event.senderFrame === event.sender.mainFrame && event.senderFrame.url.startsWith(home);
+  ipcMain.handle('drive:public', async (event, request) => {
+    if (!trusted(event)) throw Error('Unexpected reader origin.');
+    const response = await fetch(publicDriveURL(request), { credentials: 'omit', signal: AbortSignal.timeout(120000) });
+    if (!response.ok) throw Error(`Public Drive request failed (${response.status}).`);
+    if (request.action === 'folder') return response.text();
+    return { base64: Buffer.from(await response.arrayBuffer()).toString('base64') };
+  });
   ipcMain.on('drive:cancel', event => { if (trusted(event)) pendingAuth.get(event.sender.id)?.abort(); });
   ipcMain.handle('drive:sign-in', async event => {
     if (!trusted(event)) throw Error('Unexpected authentication origin.');

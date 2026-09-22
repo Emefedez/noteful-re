@@ -43,7 +43,7 @@ Use Expo Go compatible with SDK 57 and scan the QR on the same Wi-Fi. The comman
 
 ## Installable packages
 
-GitHub Actions workflows build Android APK previews and desktop packages: Linux AppImage, macOS DMG/ZIP (Apple Silicon and Intel), and Windows installers. Run them manually from **Actions** for artifacts, or push a `v*` tag to build all platforms and attach installers plus checksums to a GitHub prerelease. See [build instructions](docs/BUILDS.md) for artifacts, Android's required hosted-reader URL, and signing limitations.
+GitHub Actions workflows build Android APK previews and desktop packages: Linux AppImage, macOS DMG/ZIP (Apple Silicon and Intel), and Windows installers. Run them manually from **Actions** for artifacts, or push a `v*` tag to build all platforms and attach installers plus checksums to a GitHub prerelease. See [build instructions](docs/BUILDS.md) for artifacts, Android's bundled offline reader, and signing limitations.
 
 ## Documentation
 
