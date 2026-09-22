@@ -73,3 +73,9 @@ The list paginates 100 items at a time. Folder searches may have duplicate names
 ## Validation
 
 Mocked transport and native-bridge tests cover read-only requests, folder query escaping, pagination, exact downloaded bytes, expired tokens, denied downloads, missing files, resource keys and cancellation. Desktop loopback tests verify OAuth state, PKCE exchange and cancellation. Mobile SDK tests check scope and token handling; Android/iOS JavaScript bundles can be built without credentials. A real Google account round-trip still requires the deployment's registered client ID and consent; mocked tests are not proof of a completed live sign-in.
+
+## Public folder links in installed apps
+
+Paste an “Anyone with the link” folder URL into **Use a folder link → Open folder** without connecting Google Drive. The desktop and Android apps fetch Google's public folder listing without OAuth. Subfolders can be browsed and supported files downloaded into the reader; nothing is uploaded. Folder URLs are saved only on the user's device.
+
+Public listings use Google's web preview format and may be limited by Google; sign in for complete paginated listings or restricted folders. If Google changes that format or denies a download, the app reports an error. Browser-only builds still require Google sign-in because Google's public pages do not allow browser cross-origin reads.

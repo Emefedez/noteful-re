@@ -14,7 +14,7 @@ class Element {
   showModal() { this.open = true; }
   close() { this.open = false; this.listeners.close?.(); }
 }
-function setup(t, overrides = {}) {
+function setup(t, overrides = {}, publicClient) {
   const originals = Object.fromEntries(['document','window','location','localStorage'].map(key => [key, Object.getOwnPropertyDescriptor(globalThis,key)]));
   t.after(() => { for(const [key,value] of Object.entries(originals)) { if(value) Object.defineProperty(globalThis,key,value); else delete globalThis[key]; } });
   const nodes = new Map(), node = id => { if(!nodes.has(id)) nodes.set(id,new Element()); return nodes.get(id); };
@@ -35,7 +35,7 @@ function setup(t, overrides = {}) {
     ...overrides,
   };
   let callback;
-  driveBrowser({ open:async file=>{opened.push(file);return true;},client,identityLoader:async()=>({}),authorize:(_id,_key,success)=>{callback=success;} });
+  driveBrowser({ open:async file=>{opened.push(file);return true;},client,publicClient,identityLoader:async()=>({}),authorize:(_id,_key,success)=>{callback=success;} });
   return {node,opened,calls,client,authorize:()=>callback({})};
 }
 test('Drive panel lists without downloading and opens only the chosen file', async t => {
@@ -67,4 +67,17 @@ test('late OAuth completion after dismissal does not reconnect or request files'
   await ui.node('driveOpen').onclick();ui.node('driveConnect').onclick();
   ui.node('driveClose').onclick();ui.authorize();await tick();
   assert.equal(ui.client.connected,false);assert.deepEqual(ui.calls,[]);
+});
+
+test('a public folder link works without OAuth and can open a selected note', async t => {
+  const publicClient = {connected:true, async folder(){return {id:'public',name:'Public',mimeType:FOLDER_MIME};}, async children(){return {files:[{id:'note',name:'Shared.noteful'}],publicListing:true};}, async download(){return new File(['note'],'Shared.noteful');}};
+  const ui=setup(t,{},publicClient);
+  await ui.node('driveOpen').onclick();
+  assert.equal(ui.node('driveUseFolder').disabled,false);
+  ui.node('driveFolderLink').value='public';
+  await ui.node('driveUseFolder').onclick();
+  assert.equal(ui.client.connected,false);
+  assert.equal(ui.node('driveBack').disabled,true);
+  ui.node('driveList').querySelectorAll('button')[0].onclick(); await tick();
+  assert.equal(ui.opened[0].name,'Shared.noteful');
 });

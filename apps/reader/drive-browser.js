@@ -1,10 +1,13 @@
+import { PublicDriveClient } from './drive-public.js';
 import { DriveClient, FOLDER_MIME, folderReference, supportedDriveFile } from './drive-client.js';
 import { loadGoogleIdentity, requestDriveAccess } from './drive-auth.js';
 
-export function driveBrowser({ open, client = new DriveClient(), identityLoader = loadGoogleIdentity, authorize = requestDriveAccess }) {
+export function driveBrowser({ open, client = new DriveClient(), identityLoader = loadGoogleIdentity, authorize = requestDriveAccess, publicClient = new PublicDriveClient() }) {
   const $ = id => document.getElementById(id);
   const dialog = $('driveDialog');
   let identity, controller, generation = 0, loading = false, importing = false;
+  let publicMode = false;
+  const activeClient = () => publicMode ? publicClient : client;
   let folder = null, trail = [], nextPage = '', search = 'Noteful';
   const configKey = 'notecomplete-drive-config-v1';
   let config = {};
@@ -20,13 +23,15 @@ export function driveBrowser({ open, client = new DriveClient(), identityLoader 
   function controls() {
     $('driveConnect').disabled = !identity || loading;
     $('driveDisconnect').disabled = importing || (!client.token && !loading);
-    $('driveFind').disabled = $('driveUseFolder').disabled = $('driveRefresh').disabled = !client.connected || loading;
-    $('driveBack').disabled = !folder || loading;
+    $('driveFind').disabled = !client.connected || loading;
+    $('driveUseFolder').disabled = loading;
+    $('driveRefresh').disabled = !activeClient().connected || loading;
+    $('driveBack').disabled = !folder || loading || (publicMode && trail.length < 2);
     $('driveMore').hidden = !nextPage;
-    $('driveMore').disabled = loading || !client.connected;
+    $('driveMore').disabled = loading || !activeClient().connected;
     $('driveClose').disabled = importing;
     $('driveList').setAttribute('aria-busy', String(loading));
-    for (const button of $('driveList').querySelectorAll('button')) button.disabled = loading || !client.connected || button.dataset.unavailable === 'true';
+    for (const button of $('driveList').querySelectorAll('button')) button.disabled = loading || !activeClient().connected || button.dataset.unavailable === 'true';
     $('drivePath').textContent = folder ? trail.map(item => item.name).join(' / ') : 'Choose your Noteful folder';
   }
   function stop() { generation++; identity?.cancel?.(); controller?.abort(); loading = false; controls(); }
@@ -59,13 +64,13 @@ export function driveBrowser({ open, client = new DriveClient(), identityLoader 
     $('driveList').append(fragment);
   }
   async function fetchList(signal, valid, append = false) {
-    const page = folder ? await client.children(folder, append ? nextPage : '', signal) : await client.folders(search, append ? nextPage : '', signal);
+    const page = folder ? await activeClient().children(folder, append ? nextPage : '', signal) : await client.folders(search, append ? nextPage : '', signal);
     if (!valid()) return;
     if (!append) resetList();
     addFiles(page.files || []);
     nextPage = page.nextPageToken || '';
     const count = $('driveList').children.length;
-    message(page.incompleteSearch ? 'Some results are missing. Paste an exact folder link to open it.' : count ? `${count} ${folder ? 'items' : 'folders'} listed. ${nextPage ? 'More results available.' : ''}` : nextPage ? 'No items on this page. Load more results.' : folder ? 'This folder is empty.' : 'No matching folder found. Try another name or paste its Drive link.');
+    message(page.publicListing ? `${count} public items listed. Google may limit this preview; connect Drive for a complete listing.` : page.incompleteSearch ? 'Some results are missing. Paste an exact folder link to open it.' : count ? `${count} ${folder ? 'items' : 'folders'} listed. ${nextPage ? 'More results available.' : ''}` : nextPage ? 'No items on this page. Load more results.' : folder ? 'This folder is empty.' : 'No matching folder found. Try another name or paste its Drive link.');
   }
   function enter(file) {
     if (loading) return;
@@ -75,7 +80,7 @@ export function driveBrowser({ open, client = new DriveClient(), identityLoader 
   function choose(file) {
     run(async (signal, valid) => {
       message(`Downloading ${file.name}…`);
-      const downloaded = await client.download(file, signal);
+      const downloaded = await activeClient().download(file, signal);
       if (!valid()) return;
       importing = true; controls();
       try {
@@ -87,12 +92,12 @@ export function driveBrowser({ open, client = new DriveClient(), identityLoader 
   $('driveOpen').onclick = async () => {
     dialog.showModal(); controls();
     if (!window.isSecureContext && !window.ReactNativeWebView && !window.notecompleteDrive) { message('Open NoteComplete over HTTPS or localhost to connect Google Drive.'); return; }
-    if (!client.connected) message('Connect Google Drive, then find your Noteful folder.');
+    if (!client.connected) message('Paste a public folder link, or connect Google Drive for private folders.');
     try { identity = await identityLoader(); $('driveClientId').closest('details').hidden = !!identity.native; controls(); }
     catch (error) { message(error.message); }
   };
   $('driveConnect').onclick = () => {
-    saveConfig(); stop(); client.clear(); resetList(); trail = []; folder = null;
+    saveConfig(); stop(); publicMode = false; client.clear(); resetList(); trail = []; folder = null;
     try {
       const version = generation;
       loading = true; controls(); message('Complete sign-in in the Google window…');
@@ -105,15 +110,15 @@ export function driveBrowser({ open, client = new DriveClient(), identityLoader 
     } catch (error) { loading = false; message(error.message); controls(); }
   };
   $('driveDisconnect').onclick = () => {
-    stop(); identity?.disconnect?.(); client.clear(); resetList(); trail = []; folder = null;
+    stop(); publicMode = false; identity?.disconnect?.(); client.clear(); resetList(); trail = []; folder = null;
     message('Disconnected on this device. No files were changed in Drive.'); controls();
   };
   $('driveFind').onclick = () => {
-    search = $('driveSearch').value.trim() || 'Noteful'; trail = []; folder = null; resetList();
+    publicMode = false; search = $('driveSearch').value.trim() || 'Noteful'; trail = []; folder = null; resetList();
     run((signal, valid) => fetchList(signal, valid));
   };
   $('driveUseFolder').onclick = () => run(async (signal, valid) => {
-    saveConfig(); const selected = await client.folder(folderReference($('driveFolderLink').value), signal);
+    saveConfig(); publicMode = !client.connected; const selected = await activeClient().folder(folderReference($('driveFolderLink').value), signal);
     if (!valid()) return;
     folder = selected; trail = [selected]; resetList(); await fetchList(signal, valid);
   });
