@@ -7,7 +7,8 @@ env.backends.onnx.wasm.numThreads = 1;
 let transcriber;
 self.onmessage = async ({ data }) => {
   try {
-    transcriber ||= await pipeline('automatic-speech-recognition', 'Xenova/whisper-tiny', {
+    if (!['tiny', 'base', 'small'].includes(data.model)) throw Error('Unknown Whisper model');
+    transcriber ||= await pipeline('automatic-speech-recognition', `Xenova/whisper-${data.model}`, {
       device: 'wasm', dtype: 'q8',
       progress_callback: (progress) => self.postMessage({ type: 'progress', progress }),
     });

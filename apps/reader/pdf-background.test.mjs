@@ -10,5 +10,6 @@ test("PDF raster target follows displayed width and keeps a bounded pixel budget
   const capped = rasterTarget({ width: 5000, height: 7000 }, 6000, 3);
   assert.ok(capped.width <= 8192);
   assert.ok(capped.height <= 8192);
-  assert.ok(capped.width > 5000);
+  assert.ok(capped.width * capped.height < 12_010_000);
+  assert.ok(capped.width > 2000);
 });

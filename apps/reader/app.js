@@ -10,9 +10,11 @@ import { ChromeState, highlightPoints } from "./chrome-state.js";
 import { download } from "./download.js";
 import { enhanceSelects, refreshSelects } from "./select.js";
 import { decorateIcons } from "./icons.js";
+import { qualitySettings } from "./quality.js";
 import { PdfBackgrounds } from "./pdf-background.js";
 import { AudioController } from "./audio.js";
 import { TranscriptController } from "./transcript.js";
+import { AudioProcessing } from "./audio-processing.js";
 import { indexTimedInk, updateTimedInk } from "./ink-timeline.js";
 import { shapePoints } from "./shapes.js";
 const $ = (id) => document.getElementById(id),
@@ -56,12 +58,24 @@ let panels = [],
   thumbnailObserver = null,
   scrollFrame = 0,
   zoom = "fit";
+let displayQuality;
+qualitySettings((value, rasterChanged) => {
+  displayQuality = value;
+  document.documentElement.style.setProperty("--page-filter", value.contrast === 100 && value.brightness === 100 ? "none" : `contrast(${value.contrast}%) brightness(${value.brightness}%)`);
+  if (!rasterChanged) return;
+  backgrounds?.images.clear();
+  for (const panel of panels) {
+    panel.token++;
+    if (panel.near) renderPage(panel, panel.view);
+  }
+});
 const audio = new AudioController(
   (resource) => call("audio", { resource }),
   jump,
   syncInk,
 );
 audio.transcript = new TranscriptController(audio);
+audio.processing = new AudioProcessing(audio.audio);
 const selection = new SelectionController({
   call,
   patch: patchItem,
@@ -313,6 +327,7 @@ function buildPageList() {
     button.setAttribute("aria-label", `Page ${panel.index + 1}`);
     const thumb = document.createElement("span");
     thumb.className = "page-thumb";
+    thumb.style.aspectRatio = panel.size.join(" / ");
     const fallback = document.createElement("span");
     fallback.className = "thumb-fallback";
     fallback.textContent = panel.index + 1;
@@ -347,14 +362,16 @@ function buildPageList() {
 async function renderThumbnail(panel) {
   if (panel.thumbnailLoading || panel.thumbnailReady || !doc) return;
   panel.thumbnailLoading = true;
+  const note = epoch, version = revision, cache = backgrounds;
   try {
     const result = panel.view || (await call("view", { page: panel.index }));
+    if (note !== epoch) return;
     const render = document.createElement("div");
     render.innerHTML = result.svg;
     if (result.pdf_background) {
       const thumb = panel.pageButton.querySelector(".page-thumb");
       const width = Math.max(80, thumb?.clientWidth || 128);
-      const image = await backgrounds.image(result.pdf_background, panel.size, width);
+      const image = await cache.image(result.pdf_background, panel.size, Math.min(width, 160));
       const el = document.createElementNS(ns, "image");
       for (const [key, value] of Object.entries({
         href: image,
@@ -368,28 +385,39 @@ async function renderThumbnail(panel) {
     const source = render.querySelector(":scope > svg");
     const target = panel.pageButton.querySelector(".page-thumb");
     if (source && target) {
-      source.removeAttribute("width");
-      source.removeAttribute("height");
-      source.setAttribute("aria-hidden", "true");
-      target.replaceChildren(source);
+      // Store a small bitmap, never a duplicate page SVG or full-resolution PDF.
+      const width = 256, height = Math.max(1, Math.round(width * panel.size[1] / panel.size[0]));
+      source.setAttribute("width", width);
+      source.setAttribute("height", height);
+      const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(source)], { type: "image/svg+xml" }));
+      const image = new Image();
+      try {
+        image.src = url;
+        await image.decode();
+        if (note !== epoch || version !== revision) return;
+        const canvas = document.createElement("canvas");
+        canvas.width = width; canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0, width, height);
+        const preview = new Image();
+        preview.alt = "";
+        preview.src = canvas.toDataURL("image/png");
+        canvas.width = canvas.height = 0;
+        target.replaceChildren(preview);
+      } finally { URL.revokeObjectURL(url); }
       panel.thumbnailReady = true;
+      panel.thumbnailRevision = version;
     }
   } catch {
     // The numbered fallback remains useful if a thumbnail cannot be decoded.
   } finally {
     panel.thumbnailLoading = false;
+    if (note === epoch && version !== revision) renderThumbnail(panel);
   }
 }
 function updatePagePreview(panel) {
-  const thumb = panel.pageButton?.querySelector(".page-thumb");
-  const source = panel.render?.querySelector(":scope > svg");
-  if (!thumb || !source) return;
-  const preview = source.cloneNode(true);
-  preview.removeAttribute("width");
-  preview.removeAttribute("height");
-  preview.setAttribute("aria-hidden", "true");
-  thumb.replaceChildren(preview);
-  panel.thumbnailReady = true;
+  if (panel.thumbnailRevision === revision) return;
+  panel.thumbnailReady = false;
+  renderThumbnail(panel);
 }
 function markPage() {
   for (const panel of panels) {
@@ -512,6 +540,7 @@ async function renderPage(p, provided) {
         result.pdf_background,
         p.size,
         displayWidth,
+        displayQuality,
       );
       if (note !== epoch || token !== p.token || version !== revision) return;
       const el = document.createElementNS(ns, "image");
@@ -1023,6 +1052,7 @@ $("redo").onclick = () => {
   action("redo");
 };
 document.addEventListener("keydown", (e) => {
+  if ($("qualityDialog").open) return;
   if (e.key === "Escape") {
     cancelGesture();
     setCompact(true);

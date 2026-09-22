@@ -1,5 +1,6 @@
 import { timedWords, wordAt } from './transcript-timing.js';
 import { download } from './download.js';
+import { prepareSpeech, speechSettings } from './audio-processing.js';
 const $ = id => document.getElementById(id);
 
 async function storedTranscript(key, value) {
@@ -27,6 +28,11 @@ export class TranscriptController {
     this.generation = 0;
     this.words = [];
     this.results = new Map();
+    $('hideTranscript').onclick = () => { $('transcriptPanel').open = false; };
+    $('transcriptPanel').ontoggle = () => this.update();
+    $('transcriptPrevious').onclick = () => this.browse(-1);
+    $('transcriptNext').onclick = () => this.browse(1);
+    $('transcriptFollow').onchange = () => this.update();
     $('transcribeAudio').onclick = () => this.start();
     $('cancelTranscript').onclick = () => this.cancel();
     $('downloadTranscript').onclick = async () => {
@@ -58,9 +64,20 @@ export class TranscriptController {
   }
   render(words) {
     this.words = words;
+    this.offset = 0;
+    this.renderWindow();
+    $('downloadTranscript').hidden = !words.length;
+    this.update();
+  }
+  browse(direction) {
+    $('transcriptFollow').checked = false;
+    this.offset = Math.max(0, Math.min(Math.floor((this.words.length - 1) / 100) * 100, this.offset + direction * 100));
+    this.renderWindow(); this.update();
+  }
+  renderWindow() {
     this.active = -1;
     const fragment = document.createDocumentFragment();
-    this.buttons = words.map(word => {
+    this.buttons = this.words.slice(this.offset, this.offset + 100).map(word => {
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = word.text;
@@ -70,15 +87,22 @@ export class TranscriptController {
       return button;
     });
     $('transcriptWords').replaceChildren(fragment);
-    $('downloadTranscript').hidden = !words.length;
-    this.update();
+    $('transcriptNavigation').hidden = !this.words.length;
+    $('transcriptPrevious').disabled = this.offset === 0;
+    $('transcriptNext').disabled = this.offset + 100 >= this.words.length;
+    $('transcriptRange').textContent = `${this.offset + 1}–${Math.min(this.words.length, this.offset + 100)} / ${this.words.length}`;
   }
   update() {
+    if (!$('transcriptPanel').open) return;
     const index = wordAt(this.words, this.audio.time);
+    if ($('transcriptFollow').checked && index >= 0 && (index < this.offset || index >= this.offset + 100)) {
+      this.offset = Math.floor(index / 100) * 100;
+      this.renderWindow();
+    }
     if (index === this.active) return;
-    this.buttons?.[this.active]?.removeAttribute('aria-current');
+    this.buttons?.[this.active - this.offset]?.removeAttribute('aria-current');
     this.active = index;
-    const button = this.buttons?.[index];
+    const button = this.buttons?.[index - this.offset];
     button?.setAttribute('aria-current', 'true');
     if (button && $('transcriptPanel').open && !this.audio.audio.paused) {
       const box = $('transcriptWords');
@@ -91,6 +115,8 @@ export class TranscriptController {
     if (!this.asset || this.worker) return;
     const asset = this.asset, generation = ++this.generation;
     const language = $('transcriptLanguage').value || '';
+    const model = $('transcriptModel').value || 'base';
+    const settings = speechSettings();
     this.busy(true);
     $('transcriptPanel').open = true;
     this.status('Preparing audio on this device…');
@@ -100,23 +126,12 @@ export class TranscriptController {
       const buffer = bytes instanceof ArrayBuffer ? bytes.slice(0) : bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
       // Local-network HTTP readers can run WASM but may lack SubtleCrypto.
       const digest = globalThis.crypto?.subtle ? await crypto.subtle.digest('SHA-256', buffer) : null;
-      const key = digest ? 'whisper-tiny-v1:' + language + ':' + [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('') : null;
+      const key = digest ? `whisper-v2:${model}:${language}:${JSON.stringify(settings)}:` + [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('') : null;
       const cached = key ? await storedTranscript(key).catch(() => null) : null;
       if (generation !== this.generation) return;
       if (cached) { this.finish(cached, asset); return; }
-      const AudioContext = globalThis.OfflineAudioContext || globalThis.webkitOfflineAudioContext;
-      if (!AudioContext) throw Error('Audio decoding is unavailable in this browser.');
-      const decoder = new AudioContext(1, 1, 16000);
-      const decoded = await decoder.decodeAudioData(buffer);
+      const { samples, duration } = await prepareSpeech(buffer, settings);
       if (generation !== this.generation) return;
-      const context = new AudioContext(1, Math.ceil(decoded.duration * 16000), 16000);
-      const source = context.createBufferSource();
-      source.buffer = decoded;
-      source.connect(context.destination);
-      source.start();
-      const pcm = await context.startRendering();
-      if (generation !== this.generation) return;
-      const samples = pcm.getChannelData(0);
       this.worker = new Worker(new URL('./transcript-worker.js', import.meta.url), { type: 'module' });
       this.status('Loading Whisper on this device… First use needs a model download.');
       const fail = message => {
@@ -132,7 +147,7 @@ export class TranscriptController {
         if (data.type === 'working') this.status('Transcribing on this device… Playback remains available.');
         if (data.type === 'error') fail(data.error);
         if (data.type === 'complete') {
-          const words = timedWords(data.result.chunks, decoded.duration);
+          const words = timedWords(data.result.chunks, duration);
           this.worker.terminate(); this.worker = null;
           this.finish(words, asset);
           if (key) storedTranscript(key, words).catch(() => {
@@ -141,7 +156,7 @@ export class TranscriptController {
           else this.status('Transcript ready for this session. Export to keep it.');
         }
       };
-      this.worker.postMessage({ samples, language }, [samples.buffer]);
+      this.worker.postMessage({ samples, language, model }, [samples.buffer]);
     } catch (error) {
       if (generation === this.generation) {
         this.worker?.terminate(); this.worker = null;

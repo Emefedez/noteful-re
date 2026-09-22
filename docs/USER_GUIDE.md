@@ -2,19 +2,30 @@
 
 ## Open and navigate
 
-Choose **Open note** or drop a `.noteful` / `.nfedit` file into the reader. The UI is English; note content, saved layer names and recording names retain their original text. Pages scroll continuously and only nearby pages render. **Page** jumps to a page. **Fit** adapts its width; **− / +** change zoom by ten percentage points, from 10% to 400%.
+Choose **Open document** in the hamburger menu or drop a `.noteful`, `.nfedit`, PDF, PNG, JPEG or WebP file into the reader. PDF pages scroll continuously; the Pages panel shows previews. The UI is English; note content, saved layer names and recording names retain their original text. Pages scroll continuously and only nearby pages render. **Page** jumps to a page. **Fit** adapts its width; **− / +** change zoom by ten percentage points, from 10% to 400%.
 
 The toolbar compacts when scrolling down and returns when scrolling up. Its arrow provides a manual override. On phones, compact mode keeps playback and seeking available while hiding secondary controls.
+
+## Display quality
+
+Open **☰ → Display quality**. Choose **Performance** (1×, 4 MP/page), **Balanced** (2×, 12 MP/page), or **Sharp** (3×, 20 MP/page, slightly stronger contrast). Adjust any slider to customize the preset:
+
+- **PDF resolution**: raster pixels per displayed pixel, from 1× to 3×. Vector ink remains sharp independently.
+- **Page pixel budget**: 4–24 megapixels per PDF page. This caps resolution on large pages to control memory.
+- **Page contrast / brightness**: tune the page and preview appearance; the sample updates inside the dialog.
+
+**Apply** saves locally and redraws nearby PDF pages only when resolution changes. **Cancel** or Escape discards changes. Presets also restore their brightness and contrast. Original image detail cannot be recovered by increasing resolution. Exported colors and document edits are unaffected; these preferences are not saved inside projects. Thumbnails remain small bitmaps to keep long notes responsive. On a slow device, start with Performance and collapse the transcript when unused.
 
 ## Draw and edit
 
 | Tool | Behavior |
 |---|---|
 | Pan | Drag with a mouse or scroll with touch. |
-| Edit | Select existing ink, supported shapes, images or text placement; drag to move, use four corners to resize, or the upper handle to rotate. The inspector changes dimensions/angle and ink/shape stroke color and width. |
+| Select | Select existing ink, supported shapes, images or text placement; drag to move, use four corners to resize, or the upper handle to rotate. The inspector changes dimensions/angle and ink/shape stroke color and width. |
 | Pen | Fixed-width freehand ink; no pressure input required. |
 | Highlight | Straight segment by default; choose Freehand for sampled ink. Multiply at 50% preserves the appearance over images. |
-| Erase | Remove whole strokes and supported line objects. Other selected objects can be deleted with Edit. |
+| Erase | Remove whole strokes and supported line objects. Other selected objects can be deleted with Select. |
+| Image | Import PNG, JPEG or WebP onto the current page, then move or resize with Select. |
 | Shapes | Draw a bounding box or use Insert for a line, rectangle, ellipse, triangle or arrow. New shapes are editable outlines. |
 
 Arrow keys on selection handles adjust geometry; Shift uses larger steps. Undo/redo are global across pages (Ctrl/Cmd Z and Shift Z). Escape or a cancelled pointer gesture discards its unfinished preview. Text-content/font editing and separate shape fill-color editing are not currently provided.
@@ -26,6 +37,36 @@ Arrow keys on selection handles adjust geometry; Shift uses larger steps. Undo/r
 Select a recording in the single player, then play, pause or seek. Nonempty recording names are shown unchanged; otherwise the UI generates a recording number/date. **Show handwriting** jumps to the first associated page. **Dim future handwriting** shows strokes at 20% opacity before pen-down and normally afterwards; seeking backwards restores dimming. This is whole-stroke timing, not point-by-point replay. Unrelated/untimed ink remains visible. Each recording retains its own playback position.
 
 The supplied native audio example contains one recording. Multiple-recording behavior is tested using an explicitly synthetic fixture. Codec support varies by browser/device; **Download** remains available when playback is unsupported.
+
+### On-device transcripts
+
+For notes with audio, expand **Transcript** in the playback controls and choose
+**Transcribe recording**. Whisper runs in a local WASM worker and detects
+the spoken language when **Detect language** is selected. Castellano is the
+default, with Galego and English available alongside other language options.
+Expand **Language, model & audio** to select Tiny (fastest), Base (default) or
+Small (higher accuracy, more memory). Gain and the voice filter affect playback
+and transcription; normalization applies to transcription only. Processing never
+overwrites the original recording. Changes take effect on the next transcription.
+The cache distinguishes the model, language and audio settings.
+The first run downloads model weights from Hugging Face; audio is never uploaded.
+Downloaded weights are browser-cached when storage is available.
+
+Words follow playback and clicking a word seeks the same clock used for timed
+handwriting. Ink synchronization requires the note's original recording timestamps.
+With **Pan** selected, click a timed stroke to seek its recording; dragging still
+scrolls the page. The correct recording is selected automatically.
+Automatic transcription and word boundaries can be inaccurate, especially for
+noise or quiet speech. Processing speed and memory depend on the device.
+
+Transcripts are cached by audio content in this browser on secure origins
+(including localhost), and can be exported as JSON with word timestamps.
+They are not included in `.nfedit` or `.noteful` exports. On LAN HTTP without
+SubtleCrypto, transcripts remain available for the session and can be exported.
+Use **Hide transcript** or its disclosure to collapse it. Long transcripts display
+100 words at a time, with section arrows and optional automatic following. Hidden
+transcripts perform no word highlight updates. Speech workers terminate after
+completion or cancellation; page thumbnails retain small bitmaps only.
 
 ## Save and export
 
@@ -39,7 +80,7 @@ Files download as new files; originals are not overwritten. Replacing a dirty do
 
 The Expo wrapper uses SDK 57 and the same browser/WASM engine. Install dependencies and start it as shown in the [README](../README.md#expo-go). The launcher serves web assets on LAN port 8768 and Metro on 8081. It does not serve the original corpus. Files selected on the phone are not uploaded. A Metro tunnel alone does not expose the separate reader server.
 
-Use a matching Expo Go client. Expo Go compatibility changes with SDK releases; consult [Expo's version guidance](https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/). SDK 58 was preview-only when checked on September 15, 2026; the user selected SDK 57 stable. The previous SDK 54-specific instructions no longer apply.
+Use an Expo Go client compatible with the SDK 57 dependencies pinned in this repository. See [mobile setup](../README.md#expo-go).
 
 For an existing hosted reader, set `EXPO_PUBLIC_READER_URL` before starting or building the wrapper. A standalone build needs that reachable HTTP(S) URL; the development LAN host is not available when Metro is absent. The browser reader can also be installed to the home screen over HTTPS. Its application cache supports offline use after assets have been cached; opened notes are never stored in that cache.
 
@@ -51,13 +92,7 @@ Android default-file handling requires an installed NoteComplete build. Expo Go 
 
 The Android app ID is `com.notecomplete.viewer`. Its manifest registers ACTION_VIEW for `.noteful` file/content URIs, the `application/x-noteful` MIME type, and generic `application/octet-stream` content-provider files. The generic fallback is needed for providers that hide the filename; it can also offer NoteComplete for other binary files, which the decoder will reject if unsupported. Some file managers use other MIME types or do not offer persistent defaults.
 
-Install Android Studio's SDK and a compatible JDK, then build locally from `apps/mobile`:
-
-```sh
-EXPO_PUBLIC_READER_URL=https://your-reader-host.example/ npm run android
-```
-
-Replace the example URL with your actual static reader deployment. This command generates/installs a development Android app and needs a connected device or emulator. For a locally built release use `npx expo run:android --variant release` with the same environment variable. Native generated directories are ignored. No APK, signing keys or cloud builds are committed.
+For local builds or GitHub Actions APK artifacts, follow [Installable builds](BUILDS.md#android-apk). That guide covers the hosted-reader URL, preview signing and build prerequisites.
 
 In Android Files, choose a `.noteful` file, select **Open with → NoteComplete**, then **Always** if offered. Android controls that choice; the application cannot silently make itself the default. A running app receives new file intents too. The file is read using the provider's URI grant, queued until the reader is ready, and passed to the normal local decoder. Existing unsaved edits still require confirmation before replacement. This is file opening, not an ACTION_SEND share target.
 

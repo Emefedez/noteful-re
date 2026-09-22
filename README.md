@@ -17,28 +17,13 @@ python3 tools/build_web.py
 node tools/serve_web.mjs 8767
 ```
 
-Open [localhost:8767](http://127.0.0.1:8767/) and choose **Open note**. Files are processed in the browser. No Noteful installation or decoding server is needed. The build stages WASM and PDF.js in `apps/reader/`; serve that directory with a static HTTP server. Original test notes are not copied into the app.
+Open [localhost:8767](http://127.0.0.1:8767/) and choose **Open document**. Files are processed in the browser. No Noteful installation or decoding server is needed. The build stages WASM and PDF.js in `apps/reader/`; serve that directory with a static HTTP server. Original test notes are not copied into the app.
 
-## On-device transcripts
+## Reader settings
 
-For notes with audio, expand **Transcript** in the playback controls and choose
-**Transcribe recording**. Whisper Tiny runs in a local WASM worker and detects
-the spoken language when **Detect language** is selected. Castellano is the
-default, with Galego and English available alongside other language options.
-The first run downloads model weights from Hugging Face; audio is never uploaded.
-Downloaded weights are browser-cached when storage is available.
+Open the hamburger menu → **Display quality** for Performance, Balanced or Sharp presets and sliders for PDF resolution, pixel budget, contrast and brightness. Settings stay on this device. Use Balanced first; Performance reduces memory use on phones.
 
-Words follow playback and clicking a word seeks the same clock used for timed
-handwriting. Ink synchronization requires the note's original recording timestamps.
-With **Pan** selected, click a timed stroke to seek its recording; dragging still
-scrolls the page. The correct recording is selected automatically.
-Automatic transcription and word boundaries can be inaccurate, especially for
-noise or quiet speech. Processing speed and memory depend on the device.
-
-Transcripts are cached by audio content in this browser on secure origins
-(including localhost), and can be exported as JSON with word timestamps.
-They are not included in `.nfedit` or `.noteful` exports. On LAN HTTP without
-SubtleCrypto, transcripts remain available for the session and can be exported.
+The collapsible transcript supports on-device Whisper Tiny, Base and Small, language selection, gain, voice filtering and timed word/ink navigation. See the [user guide](docs/USER_GUIDE.md) for imports, audio, quality settings and exports.
 
 ## Expo Go
 
@@ -52,10 +37,16 @@ npm start
 
 Use Expo Go compatible with SDK 57 and scan the QR on the same Wi-Fi. The command owns both Metro and the LAN reader server; Ctrl-C stops both. See [mobile setup and Android file opening](docs/USER_GUIDE.md#mobile-and-android-file-opening).
 
+## Installable packages
+
+GitHub Actions workflows build Android APK previews and desktop packages: Linux AppImage, macOS DMG/ZIP (Apple Silicon and Intel), and Windows installers. Run them manually from **Actions**, or push a `v*` tag. See [build instructions](docs/BUILDS.md) for artifacts, Android's required hosted-reader URL, and signing limitations.
+
 ## Documentation
 
 - [User guide](docs/USER_GUIDE.md): controls, files, playback, exports and mobile setup.
-- [Development](DEVELOPMENT.md): user-provided inputs, RE process, evidence snippets, architecture, every Python tool and remaining work.
+- [Research provenance and history](docs/RESEARCH_HISTORY.md): your starting RE work, supplied material, how Codex used it, and derived findings.
+- [Development](DEVELOPMENT.md): current architecture, evidence-to-implementation procedure, tools and remaining validation.
+- [Builds](docs/BUILDS.md): package workflows, artifacts, configuration and signing limits.
 - [Native format](spec/noteful-v0.1.md): observed byte grammar, objects, text, audio and rendering semantics.
 - [Project format and native writer](spec/nfedit-v1.md): edit history, validation and export behavior.
 
@@ -64,7 +55,7 @@ Use Expo Go compatible with SDK 57 and scan the QR on the same Wi-Fi. The comman
 | Directory | Purpose |
 |---|---|
 | `crates/` | Rust core, CLI and WASM adapter |
-| `apps/reader/`, `apps/mobile/` | Browser UI and Expo wrapper |
+| `apps/reader/`, `apps/mobile/`, `apps/desktop/` | Browser UI, Expo wrapper and Electron desktop shell |
 | `samples/` | One unchanged corpus: ten native notes, 204 pages, one independent PDF reference; hashes in `manifest.json` |
 | `tests/` | Python regressions and explicitly synthetic fixtures |
 | `research/python/`, `research/legacy-viewer/` | Preserved independent oracle and historical comparison UI |
@@ -85,7 +76,7 @@ python3 tools/check_rust_parity.py
 python3 tools/check_scene_parity.py
 python3 tools/check_export.py
 node apps/reader/test.mjs
-node --test apps/reader/*.test.mjs apps/mobile/*.test.mjs tools/*.test.mjs
+node --test apps/reader/*.test.mjs apps/mobile/*.test.mjs apps/desktop/*.test.mjs tools/*.test.mjs
 ```
 
 WASM runtime tests require the web build above. Python checks write current reports under `work/reports/`. In `apps/mobile`, run `npm run check`, `npm test` and `npm run export`. CI runs desktop conformance, Android/iOS core target checks, WASM execution and Expo bundling. Device execution remains separate from compilation.

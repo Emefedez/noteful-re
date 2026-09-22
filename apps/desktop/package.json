@@ -1,0 +1,58 @@
+{
+  "name": "notecomplete-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NoteComplete document reader and editor",
+  "author": "NoteComplete contributors",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "stage": "node stage.mjs",
+    "start": "electron .",
+    "test": "node --test *.test.mjs",
+    "dist": "electron-builder --publish never",
+    "prestart": "install-electron"
+  },
+  "devDependencies": {
+    "electron": "44.4.3",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "com.notecomplete.desktop",
+    "productName": "NoteComplete",
+    "artifactName": "NoteComplete-${version}-${os}-${arch}.${ext}",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "asset-path.js",
+      "package.json",
+      "reader/**/*"
+    ],
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.productivity",
+      "identity": null
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Office"
+    },
+    "icon": "build/icon.png"
+  }
+}

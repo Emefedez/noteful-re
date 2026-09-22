@@ -5,7 +5,10 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
-import tomllib
+try:
+    import tomllib
+except ModuleNotFoundError:
+    raise SystemExit('Python 3.11 or newer is required to read Cargo.lock. Run this build with python3.11 or newer.')
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -27,7 +30,9 @@ def main():
     installed=subprocess.check_output([str(bindgen),'--version'],text=True).split()[-1]
     if installed!=version:raise SystemExit(f'wasm-bindgen-cli {version} required, found {installed}')
     subprocess.run([cargo,'build','--locked','--release','-p','noteful-wasm','--target','wasm32-unknown-unknown'],cwd=ROOT,env=env,check=True)
-    pkg=ROOT/'apps/reader/pkg';pkg.mkdir(parents=True,exist_ok=True)
+    pkg=ROOT/'apps/reader/pkg'
+    if pkg.exists(): shutil.rmtree(pkg)
+    pkg.mkdir(parents=True,exist_ok=True)
     subprocess.run([str(bindgen),'--target','web','--out-dir',str(pkg),str(ROOT/'target/wasm32-unknown-unknown/release/noteful_wasm.wasm')],check=True)
     npm='npm.cmd' if os.name=='nt' else 'npm'
     subprocess.run([npm,'ci','--ignore-scripts'],cwd=ROOT/'apps/reader',check=True)

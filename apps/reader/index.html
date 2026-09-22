@@ -20,6 +20,7 @@
         <p id="menuTitle" class="muted">Local documents</p>
         <button id="open" data-icon="open" disabled>Open document</button>
         <button id="save" disabled>Save project</button>
+        <button id="qualityOpen">Display quality</button>
         <hr />
         <button id="native" disabled>Export .noteful <span class="experimental">Experimental</span></button>
         <button id="svg" disabled>Export page SVG</button>
@@ -300,7 +301,10 @@
         </div>
         <p id="audioState" role="status"></p>
         <details id="transcriptPanel" class="transcript-panel">
-          <summary>Transcript <span class="muted">On device</span></summary>
+          <summary>Transcript <span class="muted">On device · show / hide</span></summary>
+          <button id="hideTranscript" type="button">Hide transcript</button>
+          <details class="transcript-settings">
+            <summary>Language, model &amp; audio</summary>
           <div class="transcript-controls">
             <select id="transcriptLanguage" aria-label="Spoken language">
               <option value="">Detect language</option>
@@ -313,12 +317,30 @@
               <option value="italian">Italian</option>
               <option value="portuguese">Portuguese</option>
             </select>
+            <select id="transcriptModel" aria-label="Whisper model">
+              <option value="tiny">Tiny · fastest</option>
+              <option value="base" selected>Base · balanced</option>
+              <option value="small">Small · higher accuracy</option>
+            </select>
+            <label>Gain <input id="speechGain" type="range" min="-6" max="18" step="1" value="0" /><output id="speechGainValue">0 dB</output></label>
+            <label><input id="speechVoice" type="checkbox" />Voice filter</label>
+            <label><input id="speechNormalize" type="checkbox" checked />Normalize for transcription</label>
+          </div>
+          <p class="muted">Gain and voice filter apply to playback and transcription. Larger models need more memory and time; each model downloads on first use.</p>
+          </details>
+          <div class="transcript-controls">
             <button id="transcribeAudio" type="button">Transcribe recording</button>
             <button id="cancelTranscript" type="button" hidden>Cancel</button>
             <button id="downloadTranscript" type="button" hidden>Export transcript</button>
           </div>
           <p id="transcriptStatus" role="status">Whisper downloads its model on first use. Audio stays on this device.</p>
           <div id="transcriptWords" aria-label="Transcript words"></div>
+          <div id="transcriptNavigation" class="transcript-controls" hidden>
+            <button id="transcriptPrevious" type="button" aria-label="Previous transcript section">←</button>
+            <output id="transcriptRange"></output>
+            <button id="transcriptNext" type="button" aria-label="Next transcript section">→</button>
+            <label><input id="transcriptFollow" type="checkbox" checked />Follow audio</label>
+          </div>
         </details>
         <audio id="audio" preload="metadata"></audio>
       </section>
@@ -329,5 +351,25 @@
       </details>
     </section>
   </main>
+
+<dialog id="qualityDialog" aria-labelledby="qualityTitle">
+  <form>
+    <h2 id="qualityTitle">Display quality</h2>
+    <p class="muted">Choose a preset or adjust it for your screen.</p>
+    <div class="quality-presets" role="group" aria-label="Quality presets">
+      <button type="button" data-preset="performance">Performance</button>
+      <button type="button" data-preset="balanced">Balanced</button>
+      <button type="button" data-preset="sharp">Sharp</button>
+    </div>
+    <label>PDF resolution <output data-value="scale"></output><input name="scale" aria-label="PDF resolution" type="range" min="1" max="3" step="0.25"></label>
+    <label>Page pixel budget <output data-value="megapixels"></output><input name="megapixels" aria-label="Page pixel budget" type="range" min="4" max="24" step="1"></label>
+    <label>Page contrast <output data-value="contrast"></output><input name="contrast" aria-label="Page contrast" type="range" min="75" max="150" step="5"></label>
+    <label>Page brightness <output data-value="brightness"></output><input name="brightness" aria-label="Page brightness" type="range" min="75" max="125" step="5"></label>
+    <div class="quality-sample"><strong>Reading preview</strong><p>Clear text, <span>soft pencil</span> and <mark>highlighted notes</mark>.</p></div>
+    <p class="muted">Higher resolution uses more memory. Changes apply when saved. Contrast and brightness affect the reader only; original files and exports keep their colors.</p>
+    <div class="quality-actions"><button type="button" data-cancel>Cancel</button><button type="submit" class="primary">Apply</button></div>
+  </form>
+</dialog>
+
   <script type="module" src="./app.js"></script>
 </html>

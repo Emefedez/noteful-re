@@ -9,20 +9,20 @@ export class AudioController {
  constructor(read,jump,changed){
   this.read=read;this.jump=jump;this.changed=changed;this.audio=$('audio');this.token=0;this.urls=new Map();this.positions=new Map();this.entries=[];
   $('recording').onchange=()=>this.select(Number($('recording').value));
-  $('playAudio').onclick=()=>{if(this.audio.paused)this.audio.play().catch(e=>$('audioState').textContent=e.message);else this.audio.pause();};
+  $('playAudio').onclick=async()=>{if(this.audio.paused){try{await this.processing?.resume();await this.audio.play();}catch(e){$('audioState').textContent=e.message;}}else this.audio.pause();};
   $('backAudio').onclick=()=>this.seek(Math.max(0,this.audio.currentTime-10));
   $('forwardAudio').onclick=()=>this.seek(Math.min(this.audio.duration||0,this.audio.currentTime+10));
   $('audioSeek').oninput=()=>this.seek(Number($('audioSeek').value));
   $('audioPage').onclick=()=>{const target=this.entries[this.index]?.recording?.pages?.[0];if(target!==undefined)this.jump(Number(target));};
   $('syncEnabled').onchange=()=>this.changed();
   this.audio.ontimeupdate=()=>this.update();this.audio.onseeked=()=>this.update();
-  this.audio.onplay=()=>{this.update();this.tick();};this.audio.onpause=()=>{cancelAnimationFrame(this.frame);this.update();};
+  this.audio.onplay=()=>{this.lastTick=0;this.update();this.tick();};this.audio.onpause=()=>{cancelAnimationFrame(this.frame);this.processing?.suspend().catch(()=>{});this.update();};
   this.audio.onended=this.audio.onpause;
   this.audio.onerror=()=>{$('audioState').textContent='This browser cannot play this format. You can download the audio.';};
  }
  get recording(){return $('syncEnabled').checked?this.entries[this.index]?.recording:null;}
  get time(){return this.audio.currentTime||0;}
- tick(){this.changed();this.transcript?.update();if(!this.audio.paused)this.frame=requestAnimationFrame(()=>this.tick());}
+ tick(now=0){if(!this.lastTick||now-this.lastTick>=50){this.lastTick=now;this.changed();this.transcript?.update();}if(!this.audio.paused)this.frame=requestAnimationFrame(time=>this.tick(time));}
  seek(t){if(this.audio.readyState){this.audio.currentTime=t;this.update();}}
  async seekRecording(id,time){
   const index=this.entries.findIndex(entry=>entry.recording?.id===id);

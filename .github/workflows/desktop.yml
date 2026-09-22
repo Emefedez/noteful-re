@@ -1,0 +1,85 @@
+name: Desktop packages
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: desktop-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  reader:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/reader/package-lock.json
+      - run: cargo install wasm-bindgen-cli --version 0.2.128 --locked --root work/wasm-tools
+      - run: python tools/build_web.py
+      - run: node --test apps/reader/*.test.mjs apps/desktop/*.test.mjs
+      - run: node apps/reader/test.mjs
+      - run: node apps/desktop/stage.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-reader-assets
+          path: apps/desktop/reader/
+          if-no-files-found: error
+          retention-days: 7
+  package:
+    needs: reader
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            platform: linux
+            arch: x64
+          - os: macos-15
+            platform: mac
+            arch: arm64
+          - os: macos-15
+            platform: mac
+            arch: x64
+          - os: windows-2022
+            platform: win
+            arch: x64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/desktop/package-lock.json
+      - uses: actions/download-artifact@v4
+        with:
+          name: desktop-reader-assets
+          path: apps/desktop/reader
+      - run: npm ci
+        working-directory: apps/desktop
+      - run: npm run dist -- --${{ matrix.platform }} --${{ matrix.arch }}
+        working-directory: apps/desktop
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NoteComplete-${{ matrix.platform }}-${{ matrix.arch }}
+          path: |
+            apps/desktop/dist/*.AppImage
+            apps/desktop/dist/*.dmg
+            apps/desktop/dist/*.zip
+            apps/desktop/dist/*.exe
+          if-no-files-found: error
+          retention-days: 30

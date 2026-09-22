@@ -1,4 +1,5 @@
 // Rasterize only the visible embedded PDF page. Ink stays editable SVG above it.
+import { normalizeQuality } from "./quality.js";
 let pdfjs;
 export async function openPdf(data) {
   pdfjs ||= await import("./vendor/pdfjs/build/pdf.mjs");
@@ -26,17 +27,19 @@ export async function openPdf(data) {
 // Keep raster output sharp when a page is shown wider than its PDF user units.
 // The cache is keyed by the resulting pixel size so zooming can request a
 // higher-resolution image without reusing a blurry fit-width raster.
-export function rasterTarget(original, cssWidth, pixelRatio = globalThis.devicePixelRatio || 1) {
-  const quality = Math.max(2, Math.min(Number(pixelRatio) || 1, 3));
+export function rasterTarget(original, cssWidth, pixelRatio = globalThis.devicePixelRatio || 1, settings) {
+  const prefs = settings ? normalizeQuality(settings) : null;
+  const quality = prefs?.scale ?? Math.max(2, Math.min(Number(pixelRatio) || 1, 3));
   const maxPixels = 8192;
   const requestedWidth = Math.max(1, Math.ceil(cssWidth * quality));
   const scale = Math.min(
     requestedWidth / original.width,
     maxPixels / Math.max(original.width, original.height),
+    Math.sqrt((prefs?.megapixels ?? 12) * 1_000_000 / (original.width * original.height)),
   );
   return {
     scale,
-    width: Math.ceil(original.width * scale),
+    width: Math.min(requestedWidth, Math.ceil(original.width * scale)),
     height: Math.ceil(original.height * scale),
   };
 }
@@ -65,13 +68,13 @@ export class PdfBackgrounds {
       );
     return this.documents.get(id);
   }
-  async image(background, size, displayWidth = size[0]) {
-    const key = JSON.stringify([background, size, Math.ceil(displayWidth)]);
+  async image(background, size, displayWidth = size[0], settings) {
+    const key = JSON.stringify([background, size, Math.ceil(displayWidth), settings]);
     if (this.images.has(key)) return this.images.get(key);
     const doc = await this.document(background.resource_id);
     const page = await doc.getPage(background.page_index + 1);
     const original = page.getViewport({ scale: 1 });
-    const target = rasterTarget(original, displayWidth);
+    const target = rasterTarget(original, displayWidth, undefined, settings);
     const viewport = page.getViewport({ scale: target.scale });
     const canvas = document.createElement("canvas");
     canvas.width = target.width;

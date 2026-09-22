@@ -1,0 +1,64 @@
+name: Android APK
+on:
+  workflow_dispatch:
+    inputs:
+      reader_url:
+        description: 'HTTPS URL of the hosted reader (defaults to repository variable READER_URL)'
+        type: string
+        required: false
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      CI: '1'
+      EXPO_PUBLIC_READER_URL: ${{ inputs.reader_url || vars.READER_URL }}
+    defaults:
+      run:
+        working-directory: apps/mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+      - name: Validate hosted reader configuration
+        run: |
+          node --input-type=module -e '
+            const raw = process.env.EXPO_PUBLIC_READER_URL;
+            if (!raw) throw Error("Set READER_URL in repository variables or provide reader_url when running this workflow.");
+            const url = new URL(raw);
+            if (url.protocol !== "https:" || url.username || url.password || ["localhost", "127.0.0.1", "[::1]"].includes(url.hostname)) throw Error("Use a reachable HTTPS reader URL without credentials.");
+          '
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - name: Generate Android project
+        run: npx expo prebuild --platform android --no-install
+      - name: Build standalone preview APK
+        working-directory: apps/mobile/android
+        run: ./gradlew :app:assembleRelease --no-daemon --max-workers=2 -PreactNativeArchitectures=arm64-v8a,x86_64
+      - name: Explain artifact
+        run: |
+          echo '### Android APK' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Release-mode preview, signed with the Expo template debug key. Includes the React Native bundle; no Metro required. The hosted reader URL must remain reachable. Not a Play Store release.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NoteComplete-android-preview
+          path: apps/mobile/android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+          retention-days: 30

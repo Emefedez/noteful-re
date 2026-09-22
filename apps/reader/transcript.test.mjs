@@ -20,6 +20,7 @@ test('transcripts isolate recordings, click to seek, and stop workers on reset',
   const seeks = [];
   const audio = { time: 0, audio: { paused: true }, seek(t) { seeks.push(t); this.time = t; } };
   const controller = new TranscriptController(audio);
+  nodes.get('transcriptPanel').open = true;
   controller.select({ id: 'a' });
   controller.finish([{ text: 'Hola', start: 1, end: 2 }], { id: 'a' });
   controller.buttons[0].onclick(); controller.update();
@@ -35,6 +36,17 @@ test('transcripts isolate recordings, click to seek, and stop workers on reset',
   controller.reset();
   assert.equal(controller.results.size, 0);
   assert.equal(nodes.get('transcribeAudio').disabled, true);
+  controller.render(Array.from({ length: 5000 }, (_, i) => ({ text: `word${i}`, start: i, end: i + 1 })));
+  assert.equal(controller.buttons.length, 100);
+  nodes.get('transcriptFollow').checked = true;
+  audio.time = 3500;
+  controller.update();
+  assert.equal(controller.offset, 3500);
+  assert.equal(controller.buttons.length, 100);
+  nodes.get('transcriptPanel').open = false;
+  audio.time = 4900;
+  controller.update();
+  assert.equal(controller.offset, 3500);
 });
 test('cancelling while bytes are being read prevents stale work from starting', async () => {
   let release;
