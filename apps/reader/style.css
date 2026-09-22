@@ -1092,3 +1092,27 @@ header p { font-size: 13px; max-width: 65vw; }
 .quality-actions { justify-content: flex-end; }
 .quality-sample { background: white; color: #222; border: 1px solid #ddd; border-radius: 8px; padding: 14px; }
 .quality-sample span { color: #888; }
+
+#driveDialog {
+  color: var(--ink); background: var(--surface); border: 1px solid var(--line);
+  border-radius: 16px; padding: 20px; width: min(640px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px); overflow: auto; box-shadow: 0 20px 80px #0004;
+}
+#driveDialog::backdrop { background: #0006; }
+#driveDialog h2 { margin: 0; font-size: 20px; }
+#driveDialog p { font-size: 13px; line-height: 1.5; }
+.drive-heading, .drive-actions, .drive-search { display: flex; align-items: center; gap: 8px; }
+.drive-heading { justify-content: space-between; margin: 12px 0; flex-wrap: wrap; }
+.drive-actions { flex-wrap: wrap; }
+.drive-search { align-items: flex-end; margin: 16px 0; }
+#driveDialog label { display: block; font-size: 13px; min-width: 0; flex: 1; }
+#driveDialog input { display: block; width: 100%; min-width: 0; margin-top: 6px; padding: 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--chrome); }
+.drive-setup { margin: 12px 0; }
+.drive-setup summary { padding-left: 0; }
+#drivePath { overflow-wrap: anywhere; min-width: 0; }
+#driveList { list-style: none; margin: 0; padding: 0; }
+#driveList li + li { border-top: 1px solid var(--line); }
+#driveList button { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 4px; padding: 12px 8px; width: 100%; }
+#driveList strong { overflow-wrap: anywhere; }
+#driveList span { color: var(--muted); font-size: 12px; }
+#driveStatus { min-height: 2em; }

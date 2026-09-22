@@ -131,3 +131,9 @@ The desktop stage copies only assets listed in the web precache manifest. The de
 Import modified exports into official Noteful; obtain native multiple-recording, pause/splice and decorated-text samples; validate layer merge/tombstone behavior; improve native ink smoothing and advanced text layout; validate file selection, codecs, sharing and performance on physical devices. Unknown auxiliary channels, unsupported object variants, stale exported thumbnails and incomplete CRDT semantics remain explicit limitations. Generated Whisper word boundaries are estimates and need their own accuracy assessment.
 
 Complete the first native package workflow runs and installed-app checks before claiming successful delivery for each target. Packaging automation is distinct from signed production distribution.
+
+## Google Drive reader integration
+
+`drive-client.js` is a GET-only transport with explicit token expiry and paginated folder metadata queries. `drive-auth.js` selects Google Identity Services for web, a restricted Electron bridge to system-browser PKCE for desktop, or a correlated WebView bridge to the mobile Google SDK. Reader tokens stay in memory. `drive-browser.js` owns the modal, cancellation generations and download-before-open flow. It calls the existing open path only after downloading, where busy/unsaved checks still apply. Metadata is rendered through text nodes. The service worker does not cache cross-origin API/auth requests. Configuration, scope and native-wrapper limitations are in [GOOGLE_DRIVE.md](docs/GOOGLE_DRIVE.md).
+
+The `Release installers` workflow calls the reusable Android/desktop workflows for a tag and publishes only after every job succeeds. The publish job verifies the expected asset types, adds SHA-256 checksums and attaches them to the tagged prerelease. Local protocol/bridge tests and JavaScript bundles do not establish live OAuth success: registered clients, consent and native-device runs are still required.

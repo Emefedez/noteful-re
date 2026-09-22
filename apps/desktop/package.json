@@ -28,7 +28,10 @@
       "main.js",
       "asset-path.js",
       "package.json",
-      "reader/**/*"
+      "reader/**/*",
+      "preload.cjs",
+      "google-auth.js",
+      "google-desktop-client.json"
     ],
     "mac": {
       "target": [

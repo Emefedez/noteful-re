@@ -6,8 +6,11 @@ on:
         description: 'HTTPS URL of the hosted reader (defaults to repository variable READER_URL)'
         type: string
         required: false
-  push:
-    tags: ['v*']
+  workflow_call:
+    inputs:
+      reader_url:
+        type: string
+        required: false
 permissions:
   contents: read
 concurrency:
@@ -19,6 +22,7 @@ jobs:
     timeout-minutes: 60
     env:
       CI: '1'
+      EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
       EXPO_PUBLIC_READER_URL: ${{ inputs.reader_url || vars.READER_URL }}
     defaults:
       run:
@@ -49,6 +53,8 @@ jobs:
       - run: npm test
       - name: Generate Android project
         run: npx expo prebuild --platform android --no-install
+      - name: Record APK signing certificate
+        run: keytool -list -v -keystore android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android
       - name: Build standalone preview APK
         working-directory: apps/mobile/android
         run: ./gradlew :app:assembleRelease --no-daemon --max-workers=2 -PreactNativeArchitectures=arm64-v8a,x86_64

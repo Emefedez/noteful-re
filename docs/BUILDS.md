@@ -1,10 +1,10 @@
 # Installable builds
 
-Two GitHub Actions workflows generate downloadable artifacts. Both support **Actions → Run workflow** and run on pushed tags matching `v*`. Push the workflow files to the repository before running them; manual dispatch is available once they are on the default branch. They upload artifacts rather than publishing GitHub Releases or app-store submissions. Artifacts expire after 30 days.
+Two GitHub Actions workflows generate downloadable artifacts. Both support **Actions → Run workflow** as artifact-only builds. **Release installers** (`.github/workflows/release.yml`) calls both workflows for pushed `v*` tags. Push the workflow files to the repository before running them; manual dispatch is available once they are on the default branch. The release workflow waits for all builds, verifies the installer set, writes SHA-256 checksums, and attaches the assets to a GitHub prerelease for that tag. Manual release dispatch must select an existing `v*` tag and provide the same tag as input; branch refs are rejected. Uploads are staged in a draft before first publication. Existing tagged releases receive updated assets on rerun. App-store submission is not included. Actions artifacts expire after 30 days; Release assets remain attached to the release.
 
 ## Desktop packages
 
-Run **Desktop packages** (`.github/workflows/desktop.yml`). No repository secrets or hosted reader are required.
+Run **Desktop packages** (`.github/workflows/desktop.yml`). A hosted reader is not required. Google Drive credentials can be bundled using the configuration below, or imported by the desktop user.
 
 | Platform | Architecture | Artifact |
 |---|---|---|
@@ -33,6 +33,16 @@ npm run dist --prefix apps/desktop -- --mac --arm64
 
 Outputs are in ignored `apps/desktop/dist/`. Package version comes from `apps/desktop/package.json`, not the Git tag; update versions deliberately before tagging.
 
+## Google Drive build settings
+
+See [Google Drive](GOOGLE_DRIVE.md#native-build-configuration) for creating the platform-specific OAuth clients. Repository configuration:
+
+- `GOOGLE_DESKTOP_CLIENT_ID` (variable) and `GOOGLE_DESKTOP_CLIENT_SECRET` (secret): Desktop OAuth client bundled into all three desktop platforms. Without these, the app offers a Desktop-client JSON picker on first connection.
+- `GOOGLE_WEB_CLIENT_ID` (variable): passed to the Android Google SDK when configured. Register the Android package and signer SHA-1 in the same Cloud project.
+- `READER_URL` (variable): required for Android, pointing to the updated reader with native Drive bridge support.
+
+Secrets are passed to reusable workflows only for builds; release publishing has a separate job with `contents: write`. Ordinary build jobs keep read-only repository permissions. OAuth tokens are never build inputs.
+
 ## Android APK
 
 The current Expo wrapper loads the web reader from a configured HTTPS URL. It does **not** embed the reader assets. Deploy `apps/reader/` after running the web build to a static HTTPS host first. A placeholder URL will build but cannot open the reader on a device.
@@ -41,7 +51,7 @@ The current Expo wrapper loads the web reader from a configured HTTPS URL. It do
 2. Run **Android APK** (`.github/workflows/android.yml`). The optional `reader_url` input overrides the repository variable for this run. Tag builds use the variable.
 3. Download **NoteComplete-android-preview** from the run's **Artifacts**, unzip it, and install the APK on a compatible Android device.
 
-The workflow checks configuration, installs the locked Expo dependencies, generates Android with Expo prebuild, and runs Gradle `:app:assembleRelease`. It includes ARM64 and x86-64 native libraries. Java 17 and the Android SDK are configured by Actions. No Expo account, EAS subscription, Metro server or signing secret is needed for this preview build. The configured reader must remain available; its offline cache is opportunistic and is not a substitute for embedding assets.
+The workflow checks configuration, installs the locked Expo dependencies, generates Android with Expo prebuild, and runs Gradle `:app:assembleRelease`. It includes ARM64 and x86-64 native libraries. Java 17 and the Android SDK are configured by Actions. No Expo account, EAS subscription, Metro server or APK signing secret is needed for this preview build. The configured reader must remain available; its offline cache is opportunistic and is not a substitute for embedding assets.
 
 The APK uses the Expo template's **debug signing key**, despite being compiled in release mode. This is for sideload testing, not Play Store distribution. Use a private, stable production keystore before distributing production updates; switching signing keys requires uninstalling the previous app or using a different application ID. Package version and Android application ID remain defined in `apps/mobile/app.json`.
 

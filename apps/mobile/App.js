@@ -6,11 +6,12 @@ import Constants from 'expo-constants';
 import {WebView} from 'react-native-webview';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
+import {mobileDriveToken} from './drive-auth.mjs';
 import {IncomingFiles} from './incoming-files.mjs';
 import {readerURL, exportRequest, allowsNavigation} from './connection.mjs';
 
 export default function App() {
- const web = useRef(null), sharing = useRef(false), incoming = useRef(null);
+ const web = useRef(null), sharing = useRef(false), incoming = useRef(null), driveSession = useRef({generation:0,busy:false});
  const [notice, setNotice] = useState('');
  const [error, setError] = useState(''), [attempt, setAttempt] = useState(0);
  const dark = useColorScheme() === 'dark';
@@ -26,6 +27,30 @@ export default function App() {
   try {
    if(!allowsNavigation(event.nativeEvent.url,uri)||event.nativeEvent.url==='about:blank')return;
    const message=JSON.parse(event.nativeEvent.data);
+   if(message.type==='notecomplete-drive-cancel' || message.type==='notecomplete-drive-disconnect') {
+    driveSession.current.generation++;
+    if(message.type==='notecomplete-drive-disconnect' && Constants.appOwnership!=='expo' && !driveSession.current.busy) {
+     const {GoogleSignin}=require('@react-native-google-signin/google-signin');
+     await GoogleSignin.signOut();
+    }
+    return;
+   }
+   if(message.type==='notecomplete-drive-auth') {
+    if(!Number.isSafeInteger(message.id))return;
+    const auth=driveSession.current, generation=auth.generation;
+    const send=result=>{if(auth.generation===generation)web.current?.postMessage(JSON.stringify({type:'notecomplete-drive-auth-result',id:message.id,...result}));};
+    if(auth.busy){send({error:'Finish the current Google sign-in first.'});return;}
+    auth.busy=true;
+    try {
+     if(Constants.appOwnership==='expo')throw Error('Google sign-in requires an installed NoteComplete build; Expo Go does not include the native sign-in module.');
+     const {GoogleSignin}=require('@react-native-google-signin/google-signin');
+     const token=await mobileDriveToken(GoogleSignin,{webClientId:process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,iosClientId:process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID});
+     if(auth.generation===generation)send({token});
+     else await GoogleSignin.signOut();
+    }catch(error){send({error:error.message || 'Google sign-in failed. Check the OAuth app and signing certificate configuration.'});}
+    finally{auth.busy=false;}
+    return;
+   }
    if(message.type==='noteful-ready'){incoming.current.setReady(true);return;}
    if(message.type==='noteful-import-result'){incoming.current.acknowledge(message.id);return;}
    request = exportRequest(event.nativeEvent.data, event.nativeEvent.url, uri);
@@ -52,7 +77,7 @@ export default function App() {
    <Pressable accessibilityRole="button" style={styles.retry} onPress={()=>{setError('');setAttempt(attempt+1);}}><Text style={styles.retryText}>Reconnect</Text></Pressable>
   </View> : <WebView key={attempt} ref={web} source={{uri}} style={{flex:1,backgroundColor:background}}
    originWhitelist={[new URL(uri).origin]} onShouldStartLoadWithRequest={request=>allowsNavigation(request.url,uri)}
-   onLoadStart={()=>incoming.current.setReady(false)} onMessage={onMessage} onError={event=>setError(event.nativeEvent.description)} onHttpError={event=>setError(`Could not open the reader (${event.nativeEvent.statusCode}).`)}
+   onLoadStart={()=>{incoming.current.setReady(false);driveSession.current.generation++;}} onMessage={onMessage} onError={event=>setError(event.nativeEvent.description)} onHttpError={event=>setError(`Could not open the reader (${event.nativeEvent.statusCode}).`)}
    startInLoadingState renderLoading={()=> <View style={[styles.loading,{backgroundColor:background}]}><ActivityIndicator size="large" color="#438ee3"/><Text style={[styles.description,{color:ink}]}>Preparing your workspace…</Text></View>}
    allowsInlineMediaPlayback mediaPlaybackRequiresUserAction bounces={false} allowsBackForwardNavigationGestures={false}
    setSupportMultipleWindows={false} javaScriptEnabled domStorageEnabled textZoom={100}

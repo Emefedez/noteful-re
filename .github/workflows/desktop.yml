@@ -1,8 +1,7 @@
 name: Desktop packages
 on:
   workflow_dispatch:
-  push:
-    tags: ['v*']
+  workflow_call:
 permissions:
   contents: read
 concurrency:
@@ -69,6 +68,11 @@ jobs:
         with:
           name: desktop-reader-assets
           path: apps/desktop/reader
+      - name: Configure Desktop Google OAuth client
+        env:
+          GOOGLE_DESKTOP_CLIENT_ID: ${{ vars.GOOGLE_DESKTOP_CLIENT_ID }}
+          GOOGLE_DESKTOP_CLIENT_SECRET: ${{ secrets.GOOGLE_DESKTOP_CLIENT_SECRET }}
+        run: node tools/configure_desktop_oauth.mjs
       - run: npm ci
         working-directory: apps/desktop
       - run: npm run dist -- --${{ matrix.platform }} --${{ matrix.arch }}

@@ -4,6 +4,7 @@ import {
   imageBounds,
   fileKind,
 } from "./media-import.js";
+import { driveBrowser } from "./drive-browser.js";
 import { receiveNativeFiles } from "./import.js";
 import { SelectionController } from "./selection.js";
 import { ChromeState, highlightPoints } from "./chrome-state.js";
@@ -1052,7 +1053,7 @@ $("redo").onclick = () => {
   action("redo");
 };
 document.addEventListener("keydown", (e) => {
-  if ($("qualityDialog").open) return;
+  if ($("qualityDialog").open || $("driveDialog").open) return;
   if (e.key === "Escape") {
     cancelGesture();
     setCompact(true);
@@ -1288,3 +1289,10 @@ $("audioDetails").onclick = () => {
  const expanded=$("audioBar").classList.toggle("expanded");
  $("audioDetails").setAttribute("aria-expanded",String(expanded));
 };
+
+driveBrowser({ open: async file => {
+  if (!ready || busy()) throw Error("Wait for the current operation to finish, then choose the file again.");
+  if (!canReplace()) return false;
+  await load(file);
+  return true;
+} });

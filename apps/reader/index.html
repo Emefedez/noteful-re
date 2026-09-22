@@ -8,6 +8,7 @@
     name="apple-mobile-web-app-capable"
     content="yes"
   />
+  <meta name="google-drive-client-id" content="" />
   <title>NoteComplete</title
   ><link rel="manifest" href="./manifest.webmanifest" /><link
     rel="icon"
@@ -20,6 +21,7 @@
         <p id="menuTitle" class="muted">Local documents</p>
         <button id="open" data-icon="open" disabled>Open document</button>
         <button id="save" disabled>Save project</button>
+        <button id="driveOpen">Google Drive</button>
         <button id="qualityOpen">Display quality</button>
         <hr />
         <button id="native" disabled>Export .noteful <span class="experimental">Experimental</span></button>
@@ -369,6 +371,25 @@
     <p class="muted">Higher resolution uses more memory. Changes apply when saved. Contrast and brightness affect the reader only; original files and exports keep their colors.</p>
     <div class="quality-actions"><button type="button" data-cancel>Cancel</button><button type="submit" class="primary">Apply</button></div>
   </form>
+</dialog>
+
+<dialog id="driveDialog" aria-labelledby="driveTitle">
+  <div class="drive-heading"><h2 id="driveTitle">Google Drive</h2><button id="driveClose" type="button">Close</button></div>
+  <p>Browse your Noteful folder and download a document to open it. Edits and exports stay on your device.</p>
+  <details class="drive-setup">
+    <summary>Connection setup</summary>
+    <label>Google OAuth web client ID<input id="driveClientId" type="text" autocomplete="off" placeholder="…apps.googleusercontent.com" /></label>
+    <p id="driveOrigin" class="muted"></p>
+    <p class="muted">The app owner must enable the Drive API and register this website’s origin in Google Cloud. Enter the public client ID, never a client secret.</p>
+  </details>
+  <p class="muted">Google’s read-only permission covers Drive files. NoteComplete only browses and downloads; it never uploads, edits or deletes Drive files.</p>
+  <div class="drive-actions"><button id="driveConnect" type="button" class="primary" disabled>Connect Google Drive</button><button id="driveDisconnect" type="button" disabled>Disconnect</button></div>
+  <div class="drive-search"><label>Folder name<input id="driveSearch" type="search" value="Noteful" /></label><button id="driveFind" type="button" disabled>Find folders</button></div>
+  <details class="drive-setup"><summary>Use a folder link</summary><label>Drive folder link or ID<input id="driveFolderLink" type="text" autocomplete="off" placeholder="https://drive.google.com/drive/folders/…" /></label><button id="driveUseFolder" type="button" disabled>Open folder</button></details>
+  <div class="drive-heading"><strong id="drivePath">Choose your Noteful folder</strong><div class="drive-actions"><button id="driveBack" type="button" disabled>Back</button><button id="driveRefresh" type="button" disabled>Refresh</button></div></div>
+  <p id="driveStatus" role="status" aria-live="polite">Connect to browse files.</p>
+  <ul id="driveList" aria-label="Google Drive files"></ul>
+  <button id="driveMore" type="button" hidden>Load more</button>
 </dialog>
 
   <script type="module" src="./app.js"></script>
