@@ -77,3 +77,26 @@ test('folder validation and cancellation preserve failures for the caller', asyn
   client.fetcher = async (_url, options) => { options.signal.throwIfAborted(); };
   await assert.rejects(client.children({id:'folder'},'',abort.signal), { name:'AbortError' });
 });
+test('an API key reads public folders without a token, and sign-in takes precedence', async () => {
+  const calls = [];
+  const client = new DriveClient(async (url, options) => { calls.push({ url: new URL(url), options }); return Response.json({ files: [] }); });
+  await assert.rejects(client.children({ id: 'folder' }), /Connect/);
+  client.apiKey = 'AIza-test';
+  assert.equal(client.publicAccess, true);
+  await client.children({ id: 'folder', resourceKey: 'rk' });
+  assert.equal(calls[0].url.searchParams.get('key'), 'AIza-test');
+  assert.equal(calls[0].options.headers.Authorization, undefined);
+  assert.equal(calls[0].options.headers['X-Goog-Drive-Resource-Keys'], 'folder/rk');
+  client.authorize({ access_token: 'test-token', expires_in: 3600, scope: DRIVE_SCOPE });
+  assert.equal(client.publicAccess, false);
+  await client.children({ id: 'folder' });
+  assert.equal(calls[1].url.searchParams.has('key'), false);
+  assert.equal(calls[1].options.headers.Authorization, 'Bearer test-token');
+});
+test('public access explains sharing and key errors', async () => {
+  for (const [status, pattern] of [[400, /API key/], [403, /Anyone with the link/], [404, /Anyone with the link/]]) {
+    const client = new DriveClient(async () => new Response('failure', { status }));
+    client.apiKey = 'AIza-test';
+    await assert.rejects(client.folder({ id: 'folder' }), pattern);
+  }
+});

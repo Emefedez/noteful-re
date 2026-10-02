@@ -12,6 +12,16 @@ NoteComplete can list files in a Noteful folder and download a file when selecte
 
 Closing the panel cancels an in-progress listing/download. Opening a downloaded file checks for unsaved edits before replacing the document; declining leaves the current document open. Failed downloads and invalid files do not intentionally replace the current note. Disconnect drops the access token and the displayed listing. Reconnect when the session expires. Disconnect does not revoke the app's grant in your Google Account; permissions can also be removed in Google's account settings.
 
+## Public folder links without sign-in
+
+A folder shared as **Anyone with the link** can be browsed and downloaded without connecting a Google account, if the deployment has a Google API key:
+
+1. In the same Google Cloud project, enable **Google Drive API** and create an **API key**. Restrict it to the Drive API and to the reader's website (HTTP referrer, for example `https://example.github.io/*`). The key is public by design and only reads public files.
+2. Set it in `<meta name="google-drive-api-key" content="AIza…">` in `apps/reader/index.html` before deploying. This shared key is the default for every visitor. Anyone can override it on their device with a personal key under **Connection setup → Personal Google API key**. The personal key is saved locally, and clearing it returns to the site's key.
+3. Open **☰ → Google Drive → Use a folder link**, paste the folder link and choose **Open folder**. Subfolders and downloads work the same way. Folder search needs sign-in.
+
+Signing in still takes precedence when connected. Without an API key or a sign-in, Google refuses all Drive API requests, so a public link alone cannot be opened.
+
 ## Deployment setup
 
 The app owner must configure a Google Cloud project; no client ID is included in this repository.
@@ -20,7 +30,7 @@ The app owner must configure a Google Cloud project; no client ID is included in
 2. Configure Google's OAuth consent screen with the scope `https://www.googleapis.com/auth/drive.readonly`. In testing mode, add the Google accounts that will test the integration.
 3. Create an OAuth client of type **Web application**. Register the reader's exact **Authorized JavaScript origins**, including scheme, hostname and port. For example, a local server at `http://localhost:8767` needs that origin; it is distinct from a `127.0.0.1` URL.
 4. Serve the reader over HTTPS, or localhost for development. Permit the Google sign-in popup and the Google Identity script at `https://accounts.google.com/gsi/client`.
-5. Set the public client ID in the reader's `<meta name="google-drive-client-id" content="…apps.googleusercontent.com">` in `apps/reader/index.html` before building/deploying. Alternatively, enter it in **Connection setup** for local testing. No API key, client secret, backend or service account is used by this browser flow.
+5. Set the public client ID in the reader's `<meta name="google-drive-client-id" content="…apps.googleusercontent.com">` in `apps/reader/index.html` before building/deploying. Alternatively, enter it in **Connection setup** for local testing. No client secret, backend or service account is used by this browser flow; the optional API key is only for public folder links.
 
 Google's read-only scope grants access across Drive, not only to one folder. NoteComplete limits its UI to the folder search/browse flow and uses only GET requests to the Drive API. Existing arbitrary files in a folder cannot be listed using per-file grants alone. `drive.readonly` is a restricted scope; public distribution may require Google's OAuth verification. See [Drive scopes](https://developers.google.com/workspace/drive/api/guides/api-specific-auth) and the [Google token model](https://developers.google.com/identity/oauth2/web/guides/use-token-model).
 

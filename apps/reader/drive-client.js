@@ -14,7 +14,7 @@ export function folderReference(value) {
   return { id, resourceKey: url.searchParams.get('resourcekey') || undefined };
 }
 export class DriveClient {
-  constructor(fetcher = globalThis.fetch.bind(globalThis)) { this.fetcher = fetcher; this.clear(); }
+  constructor(fetcher = globalThis.fetch.bind(globalThis)) { this.fetcher = fetcher; this.apiKey = ''; this.clear(); }
   authorize(response) {
     if (!response.access_token || !String(response.scope || '').split(/\s+/).includes(DRIVE_SCOPE)) throw Error('Read-only Drive permission was not granted.');
     const seconds = Number(response.expires_in);
@@ -24,15 +24,21 @@ export class DriveClient {
   }
   clear() { this.token = ''; this.expires = 0; }
   get connected() { return !!this.token && this.expires > Date.now() + 10000; }
+  // Without sign-in, an API key can read folders shared as "Anyone with the link".
+  get publicAccess() { return !this.connected && !!this.apiKey; }
+  get ready() { return this.connected || this.publicAccess; }
   async request(route, params, signal, resource) {
-    if (!this.connected) { this.clear(); throw Error('Connect to Google Drive to continue. Your previous session may have expired.'); }
+    if (!this.ready) { this.clear(); throw Error('Connect to Google Drive to continue. Your previous session may have expired.'); }
+    const publicAccess = this.publicAccess;
     const url = new URL('https://www.googleapis.com/drive/v3/' + route);
-    url.search = new URLSearchParams(params).toString();
-    const headers = { Authorization: `Bearer ${this.token}` };
+    url.search = new URLSearchParams(publicAccess ? { ...params, key: this.apiKey } : params).toString();
+    const headers = publicAccess ? {} : { Authorization: `Bearer ${this.token}` };
     if (resource?.resourceKey) headers['X-Goog-Drive-Resource-Keys'] = `${resource.id}/${resource.resourceKey}`;
     const response = await this.fetcher(url.href, { method: 'GET', headers, signal, cache: 'no-store', credentials: 'omit', redirect: 'error' });
     if (!response.ok) {
       if (response.status === 401) { this.clear(); throw Error('Your Google session expired. Connect again.'); }
+      if (publicAccess && response.status === 400) throw Error('Google rejected the Drive API key. Check it in Connection setup.');
+      if (publicAccess && (response.status === 403 || response.status === 404)) throw Error('Google denied access without sign-in. Share the folder as "Anyone with the link", or connect Google Drive.');
       if (response.status === 403) throw Error('Google denied access. Check Drive permissions, API setup, download restrictions or quota, then retry.');
       if (response.status === 404) throw Error('This Drive file or folder is no longer available. Refresh the list.');
       if (response.status === 429) throw Error('Google Drive is busy. Wait a moment and retry.');

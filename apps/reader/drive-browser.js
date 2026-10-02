@@ -10,23 +10,34 @@ export function driveBrowser({ open, client = new DriveClient(), identityLoader 
   let config = {};
   try { config = JSON.parse(localStorage.getItem(configKey)) || {}; } catch { /* Storage is optional. */ }
   $('driveClientId').value = (typeof config.clientId === 'string' ? config.clientId : '') || document.querySelector('meta[name="google-drive-client-id"]')?.content || '';
-  $('driveClientId').closest('details').open = !$('driveClientId').value;
+  // The site's shared key is the default; a personal key typed here overrides it on this device.
+  const siteApiKey = document.querySelector('meta[name="google-drive-api-key"]')?.content?.trim() || '';
+  const applyApiKey = () => { client.apiKey = $('driveApiKey').value.trim() || siteApiKey; };
+  $('driveApiKey').value = typeof config.apiKey === 'string' ? config.apiKey : '';
+  if (siteApiKey) $('driveApiKey').placeholder = "Using this site's key. Paste your own to override.";
+  applyApiKey();
+  $('driveClientId').closest('details').open = !$('driveClientId').value && !client.apiKey;
   $('driveOrigin').textContent = `Register this Authorized JavaScript origin: ${location.origin}`;
+  $('driveApiKey').oninput = () => { applyApiKey(); if (client.publicAccess) $('driveLinkSetup').open = true; controls(); };
   $('driveFolderLink').value = typeof config.folderLink === 'string' ? config.folderLink : '';
   function saveConfig() {
-    try { localStorage.setItem(configKey, JSON.stringify({ clientId: $('driveClientId').value.trim(), folderLink: $('driveFolderLink').value.trim() })); } catch { /* Session-only configuration. */ }
+    applyApiKey();
+    try { localStorage.setItem(configKey, JSON.stringify({ clientId: $('driveClientId').value.trim(), apiKey: $('driveApiKey').value.trim(), folderLink: $('driveFolderLink').value.trim() })); } catch { /* Session-only configuration. */ }
   }
   const message = text => { $('driveStatus').textContent = text; };
   function controls() {
     $('driveConnect').disabled = !identity || loading;
     $('driveDisconnect').disabled = importing || (!client.token && !loading);
-    $('driveFind').disabled = $('driveUseFolder').disabled = $('driveRefresh').disabled = !client.connected || loading;
-    $('driveBack').disabled = !folder || loading;
+    $('driveFind').disabled = !client.connected || loading;
+    $('driveUseFolder').disabled = !client.ready || loading;
+    // Public access can only browse from a folder link, not search the Drive.
+    $('driveRefresh').disabled = !client.ready || loading || (client.publicAccess && !folder);
+    $('driveBack').disabled = !folder || loading || (client.publicAccess && trail.length <= 1);
     $('driveMore').hidden = !nextPage;
-    $('driveMore').disabled = loading || !client.connected;
+    $('driveMore').disabled = loading || !client.ready;
     $('driveClose').disabled = importing;
     $('driveList').setAttribute('aria-busy', String(loading));
-    for (const button of $('driveList').querySelectorAll('button')) button.disabled = loading || !client.connected || button.dataset.unavailable === 'true';
+    for (const button of $('driveList').querySelectorAll('button')) button.disabled = loading || !client.ready || button.dataset.unavailable === 'true';
     $('drivePath').textContent = folder ? trail.map(item => item.name).join(' / ') : 'Choose your Noteful folder';
   }
   function stop() { generation++; identity?.cancel?.(); controller?.abort(); loading = false; controls(); }
@@ -87,7 +98,8 @@ export function driveBrowser({ open, client = new DriveClient(), identityLoader 
   $('driveOpen').onclick = async () => {
     dialog.showModal(); controls();
     if (!window.isSecureContext && !window.ReactNativeWebView && !window.notecompleteDrive) { message('Open NoteComplete over HTTPS or localhost to connect Google Drive.'); return; }
-    if (!client.connected) message('Connect Google Drive, then find your Noteful folder.');
+    if (client.publicAccess) { $('driveLinkSetup').open = true; message('Paste a folder shared as "Anyone with the link" to browse it without signing in, or connect Google Drive.'); }
+    else if (!client.connected) message('Connect Google Drive, then find your Noteful folder.');
     try { identity = await identityLoader(); $('driveClientId').closest('details').hidden = !!identity.native; controls(); }
     catch (error) { message(error.message); }
   };
