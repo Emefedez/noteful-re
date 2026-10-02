@@ -17,7 +17,7 @@ Closing the panel cancels an in-progress listing/download. Opening a downloaded 
 A folder shared as **Anyone with the link** can be browsed and downloaded without connecting a Google account, if the deployment has a Google API key:
 
 1. In the same Google Cloud project, enable **Google Drive API** and create an **API key**. Restrict it to the Drive API and to the reader's website (HTTP referrer, for example `https://example.github.io/*`). The key is public by design and only reads public files.
-2. Set it in `<meta name="google-drive-api-key" content="AIza…">` in `apps/reader/index.html` before deploying, or enter it under **Connection setup** for local testing.
+2. Set it in `<meta name="google-drive-api-key" content="AIza…">` in `apps/reader/index.html` before deploying. This shared key is the default for every visitor. Anyone can override it on their device with a personal key under **Connection setup → Personal Google API key**. The personal key is saved locally, and clearing it returns to the site's key.
 3. Open **☰ → Google Drive → Use a folder link**, paste the folder link and choose **Open folder**. Subfolders and downloads work the same way. Folder search needs sign-in.
 
 Signing in still takes precedence when connected. Without an API key or a sign-in, Google refuses all Drive API requests, so a public link alone cannot be opened.

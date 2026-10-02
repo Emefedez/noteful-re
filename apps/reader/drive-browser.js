@@ -10,15 +10,19 @@ export function driveBrowser({ open, client = new DriveClient(), identityLoader 
   let config = {};
   try { config = JSON.parse(localStorage.getItem(configKey)) || {}; } catch { /* Storage is optional. */ }
   $('driveClientId').value = (typeof config.clientId === 'string' ? config.clientId : '') || document.querySelector('meta[name="google-drive-client-id"]')?.content || '';
-  $('driveApiKey').value = (typeof config.apiKey === 'string' ? config.apiKey : '') || document.querySelector('meta[name="google-drive-api-key"]')?.content || '';
-  client.apiKey = $('driveApiKey').value.trim();
+  // The site's shared key is the default; a personal key typed here overrides it on this device.
+  const siteApiKey = document.querySelector('meta[name="google-drive-api-key"]')?.content?.trim() || '';
+  const applyApiKey = () => { client.apiKey = $('driveApiKey').value.trim() || siteApiKey; };
+  $('driveApiKey').value = typeof config.apiKey === 'string' ? config.apiKey : '';
+  if (siteApiKey) $('driveApiKey').placeholder = "Using this site's key. Paste your own to override.";
+  applyApiKey();
   $('driveClientId').closest('details').open = !$('driveClientId').value && !client.apiKey;
   $('driveOrigin').textContent = `Register this Authorized JavaScript origin: ${location.origin}`;
-  $('driveApiKey').oninput = () => { client.apiKey = $('driveApiKey').value.trim(); if (client.publicAccess) $('driveLinkSetup').open = true; controls(); };
+  $('driveApiKey').oninput = () => { applyApiKey(); if (client.publicAccess) $('driveLinkSetup').open = true; controls(); };
   $('driveFolderLink').value = typeof config.folderLink === 'string' ? config.folderLink : '';
   function saveConfig() {
-    client.apiKey = $('driveApiKey').value.trim();
-    try { localStorage.setItem(configKey, JSON.stringify({ clientId: $('driveClientId').value.trim(), apiKey: client.apiKey, folderLink: $('driveFolderLink').value.trim() })); } catch { /* Session-only configuration. */ }
+    applyApiKey();
+    try { localStorage.setItem(configKey, JSON.stringify({ clientId: $('driveClientId').value.trim(), apiKey: $('driveApiKey').value.trim(), folderLink: $('driveFolderLink').value.trim() })); } catch { /* Session-only configuration. */ }
   }
   const message = text => { $('driveStatus').textContent = text; };
   function controls() {

@@ -18,7 +18,7 @@ function setup(t, overrides = {}) {
   const originals = Object.fromEntries(['document','window','location','localStorage'].map(key => [key, Object.getOwnPropertyDescriptor(globalThis,key)]));
   t.after(() => { for(const [key,value] of Object.entries(originals)) { if(value) Object.defineProperty(globalThis,key,value); else delete globalThis[key]; } });
   const nodes = new Map(), node = id => { if(!nodes.has(id)) nodes.set(id,new Element()); return nodes.get(id); };
-  globalThis.document = { getElementById:node, querySelector:()=>null, createElement:tag=>new Element(tag), createDocumentFragment:()=>new Element('fragment') };
+  globalThis.document = { getElementById:node, querySelector:selector=>selector.includes('google-drive-api-key')&&overrides.siteApiKey?{content:overrides.siteApiKey}:null, createElement:tag=>new Element(tag), createDocumentFragment:()=>new Element('fragment') };
   globalThis.window = { isSecureContext:true };
   globalThis.location = { protocol:'https:' };
   globalThis.localStorage = { getItem:()=>null,setItem:()=>{} };
@@ -35,7 +35,7 @@ function setup(t, overrides = {}) {
     async children(){ calls.push('list-files');return {files:[file]}; },
     async folder(reference){ calls.push('open-folder:'+reference.id);return folder; },
     async download(){ calls.push('download');return new File(['bytes'],file.name); },
-    ...overrides,
+    ...Object.fromEntries(Object.entries(overrides).filter(([key])=>key!=='siteApiKey')),
   };
   let callback;
   driveBrowser({ open:async file=>{opened.push(file);return true;},client,identityLoader:async()=>({}),authorize:(_id,_key,success)=>{callback=success;} });
@@ -85,4 +85,16 @@ test('an API key opens a public folder link and downloads without sign-in', asyn
   ui.node('driveList').querySelectorAll('button')[0].onclick();await tick();
   assert.equal(ui.opened[0].name,'Test.noteful');
   assert.equal(ui.client.connected,false);
+});
+test('the site key opens public links by default and a personal key overrides it', async t => {
+  const ui=setup(t,{siteApiKey:'AIza-site'});
+  assert.equal(ui.client.apiKey,'AIza-site');
+  assert.equal(ui.node('driveApiKey').value,'');
+  await ui.node('driveOpen').onclick();
+  assert.equal(ui.node('driveUseFolder').disabled,false);
+  assert.equal(ui.node('driveLinkSetup').open,true);
+  ui.node('driveApiKey').value='AIza-personal';ui.node('driveApiKey').oninput();
+  assert.equal(ui.client.apiKey,'AIza-personal');
+  ui.node('driveApiKey').value='';ui.node('driveApiKey').oninput();
+  assert.equal(ui.client.apiKey,'AIza-site');
 });
