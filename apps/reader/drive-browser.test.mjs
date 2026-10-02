@@ -26,11 +26,14 @@ function setup(t, overrides = {}) {
   const folder = {id:'folder',name:'Noteful',mimeType:FOLDER_MIME};
   const file = {id:'file',name:'Test.noteful'};
   const client = {
-    connected:false,token:'',
+    connected:false,token:'',apiKey:'',
+    get publicAccess(){ return !this.connected&&!!this.apiKey; },
+    get ready(){ return this.connected||this.publicAccess; },
     clear(){ this.connected=false;this.token=''; },
     authorize(){ this.connected=true;this.token='test'; },
     async folders(){ calls.push('list-folders');return {files:[folder]}; },
     async children(){ calls.push('list-files');return {files:[file]}; },
+    async folder(reference){ calls.push('open-folder:'+reference.id);return folder; },
     async download(){ calls.push('download');return new File(['bytes'],file.name); },
     ...overrides,
   };
@@ -67,4 +70,19 @@ test('late OAuth completion after dismissal does not reconnect or request files'
   await ui.node('driveOpen').onclick();ui.node('driveConnect').onclick();
   ui.node('driveClose').onclick();ui.authorize();await tick();
   assert.equal(ui.client.connected,false);assert.deepEqual(ui.calls,[]);
+});
+test('an API key opens a public folder link and downloads without sign-in', async t => {
+  const ui=setup(t);
+  await ui.node('driveOpen').onclick();
+  assert.equal(ui.node('driveUseFolder').disabled,true);
+  ui.node('driveApiKey').value='AIza-test';ui.node('driveApiKey').oninput();
+  assert.equal(ui.node('driveUseFolder').disabled,false);
+  assert.equal(ui.node('driveFind').disabled,true);
+  ui.node('driveFolderLink').value='https://drive.google.com/drive/folders/1Gm9OsGBbfXrtymnIUbHtDq3TO2KHllqs';
+  ui.node('driveUseFolder').onclick();await tick();
+  assert.deepEqual(ui.calls,['open-folder:1Gm9OsGBbfXrtymnIUbHtDq3TO2KHllqs','list-files']);
+  assert.equal(ui.node('driveBack').disabled,true);
+  ui.node('driveList').querySelectorAll('button')[0].onclick();await tick();
+  assert.equal(ui.opened[0].name,'Test.noteful');
+  assert.equal(ui.client.connected,false);
 });
